@@ -14,6 +14,7 @@
         </div>
 
         <div class="card col-12">
+
           <p-table
 
           [paginator]="true"
@@ -23,6 +24,7 @@
           currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
           [rowsPerPageOptions]="[10, 25, 50]"
       >
+
             <ng-template pTemplate="header">
               <tr>
                 <th>
@@ -40,11 +42,11 @@
                 </th>
               </tr>
             </ng-template>
-            <ng-template pTemplate="body" let-i="rowIndex">
+            <ng-template pTemplate="body" let-b let-i="rowIndex">
               <tr>
                 <td>{{ i+1 }}</td>
-                <td>Tatang Sutarman</td>
-                <td>tatang@gmail.com</td>
+                <td>{{b.benefitName}}</td>
+                
               </tr>
             </ng-template>
             <ng-template pTemplate="emptymessage">
@@ -65,14 +67,17 @@
 
 <!-- Modal -->
 <p-dialog header="Create new benefit" [modal]="true" [(visible)]="visible" [style]="{ width: '50vw', height: '300px' }">
+  <pre>
+    {{benefitReqDto.value | json}}
+  </pre>
   <ng-template pTemplate="header">
     <span class="text-xl font-bold">Add new benefit</span>
   </ng-template>
-  <form (ngSubmit)="insert()">
+  <form [formGroup]="benefitReqDto" (ngSubmit)="insert()">
     <div class="p-fluid p-formgrid grid">
       <div class="form-floating col-12">
         <label htmlFor="name">Benefit Name<span class="text-red-500">*</span></label>
-        <input pInputText id="name" required type="text" />
+        <input pInputText id="name" required type="text" formControlName="benefitName"/>
       </div>
     </div>
     <app-button backgroundColor="var(--PRIMARY)" iconBtn="pi pi-plus" typeBtn="submit" label="Add" classBtn="p-button-primary">

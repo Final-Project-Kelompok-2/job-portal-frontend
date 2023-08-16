@@ -14,6 +14,7 @@
         </div>
 
         <div class="card col-12">
+
           <p-table
           [value]="questions"
           [paginator]="true"
@@ -23,6 +24,7 @@
           currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
           [rowsPerPageOptions]="[10, 25, 50]"
       >
+
             <ng-template pTemplate="header">
               <tr>
                 <th>
@@ -36,10 +38,10 @@
 
               </tr>
             </ng-template>
-            <ng-template pTemplate="body" let-i="rowIndex">
+            <ng-template pTemplate="body" let-q let-i="rowIndex">
               <tr>
                 <td>{{ i+1 }}</td>
-                <td>Tatang Sutarman</td>
+                <td>{{q.questionDetail}}</td>
               </tr>
             </ng-template>
             <ng-template pTemplate="emptymessage">
