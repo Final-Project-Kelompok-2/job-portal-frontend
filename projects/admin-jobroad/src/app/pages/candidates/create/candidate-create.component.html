@@ -61,22 +61,22 @@
         </div>
         <div class="field col-12 md:col-4">
           <label htmlFor="maritalStatus">Marital Status<span class="text-red-500"> *</span></label>
-          <p-dropdown [options]="maritals" optionLabel="label" optionValue="value" [showClear]="true" [required]="true"
-            formControlName="maritalStatusId" placeholder="Choose Marital"></p-dropdown>
+          <p-dropdown [options]="maritals" optionLabel="maritalName" optionValue="id" [showClear]="true"
+            [required]="true" formControlName="maritalStatusId" placeholder="Choose Marital"></p-dropdown>
         </div>
         <div class="field col-12 md:col-4">
           <label htmlFor="type">Religion<span class="text-red-500"> *</span></label>
-          <p-dropdown [options]="religions" optionLabel="religionName" optionValue="id" [showClear]="true" [required]="true"
-            formControlName="religionId" placeholder="Choose Religion"></p-dropdown>
+          <p-dropdown [options]="religions" optionLabel="religionName" optionValue="id" [showClear]="true"
+            [required]="true" formControlName="religionId" placeholder="Choose Religion"></p-dropdown>
         </div>
         <div class="field col-12 md:col-4">
           <label htmlFor="type">Type<span class="text-red-500"> *</span></label>
-          <p-dropdown [options]="types" optionLabel="label" optionValue="value" [showClear]="true" [required]="true"
+          <p-dropdown [options]="types" optionLabel="typeName" optionValue="id" [showClear]="true" [required]="true"
             formControlName="personTypeId" placeholder="Person Type"></p-dropdown>
         </div>
         <div class="field col-12 md:col-4">
           <label htmlFor="type">Candidate Status<span class="text-red-500"> *</span></label>
-          <p-dropdown [options]="candidateStatus" optionLabel="label" optionValue="value" [showClear]="true"
+          <p-dropdown [options]="candidateStatus" optionLabel="statusName" optionValue="id" [showClear]="true"
             [required]="true" formControlName="candidateStatusId" placeholder="Choose Candidate Status"></p-dropdown>
         </div>
         <div class="col-12 ">

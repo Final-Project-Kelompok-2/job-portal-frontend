@@ -14,6 +14,14 @@ import { CandidateFamilyInsertReqDto } from "../../../dto/candidate-family/candi
 import { CandidateReferencesInsertReqDto } from "../../../dto/candidate-references/candidate-references-insert.req.dto";
 import { ReligionService } from "../../../service/religion.service";
 import { ReligionResDto } from "../../../dto/religion/religion.res.dto";
+import { PersonTypeService } from "../../../service/person-type.service";
+import { PersonTypeResDto } from "../../../dto/person-type/person-type.res.dto";
+import { CandidateStatusService } from "../../../service/candidate-status.service";
+import { CandidateStatusResDto } from "../../../dto/candidate-status/candidate-status.res.dto";
+import { MaritalStatusService } from "../../../service/maritalstatus.service";
+import { MaritalResDto } from "../../../dto/marital/marital.res.dto";
+import { CandidateUserService } from "../../../service/candidate-user.service";
+import { CandidateDocumentInsertReqDto } from "../../../dto/candidate-document/candidate-document-insert.req.dto";
 
 interface Salutation {
   value: string;
@@ -22,18 +30,6 @@ interface Salutation {
 interface Gender {
   value: string;
   label: string;
-}
-interface Marital {
-  value: string,
-  label: string
-}
-interface CandidateType {
-  value: string,
-  label: string
-}
-interface CandidateStatus {
-  value: string,
-  label: string
 }
 interface ResidenceType {
   value: string,
@@ -59,6 +55,7 @@ export class CandidateCreateComponent implements OnInit {
   dialogWorking: boolean = false
   dialogTraining: boolean = false
   dialogProject: boolean = false
+  dialogDocument: boolean = false
   trainings: CandidateTrainingInsertReqDto[] = []
   addresses: CandidateAddressInsertReqDto[] = []
   educations: CandidateEducationInsertReqDto[] = []
@@ -68,17 +65,22 @@ export class CandidateCreateComponent implements OnInit {
   languages: CandidateLanguageInsertReqDto[] = []
   families: CandidateFamilyInsertReqDto[] = []
   references: CandidateReferencesInsertReqDto[] = []
+  documents: CandidateDocumentInsertReqDto[] = []
   degrees: Degree[] | undefined
   salutations: Salutation[] | undefined
   genders: Gender[] | undefined
-  maritals: Marital[] | undefined
+  maritals!: MaritalResDto[]
   religions!: ReligionResDto[]
-  types: CandidateType[] | undefined
+  types!: PersonTypeResDto[]
   residenceType: ResidenceType[] | undefined
-  candidateStatus: CandidateStatus[] | undefined
+  candidateStatus!: CandidateStatusResDto[]
 
   constructor(
+    private candidateService: CandidateUserService,
     private religionService: ReligionService,
+    private personTypeService : PersonTypeService,
+    private candidateStatusService : CandidateStatusService,
+    private maritalStatusService : MaritalStatusService,
     private fb: NonNullableFormBuilder,
     private router: Router
   ) { }
@@ -89,7 +91,7 @@ export class CandidateCreateComponent implements OnInit {
     fullname: ['', Validators.required],
     gender: ['', Validators.required],
     experience: ['', Validators.required],
-    expectedSalary: ['', Validators.required],
+    expectedSalary: [0, Validators.required],
     phoneNumber: ['', Validators.required],
     mobileNumber: ['', Validators.required],
     nik: ['', Validators.required],
@@ -102,14 +104,15 @@ export class CandidateCreateComponent implements OnInit {
     fileExtension: ['', Validators.required],
     candidateStatusId: ['', Validators.required],
     cdtAddresses: this.fb.array(this.addresses),
-    trainingsExp: this.fb.array(this.trainings),
+    cdtDocuments: this.fb.array(this.documents),
     educationsExp: this.fb.array(this.educations),
-    workingsExp: this.fb.array(this.workings),
-    projectsExp: this.fb.array(this.projects),
-    cdtSkills: this.fb.array(this.skills),
-    cdtLanguages: this.fb.array(this.languages),
     cdtFamilies: this.fb.array(this.families),
-    cdtReferences: this.fb.array(this.references)
+    cdtLanguages: this.fb.array(this.languages),
+    projectsExp: this.fb.array(this.projects),
+    cdtReferences: this.fb.array(this.references),
+    cdtSkills: this.fb.array(this.skills),
+    trainingsExp: this.fb.array(this.trainings),
+    workingsExp: this.fb.array(this.workings)
   })
 
   trainingInsertReqDto = this.fb.group({
@@ -188,7 +191,30 @@ export class CandidateCreateComponent implements OnInit {
     description : ['', [Validators.required]]
   })
 
+  documentInsertReqDto = this.fb.group({
+    docName : ['', [Validators.required]],
+    fileTypeCode : ['', [Validators.required]],
+    fileName :  ['', [Validators.required]],
+    fileExtension :  ['', [Validators.required]]
+  })
+
   ngOnInit(): void {
+    this.religionService.getAll().subscribe((res) => {
+      this.religions = res
+    })
+
+    this.personTypeService.getAll().subscribe((res) => {
+      this.types = res
+    })
+
+    this.candidateStatusService.getAll().subscribe((res) => {
+      this.candidateStatus = res
+    })
+
+    this.maritalStatusService.getAll().subscribe((res) => {
+      this.maritals = res
+    })
+
     this.salutations = [
       { value: 'Mr.', label: 'Mr.' },
       { value: 'Mrs.', label: 'Mrs.' }
@@ -198,26 +224,6 @@ export class CandidateCreateComponent implements OnInit {
       { value: 'Male', label: 'Male' },
       { value: 'Female', label: 'Female' }
     ];
-
-    this.maritals = [
-      { value: 'SNG', label: 'Single' },
-      { value: 'MRD', label: 'Married' }
-    ]
-
-    this.religionService.getAll().subscribe((res) => {
-      this.religions = res
-      console.log(this.religions);
-    })
-
-    this.types = [
-      { value: 'CND', label: 'Candidate' },
-      { value: 'EMP', label: 'Employee' }
-    ]
-
-    this.candidateStatus = [
-      { value: 'ACT', label: 'Active' },
-      { value: 'OPG', label: 'On Progress' }
-    ]
 
     this.residenceType = [
       { value: 'Home', label: 'Home' },
@@ -266,10 +272,16 @@ export class CandidateCreateComponent implements OnInit {
     this.dialogProject = true;
   }
 
+  showAddDocuments() {
+    this.dialogDocument = true;
+  }
+
   onSubmit() {
     if (this.candidateMasterInsertReqDto.valid) {
       const data = this.candidateMasterInsertReqDto.getRawValue()
-      console.log("Insert Candidate Profile!");
+      // this.candidateService.register(data).subscribe((res) => {
+      //   this.router.navigateByUrl('/candidates')
+      // })
     }
   }
 
@@ -396,6 +408,20 @@ export class CandidateCreateComponent implements OnInit {
       this.cdtReferences.push(this.fb.group(data))
       this.referenceInsertReqDto.reset()
       this.dialogReference = false
+    }
+  }
+
+  get cdtDocuments() {
+    return this.candidateMasterInsertReqDto.get('cdtDocuments') as FormArray
+  }
+
+  onAddDocument() {
+    if (this.documentInsertReqDto.valid) {
+      const data = this.documentInsertReqDto.getRawValue()
+
+      this.cdtDocuments.push(this.fb.group(data))
+      this.documentInsertReqDto.reset()
+      this.dialogDocument = false
     }
   }
 

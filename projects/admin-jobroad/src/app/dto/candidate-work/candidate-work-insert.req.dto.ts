@@ -7,6 +7,5 @@ export interface CandidateWorkInsertReqDto {
 	lastSalary : number
 	startDate : string
 	endDate : string
-	candidateId : string
 	email : string
 }
