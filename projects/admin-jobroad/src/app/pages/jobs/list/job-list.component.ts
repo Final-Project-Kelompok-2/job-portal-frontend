@@ -14,6 +14,7 @@ export class JobListComponent implements OnInit,OnDestroy {
   jobs! : JobResDto[];
   jobSubscription! : Subscription;
   constructor(private jobService : JobService){}
+
   ngOnInit(): void {
       this.jobSubscription =  this.jobService.getAll().subscribe(result =>{
         this.jobs = result;

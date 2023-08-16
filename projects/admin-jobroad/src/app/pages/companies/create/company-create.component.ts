@@ -11,7 +11,6 @@ import { Router } from "@angular/router";
 export class CompanyCreateComponent {
   loading = false
   companyReqDto = this.fb.group({
-    companyCode : ['',Validators.required],
 	  companyName: ['',Validators.required],
 	  address: ['',Validators.required],
 	  companyUrl: ['',Validators.required],
@@ -24,8 +23,10 @@ export class CompanyCreateComponent {
 
     onSubmit(){
       const data = this.companyReqDto.getRawValue();
-      this.companyService.create(data).subscribe();
-      this.router.navigateByUrl('/companies');
+      this.companyService.create(data).subscribe((result)=>{
+
+        this.router.navigateByUrl('/companies');
+      });
     }
 
     fileUpload(event: any,fileUpload : FileUpload) {
@@ -37,12 +38,12 @@ export class CompanyCreateComponent {
         };
         reader.onerror = error => reject(error);
       });
-  
+
       for (let file of event.files) {
         toBase64(file).then(result => {
           const resultBase64 = result.substring(result.indexOf(",") + 1, result.length)
           const resultExtension = file.name.substring(file.name.indexOf(".") + 1, file.name.length)
-  
+
           this.companyReqDto.patchValue({
             fileName: resultBase64,
             fileExtension: resultExtension
