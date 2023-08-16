@@ -1,9 +1,19 @@
 import { Component, OnInit } from "@angular/core";
 import { CandidateAddressService } from "../../../service/candidate-address.service";
-import { FormArray, NonNullableFormBuilder, Validators } from "@angular/forms";
+import { Form, FormArray, NonNullableFormBuilder, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
 import { CandidateTrainingInsertReqDto } from "../../../dto/candidate-training/candidate-training-insert.req.dto";
 import { FileUpload } from "primeng/fileupload";
+import { CandidateAddressInsertReqDto } from "../../../dto/candidate-address/candidate-address-insert.req.dto";
+import { CandidateEducationInsertReqDto } from "../../../dto/candidate-education/candidate-education-insert.req.dto";
+import { CandidateWorkInsertReqDto } from "../../../dto/candidate-work/candidate-work-insert.req.dto";
+import { CandidateProjectInsertReqDto } from "../../../dto/candidate-project/candidate-project-insert.req.dto";
+import { CandidateSkillInsertReqDto } from "../../../dto/candidate-skill/candidate-skill-insert.req.dto";
+import { CandidateLanguageInsertReqDto } from "../../../dto/candidate-language/candidate-language-insert.req.dto";
+import { CandidateFamilyInsertReqDto } from "../../../dto/candidate-family/candidate-family-insert.req.dto";
+import { CandidateReferencesInsertReqDto } from "../../../dto/candidate-references/candidate-references-insert.req.dto";
+import { ReligionService } from "../../../service/religion.service";
+import { ReligionResDto } from "../../../dto/religion/religion.res.dto";
 
 interface Salutation {
   value: string;
@@ -17,15 +27,19 @@ interface Marital {
   value: string,
   label: string
 }
-interface Religion {
-  value: string,
-  label: string
-}
 interface CandidateType {
   value: string,
   label: string
 }
 interface CandidateStatus {
+  value: string,
+  label: string
+}
+interface ResidenceType {
+  value: string,
+  label: string
+}
+interface Degree {
   value: string,
   label: string
 }
@@ -35,27 +49,36 @@ interface CandidateStatus {
 })
 export class CandidateCreateComponent implements OnInit {
   loading = false
-  salaryValue: number = 0;
-  dialogAddress: boolean = false;
-  dialogEducation: boolean = false;
-  dialogFamily: boolean = false;
-  dialogSkill: boolean = false;
-  dialogLanguage: boolean = false;
-  dialogReference: boolean = false;
-  dialogWorking: boolean = false;
-  dialogTraining: boolean = false;
-  dialogProject: boolean = false;
+  salaryValue: number = 0
+  dialogAddress: boolean = false
+  dialogEducation: boolean = false
+  dialogFamily: boolean = false
+  dialogSkill: boolean = false
+  dialogLanguage: boolean = false
+  dialogReference: boolean = false
+  dialogWorking: boolean = false
+  dialogTraining: boolean = false
+  dialogProject: boolean = false
   trainings: CandidateTrainingInsertReqDto[] = []
-  salutations: Salutation[] | undefined;
-  genders: Gender[] | undefined;
-  maritals: Marital[] | undefined;
-  religions: Religion[] | undefined;
-  types: CandidateType[] | undefined;
-  candidateStatus: CandidateStatus[] | undefined;
-  families = []
+  addresses: CandidateAddressInsertReqDto[] = []
+  educations: CandidateEducationInsertReqDto[] = []
+  workings: CandidateWorkInsertReqDto[] = []
+  projects: CandidateProjectInsertReqDto[] = []
+  skills: CandidateSkillInsertReqDto[] = []
+  languages: CandidateLanguageInsertReqDto[] = []
+  families: CandidateFamilyInsertReqDto[] = []
+  references: CandidateReferencesInsertReqDto[] = []
+  degrees: Degree[] | undefined
+  salutations: Salutation[] | undefined
+  genders: Gender[] | undefined
+  maritals: Marital[] | undefined
+  religions!: ReligionResDto[]
+  types: CandidateType[] | undefined
+  residenceType: ResidenceType[] | undefined
+  candidateStatus: CandidateStatus[] | undefined
 
   constructor(
-    private candidateAddressService: CandidateAddressService,
+    private religionService: ReligionService,
     private fb: NonNullableFormBuilder,
     private router: Router
   ) { }
@@ -78,7 +101,15 @@ export class CandidateCreateComponent implements OnInit {
     file: ['', Validators.required],
     fileExtension: ['', Validators.required],
     candidateStatusId: ['', Validators.required],
-    trainingsExp: this.fb.array(this.trainings)
+    cdtAddresses: this.fb.array(this.addresses),
+    trainingsExp: this.fb.array(this.trainings),
+    educationsExp: this.fb.array(this.educations),
+    workingsExp: this.fb.array(this.workings),
+    projectsExp: this.fb.array(this.projects),
+    cdtSkills: this.fb.array(this.skills),
+    cdtLanguages: this.fb.array(this.languages),
+    cdtFamilies: this.fb.array(this.families),
+    cdtReferences: this.fb.array(this.references)
   })
 
   trainingInsertReqDto = this.fb.group({
@@ -87,6 +118,74 @@ export class CandidateCreateComponent implements OnInit {
     description: ['', [Validators.required]],
     startDate: ['', [Validators.required]],
     endDate: ['', [Validators.required]]
+  })
+
+  addressInsertReqDto = this.fb.group({
+    address: ['', [Validators.required]],
+    residenceType: ['', [Validators.required]],
+    country: ['', [Validators.required]],
+    province: ['', [Validators.required]],
+    city: ['', [Validators.required]],
+    postalCode: ['', [Validators.required]]
+  })
+
+  educationInsertReqDto = this.fb.group({
+    degreeName: ['', [Validators.required]],
+    instituitionName: ['', [Validators.required]],
+    majors: ['', [Validators.required]],
+    cgpa: ['', [Validators.required]],
+    startYear: ['', [Validators.required]],
+    endYear: ['', [Validators.required]]
+  })
+
+  workingInsertReqDto = this.fb.group({
+    positionName: ['', [Validators.required]],
+    companyName: ['', [Validators.required]],
+    address: ['', [Validators.required]],
+    responsibility: ['', [Validators.required]],
+    reasonLeave: ['', [Validators.required]],
+    lastSalary: ['', [Validators.required]],
+    startDate: ['', [Validators.required]],
+    endDate: ['', [Validators.required]]
+  })
+
+  projectInsertReqDto = this.fb.group({
+    projectName: ['', [Validators.required]],
+    projectUrl: ['', [Validators.required]],
+    description: ['', [Validators.required]],
+    startDate: ['', [Validators.required]],
+    endDate: ['', [Validators.required]]
+  })
+
+  skillInsertReqDto = this.fb.group({
+    skillName : ['', [Validators.required]]
+  })
+
+  languageInsertReqDto = this.fb.group({
+    languageName : ['', [Validators.required]],
+    writingRate : ['', [Validators.required]],
+    speakingRate : ['', [Validators.required]],
+    listeningRate : ['', [Validators.required]]
+  })
+
+  familyInsertReqDto = this.fb.group({
+    fullname : ['', [Validators.required]],
+    relationship : ['', [Validators.required]],
+    degreeName : ['', [Validators.required]],
+    occupation : ['', [Validators.required]],
+    birthDate : ['', [Validators.required]],
+    birthPlace : ['', [Validators.required]],
+    email : ['', [Validators.required]]
+  })
+
+  referenceInsertReqDto = this.fb.group({
+    fullname : ['', [Validators.required]],
+    relationship : ['', [Validators.required]],
+    occupation : ['', [Validators.required]],
+    phoneNumber : ['', [Validators.required]],
+    email : ['', [Validators.required]],
+    company : ['', [Validators.required]],
+    description : ['', [Validators.required]]
   })
 
   ngOnInit(): void {
@@ -105,11 +204,10 @@ export class CandidateCreateComponent implements OnInit {
       { value: 'MRD', label: 'Married' }
     ]
 
-    this.religions = [
-      { value: 'ISL', label: 'Islam' },
-      { value: 'CHR', label: 'Christian' },
-      { value: 'HND', label: 'Hindu' }
-    ]
+    this.religionService.getAll().subscribe((res) => {
+      this.religions = res
+      console.log(this.religions);
+    })
 
     this.types = [
       { value: 'CND', label: 'Candidate' },
@@ -120,77 +218,16 @@ export class CandidateCreateComponent implements OnInit {
       { value: 'ACT', label: 'Active' },
       { value: 'OPG', label: 'On Progress' }
     ]
-  }
 
-  dummyEducation = [
-    {
-      instituitionName: 'Universitas Tarumanegara',
-      degreeName: 'Magister (S2)',
-      majors: 'Information Technology',
-      cgpa: 3.9,
-      startYear: 'August 5, 2019',
-      endYear: 'May 21, 2022'
-    }
-  ];
+    this.residenceType = [
+      { value: 'Home', label: 'Home' },
+      { value: 'Domicile', label: 'Domicile' }
+    ]
 
-  dummyAddresses = [
-    {
-      address: "Jl. Menuju Surga 1",
-      residenceType: "Home",
-      country: "Indonesia",
-      province: "DKI Jakarta",
-      city: "South Jakarta",
-      postalCode: "15116"
-    }
-  ]
-
-  dummyWorking = [
-    {
-      positionName: "Database Admin",
-      companyName: "PT. Karya Digital Cemerlang",
-      address: "Jl. Kebayoran Baru No.21",
-      responsibility: "Managing Database",
-      reasonLeave: "Lazy",
-      lastSalary: 5000000,
-      startDate: "October 01, 2022",
-      endDate: "December 30, 2022"
-    }
-  ]
-
-  dummmySkill = [
-    {
-      skillName: "Web Design"
-    },
-    {
-      skillName: "Database Adminsitartor"
-    },
-    {
-      skillName: "Video Editing"
-    }
-  ]
-
-  dummyTraining = [
-    {
-      organizationName: "Google Indonesia",
-      trainingName: "IT Support Seminar",
-      description: "IT Support personnel diagnose and resolve technical problems that users encounter. ",
-      startDate: "October 01, 2019",
-      endDate: "November 30, 2019"
-    }
-  ]
-
-  dummyProject = [
-    {
-      "projectName": "Asset Management System",
-      "projectUrl": "www.github.com/assets",
-      "description": "This is AMS Project",
-      "startDate": "January 01, 2019",
-      "endDate": "June 01, 2019"
-    }
-  ]
-
-  get trainingsExp() {
-    return this.candidateMasterInsertReqDto.get('trainingsExp') as FormArray
+    this.degrees = [
+      { value: 'Sarjana (S1)', label: 'Sarjana (S1)' },
+      { value: 'Magister (S2)', label: 'Magister (S2)' }
+    ]
   }
 
   showAddAddress() {
@@ -223,7 +260,6 @@ export class CandidateCreateComponent implements OnInit {
 
   showAddTraining() {
     this.dialogTraining = true;
-    this.trainingsExp.push(this.trainingInsertReqDto)
   }
 
   showAddProject() {
@@ -231,11 +267,136 @@ export class CandidateCreateComponent implements OnInit {
   }
 
   onSubmit() {
+    if (this.candidateMasterInsertReqDto.valid) {
+      const data = this.candidateMasterInsertReqDto.getRawValue()
+      console.log("Insert Candidate Profile!");
+    }
+  }
 
+  get cdtAddresses() {
+    return this.candidateMasterInsertReqDto.get('cdtAddresses') as FormArray
+  }
+
+  onAddAddress() {
+    if (this.addressInsertReqDto.valid) {
+      const data = this.addressInsertReqDto.getRawValue()
+
+      this.cdtAddresses.push(this.fb.group(data))
+      this.addressInsertReqDto.reset()
+      this.dialogAddress = false
+    }
+  }
+
+  get trainingsExp() {
+    return this.candidateMasterInsertReqDto.get('trainingsExp') as FormArray
   }
 
   onAddTraining() {
-    
+    if (this.trainingInsertReqDto.valid) {
+      const data = this.trainingInsertReqDto.getRawValue()
+
+      this.trainingsExp.push(this.fb.group(data))
+      this.trainingInsertReqDto.reset()
+      this.dialogTraining = false
+    }
+  }
+
+  get educationsExp() {
+    return this.candidateMasterInsertReqDto.get('educationsExp') as FormArray
+  }
+
+  onAddEducation() {
+    if (this.educationInsertReqDto.valid) {
+      const data = this.educationInsertReqDto.getRawValue()
+
+      this.educationsExp.push(this.fb.group(data))
+      this.educationInsertReqDto.reset()
+      this.dialogEducation = false
+    }
+  }
+
+  get workingsExp() {
+    return this.candidateMasterInsertReqDto.get('workingsExp') as FormArray
+  }
+
+  onAddWorking() {
+    if (this.workingInsertReqDto.valid) {
+      const data = this.workingInsertReqDto.getRawValue()
+
+      this.workingsExp.push(this.fb.group(data))
+      this.workingInsertReqDto.reset()
+      this.dialogWorking = false
+    }
+  }
+
+  get projectsExp() {
+    return this.candidateMasterInsertReqDto.get('projectsExp') as FormArray
+  }
+
+  onAddProject() {
+    if (this.projectInsertReqDto.valid) {
+      const data = this.projectInsertReqDto.getRawValue()
+
+      this.projectsExp.push(this.fb.group(data))
+      this.projectInsertReqDto.reset()
+      this.dialogProject = false
+    }
+  }
+
+  get cdtSkills() {
+    return this.candidateMasterInsertReqDto.get('cdtSkills') as FormArray
+  }
+
+  onAddSkill() {
+    if (this.skillInsertReqDto.valid) {
+      const data = this.skillInsertReqDto.getRawValue()
+
+      this.cdtSkills.push(this.fb.group(data))
+      this.skillInsertReqDto.reset()
+      this.dialogSkill = false
+    }
+  }
+
+  get cdtLanguages() {
+    return this.candidateMasterInsertReqDto.get('cdtLanguages') as FormArray
+  }
+
+  onAddLanguage() {
+    if (this.languageInsertReqDto.valid) {
+      const data = this.languageInsertReqDto.getRawValue()
+
+      this.cdtLanguages.push(this.fb.group(data))
+      this.languageInsertReqDto.reset()
+      this.dialogLanguage = false
+    }
+  }
+
+  get cdtFamilies() {
+    return this.candidateMasterInsertReqDto.get('cdtFamilies') as FormArray
+  }
+
+  onAddFamily() {
+    if (this.familyInsertReqDto.valid) {
+      const data = this.familyInsertReqDto.getRawValue()
+
+      this.cdtFamilies.push(this.fb.group(data))
+      this.familyInsertReqDto.reset()
+      this.dialogFamily = false
+    }
+  }
+
+  get cdtReferences() {
+    return this.candidateMasterInsertReqDto.get('cdtReferences') as FormArray
+  }
+
+  onAddReference() {
+    if (this.referenceInsertReqDto.valid) {
+      const data = this.referenceInsertReqDto.getRawValue()
+
+      this.cdtReferences.push(this.fb.group(data))
+      this.referenceInsertReqDto.reset()
+      this.dialogReference = false
+    }
   }
 
   fileUpload(event: any, fileUpload: FileUpload) {

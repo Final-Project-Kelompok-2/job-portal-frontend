@@ -66,7 +66,7 @@
         </div>
         <div class="field col-12 md:col-4">
           <label htmlFor="type">Religion<span class="text-red-500"> *</span></label>
-          <p-dropdown [options]="religions" optionLabel="label" optionValue="value" [showClear]="true" [required]="true"
+          <p-dropdown [options]="religions" optionLabel="religionName" optionValue="id" [showClear]="true" [required]="true"
             formControlName="religionId" placeholder="Choose Religion"></p-dropdown>
         </div>
         <div class="field col-12 md:col-4">
@@ -106,7 +106,7 @@
             <hr>
 
             <div class="card">
-              <p-dataView #dv [value]="dummyAddresses">
+              <p-dataView #dv [value]="cdtAddresses.value">
                 <ng-template let-address pTemplate="listItem">
                   <div class="col-12">
                     <div class="flex flex-column xl:flex-row xl:align-items-start p-4 gap-4">
@@ -152,7 +152,7 @@
             <hr>
 
             <div class="card">
-              <p-dataView #dv [value]="dummyEducation">
+              <p-dataView #dv [value]="educationsExp.value">
                 <ng-template let-education pTemplate="listItem">
                   <div class="col-12">
                     <div class="flex flex-column xl:flex-row xl:align-items-start p-4 gap-4">
@@ -197,7 +197,7 @@
             <hr>
 
             <div class="card">
-              <p-dataView #dv [value]="dummyWorking">
+              <p-dataView #dv [value]="workingsExp.value">
                 <ng-template let-working pTemplate="listItem">
                   <div class="col-12">
                     <div class="flex flex-column xl:flex-row xl:align-items-start p-4 gap-4">
@@ -246,7 +246,7 @@
             <hr>
 
             <div class="card">
-              <p-dataView #dv [value]="trainingsExp.controls">
+              <p-dataView #dv [value]="trainingsExp.value">
                 <ng-template let-training pTemplate="listItem">
                   <div class="col-12">
                     <div class="flex flex-column xl:flex-row xl:align-items-start p-4 gap-4">
@@ -292,7 +292,7 @@
             <hr>
 
             <div class="card">
-              <p-dataView #dv [value]="dummyProject">
+              <p-dataView #dv [value]="projectsExp.value">
                 <ng-template let-training pTemplate="listItem">
                   <div class="col-12">
                     <div class="flex flex-column xl:flex-row xl:align-items-start p-4 gap-4">
@@ -338,7 +338,7 @@
             </div>
             <hr>
             <div class="card">
-              <p-dataView #dv [value]="dummmySkill">
+              <p-dataView #dv [value]="cdtSkills.value">
                 <ng-template let-skill pTemplate="listItem">
                   <div class="col-12">
                     <div class="flex flex-column xl:flex-row xl:align-items-start pl-4 gap-4">
@@ -375,6 +375,38 @@
               </div>
             </div>
             <hr>
+            <div class="card">
+              <p-dataView #dv [value]="cdtLanguages.value">
+                <ng-template let-language pTemplate="listItem">
+                  <div class="col-12">
+                    <div class="flex flex-column xl:flex-row xl:align-items-start pl-4 gap-4">
+                      <div
+                        class="flex flex-column sm:flex-row justify-content-between align-items-center xl:align-items-start flex-1 gap-4">
+                        <div class="flex flex-column align-items-center sm:align-items-start gap-3">
+                          <div class="flex align-items-center gap-3 mt-3">
+                            <span class="flex align-items-center gap-2">
+                              <span class="font-semibold">{{ language.languageName }}</span>
+                            </span>
+                          </div>
+                          <div class="flex align-items-center gap-3 mb-2">
+                            <span class="flex align-items-center gap-2">
+                              <span>Writing : {{ language.writingRate }}/5</span>
+                              <span>Speaking : {{ language.speakingRate }}/5</span>
+                              <span>Listening : {{ language.listeningRate }}/5</span>
+                            </span>
+                          </div>
+                        </div>
+                        <div class="flex sm:flex-column align-items-center sm:align-items-end">
+                          <span class="text-l font-semibold"></span>
+                          <button pButton icon="pi pi-trash"
+                            class="md:align-self-end mt-1 mb-1 p-button-rounded p-button-danger"></button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </ng-template>
+              </p-dataView>
+            </div>
           </div>
         </div>
       </div>
@@ -393,7 +425,7 @@
             </div>
           </div>
           <div class="col-12 md:col-10">
-            <p-table [value]="families" [tableStyle]="{ 'min-width': '50rem' }">
+            <p-table [value]="cdtFamilies.value" [tableStyle]="{ 'min-width': '50rem' }">
               <ng-template pTemplate="header">
                 <tr>
                   <th>No.</th>
@@ -405,15 +437,15 @@
                   <th>Email</th>
                 </tr>
               </ng-template>
-              <ng-template pTemplate="body">
+              <ng-template pTemplate="body" let-family let-i="rowIndex">
                 <tr>
-                  <td>1</td>
-                  <td>Andrew Maruli</td>
-                  <td>Ayah</td>
-                  <td>Sarjana (S1)</td>
-                  <td>Karyawan Swasta</td>
-                  <td>Jakarta, 15 Mei 2001</td>
-                  <td>andrew@gmail.com</td>
+                  <td>{{ i + 1 }}</td>
+                  <td>{{ family.fullname }}</td>
+                  <td>{{ family.relationship }}</td>
+                  <td>{{ family.degreeName }}</td>
+                  <td>{{ family.occupation }}</td>
+                  <td>{{ family.birthPlace }}, {{ family.birthDate }}</td>
+                  <td>{{ family.email }}</td>
                 </tr>
               </ng-template>
             </p-table>
@@ -435,27 +467,29 @@
             </div>
           </div>
           <div class="col-12 md:col-10">
-            <p-table [tableStyle]="{'min-width': '60rem'}">
+            <p-table [value]="cdtReferences.value" [tableStyle]="{'min-width': '60rem'}">
               <ng-template pTemplate="header">
                 <tr>
                   <th>No.</th>
                   <th>Full Name</th>
                   <th>Relationship</th>
-                  <th>Degree</th>
                   <th>Occupation</th>
-                  <th>Birth</th>
+                  <th>Phone</th>
+                  <th>Company</th>
+                  <th>Description</th>
                   <th>Email</th>
                 </tr>
               </ng-template>
-              <ng-template pTemplate="body">
+              <ng-template pTemplate="body" let-reference let-i="rowIndex">
                 <tr>
-                  <td>1</td>
-                  <td>Andrew Maruli</td>
-                  <td>Ayah</td>
-                  <td>Sarjana (S1)</td>
-                  <td>Karyawan Swasta</td>
-                  <td>Jakarta, 15 Mei 2001</td>
-                  <td>andrew@gmail.com</td>
+                  <td>{{ i + 1 }}</td>
+                  <td>{{ reference.fullname }}</td>
+                  <td>{{ reference.relationship }}</td>
+                  <td>{{ reference.occupation }} (S1)</td>
+                  <td>{{ reference.phoneNumber }} Swasta</td>
+                  <td>{{ reference.company }}</td>
+                  <td>{{ reference.description }}</td>
+                  <td>{{ reference.email }}</td>
                 </tr>
               </ng-template>
             </p-table>
@@ -464,8 +498,9 @@
       </div>
 
       <div class="col-12 md:col-9 mb-5 mt-6">
-        <app-button backgroundColor="var(--PRIMARY)" iconBtn="pi pi-plus" [loading]="loading" typeBtn="submit"
-          label="Add" class=" mr-2"></app-button>
+        <button pButton pRipple label="SUBMIT" type="submit" class="p-button-success"></button>
+        <!-- <app-button backgroundColor="var(--PRIMARY)" iconBtn="pi pi-plus" [loading]="loading" typeBtn="submit"
+          label="Add" class=" mr-2"></app-button> -->
         <app-button link="/candidates" label="Back" classBtn="p-button-secondary"></app-button>
       </div>
     </form>
@@ -473,38 +508,38 @@
 </div>
 
 <!-- Dialog Add Address -->
-
 <p-dialog header="Add Address" [(visible)]="dialogAddress" [style]="{width: '30vw'}">
-  <form>
-
+  <form [formGroup]="addressInsertReqDto">
+    <pre>{{ addressInsertReqDto.value | json }}</pre>
     <div class="p-fluid p-formgrid grid">
       <div class="field col-12">
         <label htmlFor="salutation">Residence Type <span class="text-red-500"> *</span> </label>
-        <p-dropdown optionLabel="type" [showClear]="true" [required]="true"></p-dropdown>
+        <p-dropdown [options]="residenceType" optionLabel="label" optionValue="value" [showClear]="true"
+          [required]="true" formControlName="residenceType" placeholder="Choose Residence Type"></p-dropdown>
       </div>
       <div class="field col-12">
         <label htmlFor="salutation">Address <span class="text-red-500"> *</span> </label>
-        <textarea pInputTextarea id="address" required rows="1" cols="50"></textarea>
+        <textarea pInputTextarea id="address" required rows="1" cols="50" formControlName="address"></textarea>
       </div>
       <div class="field col-12">
         <label htmlFor="country">Country <span class="text-red-500"> *</span> </label>
-        <p-dropdown optionLabel="type" [showClear]="true" [required]="true"></p-dropdown>
+        <input pInputText id="country" required type="text" formControlName="country" />
       </div>
       <div class="field col-12">
         <label htmlFor="province">Province <span class="text-red-500"> *</span> </label>
-        <p-dropdown optionLabel="type" [showClear]="true" [required]="true"></p-dropdown>
+        <input pInputText id="province" required type="text" formControlName="province" />
       </div>
       <div class="field col-12">
         <label htmlFor="city">City <span class="text-red-500"> *</span> </label>
-        <p-dropdown optionLabel="type" [showClear]="true" [required]="true"></p-dropdown>
+        <input pInputText id="city" required type="text" formControlName="city" />
       </div>
       <div class="field col-12">
         <label htmlFor="postal">Postal Code <span class="text-red-500"> *</span> </label>
-        <input pInputText id="postalCode" required type="number" />
+        <input pInputText id="postal" required type="text" formControlName="postalCode" />
       </div>
     </div>
     <div class="field col-12">
-
+      <button pButton pRipple label="ADD" (click)="onAddAddress()" class="p-button-success"></button>
       <!-- <app-button [loading]="loading" label="Add" class="mr-2" (click)="onAddAddress()"></app-button> -->
       <app-button link="/candidates" label="Back" classBtn="p-button-secondary"></app-button>
 
@@ -514,78 +549,88 @@
 
 <!-- Dialog Add Education -->
 <p-dialog header="Add Education" [modal]="true" [(visible)]="dialogEducation" [style]="{width: '30vw'}">
-  <form action="">
+  <pre>{{ educationInsertReqDto.value | json}}</pre>
+  <form [formGroup]="educationInsertReqDto">
     <div class="p-fluid p-formgrid grid">
       <div class="field col-12">
         <label htmlFor="institution">Institution Name <span class="text-red-500"> *</span> </label>
-        <input pInputText id="institution" required type="text" />
+        <input pInputText id="institution" required type="text" formControlName="instituitionName" />
       </div>
       <div class="field col-12">
         <label htmlFor="salutation">Degree<span class="text-red-500"> *</span> </label>
-        <p-dropdown optionLabel="type" [showClear]="true" [required]="true"></p-dropdown>
+        <p-dropdown [options]="degrees" optionLabel="label" optionValue="value" [showClear]="true" [required]="true"
+          formControlName="degreeName" placeholder="Choose Degree"></p-dropdown>
       </div>
       <div class="field col-12">
         <label htmlFor="major">Major <span class="text-red-500"> *</span> </label>
-        <input pInputText id="major" required type="text" />
+        <input pInputText id="major" required type="text" formControlName="majors" />
       </div>
       <div class="field col-12">
 
         <label htmlFor="cgpa">CGPA <span class="text-red-500"> *</span> </label>
-        <input pInputText id="cgpa" required type="number" />
+        <p-inputNumber inputId="cgpa" inputId="minmax" mode="decimal" [min]="0" [max]="4"
+          formControlName="cgpa"></p-inputNumber>
 
       </div>
       <div class="field col-12">
         <label htmlFor="startyear">Start Year <span class="text-red-500"> *</span> </label>
-        <input pInputText id="startyear" required type="date" />
+        <input pInputText id="startyear" required type="date" formControlName="startYear" />
       </div>
       <div class="field col-12">
 
         <label htmlFor="endyear">Start Year <span class="text-red-500"> *</span> </label>
-        <input pInputText id="endyear" required type="date" />
+        <input pInputText id="endyear" required type="date" formControlName="endYear" />
       </div>
     </div>
     <div class="field col-12">
-      <app-button [loading]="loading" backgroundColor="var(--PRIMARY)" iconBtn="pi pi-plus" typeBtn="submit" label="Add" class="mr-2"></app-button>
-      <p-button label="Cancel" (onClick)="dialogEducation = false" styleClass="p-button-sm p-button-secondary"></p-button>
+      <button pButton pRipple label="ADD" (click)="onAddEducation()" class="p-button-success"></button>
+      <!-- <app-button [loading]="loading" backgroundColor="var(--PRIMARY)" iconBtn="pi pi-plus" typeBtn="submit" label="Add"
+        class="mr-2"></app-button> -->
+      <p-button label="Cancel" (onClick)="dialogEducation = false"
+        styleClass="p-button-sm p-button-secondary"></p-button>
     </div>
   </form>
 </p-dialog>
 
 <!-- Dialog Add Family Member -->
 <p-dialog header="Add Family Member" [modal]="true" [(visible)]="dialogFamily" [style]="{width: '30vw'}">
-  <form action="">
+  <pre>{{ familyInsertReqDto.value | json }}</pre>
+  <form [formGroup]="familyInsertReqDto">
     <div class="p-fluid p-formgrid grid">
       <div class="field col-12">
         <label htmlFor="fullname">Full Name<span class="text-red-500"> *</span> </label>
-        <input pInputText id="fullName" required type="text" />
+        <input pInputText id="fullName" required type="text" formControlName="fullname" />
       </div>
       <div class="field col-12">
-        <label htmlFor="relatinship">Relationship <span class="text-red-500"> *</span> </label>
-        <p-dropdown optionLabel="type" [showClear]="true" [required]="true"></p-dropdown>
+        <label htmlFor="relationship">Relationship <span class="text-red-500"> *</span> </label>
+        <input pInputText id="relationship" required type="text" formControlName="relationship" />
       </div>
       <div class="field col-12">
-        <label htmlFor="degree">Degree <span class="text-red-500"> *</span> </label>
-        <p-dropdown optionLabel="type" [showClear]="true" [required]="true"></p-dropdown>
+        <label htmlFor="degreeName">Degree <span class="text-red-500"> *</span> </label>
+        <p-dropdown [options]="degrees" optionLabel="label" optionValue="value" [showClear]="true" [required]="true"
+          formControlName="degreeName" placeholder="Choose Degree"></p-dropdown>
       </div>
       <div class="field col-12">
         <label htmlFor="occupation">Occupation <span class="text-red-500"> *</span> </label>
-        <input pInputText id="occupation" required type="text" />
+        <input pInputText id="occupation" required type="text" formControlName="occupation" />
       </div>
       <div class="field col-12">
         <label htmlFor="birthPlace">Birth Place <span class="text-red-500"> *</span> </label>
-        <input pInputText id="birthplace" required type="text" />
+        <input pInputText id="birthplace" required type="text" formControlName="birthPlace" />
       </div>
       <div class="field col-12">
         <label htmlFor="birthDate">Birth Date <span class="text-red-500"> *</span></label>
-        <input pInputText id="birthDate" required type="date" />
+        <input pInputText id="birthDate" required type="date" formControlName="birthDate" />
       </div>
       <div class="field col-12">
         <label htmlFor="email">Email <span class="text-red-500"> *</span> </label>
-        <input pInputText id="email" required type="email" />
+        <input pInputText id="email" required type="email" formControlName="email" />
       </div>
     </div>
     <div class="field col-12">
-      <app-button [loading]="loading" backgroundColor="var(--PRIMARY)" iconBtn="pi pi-plus" typeBtn="submit" label="Add" class="mr-2"></app-button>
+      <button pButton pRipple label="ADD" (click)="onAddFamily()" class="p-button-success"></button>
+      <!-- <app-button [loading]="loading" backgroundColor="var(--PRIMARY)" iconBtn="pi pi-plus" typeBtn="submit" label="Add"
+        class="mr-2"></app-button> -->
       <p-button label="Cancel" (onClick)="dialogFamily = false" styleClass="p-button-sm p-button-secondary"></p-button>
     </div>
   </form>
@@ -593,15 +638,18 @@
 
 <!-- Dialog Add Skill -->
 <p-dialog header="Add Skill" [modal]="true" [(visible)]="dialogSkill" [style]="{width: '30vw'}">
-  <form action="">
+  <pre>{{ skillInsertReqDto.value | json }}</pre>
+  <form [formGroup]="skillInsertReqDto">
     <div class="p-fluid p-formgrid grid">
       <div class="field col-12">
         <label htmlFor="fullname">Skill Name<span class="text-red-500"> *</span> </label>
-        <input pInputText id="fullName" required type="text" />
+        <input pInputText id="fullName" required type="text" formControlName="skillName" />
       </div>
     </div>
     <div class="field col-12">
-      <app-button [loading]="loading" backgroundColor="var(--PRIMARY)" iconBtn="pi pi-plus" typeBtn="submit" label="Add" class="mr-2"></app-button>
+      <button pButton pRipple label="ADD" (click)="onAddSkill()" class="p-button-success"></button>
+      <!-- <app-button [loading]="loading" backgroundColor="var(--PRIMARY)" iconBtn="pi pi-plus" typeBtn="submit" label="Add"
+        class="mr-2"></app-button> -->
       <p-button label="Cancel" (onClick)="dialogSkill = false" styleClass="p-button-sm p-button-secondary"></p-button>
     </div>
   </form>
@@ -609,136 +657,126 @@
 
 <!-- Dialog Add Language -->
 <p-dialog header="Add Language" [modal]="true" [(visible)]="dialogLanguage" [style]="{width: '30vw'}">
-  <form action="">
+  <pre>{{ languageInsertReqDto.value | json }}</pre>
+  <form [formGroup]="languageInsertReqDto">
     <div class="p-fluid p-formgrid grid">
       <div class="field col-12">
         <label htmlFor="language">Language <span class="text-red-500"> *</span> </label>
-        <input pInputText id="language" required type="text" />
+        <input pInputText id="language" required type="text" formControlName="languageName" />
       </div>
       <div class="field col-12">
         <label htmlFor="writing">Writing Rate <span class="text-red-500"> *</span> </label>
-        <input pInputText id="writing" required type="number" />
+        <input pInputText id="writing" required type="number" formControlName="writingRate" />
       </div>
       <div class="field col-12">
         <label htmlFor="speaking">Speaking Rate <span class="text-red-500"> *</span> </label>
-        <input pInputText id="speaking" required type="number" />
+        <input pInputText id="speaking" required type="number" formControlName="speakingRate" />
       </div>
       <div class="field col-12">
         <label htmlFor="listening">Listening Rate <span class="text-red-500"> *</span> </label>
-        <input pInputText id="listening" required type="number" />
+        <input pInputText id="listening" required type="number" formControlName="listeningRate" />
       </div>
     </div>
     <div class="field col-12">
-      <app-button [loading]="loading" backgroundColor="var(--PRIMARY)" iconBtn="pi pi-plus" typeBtn="submit" label="Add" class="mr-2"></app-button>
-      <p-button label="Cancel" (onClick)="dialogLanguage = false" styleClass="p-button-sm p-button-secondary"></p-button>
+      <button pButton pRipple label="ADD" (click)="onAddLanguage()" class="p-button-success"></button>
+      <!-- <app-button [loading]="loading" backgroundColor="var(--PRIMARY)" iconBtn="pi pi-plus" typeBtn="submit" label="Add"
+        class="mr-2"></app-button> -->
+      <p-button label="Cancel" (onClick)="dialogLanguage = false"
+        styleClass="p-button-sm p-button-secondary"></p-button>
     </div>
   </form>
 </p-dialog>
 
 <!-- Dialog Add Reference -->
 <p-dialog header="Add Reference" [modal]="true" [(visible)]="dialogReference" [style]="{width: '30vw'}">
-  <form action="">
+  <pre>{{ referenceInsertReqDto.value | json }}</pre>
+  <form [formGroup]="referenceInsertReqDto">
     <div class="p-fluid p-formgrid grid">
       <div class="field col-12">
         <label htmlFor="fullname">Fullname <span class="text-red-500"> *</span> </label>
-        <input pInputText id="fullname" required type="text" />
+        <input pInputText id="fullname" required type="text" formControlName="fullname" />
       </div>
       <div class="field col-12">
         <label htmlFor="relationship">Relationship <span class="text-red-500"> *</span> </label>
-        <p-dropdown optionLabel="type" [showClear]="true" [required]="true"></p-dropdown>
+        <input pInputText id="relationship" required type="text" formControlName="relationship" />
       </div>
       <div class="field col-12">
         <label htmlFor="occupation">Ocupation <span class="text-red-500"> *</span> </label>
-        <input pInputText id="occupation" required type="text" />
+        <input pInputText id="occupation" required type="text" formControlName="occupation" />
       </div>
       <div class="field col-12">
         <label htmlFor="phone">Phone Number <span class="text-red-500"> *</span> </label>
-        <input pInputText id="phone" required type="text" />
+        <input pInputText id="phone" required type="text" formControlName="phoneNumber" />
       </div>
       <div class="field col-12">
         <label htmlFor="email">Email <span class="text-red-500"> *</span> </label>
-        <input pInputText id="email" required type="email" />
+        <input pInputText id="email" required type="email" formControlName="email" />
       </div>
       <div class="field col-12">
         <label htmlFor="company">Company <span class="text-red-500"> *</span> </label>
-        <input pInputText id="company" required type="text" />
+        <input pInputText id="company" required type="text" formControlName="company" />
       </div>
       <div class="field col-12">
         <label htmlFor="description">Description <span class="text-red-500"> *</span> </label>
-        <input pInputText id="description" required type="text" />
+        <textarea pInputTextarea id="description" required rows="1" cols="50" formControlName="description"></textarea>
       </div>
 
     </div>
     <div class="field col-12">
-      <app-button [loading]="loading" backgroundColor="var(--PRIMARY)" iconBtn="pi pi-plus" typeBtn="submit" label="Add" class="mr-2"></app-button>
-      <p-button label="Cancel" (onClick)="dialogReference = false" styleClass="p-button-sm p-button-secondary"></p-button>
+      <button pButton pRipple label="ADD" (click)="onAddReference()" class="p-button-success"></button>
+      <!-- <app-button [loading]="loading" backgroundColor="var(--PRIMARY)" iconBtn="pi pi-plus" typeBtn="submit" label="Add"
+        class="mr-2"></app-button> -->
+      <p-button label="Cancel" (onClick)="dialogReference = false"
+        styleClass="p-button-sm p-button-secondary"></p-button>
     </div>
   </form>
 </p-dialog>
 
 <!-- Dialog Add Working -->
 <p-dialog header="Add Working" [modal]="true" [(visible)]="dialogWorking" [style]="{width: '30vw'}">
-  <form action="">
+  <pre>{{ workingInsertReqDto.value | json }}</pre>
+  <form [formGroup]="workingInsertReqDto">
     <div class="p-fluid p-formgrid grid">
       <div class="field col-12">
         <label htmlFor="position">Position Name <span class="text-red-500"> *</span> </label>
-        <input pInputText id="position" required type="text" />
+        <input pInputText id="position" required type="text" formControlName="positionName" />
       </div>
       <div class="field col-12">
         <label htmlFor="company">Company <span class="text-red-500"> *</span> </label>
-        <input pInputText id="company" required type="text" />
+        <input pInputText id="company" required type="text" formControlName="companyName" />
       </div>
       <div class="field col-12">
         <label htmlFor="address">Address <span class="text-red-500"> *</span> </label>
-        <textarea pInputTextarea id="address" required rows="1" cols="50"></textarea>
+        <textarea pInputTextarea id="address" required rows="1" cols="50" formControlName="address"></textarea>
       </div>
       <div class="field col-12">
         <label htmlFor="responsibility">Responsibility <span class="text-red-500"> *</span> </label>
-        <textarea pInputTextarea id="responsibility" required rows="1" cols="50"></textarea>
+        <textarea pInputTextarea id="responsibility" required rows="1" cols="50"
+          formControlName="responsibility"></textarea>
       </div>
       <div class="field col-12">
         <label htmlFor="reason">Reason Leave <span class="text-red-500"> *</span> </label>
-        <textarea pInputTextarea id="reason" required rows="1" cols="50"></textarea>
+        <textarea pInputTextarea id="reason" required rows="1" cols="50" formControlName="reasonLeave"></textarea>
       </div>
       <div class="field col-12">
-
         <label htmlFor="lastsalary">Last Salary <span class="text-red-500"> *</span> </label>
-        <input pInputText id="lastsalary" required type="number" />
-
-      </div>
-
-      <div class="field col-12">
-        <label htmlFor="occupation">Ocupation <span class="text-red-500"> *</span> </label>
-        <input pInputText id="occupation" required type="text" />
-      </div>
-      <div class="field col-12">
-        <label htmlFor="phone">Phone Number <span class="text-red-500"> *</span> </label>
-        <input pInputText id="phone" required type="text" />
-      </div>
-      <div class="field col-12">
-        <label htmlFor="email">Email <span class="text-red-500"> *</span> </label>
-        <input pInputText id="email" required type="email" />
-      </div>
-      <div class="field col-12">
-        <label htmlFor="company">Company <span class="text-red-500"> *</span> </label>
-        <input pInputText id="company" required type="text" />
-      </div>
-      <div class="field col-12">
-        <label htmlFor="description">Description <span class="text-red-500"> *</span> </label>
-        <input pInputText id="description" required type="text" />
+        <p-inputNumber inputId="lastSalary" mode="currency" currency="IDR" locale="jp-JP"
+          formControlName="lastSalary"></p-inputNumber>
       </div>
       <div class="field col-12 md:col-6">
         <label htmlFor="startDate">Start Date <span class="text-red-500"> *</span> </label>
-        <input pInputText id="startDate" required type="date" />
+        <input pInputText id="startDate" required type="date" formControlName="startDate" />
       </div>
       <div class="field col-12 md:col-6">
         <label htmlFor="endDate">End Date <span class="text-red-500"> *</span> </label>
-        <input pInputText id="endDate" required type="date" />
+        <input pInputText id="endDate" required type="date" formControlName="endDate" />
       </div>
 
     </div>
     <div class="field col-12">
-      <app-button [loading]="loading" backgroundColor="var(--PRIMARY)" iconBtn="pi pi-plus" typeBtn="submit" label="Add" class="mr-2"></app-button>
+      <button pButton pRipple label="ADD" (click)="onAddWorking()" class="p-button-success"></button>
+      <!-- <app-button [loading]="loading" backgroundColor="var(--PRIMARY)" iconBtn="pi pi-plus" typeBtn="submit" label="Add"
+        class="mr-2"></app-button> -->
       <p-button label="Cancel" (onClick)="dialogWorking = false" styleClass="p-button-sm p-button-secondary"></p-button>
     </div>
   </form>
@@ -747,33 +785,36 @@
 
 <!-- Dialog Add Project -->
 <p-dialog header="Add Project" [(visible)]="dialogProject" [style]="{width: '30vw'}">
-
-  <form action="">
+  <pre>{{ projectInsertReqDto.value | json }}</pre>
+  <form [formGroup]="projectInsertReqDto">
     <div class="p-fluid p-formgrid grid">
       <div class="field col-12">
         <label htmlFor="projectName">Project Name <span class="text-red-500"> *</span> </label>
-        <input pInputText id="projectName" required type="text" />
+        <input pInputText id="projectName" required type="text" formControlName="projectName" />
       </div>
       <div class="field col-12">
         <label htmlFor="projectURL">Project URL <span class="text-red-500"> *</span> </label>
-        <input pInputText id="projectURL" required type="text" />
+        <input pInputText id="projectURL" required type="text" formControlName="projectUrl" />
       </div>
       <div class="field col-12">
         <label htmlFor="description">Description <span class="text-red-500"> *</span> </label>
-        <textarea pInputTextarea id="description" required rows="1" cols="50"></textarea>
+        <textarea pInputTextarea id="description" required rows="1" cols="50" formControlName="description"></textarea>
       </div>
       <div class="field col-12 md:col-6">
         <label htmlFor="startDate">Start Date <span class="text-red-500"> *</span> </label>
-        <input pInputText id="startDate" required type="date" />
+        <input pInputText id="startDate" required type="date" formControlName="startDate" />
       </div>
       <div class="field col-12 md:col-6">
         <label htmlFor="endDate">End Date <span class="text-red-500"> *</span> </label>
-        <input pInputText id="endDate" required type="date" />
+        <input pInputText id="endDate" required type="date" formControlName="endDate" />
       </div>
     </div>
     <div class="field col-12">
-      <app-button [loading]="loading" backgroundColor="var(--PRIMARY)" iconBtn="pi pi-plus" typeBtn="submit" label="Add" class="mr-2"></app-button>
-      <p-button label="Cancel" (onClick)="dialogTraining = false" styleClass="p-button-sm p-button-secondary"></p-button>
+      <button pButton pRipple label="ADD" (click)="onAddProject()" class="p-button-success"></button>
+      <!-- <app-button [loading]="loading" backgroundColor="var(--PRIMARY)" iconBtn="pi pi-plus" typeBtn="submit" label="Add"
+        class="mr-2"></app-button> -->
+      <p-button label="Cancel" (onClick)="dialogTraining = false"
+        styleClass="p-button-sm p-button-secondary"></p-button>
     </div>
   </form>
 </p-dialog>
@@ -782,7 +823,7 @@
 <!-- Dialog Add Training -->
 <p-dialog header="Add Training" [(visible)]="dialogTraining" [style]="{width: '30vw'}">
   <form [formGroup]="trainingInsertReqDto">
-
+    <pre>{{ trainingInsertReqDto.value | json }}</pre>
     <div class="p-fluid p-formgrid grid">
       <div class="field col-12">
         <label htmlFor="organization">Organization Name <span class="text-red-500"> *</span> </label>
@@ -790,19 +831,19 @@
       </div>
       <div class="field col-12">
         <label htmlFor="training">Training Name <span class="text-red-500"> *</span> </label>
-        <input pInputText id="training" required type="text" />
+        <input pInputText id="training" required type="text" formControlName="trainingName" />
       </div>
       <div class="field col-12">
         <label htmlFor="description">Description <span class="text-red-500"> *</span> </label>
-        <textarea pInputTextarea id="description" required rows="1" cols="50"></textarea>
+        <textarea pInputTextarea id="description" required rows="1" cols="50" formControlName="description"></textarea>
       </div>
       <div class="field col-12 md:col-6">
         <label htmlFor="startDate">Start Date <span class="text-red-500"> *</span> </label>
-        <input pInputText id="startDate" required type="date" />
+        <input pInputText id="startDate" required type="date" formControlName="startDate" />
       </div>
       <div class="field col-12 md:col-6">
         <label htmlFor="endDate">End Date <span class="text-red-500"> *</span> </label>
-        <input pInputText id="endDate" required type="date" />
+        <input pInputText id="endDate" required type="date" formControlName="endDate" />
       </div>
     </div>
     <div class="field col-12">
