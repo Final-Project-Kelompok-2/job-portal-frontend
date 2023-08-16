@@ -3,9 +3,9 @@ import { OwnedBenefitInsertReqDto } from "../owned-benefit/owned-benefit-insert.
 
 export interface JobInsertReqDto {
     jobName : string
-	jobCode : string
+	// jobCode : string
 	companyId : string
-	companyCode : string
+	// companyCode : string
 	startDate : string
 	endDate : string
 	description : string
@@ -13,10 +13,10 @@ export interface JobInsertReqDto {
 	picId : string
 	expectedSalaryMin : number
 	expectedSalaryMax : number
-	benefits : OwnedBenefitInsertReqDto[]
-	questions: AssignedJobQuestionInsertReqDto[]
+	benefits : (OwnedBenefitInsertReqDto | unknown) []
+	questions: (AssignedJobQuestionInsertReqDto| unknown) []
 	employmentTypeId : string
-	employmentTypeCode : string
+	// employmentTypeCode : string
 	file : string
 	fileExtension : string
 }

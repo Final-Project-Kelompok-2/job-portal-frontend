@@ -1,60 +1,102 @@
 <div class="col-12">
+  <pre>
+    {{jobReqDto.value | json}}
+  </pre>
   <p-card header="Add New Job">
-    <form action="">
+    <form [formGroup]="jobReqDto" (ngSubmit)="onSubmit()">
       <div class="p-fluid p-formgrid grid">
         <div class="field col-12 md:col-6">
           <label htmlFor="name">Job Name <span class="text-red-500">*</span> </label>
-          <input pInputText id="name" required type="text" />
+          <input pInputText id="name" required type="text" formControlName="jobName" />
         </div>
         <div class="field col-12 md:col-6">
           <label htmlFor="company">Company<span class="text-red-500">*</span></label>
-          <p-dropdown  optionLabel="company" [showClear]="true" [required]="true" ></p-dropdown>
+          <p-dropdown optionLabel="companyName" [options]="company" optionValue="id" formControlName="companyId"
+            placeholder="Choose Company" [showClear]="true" [required]="true"></p-dropdown>
         </div>
         <div class="field col-12 md:col-6">
           <label htmlFor="start">Start Date<span class="text-red-500">*</span></label>
-          <input pInputText id="start" required type="date" />
+          <input pInputText id="start" required type="date" formControlName="startDate" />
         </div>
         <div class="field col-12 md:col-6">
           <label htmlFor="end">End Date<span class="text-red-500">*</span></label>
-          <input pInputText id="end" required type="date" />
+          <input pInputText id="end" required type="date" formControlName="endDate" />
         </div>
         <div class="field col-12">
           <label htmlFor="desc">Description<span class="text-red-500">*</span></label>
-          <textarea pInputTextarea  id="desc" required rows="4" cols="50"></textarea>
+          <textarea pInputTextarea id="desc" required rows="4" cols="50" formControlName="description"></textarea>
         </div>
         <div class="field col-12 md:col-6">
           <label htmlFor="min">Minimal Salary<span class="text-red-500">*</span></label>
-          <p-inputNumber inputId="min"  mode="currency" currency="IDR" locale="jp-JP"></p-inputNumber>
+          <p-inputNumber inputId="min" mode="currency" currency="IDR" locale="jp-JP"
+            formControlName="expectedSalaryMin"></p-inputNumber>
         </div>
         <div class="field col-12 md:col-6">
           <label htmlFor="max">Maximal Salary<span class="text-red-500">*</span></label>
-          <p-inputNumber inputId="max"  mode="currency" currency="IDR" locale="jp-JP"></p-inputNumber>
+          <p-inputNumber inputId="max" mode="currency" currency="IDR" locale="jp-JP"
+            formControlName="expectedSalaryMax"></p-inputNumber>
         </div>
         <div class="field col-12 md:col-4">
           <label htmlFor="hr">HR Person in Contact<span class="text-red-500">*</span></label>
-          <p-dropdown  optionLabel="hr" [showClear]="true" [required]="true" ></p-dropdown>
+          <p-dropdown optionLabel="fullName" [options]="hr" optionValue="id" [showClear]="true" placeholder="Choose HR" [required]="true" formControlName="hrId"></p-dropdown>
         </div>
         <div class="field col-12 md:col-4">
           <label htmlFor="pic">PIC Person in Contact<span class="text-red-500">*</span></label>
-          <p-dropdown  optionLabel="pic" [showClear]="true" [required]="true" ></p-dropdown>
+          <p-dropdown optionLabel="fullName" [options]="pic" optionValue="id" [showClear]="true" placeholder="Choose Pic" [required]="true" formControlName="picId"></p-dropdown>
         </div>
         <div class="field col-12 md:col-4">
           <label htmlFor="type">Employment Type<span class="text-red-500">*</span></label>
-          <p-dropdown  optionLabel="type" [showClear]="true" [required]="true" ></p-dropdown>
+          <p-dropdown optionLabel="employmentTypeName" [options]="employmentType" optionValue="id" [showClear]="true"
+            placeholder="Choose Employment Type" [required]="true" formControlName="employmentTypeId"></p-dropdown>
         </div>
         <div class="col-12 ">
           <label for="picture" class="form-label">Job Picture</label>
         </div>
         <div class="col-12 ">
           <div class="mb-3">
-            <p-fileUpload mode="basic" chooseLabel="Upload" styleClass="bg-green-700" chooseIcon="pi pi-upload" class="form-control" #file type="file" id="picture" required ></p-fileUpload>
+            <p-fileUpload mode="basic" chooseLabel="Upload" styleClass="bg-green-700" chooseIcon="pi pi-upload"
+              class="form-control" #file type="file" id="picture" (onSelect)="fileUpload($event,file)"
+              required></p-fileUpload>
           </div>
+        </div>
+        <div class="col-6 gap-3 ">
+          <h4>Benefit</h4>
+          <app-button typeBtn="button" (click)="addBenefit()" iconBtn="pi pi-plus-circle"
+            backgroundColor="var(--PRIMARY)" label="Add Benefits"></app-button>
+          <p-card class="col-12" *ngFor="let b of benefitsId.controls; let i = index" formArrayName="benefits">
+            <div class="grid align-items-center" [formGroupName]="i">
+              <div class="col-8">
+                <p-dropdown [options]="benefit" optionValue="id" placeholder="Choose Benefits"
+                  optionLabel="benefitName" formControlName="benefitId"></p-dropdown>
+              </div>
+              <div class="col-4">
+                <app-button iconBtn="pi pi-minus-circle" label="Delete Option" classBtn="p-button-danger" (clickChange)="removeBenefit(i)"></app-button>
+              </div>
+            </div>
+          </p-card>
+        </div>
+        <div class="col-6 gap-3">
+          <h4>Question</h4>
+          <app-button typeBtn="button" (click)="addQuestion()" iconBtn="pi pi-plus-circle"
+            backgroundColor="var(--PRIMARY)" label="Add Question"></app-button>
+          <p-card class="col-12" *ngFor="let q of questionsId.controls; let j = index" formArrayName="questions">
+            <div class="grid align-items-center" [formGroupName]="j">
+              <div class="col-8">
+                <p-dropdown [options]="question" optionValue="id" placeholder="Choose Question"
+                  optionLabel="questionDetail" formControlName="questionId"></p-dropdown>
+              </div>
+              <div class="col-4">
+                <app-button iconBtn="pi pi-minus-circle" label="Delete Option" classBtn="p-button-danger" (clickChange)="removeQuestion(j)"></app-button>
+              </div>
+            </div>
+          </p-card>
         </div>
       </div>
 
       <div class="col-12 md:col-9 mb-5 mt-6">
-        <app-button backgroundColor="var(--PRIMARY)" [loading]="loading" typeBtn="submit" label="Add" iconBtn="pi pi-plus" class=" mr-2"></app-button>
-        <app-button link="/jobs" label="Back"  classBtn="p-button-secondary"></app-button>
+        <app-button backgroundColor="var(--PRIMARY)" [loading]="loading" typeBtn="submit" label="Add"
+          iconBtn="pi pi-plus" class=" mr-2"></app-button>
+        <app-button link="/jobs" label="Back" classBtn="p-button-secondary"></app-button>
       </div>
     </form>
   </p-card>

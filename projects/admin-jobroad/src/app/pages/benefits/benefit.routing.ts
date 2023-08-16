@@ -4,6 +4,7 @@ import { BenefitListComponent } from "./list/benefit-list.component";
 import { BenefitCreateComponent } from "./create/benefit-create.component";
 import { SharedModuleComponent } from "../../component/shared-module";
 import { ButtonComponent } from "../../component/button/button.component";
+import { CommonModule } from "@angular/common";
 
 const routes: Routes = [
   {
@@ -24,7 +25,8 @@ const routes: Routes = [
   imports: [
     RouterModule.forChild(routes),
     SharedModuleComponent,
-    ButtonComponent
+    ButtonComponent,
+    CommonModule
   ],
   exports:[
     BenefitListComponent,
