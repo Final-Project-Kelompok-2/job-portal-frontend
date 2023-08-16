@@ -128,7 +128,9 @@
 <!-- <pre>{{questionsInsertReqDto.value | json}}</pre> -->
 <div class="grid justify-content-center">
   <div class="col-12 md:col-10">
-
+    <pre>
+      {{questionsInsertReqDto.value | json}}
+    </pre>
     <h3>Create Question(s)</h3>
     <div class="card">
       <div>
@@ -141,7 +143,7 @@
             </div>
           </div>
 
-          <div *ngFor="let f of forms.controls; let i = index" formArrayName="data">
+          <div *ngFor="let f of forms.controls; let i = index" formArrayName="newQuestions">
             <p-card styleClass="mb-3" [formGroupName]="i" header="Question {{ i+1 }}">
 
               <div class="col-12 md:col-12 gy-2">
@@ -157,7 +159,7 @@
                   </label>
                   <div class="mb-3 ">
                     <textarea rows="2" cols="30" pInputTextarea [autoResize]="true"
-                      formControlName="question"></textarea>
+                      formControlName="questionDetail"></textarea>
                   </div>
                 </div>
               </div>
@@ -168,16 +170,16 @@
                 </app-button>
               </div>
 
-              <div class="col-12" formArrayName="questionOptions"
+              <div class="col-12" formArrayName="options"
                 *ngFor="let o of questionOption(i).controls; let j = index">
 
                 <div [formGroupName]="j">
                   <h4>Option {{ j+1 }}</h4>
                   <div class="col-12 md:col-3">
-                    <input type="text" pInputText formControlName="optLabel" />
+                    <input type="text" pInputText formControlName="optionLabel" />
                   </div>
                   <div class="col-12 md:col-3">
-                    <p-dropdown formControlName="correct" [options]="options" optionLabel="name" optionValue="value"
+                    <p-dropdown formControlName="isCorrect" [options]="options" optionLabel="name" optionValue="value"
                       placeholder="Select option"></p-dropdown>
                   </div>
                   <div class="col-12 md:col-3">

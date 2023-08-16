@@ -3,6 +3,7 @@ import { FormArray, NonNullableFormBuilder, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
 import { QuestionInsertReqDto } from "../../../dto/question/question-insert.req.dto";
 import { QuestionOptionInsertReqDto } from "../../../dto/question-option/question-option-insert.req.dto";
+import { QuestionService } from "../../../service/question.service";
 
 @Component({
   selector: 'question-create',
@@ -28,7 +29,7 @@ export class QuestionCreateComponent implements OnInit {
 
   questionsInsertReqDto = this.fb.group(
     {
-      data: this.fb.array(this.questionInsertDto)
+      newQuestions: this.fb.array(this.questionInsertDto)
     }
   )
   
@@ -36,7 +37,7 @@ export class QuestionCreateComponent implements OnInit {
     // private questionTypeService: QuestionTypeService,
     // private topicService: QuestionTopicService,
     // private packageService: QuestionPackageService,
-    // private questionService: QuestionService,
+    private questionService: QuestionService,
     private router: Router) {
 
   }
@@ -48,18 +49,18 @@ export class QuestionCreateComponent implements OnInit {
   }
 
   get forms() {
-    return this.questionsInsertReqDto.get("data") as FormArray
+    return this.questionsInsertReqDto.get("newQuestions") as FormArray
   }
 
   questionOption(i: number) {
-    return this.forms.at(i).get("questionOptions") as FormArray
+    return this.forms.at(i).get("options") as FormArray
   }
 
   onAdd() {
     this.forms.push(this.fb.group({
       questionTypeId: [0, [Validators.required]],
-      question: ['', [Validators.required]],
-      questionOptions: this.fb.array(this.questionOptionInsertdto),
+      questionDetail: ['', [Validators.required]],
+      options: this.fb.array(this.questionOptionInsertdto),
       questionTopicId: [0, [Validators.required]],
       questionPackageId: [0, [Validators.required]],
       [`questionTypeId${this.forms.length}`]: [],
@@ -80,8 +81,8 @@ export class QuestionCreateComponent implements OnInit {
 
   onAddOption(indexQuestion: number) {
     this.questionOption(indexQuestion).push(this.fb.group({
-      optLabel: ['', [Validators.required]],
-      correct: [false, [Validators.required]]
+      optionLabel: ['', [Validators.required]],
+      isCorrect: [false, [Validators.required]]
     }))
   }
 
@@ -116,11 +117,11 @@ export class QuestionCreateComponent implements OnInit {
   }
 
   onSubmit() {
-    // const data = this.questionsInsertReqDto.getRawValue().data
-    // this.questionService.createQuestions(data).subscribe(result => {
-    //   console.log(result)
-    //   this.router.navigateByUrl('/questions')
-    // }
-    // )
+    const data = this.questionsInsertReqDto.getRawValue();
+    this.questionService.create(data).subscribe(result => {
+      console.log(result)
+      this.router.navigateByUrl('/questions')
+    }
+    )
   }
 }
