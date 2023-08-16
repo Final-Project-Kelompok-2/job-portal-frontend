@@ -19,8 +19,6 @@ export class CandidateUserService{
     }
 
     register(data : CandidateMasterInsertReqDto) : Observable<InsertResDto>{
-        return this.base.post<InsertResDto>(`${BASE_URL}/candidate-user`,data);
+        return this.base.post<InsertResDto>(`${BASE_URL}/candidate-user/register`,data);
     }
-
- 
 }
