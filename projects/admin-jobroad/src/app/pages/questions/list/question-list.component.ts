@@ -1,5 +1,6 @@
 import { Component } from "@angular/core";
 import { Table } from "primeng/table";
+import { QuestionResDto } from "../../../dto/question/question.res.dto";
 
 @Component({
   selector: 'question-list',
@@ -8,6 +9,8 @@ import { Table } from "primeng/table";
 })
 export class QuestionListComponent {
   loading = false
+
+  questions! : QuestionResDto[]
 
   clear(table:Table){
     table.clear()

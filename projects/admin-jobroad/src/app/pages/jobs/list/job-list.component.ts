@@ -12,11 +12,17 @@ export class JobListComponent implements OnInit {
   loading = false
   jobs! : JobResDto[];
   constructor(private jobService : JobService){}
+
   ngOnInit(): void {
-      this.jobService.getAll().subscribe(result =>{
-        this.jobs = result;
-      })
+    this.getAll()
   }
+
+  getAll(){
+    this.jobService.getAll().subscribe(result =>{
+      this.jobs = result;
+    })
+  }
+
   clear(table: Table) {
     table.clear();
   }

@@ -5,13 +5,9 @@
   <p-card header="Add New Company">
     <form [formGroup]="companyReqDto" (ngSubmit)="onSubmit()">
       <div class="p-fluid p-formgrid grid">
-        <div class="field col-12 md:col-6">
+        <div class="field col-12 md:col-12">
           <label htmlFor="companyName">Company Name <span class="text-red-500">*</span> </label>
           <input pInputText id="companyName" required type="text" formControlName="companyName" />
-        </div>
-        <div class="field col-12 md:col-6">
-          <label htmlFor="code">Company Code<span class="text-red-500">*</span></label>
-          <input pInputText id="code" required type="text" formControlName="companyCode"/>
         </div>
         <div class="field col-12">
           <label htmlFor="address">Address<span class="text-red-500">*</span></label>
