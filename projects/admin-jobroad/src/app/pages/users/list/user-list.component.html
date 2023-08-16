@@ -1,0 +1,81 @@
+<div class="grid">
+  <div class="col-12">
+    <div class="card">
+
+      <div class="grid mb-3 upper-container flex justify-content-between align-items-center">
+        <div class="col-12 md:col-9 title">
+          <h2>User List</h2>
+        </div>
+        <div class="col-12 md:col-3 buttons">
+          <app-button type="button"  label="Back" class="mr-2" classBtn="p-button-secondary"
+            link="/dashboard"></app-button>
+          <app-button type="button" backgroundColor="var(--PRIMARY)" iconBtn="pi pi-fw pi-plus" label="Add new user" classBtn="p-button-primary"
+            link="/users/new"></app-button>
+        </div>
+
+        <div class="card col-12">
+          <p-table #dt1 dataKey="id" [rows]="10" [showCurrentPageReport]="true" [rowsPerPageOptions]="[10, 25, 50]"
+            [loading]="loading"styleClass="p-datatable-sm" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+            [globalFilterFields]="['name', 'country.name', 'representative.name', 'status']"
+            >
+            <ng-template pTemplate="caption">
+              <div class="flex">
+                <button pButton label="Clear" class="p-button-outlined" icon="pi pi-filter-slash"
+                  (click)="clear(dt1)"></button>
+                <span class="p-input-icon-left ml-auto">
+                  <i class="pi pi-search"></i>
+                  <input pInputText type="text"
+                  placeholder="Search keyword" />
+                </span>
+                <!-- [masukin kedalem tag input, setelah type = "text"] => (input)="dt1.filterGlobal($event.target.value, 'contains')" -->
+              </div>
+            </ng-template>
+            <ng-template pTemplate="header">
+              <tr>
+                <th>
+                  No
+                </th>
+                <th style="min-width:15rem">
+                  <div class="flex align-items-center">
+                    Name
+                    <p-columnFilter type="text" field="name" display="menu"></p-columnFilter>
+                  </div>
+                </th>
+                <th style="min-width:15rem">
+                  <div class="flex align-items-center">
+                    Email
+                    <p-columnFilter type="text" field="name" display="menu"></p-columnFilter>
+                  </div>
+                </th>
+                <th style="min-width:15rem">
+                  <div class="flex align-items-center">
+                    Role
+                    <p-columnFilter type="text" field="name" display="menu"></p-columnFilter>
+                  </div>
+                </th>
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-i="rowIndex">
+              <tr>
+                <td>{{ i+1 }}</td>
+                <td>Tatang Sutarman</td>
+                <td>tatang@gmail.com</td>
+                <td>HR</td>
+                <td>Mantab</td>
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="emptymessage">
+              <tr>
+                <td colspan="7">No users found.</td>
+              </tr>
+            </ng-template>
+          </p-table>
+        </div>
+      </div>
+
+
+
+    </div>
+
+  </div>
+</div>

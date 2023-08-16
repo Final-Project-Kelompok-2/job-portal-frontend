@@ -1,0 +1,44 @@
+<div class="col-12">
+  <pre>
+    {{companyReqDto.value | json}}
+  </pre>
+  <p-card header="Add New Company">
+    <form [formGroup]="companyReqDto" (ngSubmit)="onSubmit()">
+      <div class="p-fluid p-formgrid grid">
+        <div class="field col-12 md:col-6">
+          <label htmlFor="companyName">Company Name <span class="text-red-500">*</span> </label>
+          <input pInputText id="companyName" required type="text" formControlName="companyName" />
+        </div>
+        <div class="field col-12 md:col-6">
+          <label htmlFor="code">Company Code<span class="text-red-500">*</span></label>
+          <input pInputText id="code" required type="text" formControlName="companyCode"/>
+        </div>
+        <div class="field col-12">
+          <label htmlFor="address">Address<span class="text-red-500">*</span></label>
+          <textarea pInputTextarea  id="address" required rows="4" cols="50" formControlName="address"></textarea>
+        </div>
+        <div class="field col-12 md:col-6">
+          <label htmlFor="url">Company Url<span class="text-red-500">*</span></label>
+          <input pInputText id="url" required type="text" formControlName="companyUrl"/>
+        </div>
+        <div class="field col-12 md:col-6">
+          <label htmlFor="phoneNumber">Company Phone Number<span class="text-red-500">*</span></label>
+          <input pInputText id="phoneNumber" required type="text" formControlName="companyPhone"/>
+        </div>
+        <div class="col-12 ">
+          <label for="picture" class="form-label">Company Picture</label>
+        </div>
+        <div class="col-12 ">
+          <div class="mb-3">
+            <p-fileUpload mode="basic" styleClass="bg-green-700" chooseLabel="Upload" chooseIcon="pi pi-upload" class="form-control" #file type="file" id="picture" required (onSelect)="fileUpload($event,file)"></p-fileUpload>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-12 md:col-9 mb-5 mt-6">
+        <app-button [loading]="loading" backgroundColor="var(--PRIMARY)" iconBtn="pi pi-plus" typeBtn="submit" label="Add" class=" mr-2"></app-button>
+        <app-button link="/companies" label="Back"  classBtn="p-button-secondary"></app-button>
+      </div>
+    </form>
+  </p-card>
+</div>

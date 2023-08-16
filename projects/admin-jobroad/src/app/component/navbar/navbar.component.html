@@ -1,0 +1,55 @@
+<div class="" style="width: 100%;">
+  <p-sidebar [(visible)]="sidebarVisible">
+    <ng-template pTemplate="header">
+      <h3 class="text-green-700">Menu</h3>
+    </ng-template>
+    <ng-template pTemplate="content">
+      <div class="grid mt-3">
+        <div class="col-12">
+          <app-button classBtn="p-button-text text-green-700" label="Users" link="/users/"
+            iconBtn="pi pi-fw pi-users"></app-button>
+        </div>
+        <div class="col-12">
+          <app-button classBtn="p-button-text text-green-700" label="Candidates" iconBtn="pi pi-fw pi-user"
+            link="/candidates"></app-button>
+        </div>
+        <div class="col-12">
+          <app-button classBtn="p-button-text text-green-700" label="Companies" link="/companies"
+            iconBtn="pi pi-fw pi-id-card"></app-button>
+        </div>
+        <div class="col-12">
+          <app-button classBtn="p-button-text text-green-700" label="Jobs" iconBtn="pi pi-fw pi-briefcase"
+            link="/jobs"></app-button>
+        </div>
+        <div class="col-12">
+          <app-button classBtn="p-button-text text-green-700" label="Benefits" iconBtn="pi pi-fw pi-money-bill"
+            link="/benefits"></app-button>
+        </div>
+        <div class="col-12">
+          <app-button classBtn="p-button-text text-green-700" label="Questions"
+            iconBtn="pi pi-fw pi-question-circle" link="/questions"></app-button>
+        </div>
+      </div>
+    </ng-template>
+    <ng-template pTemplate="footer">Jobroad &copy; 2023</ng-template>
+  </p-sidebar>
+  <p-menubar [model]="items" styleClass="w-full" [style]="{'background-color' : 'var(--SECONDARY)'}">
+    <ng-template pTemplate="start">
+      <img src="../../../assets/jobroad.png" width="150" routerLink="/dashboard" class="mr-2 cursor-pointer"
+        alt="Jobroad Logo" />
+    </ng-template>
+    <ng-template pTemplate="end">
+      <p-overlayPanel #op>
+        <p-menu [model]="profile"> </p-menu>
+      </p-overlayPanel>
+      <p-avatar image="https://sman3brebes.sch.id/wp-content/uploads/2020/10/romlah.jpg" styleClass="mr-2" size="large"
+        shape="circle" (click)="op.toggle($event)" alt="avatar image">
+      </p-avatar>
+    </ng-template>
+  </p-menubar>
+
+  <div class="col-12 mt-1">
+    <p-button styleClass="p-button-text text-green-700" label="Menu"  (onClick)="sideBarActivate()"
+      icon="pi pi-fw pi-ellipsis-v"></p-button>
+  </div>
+</div>

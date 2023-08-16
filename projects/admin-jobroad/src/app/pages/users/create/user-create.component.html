@@ -1,0 +1,45 @@
+<div class="col-12">
+  <p-card header="Add New User" styleClass="border">
+    <form action="">
+      <div class="p-fluid p-formgrid grid">
+        <div class="field col-12 md:col-6">
+          <label htmlFor="fullName">Full Name <span class="text-red-500">*</span> </label>
+          <input pInputText id="fullName" required type="text" />
+        </div>
+        <div class="field col-12 md:col-6">
+          <label htmlFor="email">Email<span class="text-red-500">*</span></label>
+          <input pInputText id="email" required type="email" />
+        </div>
+        <div class="field col-12">
+          <label htmlFor="address">Address<span class="text-red-500">*</span></label>
+          <textarea pInputTextarea  id="address" required rows="4" cols="50"></textarea>
+        </div>
+        <div class="field col-12 md:col-6">
+          <label htmlFor="phoneNumber">Phone Number<span class="text-red-500">*</span></label>
+          <input pInputText id="phoneNumber" required type="text" />
+        </div>
+        <div class="field col-12 md:col-3">
+          <label htmlFor="role">Role<span class="text-red-500">*</span></label>
+          <p-dropdown  optionLabel="role" [showClear]="true" [required]="true" ></p-dropdown>
+        </div>
+        <div class="field col-12 md:col-3">
+          <label htmlFor="type">Type<span class="text-red-500">*</span></label>
+          <p-dropdown  optionLabel="type" [showClear]="true" [required]="true" ></p-dropdown>
+        </div>
+        <div class="col-12 ">
+          <label for="picture" class="form-label">Profile Picture</label>
+        </div>
+        <div class="col-12 ">
+          <div class="mb-3">
+            <p-fileUpload mode="basic" chooseLabel="Upload" chooseIcon="pi pi-upload" styleClass="bg-green-700" class="form-control" #file type="file" id="picture" required ></p-fileUpload>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-12 md:col-9 mb-5 mt-6">
+        <app-button backgroundColor="var(--PRIMARY)" [loading]="loading" typeBtn="submit" label="Add" iconBtn="pi pi-plus" class=" mr-2"></app-button>
+        <app-button link="/users" label="Back"  classBtn="p-button-secondary"></app-button>
+      </div>
+    </form>
+  </p-card>
+</div>
