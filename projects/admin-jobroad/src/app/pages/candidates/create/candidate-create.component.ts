@@ -103,16 +103,16 @@ export class CandidateCreateComponent implements OnInit {
     file: ['', Validators.required],
     fileExtension: ['', Validators.required],
     candidateStatusId: ['', Validators.required],
-    cdtAddresses: this.fb.array(this.addresses),
-    cdtDocuments: this.fb.array(this.documents),
-    educationsExp: this.fb.array(this.educations),
-    cdtFamilies: this.fb.array(this.families),
-    cdtLanguages: this.fb.array(this.languages),
-    projectsExp: this.fb.array(this.projects),
-    cdtReferences: this.fb.array(this.references),
-    cdtSkills: this.fb.array(this.skills),
-    trainingsExp: this.fb.array(this.trainings),
-    workingsExp: this.fb.array(this.workings)
+    candidateAddress: this.fb.array(this.addresses),
+    candidateDocuments: this.fb.array(this.documents),
+    candidateEducations: this.fb.array(this.educations),
+    candidateFamily: this.fb.array(this.families),
+    candidateLanguage: this.fb.array(this.languages),
+    candidateProjectExp: this.fb.array(this.projects),
+    candidateReferences: this.fb.array(this.references),
+    candidateSkill: this.fb.array(this.skills),
+    candidateTrainingExp: this.fb.array(this.trainings),
+    candidateWorkExp: this.fb.array(this.workings),
   })
 
   trainingInsertReqDto = this.fb.group({
@@ -279,147 +279,148 @@ export class CandidateCreateComponent implements OnInit {
   onSubmit() {
     if (this.candidateMasterInsertReqDto.valid) {
       const data = this.candidateMasterInsertReqDto.getRawValue()
-      // this.candidateService.register(data).subscribe((res) => {
-      //   this.router.navigateByUrl('/candidates')
-      // })
+      this.candidateService.register(data).subscribe((res) => {
+        this.router.navigateByUrl('/candidates')
+      })
+      console.log("Insert Candidate Profile!");
     }
   }
 
-  get cdtAddresses() {
-    return this.candidateMasterInsertReqDto.get('cdtAddresses') as FormArray
+  get candidateAddress() {
+    return this.candidateMasterInsertReqDto.get('candidateAddress') as FormArray
   }
 
   onAddAddress() {
     if (this.addressInsertReqDto.valid) {
       const data = this.addressInsertReqDto.getRawValue()
 
-      this.cdtAddresses.push(this.fb.group(data))
+      this.candidateAddress.push(this.fb.group(data))
       this.addressInsertReqDto.reset()
       this.dialogAddress = false
     }
   }
 
-  get trainingsExp() {
-    return this.candidateMasterInsertReqDto.get('trainingsExp') as FormArray
+  get candidateTrainingExp() {
+    return this.candidateMasterInsertReqDto.get('candidateTrainingExp') as FormArray
   }
 
   onAddTraining() {
     if (this.trainingInsertReqDto.valid) {
       const data = this.trainingInsertReqDto.getRawValue()
 
-      this.trainingsExp.push(this.fb.group(data))
+      this.candidateTrainingExp.push(this.fb.group(data))
       this.trainingInsertReqDto.reset()
       this.dialogTraining = false
     }
   }
 
-  get educationsExp() {
-    return this.candidateMasterInsertReqDto.get('educationsExp') as FormArray
+  get candidateEducations() {
+    return this.candidateMasterInsertReqDto.get('candidateEducations') as FormArray
   }
 
   onAddEducation() {
     if (this.educationInsertReqDto.valid) {
       const data = this.educationInsertReqDto.getRawValue()
 
-      this.educationsExp.push(this.fb.group(data))
+      this.candidateEducations.push(this.fb.group(data))
       this.educationInsertReqDto.reset()
       this.dialogEducation = false
     }
   }
 
-  get workingsExp() {
-    return this.candidateMasterInsertReqDto.get('workingsExp') as FormArray
+  get candidateWorkExp() {
+    return this.candidateMasterInsertReqDto.get('candidateWorkExp') as FormArray
   }
 
   onAddWorking() {
     if (this.workingInsertReqDto.valid) {
       const data = this.workingInsertReqDto.getRawValue()
 
-      this.workingsExp.push(this.fb.group(data))
+      this.candidateWorkExp.push(this.fb.group(data))
       this.workingInsertReqDto.reset()
       this.dialogWorking = false
     }
   }
 
-  get projectsExp() {
-    return this.candidateMasterInsertReqDto.get('projectsExp') as FormArray
+  get candidateProjectExp() {
+    return this.candidateMasterInsertReqDto.get('candidateProjectExp') as FormArray
   }
 
   onAddProject() {
     if (this.projectInsertReqDto.valid) {
       const data = this.projectInsertReqDto.getRawValue()
 
-      this.projectsExp.push(this.fb.group(data))
+      this.candidateProjectExp.push(this.fb.group(data))
       this.projectInsertReqDto.reset()
       this.dialogProject = false
     }
   }
 
-  get cdtSkills() {
-    return this.candidateMasterInsertReqDto.get('cdtSkills') as FormArray
+  get candidateSkill() {
+    return this.candidateMasterInsertReqDto.get('candidateSkill') as FormArray
   }
 
   onAddSkill() {
     if (this.skillInsertReqDto.valid) {
       const data = this.skillInsertReqDto.getRawValue()
 
-      this.cdtSkills.push(this.fb.group(data))
+      this.candidateSkill.push(this.fb.group(data))
       this.skillInsertReqDto.reset()
       this.dialogSkill = false
     }
   }
 
-  get cdtLanguages() {
-    return this.candidateMasterInsertReqDto.get('cdtLanguages') as FormArray
+  get candidateLanguage() {
+    return this.candidateMasterInsertReqDto.get('candidateLanguage') as FormArray
   }
 
   onAddLanguage() {
     if (this.languageInsertReqDto.valid) {
       const data = this.languageInsertReqDto.getRawValue()
 
-      this.cdtLanguages.push(this.fb.group(data))
+      this.candidateLanguage.push(this.fb.group(data))
       this.languageInsertReqDto.reset()
       this.dialogLanguage = false
     }
   }
 
-  get cdtFamilies() {
-    return this.candidateMasterInsertReqDto.get('cdtFamilies') as FormArray
+  get candidateFamily() {
+    return this.candidateMasterInsertReqDto.get('candidateFamily') as FormArray
   }
 
   onAddFamily() {
     if (this.familyInsertReqDto.valid) {
       const data = this.familyInsertReqDto.getRawValue()
 
-      this.cdtFamilies.push(this.fb.group(data))
+      this.candidateFamily.push(this.fb.group(data))
       this.familyInsertReqDto.reset()
       this.dialogFamily = false
     }
   }
 
-  get cdtReferences() {
-    return this.candidateMasterInsertReqDto.get('cdtReferences') as FormArray
+  get candidateReferences() {
+    return this.candidateMasterInsertReqDto.get('candidateReferences') as FormArray
   }
 
   onAddReference() {
     if (this.referenceInsertReqDto.valid) {
       const data = this.referenceInsertReqDto.getRawValue()
 
-      this.cdtReferences.push(this.fb.group(data))
+      this.candidateReferences.push(this.fb.group(data))
       this.referenceInsertReqDto.reset()
       this.dialogReference = false
     }
   }
 
-  get cdtDocuments() {
-    return this.candidateMasterInsertReqDto.get('cdtDocuments') as FormArray
+  get candidateDocuments() {
+    return this.candidateMasterInsertReqDto.get('candidateDocuments') as FormArray
   }
 
   onAddDocument() {
     if (this.documentInsertReqDto.valid) {
       const data = this.documentInsertReqDto.getRawValue()
 
-      this.cdtDocuments.push(this.fb.group(data))
+      this.candidateDocuments.push(this.fb.group(data))
       this.documentInsertReqDto.reset()
       this.dialogDocument = false
     }
