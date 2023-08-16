@@ -21,8 +21,6 @@ export class QuestionListComponent implements OnInit,OnDestroy{
     })
   }
 
-  questions! : QuestionResDto[]
-
   clear(table:Table){
     table.clear()
   }
