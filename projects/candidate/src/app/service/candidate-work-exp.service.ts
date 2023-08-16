@@ -4,11 +4,11 @@ import { Observable } from "rxjs";
 
 import { BASE_URL } from "../constant/api.constant";
 import { CandidateWorkResDto } from "../dto/candidate-work/candidate-work.res.dto";
-import { InsertResDto } from "../dto/insert.res.dto";
 import { CandidateWorkInsertReqDto } from "../dto/candidate-work/candidate-work-insert.req.dto";
 import { CandidateWorkUpdateReqDto } from "../dto/candidate-work/candidate-work-update.req.dto";
 import { UpdateResDto } from "../dto/update.res.dto";
 import { DeleteResDto } from "../dto/delete.res.dto";
+import { InsertResDto } from "../dto/insert.res.dto";
 
 @Injectable({
     providedIn : 'root'
