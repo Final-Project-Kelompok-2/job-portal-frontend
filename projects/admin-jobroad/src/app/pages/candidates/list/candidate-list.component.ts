@@ -1,5 +1,6 @@
 import { Component } from "@angular/core";
 import { Table } from "primeng/table";
+import { CandidateUserResDto } from "../../../dto/candidate-user/candidate-user.res.dto";
 
 @Component({
   selector: 'candidate-list',
@@ -8,6 +9,7 @@ import { Table } from "primeng/table";
 })
 export class CandidateListComponent {
   loading = false
+  candidates!:CandidateUserResDto[]
 
   clear(table: Table) {
     table.clear();

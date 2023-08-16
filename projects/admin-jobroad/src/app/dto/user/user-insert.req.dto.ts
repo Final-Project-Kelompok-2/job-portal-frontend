@@ -1,5 +1,5 @@
 export interface UserInsertReqDto {
-    userEmail : string
+  userEmail : string
 	roleId : string
 	personTypeId : string
 	fullName : string

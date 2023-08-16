@@ -8,22 +8,26 @@ import { CompanyResDto } from "../../../dto/company/company.res.dto";
   templateUrl: './company-list.component.html',
   styleUrls: ['./company-list.component.css']
 })
-export class CompanyListComponent implements OnInit{
-  companies! : CompanyResDto[];
-  constructor(private companyService : CompanyService){}
+export class CompanyListComponent implements OnInit {
+
+  companies!: CompanyResDto[];
+
+  constructor(private companyService: CompanyService) { }
+
   ngOnInit(): void {
     this.getCompany();
   }
+
   getCompany() {
     this.companyService.getAll().subscribe(result => {
       this.companies = result;
     })
-    
   }
+
+
   loading = false
 
   clear(table: Table) {
-    
     table.clear();
   }
 }

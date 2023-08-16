@@ -4,6 +4,7 @@ import { QuestionResDto } from "../../../dto/question/question.res.dto";
 import { QuestionService } from "../../../service/question.service";
 import { Subscription } from "rxjs";
 
+
 @Component({
   selector: 'question-list',
   templateUrl: './question-list.component.html',
@@ -19,6 +20,8 @@ export class QuestionListComponent implements OnInit,OnDestroy{
       this.questions = result;
     })
   }
+
+  questions! : QuestionResDto[]
 
   clear(table:Table){
     table.clear()
