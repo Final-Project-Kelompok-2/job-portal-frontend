@@ -10,7 +10,7 @@ import { Table } from "primeng/table";
 export class UserListComponent implements OnInit {
 
   loading = false
-  // users!: UsersResDto[]
+  // users!: UsersResDto[]  
 
   constructor() {
   }

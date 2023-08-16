@@ -13,7 +13,7 @@ export class UserService{
     constructor(private base : BaseService){}
 
     getByRole(roleCode : string) : Observable<UserResDto[]>{
-        return this.base.get<UserResDto[]>(`${BASE_URL}/users?roleCode=${roleCode}`);
+        return this.base.get<UserResDto[]>(`${BASE_URL}/users/filter?roleCode=${roleCode}`);
     }
 
     create(data : UserInsertReqDto) : Observable<InsertResDto>{

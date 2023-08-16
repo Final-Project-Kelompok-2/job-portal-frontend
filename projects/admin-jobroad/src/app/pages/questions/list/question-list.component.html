@@ -17,7 +17,8 @@
           <p-table #dt1 styleClass="p-datatable-sm" dataKey="id" [rows]="10" [showCurrentPageReport]="true"
             [rowsPerPageOptions]="[10, 25, 50]" [loading]="loading"
             currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
-            [globalFilterFields]="['name', 'country.name', 'representative.name', 'status']">
+            [globalFilterFields]="['name', 'country.name', 'representative.name', 'status']"
+            [value]="questions">
             <ng-template pTemplate="caption">
               <div class="flex">
                 <button pButton label="Clear" class="p-button-outlined" icon="pi pi-filter-slash"
@@ -43,10 +44,10 @@
 
               </tr>
             </ng-template>
-            <ng-template pTemplate="body" let-i="rowIndex">
+            <ng-template pTemplate="body" let-q let-i="rowIndex">
               <tr>
                 <td>{{ i+1 }}</td>
-                <td>Tatang Sutarman</td>
+                <td>{{q.questionDetail}}</td>
               </tr>
             </ng-template>
             <ng-template pTemplate="emptymessage">
