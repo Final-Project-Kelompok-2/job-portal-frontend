@@ -4,6 +4,8 @@ import { Observable } from "rxjs";
 
 import { BASE_URL } from "../constant/api.constant";
 import { CandidateUserInsertReqDto } from "../dto/candidate-user/candidate-user-insert.req.dto";
+import { InsertResDto } from "../dto/insert.res.dto";
+import { CandidateMasterInsertReqDto } from "../dto/candidate/candidate-master-insert.req.dto";
 
 
 @Injectable({

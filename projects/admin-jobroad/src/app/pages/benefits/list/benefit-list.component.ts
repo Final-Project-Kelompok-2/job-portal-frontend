@@ -1,18 +1,20 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnDestroy, OnInit } from "@angular/core";
 import { Table } from "primeng/table";
 import { BenefitResDto } from "../../../dto/benefit/benefit.res.dto";
 import { BenefitService } from "../../../service/benefit.service";
 import { NonNullableFormBuilder, Validators } from "@angular/forms";
+import { Subscription } from "rxjs";
 
 @Component({
   selector: 'benefit-list',
   templateUrl: './benefit-list.component.html',
   styleUrls: ['./benefit-list.component.css']
 })
-export class BenefitListComponent implements OnInit {
+export class BenefitListComponent implements OnInit,OnDestroy {
   loading = false
   visible: boolean = false;
   benefits!: BenefitResDto[];
+  benefitSubscription! : Subscription;
   benefitReqDto = this.fb.group({
     benefitName : ['',Validators.required]
   })
@@ -22,7 +24,7 @@ export class BenefitListComponent implements OnInit {
   }
 
   getBenefit(){
-    this.benefitService.getAll().subscribe(result =>{
+    this.benefitSubscription = this.benefitService.getAll().subscribe(result =>{
       this.benefits = result;
     })
   }
@@ -40,5 +42,9 @@ export class BenefitListComponent implements OnInit {
     this.getBenefit();
     this.benefitReqDto.reset();
     this.visible = false;
+  }
+
+  ngOnDestroy(): void {
+    this.benefitSubscription.unsubscribe();
   }
 }

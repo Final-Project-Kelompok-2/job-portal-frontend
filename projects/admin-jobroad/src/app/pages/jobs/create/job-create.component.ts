@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnDestroy, OnInit } from "@angular/core";
 import { JobService } from "../../../service/job.service";
 import { FormArray, NonNullableFormBuilder, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
@@ -15,12 +15,13 @@ import { BenefitService } from "../../../service/benefit.service";
 import { QuestionService } from "../../../service/question.service";
 import { FileUpload } from "primeng/fileupload";
 import { RoleCodeEnum } from "../../../constant/user-role.constant";
+import { Subscription } from "rxjs";
 
 @Component({
   selector:'job-create',
   templateUrl:'./job-create.component.html'
 }) 
-export class JobCreateComponent implements OnInit{
+export class JobCreateComponent implements OnInit,OnDestroy{
   loading = false
   jobReqDto = this.fb.group({
     jobName : ['',Validators.required],
@@ -37,37 +38,41 @@ export class JobCreateComponent implements OnInit{
     questions : this.fb.array([]),
     file : [''],
     fileExtension : ['']
-
-
   });
   hr! : UserResDto[];
+  hrSubscription! : Subscription;
   pic! : UserResDto[];
+  picSubscription! : Subscription;
   company! : CompanyResDto[];
+  companySubscription! : Subscription;
   employmentType! : EmployementTypeResDto[];
+  employmentTypeSubscription! : Subscription;
   benefit! : BenefitResDto[];
+  benefitSubscription! : Subscription;
   question! : QuestionResDto[];
+  questionSubscription! : Subscription;
   constructor(private jobService : JobService,private fb : NonNullableFormBuilder, 
     private router : Router,private userService : UserService , private employmentTypeService : EmploymentTypeService,
     private companyService : CompanyService,private benefitService : BenefitService,
     private questionService : QuestionService){}
     
   ngOnInit(): void {
-    this.userService.getByRole(RoleCodeEnum.HR).subscribe(result =>{
+    this.hrSubscription = this.userService.getByRole(RoleCodeEnum.HR).subscribe(result =>{
       this.hr = result;
     })
-    this.userService.getByRole(RoleCodeEnum.PIC).subscribe(result =>{
+    this.picSubscription = this.userService.getByRole(RoleCodeEnum.PIC).subscribe(result =>{
       this.pic = result;
     })
-    this.employmentTypeService.getAll().subscribe(result =>{
+    this.employmentTypeSubscription = this.employmentTypeService.getAll().subscribe(result =>{
       this.employmentType = result;
     })
-    this.companyService.getAll().subscribe(result =>{
+    this.companySubscription = this.companyService.getAll().subscribe(result =>{
       this.company = result;
     })
-    this.benefitService.getAll().subscribe(result =>{
+    this.benefitSubscription = this.benefitService.getAll().subscribe(result =>{
       this.benefit = result;
     })
-    this.questionService.getAll().subscribe(result =>{
+    this.questionSubscription = this.questionService.getAll().subscribe(result =>{
       this.question = result;
     })
   }
@@ -119,5 +124,13 @@ export class JobCreateComponent implements OnInit{
         fileUpload.clear();
       })
     }
+  }
+  ngOnDestroy(): void {
+    this.hrSubscription.unsubscribe(); 
+    this.picSubscription.unsubscribe();
+    this.employmentTypeSubscription.unsubscribe();
+    this.companySubscription.unsubscribe();
+    this.benefitSubscription.unsubscribe();
+    this.questionSubscription.unsubscribe();
   }
 }
