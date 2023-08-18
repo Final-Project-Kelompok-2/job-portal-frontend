@@ -1,25 +1,66 @@
 <!-- <div class="header"> -->
-    <!-- header-->
-    <!-- <div class="columns the-header is-marginless">
+<!-- header-->
+<!-- <div class="columns the-header is-marginless">
         <div class="column header-text is-6 is-offset-3 is-12-mobile">
-            <p class="title">Browse Our <br> Collection!</p>
+            <p class="title">{{job?.jobName}}</p>
             <br>
             <p class="subtitle has-text-black">
-                Tap on any product to view the specification. For further detail, feel free to get in touch.
+                {{job?.description}}
             </p>
-            <img class="header-background" [src]="job?.fileId | url" id="header-background-id" alt="background-img">
         </div>
     </div> -->
-    <!-- header ends -->
-    <!-- test -->
-    <!-- <div class="column is-12 has-text-centered">
-        <img class="profile-picture" src="https://unsplash.it/300/300/?random&pic=1(14 kB)" alt="profile-picture">
-    </div> -->
-    <!-- test -->
-<!-- </div> -->
+<!-- header ends -->
+<!-- test -->
 
-<div class="body">
-    {{job?.description}}
+<!-- test -->
+<!-- </div> -->
+<div class="grid">
+    <p-card class="col-12">
+        <!-- <img class="banner" [src]="job?.companyPhotoId | url" alt="company-logo"> -->
+        <div class="grid">
+            <div class="col-offset-1 col-11 md:col-offset-5 md:col-2">
+                <img class="profile-picture" [src]="job?.fileId | url" alt="profile-picture">
+            </div>
+            <div class="col-12 md:col-6">
+                <h2 class="title">{{job?.jobName}}</h2>
+                <h4><i class="pi pi-building"></i> {{job?.companyName}}</h4>
+                <h4><i class="pi pi-inbox"></i> Job Description : </h4>
+                <p class="subtitle has-text-black">
+                    {{job?.description}}
+                </p>
+            </div>
+            <div class="md:col-offset-2 md:col-4">
+                <div class="grid mt-2">
+                    <div class="col-4"><i class="pi pi-home"></i> Address</div>
+                    <div class="col-1">:</div>
+                    <div class="col-7">{{job?.address}}</div>
+                    <div class="col-4"><i class="pi pi-clock"></i> Open</div>
+                    <div class="col-1">:</div>
+                    <div class="col-7">{{job?.startDate}}</div>
+                    <div class="col-4"><i class="pi pi-clock"></i> Close</div>
+                    <div class="col-1">:</div>
+                    <div class="col-7">{{job?.endDate}}</div>
+                    <div class="col-4"><i class="pi pi-briefcase"></i> Job Type</div>
+                    <div class="col-1">:</div>
+                    <div class="col-7">{{job?.employementTypeName}}</div>
+                    <div class="col-4"><i class="pi pi-money-bill"></i> Salary Range</div>
+                    <div class="col-1">:</div>
+                    <div class="col-7">Rp. {{job?.expectedSalaryMin}} - Rp. {{job?.expectedSalaryMax}}</div>
+                </div>
+            </div>
+        </div>
+
+    </p-card>
+</div>
+
+
+
+
+<div class="col-12 md:col-9 title">
+    <h2>Applicant List</h2>
+</div>
+<div class="col-12 md:col-3 buttons">
+    <app-button type="button" label="Back" class="mr-2" classBtn="p-button-secondary" link="/jobs"></app-button>
 </div>
 
 <div class="applicant-list">
@@ -67,23 +108,16 @@
                         <p-columnFilter type="text" field="name" display="menu"></p-columnFilter>
                     </div>
                 </th>
-                <th style="min-width:10rem">
-                    <div class="flex align-items-center">
-                        Option
-                        <p-columnFilter type="text" field="name" display="menu"></p-columnFilter>
-                    </div>
-                </th>
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-a let-i="rowIndex">
-            <tr>
+            <tr routerLink="/applicant/{{jobId}}/{{a.id}}" class="cursor-pointer">
                 <td>{{ i+1 }}</td>
                 <td>{{a.applicantCode}}</td>
                 <td>{{a.appliedDate}}</td>
                 <td>{{a.statusName}}</td>
                 <td>{{a.candidateName}}</td>
-                <td> <app-button type="button" label="Detail" class="mr-2" classBtn="p-button-secondary"
-                        link=""></app-button></td>
+
             </tr>
         </ng-template>
     </p-table>
