@@ -10,20 +10,20 @@ import { UpdateResDto } from "../dto/update.res.dto";
 import { ApplicantUpdateReqDto } from "../dto/applicant/applicant-update.req.dto";
 
 @Injectable({
-    providedIn : 'root'
+    providedIn: 'root'
 })
-export class ApplicantService{
-    constructor(private base : BaseService){}
-    getByJob(jobId : string) : Observable<ApplicantResDto[]>{
+export class ApplicantService {
+    constructor(private base: BaseService) { }
+    getByJob(jobId: string): Observable<ApplicantResDto[]> {
         return this.base.get<ApplicantResDto[]>(`${BASE_URL}/applicants?jobId=${jobId}`);
 
     }
 
-    create(data : ApplicantInsertReqDto) : Observable<InsertResDto>{
-        return this.base.post<InsertResDto>(`${BASE_URL}/applicants`,data);
+    create(data: ApplicantInsertReqDto): Observable<InsertResDto> {
+        return this.base.post<InsertResDto>(`${BASE_URL}/applicants`, data);
     }
 
-    update(data : ApplicantUpdateReqDto) : Observable<UpdateResDto>{
-        return this.base.patch<UpdateResDto>(`${BASE_URL}/applicants`,data);
+    update(data: ApplicantUpdateReqDto): Observable<UpdateResDto> {
+        return this.base.patch<UpdateResDto>(`${BASE_URL}/applicants`, data);
     }
 }
