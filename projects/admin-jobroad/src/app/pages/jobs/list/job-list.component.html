@@ -15,21 +15,8 @@
 
         <div class="card col-12">
           <p-table #dt1 styleClass="p-datatable-sm" dataKey="id" [rows]="10" [showCurrentPageReport]="true"
-            [rowsPerPageOptions]="[10, 25, 50]" [loading]="loading"
-            currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
-            [globalFilterFields]="['name', 'country.name', 'representative.name', 'status']" [value]="jobs">
-            <ng-template pTemplate="caption">
-              <div class="flex">
-                <button pButton label="Clear" class="p-button-outlined" icon="pi pi-filter-slash"
-                  (click)="clear(dt1)"></button>
-                <span class="p-input-icon-left ml-auto">
-                  <i class="pi pi-search"></i>
-                  <input pInputText type="text" placeholder="Search keyword" />
-                </span>
-                <!-- [masukin kedalem tag input, setelah type = "text"] => (input)="dt1.filterGlobal($event.target.value, 'contains')" -->
-              </div>
-            </ng-template>
-
+            [rowsPerPageOptions]="[10, 25, 50]" [loading]="loading" selectionMode="single"
+            currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [value]="jobs">
             <ng-template pTemplate="header">
               <tr>
                 <th>
@@ -63,25 +50,17 @@
                 <th style="min-width:10rem">
                   <div class="flex align-items-center">
                     Min Salary
-                    <p-columnFilter type="text" field="name" display="menu"></p-columnFilter>
                   </div>
                 </th>
                 <th style="min-width:10rem">
                   <div class="flex align-items-center">
                     Max Salary
-                    <p-columnFilter type="text" field="name" display="menu"></p-columnFilter>
-                  </div>
-                </th>
-                <th style="min-width:10rem">
-                  <div class="flex align-items-center">
-                    Option
-                    <p-columnFilter type="text" field="name" display="menu"></p-columnFilter>
                   </div>
                 </th>
               </tr>
             </ng-template>
             <ng-template pTemplate="body" let-j let-i="rowIndex">
-              <tr>
+              <tr routerLink="/jobs/detail/{{j.id}}">
                 <td>{{ i+1 }}</td>
                 <td>{{j.jobName}}</td>
                 <td>{{j.companyName}}</td>
@@ -91,13 +70,11 @@
                 <td>{{j.statusName}}</td>
                 <td>{{j.expectedSalaryMin}}</td>
                 <td>{{j.expectedSalaryMax}}</td>
-                <td> <app-button type="button" label="Detail" class="mr-2" classBtn="p-button-secondary"
-                    link="/jobs/detail/{{j.id}}"></app-button></td>
               </tr>
             </ng-template>
             <ng-template pTemplate="emptymessage">
               <tr>
-                <td colspan="7">No jobs found.</td>
+                <td colspan="8">No jobs found.</td>
 
               </tr>
             </ng-template>
