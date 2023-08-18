@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { BaseService } from "./base.service";
 import { Observable } from "rxjs";
-import { BASE_URL } from "../constant/api.constant";
+import { BASE_URL } from "../constant copy/api.constant";
 import { CandidateAddressInsertReqDto } from "../dto/candidate-address/candidate-address-insert.req.dto";
 import { CandidateAddressResDto } from "../dto/candidate-address/candidate-address.res.dto";
 import { UpdateResDto } from "../dto/update.res.dto";
@@ -16,7 +16,6 @@ export class CandidateAddressService{
     constructor(private base : BaseService){}
     getByCandidate(id : string) : Observable<CandidateAddressResDto[]>{
         return this.base.get<CandidateAddressResDto[]>(`${BASE_URL}/candidate-address?id=${id}`);
-
     }
 
     create(data : CandidateAddressInsertReqDto) : Observable<InsertResDto>{

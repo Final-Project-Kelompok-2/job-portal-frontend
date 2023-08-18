@@ -16,19 +16,19 @@ import { DeleteResDto } from "../dto/delete.res.dto";
 export class CandidateTrainingExpService{
     constructor(private base : BaseService){}
     getByCandidate(id : string) : Observable<CandidateTrainingResDto[]>{
-        return this.base.get<CandidateTrainingResDto[]>(`${BASE_URL}/candidate-experiences?id=${id}`);
+        return this.base.get<CandidateTrainingResDto[]>(`${BASE_URL}/candidate-trainings?id=${id}`);
 
     }
 
     create(data : CandidateTrainingInsertReqDto) : Observable<InsertResDto>{
-        return this.base.post<InsertResDto>(`${BASE_URL}/candidate-experiences`,data);
+        return this.base.post<InsertResDto>(`${BASE_URL}/candidate-trainings`,data);
     }
 
     update(data : CandidateTrainingUpdateReqDto) : Observable<UpdateResDto>{
-        return this.base.patch<UpdateResDto>(`${BASE_URL}/candidate-experiences`,data);
+        return this.base.patch<UpdateResDto>(`${BASE_URL}/candidate-trainings`,data);
     }
 
     delete(id : string) : Observable<DeleteResDto>{
-        return this.base.delete<DeleteResDto>(`${BASE_URL}/candidate-experiences/${id}`,true);
+        return this.base.delete<DeleteResDto>(`${BASE_URL}/candidate-trainings/${id}`,true);
     }
 }

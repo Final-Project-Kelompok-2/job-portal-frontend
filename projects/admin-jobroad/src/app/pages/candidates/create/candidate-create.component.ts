@@ -464,7 +464,7 @@ export class CandidateCreateComponent implements OnInit {
   onAddDocument() {
     if (this.documentInsertReqDto.valid) {
       const data = this.documentInsertReqDto.getRawValue()
-      console.log(data)
+      data
       this.candidateDocuments.push(this.fb.group(data))
       this.documentInsertReqDto.reset()
       this.dialogDocument = false

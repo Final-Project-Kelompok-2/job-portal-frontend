@@ -28,4 +28,17 @@ export class CandidateListComponent implements OnInit {
   clear(table: Table) {
     table.clear();
   }
+
+  checker(statusName: string) {
+    if (statusName == "Active") {
+      return "success";
+    }
+    else if (statusName == "On Process") {
+      return "warning"
+    }
+    else {
+      return "danger"
+    }
+  }
+
 }

@@ -7,22 +7,17 @@
           <h2>Candidate List</h2>
         </div>
         <div class="col-12 md:col-3 buttons">
-          <app-button type="button"  label="Back" class="mr-2" classBtn="p-button-secondary"
+          <app-button type="button" label="Back" class="mr-2" classBtn="p-button-secondary"
             link="/dashboard"></app-button>
-          <app-button backgroundColor="var(--PRIMARY)" type="button" iconBtn="pi pi-fw pi-plus" label="Add new candidate" classBtn="p-button-primary"
-            link="/candidates/new"></app-button>
+          <app-button backgroundColor="var(--PRIMARY)" type="button" iconBtn="pi pi-fw pi-plus"
+            label="Add new candidate" classBtn="p-button-primary" link="/candidates/new"></app-button>
         </div>
 
         <div class="card col-12">
-          <p-table
-          [value]="candidates"
-          [paginator]="true"
-          [rows]="5"
-          [showCurrentPageReport]="true"
-          [tableStyle]="{ 'min-width': '50rem' }"
-          currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
-          [rowsPerPageOptions]="[10, 25, 50]"
-      >
+          <p-table [value]="candidates" [paginator]="true" [rows]="5" [showCurrentPageReport]="true"
+            [tableStyle]="{ 'min-width': '50rem' }"
+            currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+            [rowsPerPageOptions]="[10, 25, 50]" selectionMode="single">
             <ng-template pTemplate="header">
               <tr>
                 <th>
@@ -30,7 +25,12 @@
                 </th>
                 <th style="min-width:15rem">
                   <div class="flex align-items-center">
-                    Name
+                    NIK
+                  </div>
+                </th>
+                <th style="min-width:15rem">
+                  <div class="flex align-items-center">
+                    Full Name
                   </div>
                 </th>
                 <th style="min-width:15rem">
@@ -40,25 +40,24 @@
                 </th>
                 <th style="min-width:15rem">
                   <div class="flex align-items-center">
-                    Status
+                    Experience
                   </div>
                 </th>
                 <th style="min-width:15rem">
                   <div class="flex align-items-center">
-                    Option
+                    Status
                   </div>
                 </th>
               </tr>
             </ng-template>
             <ng-template pTemplate="body" let-c let-i="rowIndex">
-              <tr>
+              <tr routerLink="/candidates/detail/{{ c.id }}" class="cursor-pointer">
                 <td>{{ i+1 }}</td>
+                <td>{{ c.nik }}</td>
+                <td>{{ c.fullname }}</td>
                 <td>{{ c.userEmail }}</td>
-                <td>{{ c.fullName }}</td>
-                <td>{{ c.statusname }}</td>
-                <td>
-                  <app-button label="See Detail" backgroundColor="var(--PRIMARY)" typeBtn="button" ></app-button>
-                </td>
+                <td>{{ c.experience }} Years</td>
+                <td>{{ c.candidateStatus }}</td>
               </tr>
             </ng-template>
             <ng-template pTemplate="emptymessage">

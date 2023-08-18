@@ -539,7 +539,6 @@
                 <tr>
                   <th>No.</th>
                   <th>Document Name</th>
-                  <th>Document Type</th>
                   <th></th>
                 </tr>
               </ng-template>
@@ -547,7 +546,6 @@
                 <tr>
                   <td>{{ i + 1 }}</td>
                   <td>{{ document.docName }}.{{ document.fileExtension}}</td>
-                  <td>{{ document.fileTypeCode }}</td>
                   <td>
                     <app-button typeBtn="button" (click)="onDeleteDocument(i)" iconBtn="pi pi-trash"
                       backgroundColor="danger"
@@ -570,7 +568,7 @@
 </div>
 
 <!-- Dialog Add Address -->
-<p-dialog header="Add Address" [(visible)]="dialogAddress" [style]="{width: '30vw'}">
+<p-dialog header="Add Address" [modal]="true"  [(visible)]="dialogAddress" [style]="{width: '30vw'}">
   <form [formGroup]="addressInsertReqDto">
     <pre>{{ addressInsertReqDto.value | json }}</pre>
     <div class="p-fluid p-formgrid grid">
@@ -829,7 +827,7 @@
 
 
 <!-- Dialog Add Project -->
-<p-dialog header="Add Project" [(visible)]="dialogProject" [style]="{width: '30vw'}">
+<p-dialog header="Add Project"  [modal]="true"  [(visible)]="dialogProject" [style]="{width: '30vw'}">
   <pre>{{ projectInsertReqDto.value | json }}</pre>
   <form [formGroup]="projectInsertReqDto">
     <div class="p-fluid p-formgrid grid">
@@ -863,7 +861,7 @@
 
 
 <!-- Dialog Add Training -->
-<p-dialog header="Add Training" [(visible)]="dialogTraining" [style]="{width: '30vw'}">
+<p-dialog header="Add Training" [modal]="true"  [(visible)]="dialogTraining" [style]="{width: '30vw'}">
   <form [formGroup]="trainingInsertReqDto">
     <pre>{{ trainingInsertReqDto.value | json }}</pre>
     <div class="p-fluid p-formgrid grid">
@@ -896,7 +894,8 @@
 </p-dialog>
 
 <!-- Dialog Add Documents -->
-<p-dialog header="Add Documents" [modal]="true" [(visible)]="dialogDocument" [style]="{width: '30vw'}">
+<p-dialog header="Add Documents" [modal]="true"  [(visible)]="dialogDocument" [style]="{width: '30vw'}">
+
   <form [formGroup]="documentInsertReqDto">
     <pre>{{ documentInsertReqDto.value | json }}</pre>
     <div class="p-fluid p-formgrid grid">
