@@ -7,6 +7,7 @@ import { CandidateUserInsertReqDto } from "../dto/candidate-user/candidate-user-
 import { InsertResDto } from "../dto/insert.res.dto";
 import { CandidateMasterInsertReqDto } from "../dto/candidate/candidate-master-insert.req.dto";
 import { CandidateUserResDto } from "../dto/candidate-user/candidate-user.res.dto";
+import { LoginReqDto } from "../dto/login/login.req.dto";
 
 @Injectable({
     providedIn: 'root'
@@ -27,7 +28,9 @@ export class CandidateUserService {
         return this.base.get<CandidateUserResDto[]>(`${BASE_URL}/candidate-user`);
     }
 
-    getCandidateUserById(id : String) : Observable<CandidateUserResDto> {
+    getCandidateUserById(id: String): Observable<CandidateUserResDto> {
         return this.base.get<CandidateUserResDto>(`${BASE_URL}/candidate-user/detail?id=${id}`)
     }
+
+
 }
