@@ -17,6 +17,7 @@ import { CandidateModule } from "./pages/candidates/candidate.module";
 import { BenefitModule } from "./pages/benefits/benefit.module";
 import { QuestionModule } from "./pages/questions/question.module";
 import { NotFoundComponent } from "./component/not-found/not-found.component";
+import { ApplicantModule } from "./pages/applicant/applicant.module";
 
 
 const routes: Routes = [
@@ -37,6 +38,11 @@ const routes: Routes = [
     component: BaseComponent,
     path: 'users',
     loadChildren: () => import('./pages/users/user.module').then(u => UserModule),
+  },
+  {
+    component : BaseComponent,
+    path : 'applicant',
+    loadChildren : () => import('./pages/applicant/applicant.module').then(a => ApplicantModule)
   },
   {
     component: BaseComponent,

@@ -5,10 +5,10 @@ import { SharedModuleComponent } from "../../component/shared-module";
 import { ButtonComponent } from "../../component/button/button.component";
 import { CommonModule } from "@angular/common";
 import { UrlPipe } from "../../pipe/url.pipe";
-
+import { StepsModule } from 'primeng/steps';
 const routes: Routes = [
     {
-        path:'applicant/:jobId/:applicantId',
+        path:':jobId/:applicantId',
         component : ApplicantDetailComponent
     }
 ]
@@ -21,7 +21,8 @@ const routes: Routes = [
         SharedModuleComponent,
         ButtonComponent,
         CommonModule,
-        UrlPipe
+        UrlPipe,
+        StepsModule
     ]
 })
 export class ApplicantRouting {
