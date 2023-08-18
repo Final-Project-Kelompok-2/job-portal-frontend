@@ -120,8 +120,13 @@ export class CandidateDetailComponent implements OnInit {
             this.candidateWorkExpService.getByCandidate(res['id'])
                 .subscribe((res) => {
                     this.candidateWorks = res
+                })    
+            
+            this.candidateDocumentService.getByCandidate(res['id'])
+                .subscribe((res) => {
+                    this.candidateDocuments = res
                 })
         })
 
     }
-  }
+}
