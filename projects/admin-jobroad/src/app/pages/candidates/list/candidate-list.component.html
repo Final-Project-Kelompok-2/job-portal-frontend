@@ -17,7 +17,7 @@
           <p-table [value]="candidates" [paginator]="true" [rows]="5" [showCurrentPageReport]="true"
             [tableStyle]="{ 'min-width': '50rem' }"
             currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
-            [rowsPerPageOptions]="[10, 25, 50]">
+            [rowsPerPageOptions]="[10, 25, 50]" selectionMode="single">
             <ng-template pTemplate="header">
               <tr>
                 <th>
@@ -38,21 +38,17 @@
                     Status
                   </div>
                 </th>
-                <th style="min-width:15rem">
-                  <div class="flex align-items-center">
-                    Option
-                  </div>
-                </th>
               </tr>
             </ng-template>
             <ng-template pTemplate="body" let-c let-i="rowIndex">
-              <tr routerLink="/candidates/detail/{{c.id}}" class="cursor-pointer">
+              <tr routerLink="/candidates/detail/{c.id}" class="cursor-pointer">
                 <td>{{ i+1 }}</td>
-                <td>{{ c.fullName }}</td>
-                <td>{{ c.userEmail }}</td>
-                <td>{{ c.statusname }}</td>
+                <td>{{ c.fullname }}</td>
                 <td>
-                  <app-button label="See Detail" backgroundColor="var(--PRIMARY)" typeBtn="button"></app-button>
+                  {{ c.userEmail }}</td>
+                <!-- <td [class]="checker(c.statusName)">{{ c.statusName }}</td> -->
+                <td>
+                  <p-badge [value]="c.statusName" [severity]="checker(c.statusName)"></p-badge>
                 </td>
               </tr>
             </ng-template>

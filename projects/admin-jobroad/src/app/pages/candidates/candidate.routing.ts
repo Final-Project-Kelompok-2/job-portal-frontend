@@ -6,15 +6,16 @@ import { ButtonComponent } from "../../component/button/button.component";
 import { CandidateCreateComponent } from "./create/candidate-create.component";
 import { CommonModule } from "@angular/common";
 import { CandidateDetailComponent } from "./detail/candidate-detail.component";
+import { BadgeModule } from 'primeng/badge';
 
 const routes: Routes = [
   {
-    path:'',
-    component:CandidateListComponent
+    path: '',
+    component: CandidateListComponent
   },
   {
-    path:'new',
-    component:CandidateCreateComponent
+    path: 'new',
+    component: CandidateCreateComponent
   },
   {
     path:'detail/:id',
@@ -22,18 +23,19 @@ const routes: Routes = [
   }
 ]
 @NgModule({
-  declarations:[
+  declarations: [
     CandidateListComponent,
     CandidateCreateComponent,
     CandidateDetailComponent
   ],
-  imports:[
+  imports: [
     RouterModule.forChild(routes),
     SharedModuleComponent,
     ButtonComponent,
-    CommonModule
+    CommonModule,
+    BadgeModule
   ],
-  exports:[
+  exports: [
 
   ]
 })

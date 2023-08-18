@@ -9,22 +9,22 @@ import { CandidateMasterInsertReqDto } from "../dto/candidate/candidate-master-i
 import { CandidateUserResDto } from "../dto/candidate-user/candidate-user.res.dto";
 
 @Injectable({
-    providedIn : 'root'
+    providedIn: 'root'
 })
-export class CandidateUserService{
-    constructor(private base : BaseService){}
+export class CandidateUserService {
+    constructor(private base: BaseService) { }
 
 
-    create(data : CandidateUserInsertReqDto) : Observable<InsertResDto>{
-        return this.base.post<InsertResDto>(`${BASE_URL}/candidate-user`,data);
+    create(data: CandidateUserInsertReqDto): Observable<InsertResDto> {
+        return this.base.post<InsertResDto>(`${BASE_URL}/candidate-user`, data);
     }
 
-    register(data : CandidateMasterInsertReqDto) : Observable<InsertResDto>{
-        return this.base.post<InsertResDto>(`${BASE_URL}/candidate-user/register`,data);
+    register(data: CandidateMasterInsertReqDto): Observable<InsertResDto> {
+        return this.base.post<InsertResDto>(`${BASE_URL}/candidate-user/register`, data);
     }
 
-    getAll() : Observable<CandidateUserResDto[]>{
-      return this.base.get<CandidateUserResDto[]>(`${BASE_URL}/candidate-user`);
+    getAll(): Observable<CandidateUserResDto[]> {
+        return this.base.get<CandidateUserResDto[]>(`${BASE_URL}/candidate-user`);
 
-  }
+    }
 }
