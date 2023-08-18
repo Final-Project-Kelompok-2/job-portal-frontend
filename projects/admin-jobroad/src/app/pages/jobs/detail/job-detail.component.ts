@@ -20,6 +20,7 @@ export class JobDetailComponent implements OnInit, OnDestroy{
     jobSubscription! : Subscription
     applicantSubscription! : Subscription;
     loading = false;
+    jobId! : string;
     constructor(private jobService : JobService,
         private applicantService : ApplicantService,private activated : ActivatedRoute){}
     ngOnInit(): void {
@@ -27,6 +28,7 @@ export class JobDetailComponent implements OnInit, OnDestroy{
             this.jobSubscription = this.jobService.getByDetail(param['id']).subscribe(result =>{
                 this.job = result;
             });
+            this.jobId = param['id'];
             this.applicantSubscription = this.applicantService.getByJob(param['id']).subscribe(result =>{
                 this.applicant = result;
             });
