@@ -25,6 +25,9 @@ export class CandidateUserService {
 
     getAll(): Observable<CandidateUserResDto[]> {
         return this.base.get<CandidateUserResDto[]>(`${BASE_URL}/candidate-user`);
+    }
 
+    getCandidateUserById(id : String) : Observable<CandidateUserResDto> {
+        return this.base.get<CandidateUserResDto>(`${BASE_URL}/candidate-user/detail?id=${id}`)
     }
 }

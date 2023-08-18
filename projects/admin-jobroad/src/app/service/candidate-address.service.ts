@@ -17,8 +17,8 @@ import { CandiateAddressUpdateReqDto } from "../dto/candidate-address/candidate-
 export class CandidateAddressService{
     constructor(private base : BaseService){}
     getByCandidate(id : string) : Observable<CandidateAddressResDto[]>{
+        console.log(id);
         return this.base.get<CandidateAddressResDto[]>(`${BASE_URL}/candidate-address?id=${id}`);
-
     }
 
     create(data : CandidateAddressInsertReqDto) : Observable<InsertResDto>{

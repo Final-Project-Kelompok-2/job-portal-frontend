@@ -4,4 +4,23 @@ export interface CandidateUserResDto {
   fullName:string
 	statusName:string
   profileId: string
+	salutation : string
+	fullname : string
+	gender : string
+	experience : string
+	expectedSalary : number
+	phoneNumber : string
+	mobileNumber : string
+	nik : string
+	birthDate : string
+	birthPlace : string
+	maritalStatus : string
+	maritalStatusId : string
+	religion : string
+	religionId : string
+	personType : string
+	personTypeId : string
+	fileId : string
+	candidateStatus : string
+	candidateStatusId : string
 }

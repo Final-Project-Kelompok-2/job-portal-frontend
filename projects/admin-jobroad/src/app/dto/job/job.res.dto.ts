@@ -10,4 +10,5 @@ export interface JobResDto{
 	 expectedSalaryMax: string;
 	 employementTypeName: string;
 	 fileId: string;
+	 companyPhotoId : string;
 }

@@ -60,14 +60,13 @@
               </tr>
             </ng-template>
             <ng-template pTemplate="body" let-j let-i="rowIndex">
-              <tr routerLink="/jobs/detail/{{j.id}}">
+              <tr routerLink="/jobs/detail/{{j.id}}" class="cursor-pointer">
                 <td>{{ i+1 }}</td>
                 <td>{{j.jobName}}</td>
                 <td>{{j.companyName}}</td>
                 <td>{{j.startDate}}</td>
                 <td>{{j.endDate}}</td>
-                <td>{{j.employmentTypeName}}</td>
-                <td>{{j.statusName}}</td>
+                <td>{{j.employementTypeName}}</td>
                 <td>{{j.expectedSalaryMin}}</td>
                 <td>{{j.expectedSalaryMax}}</td>
               </tr>
