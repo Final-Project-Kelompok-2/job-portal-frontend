@@ -5,6 +5,8 @@ import { SharedModuleComponent } from "../../component/shared-module";
 import { ButtonComponent } from "../../component/button/button.component";
 import { CandidateCreateComponent } from "./create/candidate-create.component";
 import { CommonModule } from "@angular/common";
+import { CandidateDetailComponent } from "./detail/candidate-detail.component";
+import { UrlPipe } from "../../pipe/url.pipe";
 
 const routes: Routes = [
   {
@@ -14,18 +16,24 @@ const routes: Routes = [
   {
     path:'new',
     component:CandidateCreateComponent
+  },
+  {
+    path:'detail/:id',
+    component:CandidateDetailComponent
   }
 ]
 @NgModule({
   declarations:[
     CandidateListComponent,
-    CandidateCreateComponent
+    CandidateCreateComponent,
+    CandidateDetailComponent
   ],
   imports:[
     RouterModule.forChild(routes),
     SharedModuleComponent,
     ButtonComponent,
-    CommonModule
+    CommonModule,
+    UrlPipe
   ],
   exports:[
 
