@@ -8,6 +8,7 @@ import { ButtonComponent } from "./component/button/button.component";
 import { DashboardComponent } from "./pages/dashboard/dashboard.component";
 import { BaseComponent } from "./component/base/base.component";
 import { BaseModule } from "./component/base/base.module";
+import { NotFoundComponent } from "./component/not-found/not-found.component";
 
 const routes: Routes = [
     {
@@ -27,16 +28,22 @@ const routes: Routes = [
         path: '',
         redirectTo: '/login',
         pathMatch: 'full'
+    },
+    {
+        path: '**',
+        component: NotFoundComponent
     }
 ]
 
 @NgModule({
-    declarations: [LoginComponent
+    declarations: [LoginComponent,
+        NotFoundComponent,
+        DashboardComponent
     ],
     exports: [
         LoginComponent,
         RouterModule,
-        BaseModule
+        BaseModule,
     ],
     imports: [
         RouterModule.forRoot(routes),
