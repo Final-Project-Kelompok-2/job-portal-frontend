@@ -1,6 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { CandidateAddressService } from "../../../service/candidate-address.service";
-import { Form, FormArray, NonNullableFormBuilder, Validators } from "@angular/forms";
+import { FormArray, NonNullableFormBuilder, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
 import { CandidateTrainingInsertReqDto } from "../../../dto/candidate-training/candidate-training-insert.req.dto";
 import { FileUpload } from "primeng/fileupload";
@@ -22,6 +21,8 @@ import { MaritalStatusService } from "../../../service/maritalstatus.service";
 import { MaritalResDto } from "../../../dto/marital/marital.res.dto";
 import { CandidateUserService } from "../../../service/candidate-user.service";
 import { CandidateDocumentInsertReqDto } from "../../../dto/candidate-document/candidate-document-insert.req.dto";
+import { FileTypeService } from "../../../service/file-type.service";
+import { FileTypeResDto } from "../../../dto/file-type/file-type.res.dto";
 
 interface Salutation {
   value: string;
@@ -69,11 +70,12 @@ export class CandidateCreateComponent implements OnInit {
   degrees: Degree[] | undefined
   salutations: Salutation[] | undefined
   genders: Gender[] | undefined
+  residenceType: ResidenceType[] | undefined
   maritals!: MaritalResDto[]
   religions!: ReligionResDto[]
   types!: PersonTypeResDto[]
-  residenceType: ResidenceType[] | undefined
   candidateStatus!: CandidateStatusResDto[]
+  fileTypes! : FileTypeResDto[]
 
   constructor(
     private candidateService: CandidateUserService,
@@ -81,6 +83,7 @@ export class CandidateCreateComponent implements OnInit {
     private personTypeService : PersonTypeService,
     private candidateStatusService : CandidateStatusService,
     private maritalStatusService : MaritalStatusService,
+    private fileTypeService : FileTypeService,
     private fb: NonNullableFormBuilder,
     private router: Router
   ) { }
@@ -215,6 +218,10 @@ export class CandidateCreateComponent implements OnInit {
       this.maritals = res
     })
 
+    this.fileTypeService.getAll().subscribe((res) => {
+      this.fileTypes = res
+    })
+
     this.salutations = [
       { value: 'Mr.', label: 'Mr.' },
       { value: 'Mrs.', label: 'Mrs.' }
@@ -282,7 +289,6 @@ export class CandidateCreateComponent implements OnInit {
       this.candidateService.register(data).subscribe((res) => {
         this.router.navigateByUrl('/candidates')
       })
-      console.log("Insert Candidate Profile!");
     }
   }
 
@@ -419,7 +425,7 @@ export class CandidateCreateComponent implements OnInit {
   onAddDocument() {
     if (this.documentInsertReqDto.valid) {
       const data = this.documentInsertReqDto.getRawValue()
-
+      console.log(data)
       this.candidateDocuments.push(this.fb.group(data))
       this.documentInsertReqDto.reset()
       this.dialogDocument = false
@@ -443,6 +449,31 @@ export class CandidateCreateComponent implements OnInit {
 
         this.candidateMasterInsertReqDto.patchValue({
           file: resultBase64,
+          fileExtension: resultExtension
+        })
+
+        fileUpload.clear()
+      })
+    }
+  }
+
+  fileUploadDoc(event: any, fileUpload: FileUpload) {
+    const toBase64 = (file: File) => new Promise<string>((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        if (typeof reader.result === "string") resolve(reader.result)
+      };
+      reader.onerror = error => reject(error);
+    });
+
+    for (let file of event.files) {
+      toBase64(file).then(result => {
+        const resultBase64 = result.substring(result.indexOf(",") + 1, result.length)
+        const resultExtension = file.name.substring(file.name.indexOf(".") + 1, file.name.length)
+
+        this.documentInsertReqDto.patchValue({
+          fileName: resultBase64,
           fileExtension: resultExtension
         })
 
