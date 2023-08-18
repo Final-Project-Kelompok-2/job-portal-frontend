@@ -2,10 +2,10 @@ import { NgModule } from "@angular/core";
 import { ApplicantRouting } from "./applicant.routing";
 
 @NgModule({
-    imports : [
+    imports: [
         ApplicantRouting
     ]
 })
-export class ApplicantModule{
+export class ApplicantModule {
 
 }
