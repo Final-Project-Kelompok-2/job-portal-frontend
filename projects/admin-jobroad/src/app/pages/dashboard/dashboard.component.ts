@@ -23,68 +23,68 @@ export class DashboardComponent implements OnInit {
 
   fullName = ''
   salutation = ''
-  companies! : CompanyResDto[]
+  companies!: CompanyResDto[]
   jobs!: JobResDto[]
   jobSize = 0
-  benefits!:BenefitResDto[]
+  benefits!: BenefitResDto[]
   benefitSize = 0
-  questions!:QuestionResDto[]
+  questions!: QuestionResDto[]
   questionSize = 0
-  candidates!:CandidateUserResDto[]
+  candidates!: CandidateUserResDto[]
   candidateSize = 0
   companySize = 0
-  users! : UserResDto[]
+  users!: UserResDto[]
   userSize = 0
 
-  constructor(private authService : AuthService, private companyService:CompanyService,private userService : UserService,private jobService:JobService, private benefitService:BenefitService,private questionService:QuestionService,private candidateService:CandidateUserService){
+  constructor(private authService: AuthService, private companyService: CompanyService, private userService: UserService, private jobService: JobService, private benefitService: BenefitService, private questionService: QuestionService, private candidateService: CandidateUserService) {
 
   }
 
   ngOnInit(): void {
     const profile = this.authService.getProfile()
 
-    if(profile){
+    if (profile) {
       this.fullName = profile.fullName
       // this.salutation = profile
     }
-
     this.getCompanies()
     this.getUsers()
     this.getAllBenefits()
     this.getAllJobs()
     this.getAllQuestions()
+    this.getAllCandidates()
   }
 
-  getCompanies(){
+  getCompanies() {
     this.companyService.getAll().subscribe(result => {
       this.companies = result
       this.companySize = this.companies.length
     })
   }
 
-  getUsers(){
+  getUsers() {
     this.userService.getAllUser().subscribe(result => {
       this.users = result
       this.userSize = this.users.length
     })
   }
 
-  getAllJobs(){
-    this.jobService.getAll().subscribe(result =>{
+  getAllJobs() {
+    this.jobService.getAll().subscribe(result => {
       this.jobs = result;
       this.jobSize = this.jobs.length
     })
   }
 
-  getAllBenefits(){
-    this.benefitService.getAll().subscribe(result =>{
+  getAllBenefits() {
+    this.benefitService.getAll().subscribe(result => {
       this.benefits = result;
       this.benefitSize = this.benefits.length
     })
   }
 
-  getAllQuestions(){
-    this.questionService.getAll().subscribe(result =>{
+  getAllQuestions() {
+    this.questionService.getAll().subscribe(result => {
       this.questions = result;
       this.questionSize = this.questions.length
     })
