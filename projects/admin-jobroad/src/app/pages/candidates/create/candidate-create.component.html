@@ -896,7 +896,7 @@
 </p-dialog>
 
 <!-- Dialog Add Documents -->
-<p-dialog header="Add Documents" [(visible)]="dialogDocument" [style]="{width: '30vw'}">
+<p-dialog header="Add Documents" [modal]="true" [(visible)]="dialogDocument" [style]="{width: '30vw'}">
   <form [formGroup]="documentInsertReqDto">
     <pre>{{ documentInsertReqDto.value | json }}</pre>
     <div class="p-fluid p-formgrid grid">

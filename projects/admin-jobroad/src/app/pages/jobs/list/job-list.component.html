@@ -87,11 +87,18 @@
                 <td>{{j.companyName}}</td>
                 <td>{{j.startDate}}</td>
                 <td>{{j.endDate}}</td>
-                <td>{{j.employementTypeName}}</td>
+                <td>{{j.employmentTypeName}}</td>
+                <td>{{j.statusName}}</td>
                 <td>{{j.expectedSalaryMin}}</td>
                 <td>{{j.expectedSalaryMax}}</td>
-                <td> <app-button type="button" label="Detail" class="mr-2" classBtn="p-button-secondary"
-                    link="/jobs/detail/{{j.id}}"></app-button></td>
+
+
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="emptymessage">
+              <tr>
+                <td colspan="7">No jobs found.</td>
+
               </tr>
             </ng-template>
           </p-table>
