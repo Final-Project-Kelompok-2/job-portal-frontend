@@ -72,21 +72,21 @@ export class CandidateDetailComponent implements OnInit {
     }
     ngOnInit(): void {
         getParams(this.route, 0).subscribe((res) => {
-            this.candidateService.getCandidateUserById(res['id'])      
+            this.candidateService.getCandidateUserById(res['id'])
                 .subscribe((res) => {
                     this.candidateUser = res
                 })
-                
+
             this.candidateAddressService.getByCandidate(res['id'])
                 .subscribe((res) => {
                     this.candidateAddresses = res
                 })
-            
+
             this.candidateEducationService.getByCandidate(res['id'])
                 .subscribe((res) => {
                     this.candidateEducations = res
                 })
-            
+
             this.candidateFamilyService.getByCandidate(res['id'])
                 .subscribe((res) => {
                     this.candidateFamilies = res
@@ -101,26 +101,27 @@ export class CandidateDetailComponent implements OnInit {
                 .subscribe((res) => {
                     this.candidateProjects = res
                 })
-            
+
             this.candidateReferenceService.getByCandidate(res['id'])
                 .subscribe((res) => {
                     this.candidateReferences = res
                 })
-            
+
             this.candidateSkillService.getByCandidate(res['id'])
                 .subscribe((res) => {
-                    this.candidateSkills = res 
-                })
-            
-            this.candidateTrainingExpService.getByCandidate(res['id'])
-                .subscribe((res) => {
-                    this.candidateTrainings = res 
+                    this.candidateSkills = res
                 })
 
-            this.candidateWorkExpService.getByCandidate(res['id']) 
+            this.candidateTrainingExpService.getByCandidate(res['id'])
+                .subscribe((res) => {
+                    this.candidateTrainings = res
+                })
+
+            this.candidateWorkExpService.getByCandidate(res['id'])
                 .subscribe((res) => {
                     this.candidateWorks = res
-                })            
+                })
         })
 
     }
+  }

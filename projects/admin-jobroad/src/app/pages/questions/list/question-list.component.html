@@ -23,6 +23,7 @@
           [tableStyle]="{ 'min-width': '50rem' }"
           currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
           [rowsPerPageOptions]="[10, 25, 50]"
+          selectionMode="single"
       >
 
             <ng-template pTemplate="header">
@@ -39,7 +40,7 @@
               </tr>
             </ng-template>
             <ng-template pTemplate="body" let-q let-i="rowIndex">
-              <tr>
+              <tr routerLink="/questions/detail/{{q.id}}" class="cursor-pointer">
                 <td>{{ i+1 }}</td>
                 <td>{{q.questionDetail}}</td>
               </tr>
