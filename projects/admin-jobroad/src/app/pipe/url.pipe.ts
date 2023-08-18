@@ -8,6 +8,6 @@ import { BASE_URL } from "../constant/api.constant";
 })
 export class UrlPipe implements PipeTransform {
   transform(value: any) :string {
-    return `${BASE_URL}files/${value}`
+    return `${BASE_URL}/files/${value}`
   }
 }

@@ -5,6 +5,8 @@ import { SharedModuleComponent } from "../../component/shared-module";
 import { ButtonComponent } from "../../component/button/button.component";
 import { JobCreateComponent } from "./create/job-create.component";
 import { CommonModule } from "@angular/common";
+import { JobDetailComponent } from "./detail/job-detail.component";
+import { UrlPipe } from "../../pipe/url.pipe";
 
 const routes: Routes = [
   {
@@ -14,18 +16,24 @@ const routes: Routes = [
   {
     path: 'new',
     component: JobCreateComponent
+  },
+  {
+    path:'detail/:id',
+    component : JobDetailComponent
   }
 ]
 @NgModule({
   declarations: [
     JobListComponent,
-    JobCreateComponent
+    JobCreateComponent,
+    JobDetailComponent
   ],
   imports: [
     RouterModule.forChild(routes),
     SharedModuleComponent,
     ButtonComponent,
-    CommonModule
+    CommonModule,
+    UrlPipe
   ]
 })
 export class JobRouting {

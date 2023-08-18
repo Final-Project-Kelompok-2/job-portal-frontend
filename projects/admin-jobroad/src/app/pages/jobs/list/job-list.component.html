@@ -9,20 +9,27 @@
         <div class="col-12 md:col-3 buttons">
           <app-button type="button" label="Back" class="mr-2" classBtn="p-button-secondary"
             link="/dashboard"></app-button>
-          <app-button type="button" backgroundColor="var(--PRIMARY)" iconBtn="pi pi-fw pi-plus" label="Add new job" classBtn="p-button-primary"
-            link="/jobs/new"></app-button>
+          <app-button type="button" backgroundColor="var(--PRIMARY)" iconBtn="pi pi-fw pi-plus" label="Add new job"
+            classBtn="p-button-primary" link="/jobs/new"></app-button>
         </div>
 
         <div class="card col-12">
-          <p-table
-          [value]="jobs"
-          [paginator]="true"
-          [rows]="5"
-          [showCurrentPageReport]="true"
-          [tableStyle]="{ 'min-width': '50rem' }"
-          currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
-          [rowsPerPageOptions]="[10, 25, 50]"
-          >
+          <p-table #dt1 styleClass="p-datatable-sm" dataKey="id" [rows]="10" [showCurrentPageReport]="true"
+            [rowsPerPageOptions]="[10, 25, 50]" [loading]="loading"
+            currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+            [globalFilterFields]="['name', 'country.name', 'representative.name', 'status']" [value]="jobs">
+            <ng-template pTemplate="caption">
+              <div class="flex">
+                <button pButton label="Clear" class="p-button-outlined" icon="pi pi-filter-slash"
+                  (click)="clear(dt1)"></button>
+                <span class="p-input-icon-left ml-auto">
+                  <i class="pi pi-search"></i>
+                  <input pInputText type="text" placeholder="Search keyword" />
+                </span>
+                <!-- [masukin kedalem tag input, setelah type = "text"] => (input)="dt1.filterGlobal($event.target.value, 'contains')" -->
+              </div>
+            </ng-template>
+
             <ng-template pTemplate="header">
               <tr>
                 <th>
@@ -55,17 +62,20 @@
                 </th>
                 <th style="min-width:10rem">
                   <div class="flex align-items-center">
-                    Status
-                  </div>
-                </th>
-                <th style="min-width:10rem">
-                  <div class="flex align-items-center">
                     Min Salary
+                    <p-columnFilter type="text" field="name" display="menu"></p-columnFilter>
                   </div>
                 </th>
                 <th style="min-width:10rem">
                   <div class="flex align-items-center">
                     Max Salary
+                    <p-columnFilter type="text" field="name" display="menu"></p-columnFilter>
+                  </div>
+                </th>
+                <th style="min-width:10rem">
+                  <div class="flex align-items-center">
+                    Option
+                    <p-columnFilter type="text" field="name" display="menu"></p-columnFilter>
                   </div>
                 </th>
               </tr>
@@ -75,13 +85,12 @@
                 <td>{{ i+1 }}</td>
                 <td>{{j.jobName}}</td>
                 <td>{{j.companyName}}</td>
-                <td>{{j.address}}</td>
                 <td>{{j.startDate}}</td>
                 <td>{{j.endDate}}</td>
-                <td>{{j.description}}</td>
+                <td>{{j.employmentTypeName}}</td>
+                <td>{{j.statusName}}</td>
                 <td>{{j.expectedSalaryMin}}</td>
                 <td>{{j.expectedSalaryMax}}</td>
-                <td>{{j.employmentTypeName}}</td>
 
 
               </tr>

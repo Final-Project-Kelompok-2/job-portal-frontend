@@ -1,0 +1,90 @@
+<!-- <div class="header"> -->
+    <!-- header-->
+    <!-- <div class="columns the-header is-marginless">
+        <div class="column header-text is-6 is-offset-3 is-12-mobile">
+            <p class="title">Browse Our <br> Collection!</p>
+            <br>
+            <p class="subtitle has-text-black">
+                Tap on any product to view the specification. For further detail, feel free to get in touch.
+            </p>
+            <img class="header-background" [src]="job?.fileId | url" id="header-background-id" alt="background-img">
+        </div>
+    </div> -->
+    <!-- header ends -->
+    <!-- test -->
+    <!-- <div class="column is-12 has-text-centered">
+        <img class="profile-picture" src="https://unsplash.it/300/300/?random&pic=1(14 kB)" alt="profile-picture">
+    </div> -->
+    <!-- test -->
+<!-- </div> -->
+
+<div class="body">
+    {{job?.description}}
+</div>
+
+<div class="applicant-list">
+    <p-table #dt1 styleClass="p-datatable-sm" dataKey="id" [rows]="10" [showCurrentPageReport]="true"
+        [rowsPerPageOptions]="[10, 25, 50]" [loading]="loading"
+        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+        [globalFilterFields]="['name', 'country.name', 'representative.name', 'status']" [value]="applicant">
+        <ng-template pTemplate="caption">
+            <div class="flex">
+                <button pButton label="Clear" class="p-button-outlined" icon="pi pi-filter-slash"
+                    (click)="clear(dt1)"></button>
+                <span class="p-input-icon-left ml-auto">
+                    <i class="pi pi-search"></i>
+                    <input pInputText type="text" placeholder="Search keyword" />
+                </span>
+                <!-- [masukin kedalem tag input, setelah type = "text"] => (input)="dt1.filterGlobal($event.target.value, 'contains')" -->
+            </div>
+        </ng-template>
+        <ng-template pTemplate="header">
+            <tr>
+                <th>
+                    No
+                </th>
+                <th style="min-width:10rem">
+                    <div class="flex align-items-center">
+                        Applicant Code
+                        <p-columnFilter type="text" field="name" display="menu"></p-columnFilter>
+                    </div>
+                </th>
+                <th style="min-width:10rem">
+                    <div class="flex align-items-center">
+                        Applied Date
+                        <p-columnFilter type="text" field="name" display="menu"></p-columnFilter>
+                    </div>
+                </th>
+                <th style="min-width:10rem">
+                    <div class="flex align-items-center">
+                        Status
+                        <p-columnFilter type="text" field="name" display="menu"></p-columnFilter>
+                    </div>
+                </th>
+                <th style="min-width:10rem">
+                    <div class="flex align-items-center">
+                        Candidate Name
+                        <p-columnFilter type="text" field="name" display="menu"></p-columnFilter>
+                    </div>
+                </th>
+                <th style="min-width:10rem">
+                    <div class="flex align-items-center">
+                        Option
+                        <p-columnFilter type="text" field="name" display="menu"></p-columnFilter>
+                    </div>
+                </th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-a let-i="rowIndex">
+            <tr>
+                <td>{{ i+1 }}</td>
+                <td>{{a.applicantCode}}</td>
+                <td>{{a.appliedDate}}</td>
+                <td>{{a.statusName}}</td>
+                <td>{{a.candidateName}}</td>
+                <td> <app-button type="button" label="Detail" class="mr-2" classBtn="p-button-secondary"
+                        link=""></app-button></td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>
