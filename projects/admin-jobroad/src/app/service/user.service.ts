@@ -5,22 +5,28 @@ import { UserResDto } from "../dto/user/user.res.dto";
 import { BASE_URL } from "../constant/api.constant";
 import { UserInsertReqDto } from "../dto/user/user-insert.req.dto";
 import { InsertResDto } from "../dto/insert.res.dto";
+import { UserChangePasswordReqDto } from "../dto/user/user-changepasswor.req.dto";
+import { UpdateResDto } from "../dto/update.res.dto";
 
 @Injectable({
-    providedIn : 'root'
+    providedIn: 'root'
 })
-export class UserService{
-    constructor(private base : BaseService){}
+export class UserService {
+    constructor(private base: BaseService) { }
 
-    getAllUser():Observable<UserResDto[]>{
-      return this.base.get<UserResDto[]>(`${BASE_URL}/users`);
+    getAllUser(): Observable<UserResDto[]> {
+        return this.base.get<UserResDto[]>(`${BASE_URL}/users`);
     }
 
-    getByRole(roleCode : string) : Observable<UserResDto[]>{
+    getByRole(roleCode: string): Observable<UserResDto[]> {
         return this.base.get<UserResDto[]>(`${BASE_URL}/users/filter?roleCode=${roleCode}`);
     }
 
-    create(data : UserInsertReqDto) : Observable<InsertResDto>{
-        return this.base.post<InsertResDto>(`${BASE_URL}/users`,data);
+    create(data: UserInsertReqDto): Observable<InsertResDto> {
+        return this.base.post<InsertResDto>(`${BASE_URL}/users`, data);
+    }
+
+    changePassword(data: UserChangePasswordReqDto): Observable<UpdateResDto> {
+        return this.base.patch<UpdateResDto>(`${BASE_URL}/users`, data);
     }
 }
