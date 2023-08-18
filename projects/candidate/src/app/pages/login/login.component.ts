@@ -20,4 +20,17 @@ export class LoginComponent {
         userPassword: ['', [Validators.required]]
     })
 
+    onLogin() {
+        if (this.loginReqDto.valid) {
+            const data = this.loginReqDto.getRawValue()
+
+        }
+        else {
+            console.log("Invalid LOgin");
+        }
+
+
+    }
+
+
 }
