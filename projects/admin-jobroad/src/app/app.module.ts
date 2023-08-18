@@ -4,6 +4,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppComponent } from './app.component';
 import { AppRouting } from './app.routing';
 import { MessageService } from 'primeng/api';
+import { ToastModule } from 'primeng/toast';
 
 @NgModule({
   declarations: [
@@ -12,7 +13,8 @@ import { MessageService } from 'primeng/api';
   imports: [
     BrowserModule,
     AppRouting,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    ToastModule
   ],
   providers: [MessageService],
   bootstrap: [AppComponent]

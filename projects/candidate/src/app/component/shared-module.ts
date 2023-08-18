@@ -7,7 +7,7 @@ import { InputSwitchModule } from 'primeng/inputswitch';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { DropdownModule } from 'primeng/dropdown';
 import { FileUploadModule } from 'primeng/fileupload';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DialogModule } from 'primeng/dialog';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { InputNumberModule } from 'primeng/inputnumber';
@@ -18,11 +18,21 @@ import { AvatarGroupModule } from 'primeng/avatargroup';
 import { MenuModule } from 'primeng/menu';
 import { CardModule } from 'primeng/card';
 import { TabViewModule } from 'primeng/tabview';
+import { MenubarModule } from 'primeng/menubar';
 import { ToastModule } from 'primeng/toast';
+import { SidebarModule } from 'primeng/sidebar';
+import { ImageModule } from 'primeng/image';
+import { ChartModule } from 'primeng/chart';
+import { DataViewModule, DataViewLayoutOptions } from 'primeng/dataview';
 
 @NgModule({
   imports: [
+    ReactiveFormsModule,FormsModule,
+
     InputTextModule,
+    MenubarModule,
+    SidebarModule,
+    MenuModule,
     ButtonModule,
     TableModule,
     PasswordModule,
@@ -30,7 +40,6 @@ import { ToastModule } from 'primeng/toast';
     InputTextareaModule,
     DropdownModule,
     FileUploadModule,
-    FormsModule,
     DialogModule,
     RadioButtonModule,
     InputNumberModule,
@@ -41,11 +50,18 @@ import { ToastModule } from 'primeng/toast';
     MenuModule,
     CardModule,
     TabViewModule,
-    ToastModule
-
+    ToastModule,
+    ImageModule,
+    ChartModule,
+    DataViewModule
   ],
   exports: [
+    FormsModule,ReactiveFormsModule,
+
     InputTextModule,
+    SidebarModule,
+    MenuModule,
+    MenubarModule,
     ButtonModule,
     TableModule,
     PasswordModule,
@@ -53,7 +69,6 @@ import { ToastModule } from 'primeng/toast';
     InputTextareaModule,
     DropdownModule,
     FileUploadModule,
-    FormsModule,
     DialogModule,
     RadioButtonModule,
     InputNumberModule,
@@ -64,7 +79,10 @@ import { ToastModule } from 'primeng/toast';
     MenuModule,
     CardModule,
     TabViewModule,
-    ToastModule
+    ToastModule,
+    ImageModule,
+    ChartModule,
+    DataViewModule
   ]
 })
 export class SharedModuleComponent {
