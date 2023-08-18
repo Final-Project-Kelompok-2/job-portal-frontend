@@ -13,7 +13,7 @@
           <label htmlFor="fullName">Full Name<span class="text-red-500"> *</span></label>
           <input pInputText id="fullName" required type="text" formControlName="fullname" />
         </div>
-        <div class="field col-12 md:col-10">
+        <div class="field col-12 md:col-12">
           <label htmlFor="email">Email<span class="text-red-500"> *</span></label>
           <input pInputText id="email" required type="email" formControlName="userEmail" />
         </div>
@@ -25,10 +25,10 @@
         <div class="col-9"></div>
         <div class="field col-12 md:col-2">
           <label for="exp">Experience (years)<span class="text-red-500"> *</span></label>
-          <p-inputNumber inputId="exp" inputId="minmax" mode="decimal" [min]="0" [max]="100"
+          <p-inputNumber inputId="exp" inputId="minmax" mode="decimal" [min]="0" [max]="120"
             formControlName="experience"></p-inputNumber>
         </div>
-        <div class="field col-12 md:col-10">
+        <div class="field col-12 md:col-12">
 
           <label for="salary">Expected Salary<span class="text-red-500"> *</span></label>
           <p-inputNumber inputId="salary" mode="currency" currency="IDR" locale="jp-JP"
@@ -93,7 +93,7 @@
 
       <div class="row align-items-center">
         <div class="grid">
-          <div class="col-12 md:col-10">
+          <div class="col-12 md:col-12">
             <div class="flex justify-content-between flex-wrap card-container purple-container">
               <div class="flex align-items-center justify-content-center">
                 <h3 class="col-12">Addresses</h3>
@@ -139,7 +139,7 @@
 
       <div class="row align-items-center">
         <div class="grid">
-          <div class="col-12 md:col-10">
+          <div class="col-12 md:col-12">
             <div class="flex justify-content-between flex-wrap card-container purple-container">
               <div class="flex align-items-center justify-content-center">
                 <h3 class="col-12">Educations</h3>
@@ -184,7 +184,7 @@
 
       <div class="row align-items-center">
         <div class="grid">
-          <div class="col-12 md:col-10">
+          <div class="col-12 md:col-12">
             <div class="flex justify-content-between flex-wrap card-container purple-container">
               <div class="flex align-items-center justify-content-center">
                 <h3 class="col-12">Working Experiences</h3>
@@ -233,7 +233,7 @@
 
       <div class="row align-items-center">
         <div class="grid">
-          <div class="col-12 md:col-10">
+          <div class="col-12 md:col-12">
             <div class="flex justify-content-between flex-wrap card-container purple-container">
               <div class="flex align-items-center justify-content-center">
                 <h3 class="col-12">Training Experiences</h3>
@@ -279,7 +279,7 @@
 
       <div class="row align-items-center">
         <div class="grid">
-          <div class="col-12 md:col-10">
+          <div class="col-12 md:col-12">
             <div class="flex justify-content-between flex-wrap card-container purple-container">
               <div class="flex align-items-center justify-content-center">
                 <h3 class="col-12">Project Experiences</h3>
@@ -326,7 +326,7 @@
 
       <div class="row align-items-center">
         <div class="grid">
-          <div class="col-12 md:col-5">
+          <div class="col-12 md:col-6">
             <div class="flex justify-content-between flex-wrap card-container purple-container">
               <div class="flex align-items-center justify-content-center">
                 <h3 class="col-12">Skills</h3>
@@ -364,7 +364,7 @@
             </div>
           </div>
 
-          <div class="col-12 md:col-5">
+          <div class="col-12 md:col-6">
             <div class="flex justify-content-between flex-wrap card-container purple-container">
               <div class="flex align-items-center justify-content-center">
                 <h3 class="col-12">Languages</h3>
@@ -413,7 +413,7 @@
 
       <div class="row align-items-center">
         <div class="grid">
-          <div class="col-12 md:col-10">
+          <div class="col-12 md:col-12">
             <div class="flex justify-content-between flex-wrap card-container">
               <div class="flex align-items-center justify-content-center">
                 <h3 class="col-12">Family Member</h3>
@@ -424,7 +424,7 @@
               </div>
             </div>
           </div>
-          <div class="col-12 md:col-10">
+          <div class="col-12 md:col-12">
             <p-table [value]="candidateFamily.value" [tableStyle]="{ 'min-width': '50rem' }">
               <ng-template pTemplate="header">
                 <tr>
@@ -455,7 +455,7 @@
 
       <div class="row align-items-center">
         <div class="grid">
-          <div class="col-12 md:col-10">
+          <div class="col-12 md:col-12">
             <div class="flex justify-content-between flex-wrap card-container">
               <div class="flex align-items-center justify-content-center">
                 <h3 class="col-12">References</h3>
@@ -466,7 +466,7 @@
               </div>
             </div>
           </div>
-          <div class="col-12 md:col-10">
+          <div class="col-12 md:col-12">
             <p-table [value]="candidateReferences.value" [tableStyle]="{'min-width': '60rem'}">
               <ng-template pTemplate="header">
                 <tr>
@@ -485,7 +485,7 @@
                   <td>{{ i + 1 }}</td>
                   <td>{{ reference.fullname }}</td>
                   <td>{{ reference.relationship }}</td>
-                  <td>{{ reference.occupation }} (S1)</td>
+                  <td>{{ reference.occupation }}</td>
                   <td>{{ reference.phoneNumber }} Swasta</td>
                   <td>{{ reference.company }}</td>
                   <td>{{ reference.description }}</td>
@@ -499,7 +499,7 @@
 
       <div class="row align-items-center">
         <div class="grid">
-          <div class="col-12 md:col-10">
+          <div class="col-12 md:col-12">
             <div class="flex justify-content-between flex-wrap card-container">
               <div class="flex align-items-center justify-content-center">
                 <h3 class="col-12">Documents</h3>
@@ -510,30 +510,21 @@
               </div>
             </div>
           </div>
-          <div class="col-12 md:col-10">
-            <p-table [value]="candidateReferences.value" [tableStyle]="{'min-width': '60rem'}">
+          <div class="col-12 md:col-12">
+
+            <p-table [value]="candidateDocuments.value" [tableStyle]="{'min-width': '60rem'}">
               <ng-template pTemplate="header">
                 <tr>
                   <th>No.</th>
-                  <th>Full Name</th>
-                  <th>Relationship</th>
-                  <th>Occupation</th>
-                  <th>Phone</th>
-                  <th>Company</th>
-                  <th>Description</th>
-                  <th>Email</th>
+                  <th>Document Name</th>
+                  <th>Document Type</th>
                 </tr>
               </ng-template>
-              <ng-template pTemplate="body" let-reference let-i="rowIndex">
+              <ng-template pTemplate="body" let-document let-i="rowIndex">
                 <tr>
                   <td>{{ i + 1 }}</td>
-                  <td>{{ reference.fullname }}</td>
-                  <td>{{ reference.relationship }}</td>
-                  <td>{{ reference.occupation }} (S1)</td>
-                  <td>{{ reference.phoneNumber }} Swasta</td>
-                  <td>{{ reference.company }}</td>
-                  <td>{{ reference.description }}</td>
-                  <td>{{ reference.email }}</td>
+                  <td>{{ document.docName }}.{{ document.fileExtension}}</td>
+                  <td>{{ document.fileTypeCode }}</td>
                 </tr>
               </ng-template>
             </p-table>
@@ -887,14 +878,14 @@
       </div>
       <div class="field col-12">
         <label htmlFor="fileTypeCode">File Type <span class="text-red-500"> *</span> </label>
-        <p-dropdown optionLabel="label" optionValue="value" [showClear]="true" [required]="true"
+        <p-dropdown [options]="fileTypes" optionLabel="typeName" optionValue="typeCode" [showClear]="true" [required]="true"
           formControlName="fileTypeCode" placeholder="Choose File Type"></p-dropdown>
       </div>
 
       <div class="field col-12">
         <label htmlFor="fileTypeCode">Upload Document<span class="text-red-500"> *</span> </label>
         <p-fileUpload mode="basic" styleClass="bg-green-700" chooseLabel="Upload" chooseIcon="pi pi-upload"
-          class="form-control" (onSelect)="fileUpload($event, file)" #document type="file" id="picture"
+          class="form-control" (onSelect)="fileUploadDoc($event, doc)" #doc type="file" id="file"
           required></p-fileUpload>
       </div>
     </div>
