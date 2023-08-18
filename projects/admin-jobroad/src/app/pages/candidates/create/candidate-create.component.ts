@@ -41,7 +41,8 @@ interface Degree {
 }
 @Component({
   selector: 'candidate-create',
-  templateUrl: './candidate-create.component.html'
+  templateUrl: './candidate-create.component.html',
+  styleUrls: ['./candidate-create.component.css']
 })
 export class CandidateCreateComponent implements OnInit {
   loading = false
@@ -78,9 +79,9 @@ export class CandidateCreateComponent implements OnInit {
   constructor(
     private candidateService: CandidateUserService,
     private religionService: ReligionService,
-    private personTypeService : PersonTypeService,
-    private candidateStatusService : CandidateStatusService,
-    private maritalStatusService : MaritalStatusService,
+    private personTypeService: PersonTypeService,
+    private candidateStatusService: CandidateStatusService,
+    private maritalStatusService: MaritalStatusService,
     private fb: NonNullableFormBuilder,
     private router: Router
   ) { }
@@ -161,41 +162,41 @@ export class CandidateCreateComponent implements OnInit {
   })
 
   skillInsertReqDto = this.fb.group({
-    skillName : ['', [Validators.required]]
+    skillName: ['', [Validators.required]]
   })
 
   languageInsertReqDto = this.fb.group({
-    languageName : ['', [Validators.required]],
-    writingRate : ['', [Validators.required]],
-    speakingRate : ['', [Validators.required]],
-    listeningRate : ['', [Validators.required]]
+    languageName: ['', [Validators.required]],
+    writingRate: ['', [Validators.required]],
+    speakingRate: ['', [Validators.required]],
+    listeningRate: ['', [Validators.required]]
   })
 
   familyInsertReqDto = this.fb.group({
-    fullname : ['', [Validators.required]],
-    relationship : ['', [Validators.required]],
-    degreeName : ['', [Validators.required]],
-    occupation : ['', [Validators.required]],
-    birthDate : ['', [Validators.required]],
-    birthPlace : ['', [Validators.required]],
-    email : ['', [Validators.required]]
+    fullname: ['', [Validators.required]],
+    relationship: ['', [Validators.required]],
+    degreeName: ['', [Validators.required]],
+    occupation: ['', [Validators.required]],
+    birthDate: ['', [Validators.required]],
+    birthPlace: ['', [Validators.required]],
+    email: ['', [Validators.required]]
   })
 
   referenceInsertReqDto = this.fb.group({
-    fullname : ['', [Validators.required]],
-    relationship : ['', [Validators.required]],
-    occupation : ['', [Validators.required]],
-    phoneNumber : ['', [Validators.required]],
-    email : ['', [Validators.required]],
-    company : ['', [Validators.required]],
-    description : ['', [Validators.required]]
+    fullname: ['', [Validators.required]],
+    relationship: ['', [Validators.required]],
+    occupation: ['', [Validators.required]],
+    phoneNumber: ['', [Validators.required]],
+    email: ['', [Validators.required]],
+    company: ['', [Validators.required]],
+    description: ['', [Validators.required]]
   })
 
   documentInsertReqDto = this.fb.group({
-    docName : ['', [Validators.required]],
-    fileTypeCode : ['', [Validators.required]],
-    fileName :  ['', [Validators.required]],
-    fileExtension :  ['', [Validators.required]]
+    docName: ['', [Validators.required]],
+    fileTypeCode: ['', [Validators.required]],
+    fileName: ['', [Validators.required]],
+    fileExtension: ['', [Validators.required]]
   })
 
   ngOnInit(): void {
