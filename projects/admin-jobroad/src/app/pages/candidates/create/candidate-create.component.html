@@ -107,7 +107,7 @@
 
             <div class="card">
               <p-dataView #dv [value]="candidateAddress.value">
-                <ng-template let-address pTemplate="listItem">
+                <ng-template let-address pTemplate="listItem" let-i="rowIndex">
                   <div class="col-12">
                     <div class="flex flex-column xl:flex-row xl:align-items-start p-4 gap-4">
                       <div
@@ -123,8 +123,9 @@
                         </div>
                         <div class="flex sm:flex-column align-items-center sm:align-items-end gap-3 sm:gap-2">
                           <span class="text-l font-semibold"></span>
-                          <button pButton icon="pi pi-trash"
-                            class="md:align-self-end mb-2 p-button-rounded p-button-danger"></button>
+                          <app-button typeBtn="button" (click)="onDeleteAddress(i)" iconBtn="pi pi-trash"
+                            backgroundColor="danger"
+                            classBtn="md:align-self-end mb-2 p-button-rounded p-button-danger"></app-button>
                         </div>
                       </div>
                     </div>
@@ -153,7 +154,7 @@
 
             <div class="card">
               <p-dataView #dv [value]="candidateEducations.value">
-                <ng-template let-education pTemplate="listItem">
+                <ng-template let-education pTemplate="listItem" let-i="rowIndex">
                   <div class="col-12">
                     <div class="flex flex-column xl:flex-row xl:align-items-start p-4 gap-4">
                       <div
@@ -168,8 +169,9 @@
                         </div>
                         <div class="flex sm:flex-column align-items-center sm:align-items-end gap-3 sm:gap-2">
                           <span class="text-l font-semibold">{{ education.startYear }} - {{ education.endYear }}</span>
-                          <button pButton icon="pi pi-trash"
-                            class="md:align-self-end mb-2 p-button-rounded p-button-danger"></button>
+                          <app-button typeBtn="button" (click)="onDeleteEducation(i)" iconBtn="pi pi-trash"
+                            backgroundColor="danger"
+                            classBtn="md:align-self-end mb-2 p-button-rounded p-button-danger"></app-button>
                         </div>
                       </div>
                     </div>
@@ -198,7 +200,7 @@
 
             <div class="card">
               <p-dataView #dv [value]="candidateWorkExp.value">
-                <ng-template let-working pTemplate="listItem">
+                <ng-template let-working pTemplate="listItem" let-i="rowIndex">
                   <div class="col-12">
                     <div class="flex flex-column xl:flex-row xl:align-items-start p-4 gap-4">
                       <div
@@ -217,8 +219,9 @@
                         </div>
                         <div class="flex sm:flex-column align-items-center sm:align-items-end gap-3 sm:gap-2">
                           <span class="text-l font-semibold">{{ working.startDate }} - {{ working.endDate }}</span>
-                          <button pButton icon="pi pi-trash"
-                            class="md:align-self-end mb-2 p-button-rounded p-button-danger"></button>
+                          <app-button typeBtn="button" (click)="onDeleteWorking(i)" iconBtn="pi pi-trash"
+                            backgroundColor="danger"
+                            classBtn="md:align-self-end mb-2 p-button-rounded p-button-danger"></app-button>
                         </div>
                       </div>
                     </div>
@@ -247,7 +250,7 @@
 
             <div class="card">
               <p-dataView #dv [value]="candidateTrainingExp.value">
-                <ng-template let-training pTemplate="listItem">
+                <ng-template let-training pTemplate="listItem" let-i="rowIndex">
                   <div class="col-12">
                     <div class="flex flex-column xl:flex-row xl:align-items-start p-4 gap-4">
                       <div
@@ -263,8 +266,9 @@
                         </div>
                         <div class="flex sm:flex-column align-items-center sm:align-items-end gap-3 sm:gap-2">
                           <span class="text-l font-semibold">{{ training.startDate }} - {{ training.endDate }}</span>
-                          <button pButton icon="pi pi-trash"
-                            class="md:align-self-end mb-2 p-button-rounded p-button-danger"></button>
+                          <app-button typeBtn="button" (click)="onDeleteTraining(i)" iconBtn="pi pi-trash"
+                            backgroundColor="danger"
+                            classBtn="md:align-self-end mb-2 p-button-rounded p-button-danger"></app-button>
                         </div>
                       </div>
                     </div>
@@ -293,7 +297,7 @@
 
             <div class="card">
               <p-dataView #dv [value]="candidateProjectExp.value">
-                <ng-template let-training pTemplate="listItem">
+                <ng-template let-training pTemplate="listItem" let-i="rowIndex">
                   <div class="col-12">
                     <div class="flex flex-column xl:flex-row xl:align-items-start p-4 gap-4">
                       <div
@@ -311,8 +315,9 @@
                         <div class="flex sm:flex-column align-items-center sm:align-items-end gap-3 sm:gap-2">
                           <span class="text-l font-semibold">{{ training.startDate }} - {{
                             training.endDate }}</span>
-                          <button pButton icon="pi pi-trash"
-                            class="md:align-self-end mb-2 p-button-rounded p-button-danger"></button>
+                          <app-button typeBtn="button" (click)="onDeleteProject(i)" iconBtn="pi pi-trash"
+                            backgroundColor="danger"
+                            classBtn="md:align-self-end mb-2 p-button-rounded p-button-danger"></app-button>
                         </div>
                       </div>
                     </div>
@@ -339,7 +344,7 @@
             <hr>
             <div class="card">
               <p-dataView #dv [value]="candidateSkill.value">
-                <ng-template let-skill pTemplate="listItem">
+                <ng-template let-skill pTemplate="listItem" let-i="rowIndex">
                   <div class="col-12">
                     <div class="flex flex-column xl:flex-row xl:align-items-start pl-4 gap-4">
                       <div
@@ -353,8 +358,9 @@
                         </div>
                         <div class="flex sm:flex-column align-items-center sm:align-items-end">
                           <span class="text-l font-semibold"></span>
-                          <button pButton icon="pi pi-trash"
-                            class="md:align-self-end mt-1 mb-1 p-button-rounded p-button-danger"></button>
+                          <app-button typeBtn="button" (click)="onDeleteSkill(i)" iconBtn="pi pi-trash"
+                            backgroundColor="danger"
+                            classBtn="md:align-self-end mb-2 p-button-rounded p-button-danger"></app-button>
                         </div>
                       </div>
                     </div>
@@ -377,7 +383,7 @@
             <hr>
             <div class="card">
               <p-dataView #dv [value]="candidateLanguage.value">
-                <ng-template let-language pTemplate="listItem">
+                <ng-template let-language pTemplate="listItem" let-i="rowIndex">
                   <div class="col-12">
                     <div class="flex flex-column xl:flex-row xl:align-items-start pl-4 gap-4">
                       <div
@@ -398,8 +404,9 @@
                         </div>
                         <div class="flex sm:flex-column align-items-center sm:align-items-end">
                           <span class="text-l font-semibold"></span>
-                          <button pButton icon="pi pi-trash"
-                            class="md:align-self-end mt-1 mb-1 p-button-rounded p-button-danger"></button>
+                          <app-button typeBtn="button" (click)="onDeleteLanguage(i)" iconBtn="pi pi-trash"
+                            backgroundColor="danger"
+                            classBtn="md:align-self-end mb-2 p-button-rounded p-button-danger"></app-button>
                         </div>
                       </div>
                     </div>
@@ -423,6 +430,7 @@
                   backgroundColor="var(--PRIMARY)" label="ADD"></app-button>
               </div>
             </div>
+            <hr>
           </div>
           <div class="col-12 md:col-12">
             <p-table [value]="candidateFamily.value" [tableStyle]="{ 'min-width': '50rem' }">
@@ -435,6 +443,7 @@
                   <th>Occupation</th>
                   <th>Birth</th>
                   <th>Email</th>
+                  <th></th>
                 </tr>
               </ng-template>
               <ng-template pTemplate="body" let-family let-i="rowIndex">
@@ -446,6 +455,11 @@
                   <td>{{ family.occupation }}</td>
                   <td>{{ family.birthPlace }}, {{ family.birthDate }}</td>
                   <td>{{ family.email }}</td>
+                  <td>
+                    <app-button typeBtn="button" (click)="onDeleteFamily(i)" iconBtn="pi pi-trash"
+                      backgroundColor="danger"
+                      classBtn="md:align-self-end mb-2 p-button-rounded p-button-danger"></app-button>
+                  </td>
                 </tr>
               </ng-template>
             </p-table>
@@ -465,6 +479,7 @@
                   backgroundColor="var(--PRIMARY)" label="ADD"></app-button>
               </div>
             </div>
+            <hr>
           </div>
           <div class="col-12 md:col-12">
             <p-table [value]="candidateReferences.value" [tableStyle]="{'min-width': '60rem'}">
@@ -478,6 +493,7 @@
                   <th>Company</th>
                   <th>Description</th>
                   <th>Email</th>
+                  <th></th>
                 </tr>
               </ng-template>
               <ng-template pTemplate="body" let-reference let-i="rowIndex">
@@ -490,6 +506,11 @@
                   <td>{{ reference.company }}</td>
                   <td>{{ reference.description }}</td>
                   <td>{{ reference.email }}</td>
+                  <td>
+                    <app-button typeBtn="button" (click)="onDeleteReference(i)" iconBtn="pi pi-trash"
+                      backgroundColor="danger"
+                      classBtn="md:align-self-end mb-2 p-button-rounded p-button-danger"></app-button>
+                  </td>
                 </tr>
               </ng-template>
             </p-table>
@@ -509,15 +530,17 @@
                   backgroundColor="var(--PRIMARY)" label="ADD"></app-button>
               </div>
             </div>
+            <hr>
+
           </div>
           <div class="col-12 md:col-12">
-
             <p-table [value]="candidateDocuments.value" [tableStyle]="{'min-width': '60rem'}">
               <ng-template pTemplate="header">
                 <tr>
                   <th>No.</th>
                   <th>Document Name</th>
                   <th>Document Type</th>
+                  <th></th>
                 </tr>
               </ng-template>
               <ng-template pTemplate="body" let-document let-i="rowIndex">
@@ -525,6 +548,11 @@
                   <td>{{ i + 1 }}</td>
                   <td>{{ document.docName }}.{{ document.fileExtension}}</td>
                   <td>{{ document.fileTypeCode }}</td>
+                  <td>
+                    <app-button typeBtn="button" (click)="onDeleteDocument(i)" iconBtn="pi pi-trash"
+                      backgroundColor="danger"
+                      classBtn="md:align-self-end mb-2 p-button-rounded p-button-danger"></app-button>
+                  </td>
                 </tr>
               </ng-template>
             </p-table>
@@ -878,8 +906,8 @@
       </div>
       <div class="field col-12">
         <label htmlFor="fileTypeCode">File Type <span class="text-red-500"> *</span> </label>
-        <p-dropdown [options]="fileTypes" optionLabel="typeName" optionValue="typeCode" [showClear]="true" [required]="true"
-          formControlName="fileTypeCode" placeholder="Choose File Type"></p-dropdown>
+        <p-dropdown [options]="fileTypes" optionLabel="typeName" optionValue="typeCode" [showClear]="true"
+          [required]="true" formControlName="fileTypeCode" placeholder="Choose File Type"></p-dropdown>
       </div>
 
       <div class="field col-12">

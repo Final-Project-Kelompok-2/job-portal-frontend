@@ -76,16 +76,16 @@ export class CandidateCreateComponent implements OnInit {
   religions!: ReligionResDto[]
   types!: PersonTypeResDto[]
   candidateStatus!: CandidateStatusResDto[]
-  fileTypes! : FileTypeResDto[]
+  fileTypes!: FileTypeResDto[]
 
   constructor(
     private candidateService: CandidateUserService,
     private religionService: ReligionService,
 
-    private personTypeService : PersonTypeService,
-    private candidateStatusService : CandidateStatusService,
-    private maritalStatusService : MaritalStatusService,
-    private fileTypeService : FileTypeService,
+    private personTypeService: PersonTypeService,
+    private candidateStatusService: CandidateStatusService,
+    private maritalStatusService: MaritalStatusService,
+    private fileTypeService: FileTypeService,
 
     private fb: NonNullableFormBuilder,
     private router: Router
@@ -309,6 +309,10 @@ export class CandidateCreateComponent implements OnInit {
     }
   }
 
+  onDeleteAddress(i: number) {
+    this.candidateAddress.removeAt(i)
+  }
+
   get candidateTrainingExp() {
     return this.candidateMasterInsertReqDto.get('candidateTrainingExp') as FormArray
   }
@@ -321,6 +325,10 @@ export class CandidateCreateComponent implements OnInit {
       this.trainingInsertReqDto.reset()
       this.dialogTraining = false
     }
+  }
+
+  onDeleteTraining(i: number) {
+    this.candidateTrainingExp.removeAt(i)
   }
 
   get candidateEducations() {
@@ -337,6 +345,10 @@ export class CandidateCreateComponent implements OnInit {
     }
   }
 
+  onDeleteEducation(i: number) {
+    this.candidateEducations.removeAt(i)
+  }
+
   get candidateWorkExp() {
     return this.candidateMasterInsertReqDto.get('candidateWorkExp') as FormArray
   }
@@ -349,6 +361,10 @@ export class CandidateCreateComponent implements OnInit {
       this.workingInsertReqDto.reset()
       this.dialogWorking = false
     }
+  }
+
+  onDeleteWorking(i: number) {
+    this.candidateWorkExp.removeAt(i)
   }
 
   get candidateProjectExp() {
@@ -365,6 +381,10 @@ export class CandidateCreateComponent implements OnInit {
     }
   }
 
+  onDeleteProject(i: number) {
+    this.candidateProjectExp.removeAt(i)
+  }
+
   get candidateSkill() {
     return this.candidateMasterInsertReqDto.get('candidateSkill') as FormArray
   }
@@ -377,6 +397,10 @@ export class CandidateCreateComponent implements OnInit {
       this.skillInsertReqDto.reset()
       this.dialogSkill = false
     }
+  }
+
+  onDeleteSkill(i: number) {
+    this.candidateSkill.removeAt(i)
   }
 
   get candidateLanguage() {
@@ -393,6 +417,10 @@ export class CandidateCreateComponent implements OnInit {
     }
   }
 
+  onDeleteLanguage(i: number) {
+    this.candidateLanguage.removeAt(i)
+  }
+
   get candidateFamily() {
     return this.candidateMasterInsertReqDto.get('candidateFamily') as FormArray
   }
@@ -405,6 +433,10 @@ export class CandidateCreateComponent implements OnInit {
       this.familyInsertReqDto.reset()
       this.dialogFamily = false
     }
+  }
+
+  onDeleteFamily(i: number) {
+    this.candidateFamily.removeAt(i)
   }
 
   get candidateReferences() {
@@ -421,6 +453,10 @@ export class CandidateCreateComponent implements OnInit {
     }
   }
 
+  onDeleteReference(i: number) {
+    this.candidateReferences.removeAt(i)
+  }
+
   get candidateDocuments() {
     return this.candidateMasterInsertReqDto.get('candidateDocuments') as FormArray
   }
@@ -433,6 +469,10 @@ export class CandidateCreateComponent implements OnInit {
       this.documentInsertReqDto.reset()
       this.dialogDocument = false
     }
+  }
+
+  onDeleteDocument(i: number) {
+    this.candidateDocuments.removeAt(i)
   }
 
   fileUpload(event: any, fileUpload: FileUpload) {

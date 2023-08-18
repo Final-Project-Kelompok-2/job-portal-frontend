@@ -3,6 +3,8 @@ import { Table } from "primeng/table";
 import { JobService } from "../../../service/job.service";
 import { JobResDto } from "../../../dto/job/job.res.dto";
 import { Subscription } from "rxjs";
+import { AuthService } from "../../../service/auth.service";
+import { RoleCodeEnum } from "../../../constant/user-role.constant";
 
 @Component({
   selector: 'job-list',
@@ -13,18 +15,31 @@ export class JobListComponent implements OnInit,OnDestroy {
   loading = false
   jobs! : JobResDto[];
   jobSubscription! : Subscription;
-  constructor(private jobService : JobService){}
-
+  roleName? : string;
+  constructor(private jobService : JobService,private authService : AuthService){}
   ngOnInit(): void {
+      this.roleName = this.authService.getProfile()?.roleCode;
+      this.getJob();
+  }
+  clear(table: Table) {
+    table.clear();
+  }
+  get isAdmin(){
+    return this.roleName == RoleCodeEnum.ADMIN;
+  }
+  getJob(){
+    if(this.isAdmin){
       this.jobSubscription =  this.jobService.getAll().subscribe(result =>{
         this.jobs = result;
       })
+    }else{
+      this.jobSubscription =  this.jobService.getByPrincipal().subscribe(result =>{
+        this.jobs = result;
+      })
+    } 
   }
 
   ngOnDestroy(): void {
     this.jobSubscription.unsubscribe();
-  }
-  clear(table: Table) {
-    table.clear();
   }
 }
