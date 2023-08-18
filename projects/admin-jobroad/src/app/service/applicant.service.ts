@@ -19,6 +19,10 @@ export class ApplicantService{
 
     }
 
+    getById(id : string) : Observable<ApplicantResDto>{
+        return this.base.get<ApplicantResDto>(`${BASE_URL}/applicants/filter?id=${id}`);
+    }
+
     create(data : ApplicantInsertReqDto) : Observable<InsertResDto>{
         return this.base.post<InsertResDto>(`${BASE_URL}/applicants`,data);
     }
