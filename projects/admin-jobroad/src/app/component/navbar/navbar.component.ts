@@ -1,13 +1,14 @@
 import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 import { MenuItem } from 'primeng/api';
+import { AuthService } from "../../service/auth.service";
 
 
 
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
-  styleUrls:['./navbar.component.css']
+  styleUrls: ['./navbar.component.css']
 })
 
 export class NavbarComponent implements OnInit {
@@ -16,7 +17,7 @@ export class NavbarComponent implements OnInit {
   profileName = ''
   private roleCode = ''
 
-  constructor(private router: Router) {
+  constructor(private router: Router, private authService: AuthService) {
 
   }
 
@@ -30,35 +31,41 @@ export class NavbarComponent implements OnInit {
   }
 
   items: MenuItem[] | undefined
-  profile:MenuItem[] | undefined
+  profile: MenuItem[] | undefined
 
   ngOnInit() {
 
-    // const profile = this.authService.getProfile()
+    const profile = this.authService.getProfile()
 
-    // if (profile) {
-    //   this.imageUrl = `http://localhost:8080/files/${profile.photoId}`
-    //   this.roleCode = profile?.roleCode
-    //   this.profileName = profile.profileName
+    if (profile) {
 
-    // }
+      if(profile?.photoId){
+        this.imageUrl = `http://localhost:8080/files/${profile.photoId}`
+      }else{
+        this.imageUrl = '../../../assets/emptyProfile.jpeg'
+      }
+
+      this.roleCode = profile?.roleCode
+      this.profileName = profile.fullName
+
+    }
 
     this.profile = [
       {
-        // label: this.profileName,
+        label: this.profileName,
         items: [
           {
-            icon:'pi pi-fw pi-user',
+            icon: 'pi pi-fw pi-user',
             label: 'Profile',
-            routerLink : '/users/profile'
+            routerLink: '/users/profile'
           },
           {
-            icon:'pi pi-fw pi-unlock',
+            icon: 'pi pi-fw pi-unlock',
             label: 'Change Password',
-            routerLink : '/users/change-password'
+            routerLink: '/users/change-password'
           },
           {
-            icon:'pi pi-fw pi-sign-out',
+            icon: 'pi pi-fw pi-sign-out',
             label: 'Log Out',
             command: () => this.logOut()
           }
@@ -69,7 +76,7 @@ export class NavbarComponent implements OnInit {
     this.items = [
       {
         label: 'Home',
-        routerLink:'/dashboard'
+        routerLink: '/dashboard'
       },
     ];
   }

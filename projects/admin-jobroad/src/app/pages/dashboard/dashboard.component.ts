@@ -90,10 +90,10 @@ export class DashboardComponent implements OnInit {
     })
   }
 
-  getAllCandidates(){
-    this.questionService.getAll().subscribe(result =>{
-      this.questions = result;
-      this.questionSize = this.questions.length
+  getAllCandidates() {
+    this.candidateService.getAll().subscribe(result => {
+      this.candidates = result
+      this.candidateSize = this.candidates.length
     })
   }
 
