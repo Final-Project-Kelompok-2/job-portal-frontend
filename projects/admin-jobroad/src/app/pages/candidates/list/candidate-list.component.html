@@ -7,22 +7,17 @@
           <h2>Candidate List</h2>
         </div>
         <div class="col-12 md:col-3 buttons">
-          <app-button type="button"  label="Back" class="mr-2" classBtn="p-button-secondary"
+          <app-button type="button" label="Back" class="mr-2" classBtn="p-button-secondary"
             link="/dashboard"></app-button>
-          <app-button backgroundColor="var(--PRIMARY)" type="button" iconBtn="pi pi-fw pi-plus" label="Add new candidate" classBtn="p-button-primary"
-            link="/candidates/new"></app-button>
+          <app-button backgroundColor="var(--PRIMARY)" type="button" iconBtn="pi pi-fw pi-plus"
+            label="Add new candidate" classBtn="p-button-primary" link="/candidates/new"></app-button>
         </div>
 
         <div class="card col-12">
-          <p-table
-          [value]="candidates"
-          [paginator]="true"
-          [rows]="5"
-          [showCurrentPageReport]="true"
-          [tableStyle]="{ 'min-width': '50rem' }"
-          currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
-          [rowsPerPageOptions]="[10, 25, 50]"
-      >
+          <p-table [value]="candidates" [paginator]="true" [rows]="5" [showCurrentPageReport]="true"
+            [tableStyle]="{ 'min-width': '50rem' }"
+            currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+            [rowsPerPageOptions]="[10, 25, 50]" selectionMode="single">
             <ng-template pTemplate="header">
               <tr>
                 <th>

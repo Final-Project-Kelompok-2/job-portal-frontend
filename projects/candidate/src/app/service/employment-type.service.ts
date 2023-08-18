@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { EmployementTypeResDto } from "../dto/employement-type/employement-type.res.dto";
 import { BaseService } from "./base.service";
-import { BASE_URL } from "../constant/api.constant";
+import { BASE_URL } from "../constant copy/api.constant";
 
 @Injectable({
     providedIn : 'root'

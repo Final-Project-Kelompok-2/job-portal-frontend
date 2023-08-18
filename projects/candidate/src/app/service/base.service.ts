@@ -26,7 +26,7 @@ export class BaseService{
 
     private get header() {
         return {
-            headers : 
+            headers :
             { Authorization : `Bearer ${this.token}` }
         }
     }
@@ -38,21 +38,21 @@ export class BaseService{
     get<T>(url : string,withToken = true) : Observable<T>{
         return this.http.get<T>(url,(withToken ? this.header : undefined))
         .pipe(response(this.messageService,this.router))
-       
+
     }
 
     patch<T>(url : string,body : any, withToken = true ) : Observable<T>{
             return this.http.patch<T>(url,body ,(withToken ? this.header : undefined))
             .pipe(response(this.messageService,this.router));
 
-          
+
     }
 
     delete<T>(url : string,body : any, withToken = true ) : Observable<T>{
             return this.http.delete<T>(url ,(withToken ? this.header : undefined))
             .pipe(response(this.messageService,this.router));
-        
-       
+
+
     }
 }
 export function response <T>(messageService : MessageService,router : Router){
@@ -60,9 +60,9 @@ export function response <T>(messageService : MessageService,router : Router){
         next : (data) => {
             console.log(data)
             if(data && (data as any).message){
-                
+
                 messageService.add({ severity: 'success', summary: 'Success', detail: (data as any).message });
-               
+
             };
         },
         error : (err)=> {
@@ -70,7 +70,7 @@ export function response <T>(messageService : MessageService,router : Router){
                 if(err && err.error && err.error.message){
                     messageService.add({ severity: 'error', summary: 'Error', detail: err.error.message });
                     console.log(err.error);
-                
+
                 if(err.status == 401 && err.error.message == 'Token Expired'){
                     localStorage.clear();
                     console.log('xxxxx');
@@ -78,7 +78,7 @@ export function response <T>(messageService : MessageService,router : Router){
                 }
             }
         }
-            
+
         }
     })
 }

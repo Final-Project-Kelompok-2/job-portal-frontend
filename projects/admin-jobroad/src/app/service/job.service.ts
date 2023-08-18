@@ -27,4 +27,7 @@ export class JobService{
     getByCompany(code : string) : Observable<JobResDto[]>{
         return this.base.get<JobResDto[]>(`${BASE_URL}/jobs/company`);
     }
+    getByDetail(id : string) : Observable<JobResDto>{
+        return this.base.get<JobResDto>(`${BASE_URL}/jobs/detail?id=${id}`);
+    }
 }
