@@ -4,6 +4,7 @@ import { Observable } from "rxjs";
 import { MenuItem, MessageService } from "primeng/api";
 import { NonNullableFormBuilder, Validators } from "@angular/forms";
 import { AssesmentService } from "../../../service/assesment.service";
+import { ApplicantResDto } from "../../../dto/applicant/applicant.res.dto";
 
 @Component({
     selector: 'applicant-detail',
@@ -14,6 +15,7 @@ export class ApplicantDetailComponent implements OnInit {
     appId!: string;
     status!: MenuItem[] | undefined;
     activeIndex: number = 0;
+    applicant! : ApplicantResDto;
     assesmentReqDto = this.fb.group({
         applicantId: ['', Validators.required],
         assesmentLocation: ['', Validators.required],

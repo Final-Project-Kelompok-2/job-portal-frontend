@@ -7,5 +7,6 @@ export interface ApplicantResDto {
 	appliedDate : string
 	statusId : string
 	statusName : string
+	candidateId : string;
 	candidateName : string
 }
