@@ -1,6 +1,41 @@
-<div class="col-12 md:col-3 buttons">
-    <app-button type="button" label="Back" class="mr-2" classBtn="p-button-secondary" link="/jobs/{{jobId}}"></app-button>
-</div>
-<div class="col-12 md:col-3 buttons">
-    <app-button type="button" label="Assesment" class="mr-2" classBtn="p-button-primary" link="/jobs"></app-button>
+
+
+<div class="grid">
+    <div class="col-12 mt-3">
+        <p-card>
+            <p-steps [model]="status" [readonly]="false" [activeIndex]="activeIndex"
+                (activeIndexChange)="onActiveIndexChange($event)"></p-steps>
+        </p-card>
+    </div>
+    <div class="col-12 md:col-3 buttons">
+        <app-button type="button" label="Back" class="mr-2" classBtn="p-button-secondary"
+            link="/jobs/detail/{{jobId}}"></app-button>
+    </div>
+    <div class="col-12 md:col-3 buttons">
+        <app-button type="button" label="Reject" class="mr-2" classBtn="p-button-danger"></app-button>
+    </div>
+    <candidate-detail *ngIf="isApplied"></candidate-detail>
+    <div class="col-12 " *ngIf="isAssesment">
+        <p-card header="Assesment">
+            <form [formGroup]="assesmentReqDto" (ngSubmit)="submitAssesment()">
+                <div class="p-fluid p-formgrid grid assesment align-items-center">
+                    <div class="col-12 md:col-4">
+                        <label for="location">Location <span class="text-red-500">*</span></label>
+                    </div>
+                    <div class="col-12 md:col-8">
+                        <input pInputText id="location" formControlName="assesmentLocation" type="text" required/>
+                    </div>
+                    <div class="col-12 md:col-4">
+                        <label for="date">Date <span class="text-red-500">*</span></label>
+                    </div>
+                    <div class="col-12 md:col-8">
+                        <input pInputText id="date" required type="date" formControlName="startDate" />
+                    </div>
+                    <app-button backgroundColor="var(--PRIMARY)" [loading]="loading" typeBtn="submit" label="Add"
+                    iconBtn="pi pi-plus" class=" mr-2"></app-button>
+                </div>
+            </form>
+        </p-card>
+    </div>
+ 
 </div>

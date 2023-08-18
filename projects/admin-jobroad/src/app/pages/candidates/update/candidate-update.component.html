@@ -1,7 +1,12 @@
 <div class="col-12">
-  <pre>{{ candidateMasterInsertReqDto.value | json }}</pre>
-  <p-card header="Add New Candidate">
-    <form [formGroup]="candidateMasterInsertReqDto" (ngSubmit)="onSubmit()">
+  <div class="flex justify-content-between flex-wrap card-container mb-3">
+    <div class="flex align-items-center justify-content-center">
+      <app-button type="button" label="Back" class="mr-2" classBtn="p-button-secondary" link="/candidates/detail/{{candidateUser?.id}}"></app-button>
+    </div>
+  </div>
+  <p-card header="Update Candidate">
+    <pre>{{ candidateUpdateInsertReqDto.value | json }}</pre>
+    <form [formGroup]="candidateUpdateInsertReqDto">
       <div class="p-fluid p-formgrid grid">
         <h3 class="col-12">Profile Information</h3>
         <div class="field col-12 md:col-2">
@@ -15,7 +20,8 @@
         </div>
         <div class="field col-12 md:col-12">
           <label htmlFor="email">Email<span class="text-red-500"> *</span></label>
-          <input pInputText id="email" required type="email" formControlName="userEmail" />
+          <input pInputText id="email" required type="email" formControlName="userEmail"
+            [value]="candidateUser?.userEmail" />
         </div>
         <div class="field col-12 md:col-3">
           <label htmlFor="gender">Gender<span class="text-red-500"> *</span></label>
@@ -37,11 +43,13 @@
         </div>
         <div class="field col-12 md:col-6">
           <label htmlFor="phoneNumber">Phone Number<span class="text-red-500"> *</span></label>
-          <input pInputText id="phoneNumber" required type="text" formControlName="phoneNumber" />
+          <input pInputText id="phoneNumber" required type="text" formControlName="phoneNumber"
+            [value]="candidateUser?.phoneNumber" />
         </div>
         <div class="field col-12 md:col-6">
           <label htmlFor="mobileNumber">Mobile Number<span class="text-red-500"> *</span></label>
-          <input pInputText id="mobileNumber" required type="text" formControlName="mobileNumber" />
+          <input pInputText id="mobileNumber" required type="text" formControlName="mobileNumber"
+            [value]="candidateUser?.mobileNumber" />
         </div>
 
         <h3 class="col-12">
@@ -49,11 +57,12 @@
         </h3>
         <div class="field col-12 md:col-12">
           <label htmlFor="nik">NIK<span class="text-red-500"> *</span></label>
-          <input pInputText id="nik" required type="text" formControlName="nik" />
+          <input pInputText id="nik" required type="text" formControlName="nik" [value]="candidateUser?.nik" />
         </div>
         <div class="field col-12 md:col-3">
           <label htmlFor="birthPlace">Birth Place<span class="text-red-500"> *</span></label>
-          <input pInputText id="birthPlace" required type="text" formControlName="birthPlace" />
+          <input pInputText id="birthPlace" required type="text" formControlName="birthPlace"
+            [value]="candidateUser?.birthPlace" />
         </div>
         <div class="field col-12 md:col-6">
           <label htmlFor="birthDate">Birth Date<span class="text-red-500"> *</span></label>
@@ -106,7 +115,7 @@
             <hr>
 
             <div class="card">
-              <p-dataView #dv [value]="candidateAddress.value">
+              <p-dataView #dv [value]="candidateAddresses">
                 <ng-template let-address pTemplate="listItem" let-i="rowIndex">
                   <div class="col-12">
                     <div class="flex flex-column xl:flex-row xl:align-items-start p-4 gap-4">
@@ -153,7 +162,7 @@
             <hr>
 
             <div class="card">
-              <p-dataView #dv [value]="candidateEducations.value">
+              <p-dataView #dv [value]="candidateEducations">
                 <ng-template let-education pTemplate="listItem" let-i="rowIndex">
                   <div class="col-12">
                     <div class="flex flex-column xl:flex-row xl:align-items-start p-4 gap-4">
@@ -199,7 +208,7 @@
             <hr>
 
             <div class="card">
-              <p-dataView #dv [value]="candidateWorkExp.value">
+              <p-dataView #dv [value]="candidateWorks">
                 <ng-template let-working pTemplate="listItem" let-i="rowIndex">
                   <div class="col-12">
                     <div class="flex flex-column xl:flex-row xl:align-items-start p-4 gap-4">
@@ -249,7 +258,7 @@
             <hr>
 
             <div class="card">
-              <p-dataView #dv [value]="candidateTrainingExp.value">
+              <p-dataView #dv [value]="candidateTrainings">
                 <ng-template let-training pTemplate="listItem" let-i="rowIndex">
                   <div class="col-12">
                     <div class="flex flex-column xl:flex-row xl:align-items-start p-4 gap-4">
@@ -296,7 +305,7 @@
             <hr>
 
             <div class="card">
-              <p-dataView #dv [value]="candidateProjectExp.value">
+              <p-dataView #dv [value]="candidateProjects">
                 <ng-template let-training pTemplate="listItem" let-i="rowIndex">
                   <div class="col-12">
                     <div class="flex flex-column xl:flex-row xl:align-items-start p-4 gap-4">
@@ -343,7 +352,7 @@
             </div>
             <hr>
             <div class="card">
-              <p-dataView #dv [value]="candidateSkill.value">
+              <p-dataView #dv [value]="candidateSkills">
                 <ng-template let-skill pTemplate="listItem" let-i="rowIndex">
                   <div class="col-12">
                     <div class="flex flex-column xl:flex-row xl:align-items-start pl-4 gap-4">
@@ -382,7 +391,7 @@
             </div>
             <hr>
             <div class="card">
-              <p-dataView #dv [value]="candidateLanguage.value">
+              <p-dataView #dv [value]="candidateLanguages">
                 <ng-template let-language pTemplate="listItem" let-i="rowIndex">
                   <div class="col-12">
                     <div class="flex flex-column xl:flex-row xl:align-items-start pl-4 gap-4">
@@ -433,7 +442,7 @@
             <hr>
           </div>
           <div class="col-12 md:col-12">
-            <p-table [value]="candidateFamily.value" [tableStyle]="{ 'min-width': '50rem' }">
+            <p-table [value]="candidateFamilies" [tableStyle]="{ 'min-width': '50rem' }">
               <ng-template pTemplate="header">
                 <tr>
                   <th>No.</th>
@@ -482,7 +491,7 @@
             <hr>
           </div>
           <div class="col-12 md:col-12">
-            <p-table [value]="candidateReferences.value" [tableStyle]="{'min-width': '60rem'}">
+            <p-table [value]="candidateReferences" [tableStyle]="{'min-width': '60rem'}">
               <ng-template pTemplate="header">
                 <tr>
                   <th>No.</th>
@@ -534,7 +543,7 @@
 
           </div>
           <div class="col-12 md:col-12">
-            <p-table [value]="candidateDocuments.value" [tableStyle]="{'min-width': '60rem'}">
+            <p-table [value]="candidateDocuments" [tableStyle]="{'min-width': '60rem'}">
               <ng-template pTemplate="header">
                 <tr>
                   <th>No.</th>
@@ -568,7 +577,7 @@
 </div>
 
 <!-- Dialog Add Address -->
-<p-dialog header="Add Address" [modal]="true"  [(visible)]="dialogAddress" [style]="{width: '30vw'}">
+<p-dialog header="Add Address" [modal]="true" [(visible)]="dialogAddress" [style]="{width: '30vw'}">
   <form [formGroup]="addressInsertReqDto">
     <pre>{{ addressInsertReqDto.value | json }}</pre>
     <div class="p-fluid p-formgrid grid">
@@ -599,8 +608,8 @@
       </div>
     </div>
     <div class="field col-12">
-      <app-button backgroundColor="var(--PRIMARY)" (click)="onAddAddress()" [loading]="loading" typeBtn="submit"
-        label="Submit" class=" mr-2"></app-button>
+      <!-- <app-button backgroundColor="var(--PRIMARY)" (click)="onAddAddress()" [loading]="loading" typeBtn="submit"
+          label="Submit" class=" mr-2"></app-button> -->
     </div>
   </form>
 </p-dialog>
@@ -641,8 +650,8 @@
       </div>
     </div>
     <div class="field col-12">
-      <app-button backgroundColor="var(--PRIMARY)" (click)="onAddEducation()" [loading]="loading" typeBtn="submit"
-        label="Submit" class=" mr-2"></app-button>
+      <!-- <app-button backgroundColor="var(--PRIMARY)" (click)="onAddEducation()" [loading]="loading" typeBtn="submit"
+          label="Submit" class=" mr-2"></app-button> -->
     </div>
   </form>
 </p-dialog>
@@ -683,8 +692,8 @@
       </div>
     </div>
     <div class="field col-12">
-      <app-button backgroundColor="var(--PRIMARY)" (click)="onAddFamily()" [loading]="loading" typeBtn="submit"
-        label="Submit" class=" mr-2"></app-button>
+      <!-- <app-button backgroundColor="var(--PRIMARY)" (click)="onAddFamily()" [loading]="loading" typeBtn="submit"
+          label="Submit" class=" mr-2"></app-button> -->
     </div>
   </form>
 </p-dialog>
@@ -700,8 +709,8 @@
       </div>
     </div>
     <div class="field col-12">
-      <app-button backgroundColor="var(--PRIMARY)" (click)="onAddSkill()" [loading]="loading" typeBtn="submit"
-        label="Submit" class=" mr-2"></app-button>
+      <!-- <app-button backgroundColor="var(--PRIMARY)" (click)="onAddSkill()" [loading]="loading" typeBtn="submit"
+          label="Submit" class=" mr-2"></app-button> -->
     </div>
   </form>
 </p-dialog>
@@ -729,8 +738,8 @@
       </div>
     </div>
     <div class="field col-12">
-      <app-button backgroundColor="var(--PRIMARY)" (click)="onAddLanguage()" [loading]="loading" typeBtn="submit"
-        label="Submit" class=" mr-2"></app-button>
+      <!-- <app-button backgroundColor="var(--PRIMARY)" (click)="onAddLanguage()" [loading]="loading" typeBtn="submit"
+          label="Submit" class=" mr-2"></app-button> -->
     </div>
   </form>
 </p-dialog>
@@ -771,8 +780,8 @@
 
     </div>
     <div class="field col-12">
-      <app-button backgroundColor="var(--PRIMARY)" (click)="onAddReference()" [loading]="loading" typeBtn="submit"
-        label="Submit" class=" mr-2"></app-button>
+      <!-- <app-button backgroundColor="var(--PRIMARY)" (click)="onAddReference()" [loading]="loading" typeBtn="submit"
+          label="Submit" class=" mr-2"></app-button> -->
     </div>
   </form>
 </p-dialog>
@@ -819,15 +828,15 @@
 
     </div>
     <div class="field col-12">
-      <app-button backgroundColor="var(--PRIMARY)" (click)="onAddWorking()" [loading]="loading" typeBtn="submit"
-        label="Submit" class=" mr-2"></app-button>
+      <!-- <app-button backgroundColor="var(--PRIMARY)" (click)="onAddWorking()" [loading]="loading" typeBtn="submit"
+          label="Submit" class=" mr-2"></app-button> -->
     </div>
   </form>
 </p-dialog>
 
 
 <!-- Dialog Add Project -->
-<p-dialog header="Add Project"  [modal]="true"  [(visible)]="dialogProject" [style]="{width: '30vw'}">
+<p-dialog header="Add Project" [modal]="true" [(visible)]="dialogProject" [style]="{width: '30vw'}">
   <pre>{{ projectInsertReqDto.value | json }}</pre>
   <form [formGroup]="projectInsertReqDto">
     <div class="p-fluid p-formgrid grid">
@@ -853,15 +862,15 @@
       </div>
     </div>
     <div class="field col-12">
-      <app-button backgroundColor="var(--PRIMARY)" (click)="onAddProject()" [loading]="loading" typeBtn="submit"
-        label="Submit" class=" mr-2"></app-button>
+      <!-- <app-button backgroundColor="var(--PRIMARY)" (click)="onAddProject()" [loading]="loading" typeBtn="submit"
+          label="Submit" class=" mr-2"></app-button> -->
     </div>
   </form>
 </p-dialog>
 
 
 <!-- Dialog Add Training -->
-<p-dialog header="Add Training" [modal]="true"  [(visible)]="dialogTraining" [style]="{width: '30vw'}">
+<p-dialog header="Add Training" [modal]="true" [(visible)]="dialogTraining" [style]="{width: '30vw'}">
   <form [formGroup]="trainingInsertReqDto">
     <pre>{{ trainingInsertReqDto.value | json }}</pre>
     <div class="p-fluid p-formgrid grid">
@@ -887,14 +896,14 @@
       </div>
     </div>
     <div class="field col-12">
-      <app-button backgroundColor="var(--PRIMARY)" (click)="onAddTraining()" [loading]="loading" typeBtn="submit"
-        label="Submit" class=" mr-2"></app-button>
+      <!-- <app-button backgroundColor="var(--PRIMARY)" (click)="onAddTraining()" [loading]="loading" typeBtn="submit"
+          label="Submit" class=" mr-2"></app-button> -->
     </div>
   </form>
 </p-dialog>
 
 <!-- Dialog Add Documents -->
-<p-dialog header="Add Documents" [modal]="true"  [(visible)]="dialogDocument" [style]="{width: '30vw'}">
+<p-dialog header="Add Documents" [modal]="true" [(visible)]="dialogDocument" [style]="{width: '30vw'}">
 
   <form [formGroup]="documentInsertReqDto">
     <pre>{{ documentInsertReqDto.value | json }}</pre>
@@ -917,8 +926,8 @@
       </div>
     </div>
     <div class="field col-12">
-      <app-button backgroundColor="var(--PRIMARY)" (click)="onAddDocument()" [loading]="loading" typeBtn="submit"
-        label="Submit" class=" mr-2"></app-button>
+      <!-- <app-button backgroundColor="var(--PRIMARY)" (click)="onAddDocument()" [loading]="loading" typeBtn="submit"
+          label="Submit" class=" mr-2"></app-button> -->
     </div>
   </form>
 </p-dialog>

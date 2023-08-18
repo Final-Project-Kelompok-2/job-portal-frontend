@@ -19,8 +19,12 @@ export class ApplicantService {
 
     }
 
-    create(data: ApplicantInsertReqDto): Observable<InsertResDto> {
-        return this.base.post<InsertResDto>(`${BASE_URL}/applicants`, data);
+    getById(id : string) : Observable<ApplicantResDto>{
+        return this.base.get<ApplicantResDto>(`${BASE_URL}/applicants/filter?id=${id}`);
+    }
+
+    create(data : ApplicantInsertReqDto) : Observable<InsertResDto>{
+        return this.base.post<InsertResDto>(`${BASE_URL}/applicants`,data);
     }
 
     update(data: ApplicantUpdateReqDto): Observable<UpdateResDto> {
