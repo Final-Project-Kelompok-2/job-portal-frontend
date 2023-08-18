@@ -91,8 +91,8 @@
                 <td>{{j.statusName}}</td>
                 <td>{{j.expectedSalaryMin}}</td>
                 <td>{{j.expectedSalaryMax}}</td>
-
-
+                <td> <app-button type="button" label="Detail" class="mr-2" classBtn="p-button-secondary"
+                    link="/jobs/detail/{{j.id}}"></app-button></td>
               </tr>
             </ng-template>
             <ng-template pTemplate="emptymessage">

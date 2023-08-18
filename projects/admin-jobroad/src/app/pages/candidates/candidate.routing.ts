@@ -18,8 +18,8 @@ const routes: Routes = [
     component: CandidateCreateComponent
   },
   {
-    path: 'detail',
-    component: CandidateDetailComponent
+    path:'detail/:id',
+    component:CandidateDetailComponent
   }
 ]
 @NgModule({

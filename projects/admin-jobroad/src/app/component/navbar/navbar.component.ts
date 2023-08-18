@@ -12,7 +12,7 @@ import { AuthService } from "../../service/auth.service";
 })
 
 export class NavbarComponent implements OnInit {
-  sidebarVisible: boolean = false;
+
   imageUrl = ''
   profileName = ''
   private roleCode = ''
@@ -24,10 +24,6 @@ export class NavbarComponent implements OnInit {
   logOut() {
     localStorage.clear()
     this.router.navigateByUrl('login')
-  }
-
-  sideBarActivate() {
-    this.sidebarVisible = true
   }
 
   items: MenuItem[] | undefined
@@ -76,7 +72,44 @@ export class NavbarComponent implements OnInit {
     this.items = [
       {
         label: 'Home',
+        icon:'pi pi-home',
         routerLink: '/dashboard'
+      },
+      {
+        label: 'Menu',
+        icon:'pi pi-th-large',
+        items:[
+          {
+            label: 'Users',
+            icon:'pi pi-users',
+            routerLink: '/users'
+          },
+          {
+            label: 'Candidates',
+            icon:'pi pi-user',
+            routerLink: '/candidates'
+          },
+          {
+            label: 'Companies',
+            icon:'pi pi-id-card',
+            routerLink: '/companies'
+          },
+          {
+            label: 'Benefits',
+            icon:'pi pi-money-bill',
+            routerLink: '/benefits'
+          },
+          {
+            label: 'Jobs',
+            icon:'pi pi-briefcase',
+            routerLink: '/jobs'
+          },
+          {
+            label: 'Questions',
+            icon:'pi pi-question-circle',
+            routerLink: '/questions'
+          },
+        ]
       },
     ];
   }
