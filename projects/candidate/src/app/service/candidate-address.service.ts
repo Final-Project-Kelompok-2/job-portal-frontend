@@ -16,7 +16,6 @@ export class CandidateAddressService{
     constructor(private base : BaseService){}
     getByCandidate(id : string) : Observable<CandidateAddressResDto[]>{
         return this.base.get<CandidateAddressResDto[]>(`${BASE_URL}/candidate-address?id=${id}`);
-
     }
 
     create(data : CandidateAddressInsertReqDto) : Observable<InsertResDto>{
