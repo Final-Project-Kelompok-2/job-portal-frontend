@@ -13,4 +13,8 @@ export class FileTypeService{
     getAll() : Observable<FileTypeResDto[]> {
         return this.base.get<FileTypeResDto[]>(`${BASE_URL}/file-types`);
     }
+
+    getByCode(code : string) : Observable<FileTypeResDto> {
+        return this.base.get<FileTypeResDto>(`${BASE_URL}/file_types/detail?code=${code}`)
+    }
 }
