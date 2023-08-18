@@ -11,7 +11,7 @@
           <p-table [value]="candidates" [paginator]="true" [rows]="5" [showCurrentPageReport]="true"
             [tableStyle]="{ 'min-width': '50rem' }"
             currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
-            [rowsPerPageOptions]="[10, 25, 50]" selectionMode="single">
+            [rowsPerPageOptions]="[10, 25, 50]" selectionMode="single" styleClass="p-datatable-sm">
             <ng-template pTemplate="header">
               <tr>
                 <th>
