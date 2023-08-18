@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { BaseService } from "./base.service";
 import { Observable } from "rxjs";
-import { BASE_URL } from "../constant/api.constant";
+import { BASE_URL } from "../constant copy/api.constant";
 import { HiringStatusResDto } from "../dto/hiring-status/hiring-status.res.dto";
 
 @Injectable({

@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { BaseService } from "./base.service";
 import { Observable } from "rxjs";
 
-import { BASE_URL } from "../constant/api.constant";
+import { BASE_URL } from "../constant copy/api.constant";
 import { CandidateWorkResDto } from "../dto/candidate-work/candidate-work.res.dto";
 import { CandidateWorkInsertReqDto } from "../dto/candidate-work/candidate-work-insert.req.dto";
 import { CandidateWorkUpdateReqDto } from "../dto/candidate-work/candidate-work-update.req.dto";

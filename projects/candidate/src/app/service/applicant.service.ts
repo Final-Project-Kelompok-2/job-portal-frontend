@@ -9,7 +9,7 @@ import { ApplicantResDto } from "../dto/applicant/applicant.res.dto";
 import { UpdateResDto } from "../dto/update.res.dto";
 import { ApplicantUpdateReqDto } from "../dto/applicant/applicant-update.req.dto";
 import { InsertResDto } from "../dto/insert.res.dto";
-import { BASE_URL } from "../constant/api.constant";
+import { BASE_URL } from "../constant copy/api.constant";
 
 
 @Injectable({
