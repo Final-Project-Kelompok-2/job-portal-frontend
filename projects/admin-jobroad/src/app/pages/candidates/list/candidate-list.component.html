@@ -50,14 +50,15 @@
                 </th>
               </tr>
             </ng-template>
-            <ng-template pTemplate="body" let-i="rowIndex">
+            <ng-template pTemplate="body" let-c let-i="rowIndex">
               <tr>
                 <td>{{ i+1 }}</td>
-                <td>Tatang Sutarman</td>
-                <td>tatang@gmail.com</td>
-                <td>HR</td>
-                <td>Mantab</td>
-                <td>Mantab Button</td>
+                <td>{{ c.userEmail }}</td>
+                <td>{{ c.fullName }}</td>
+                <td>{{ c.statusname }}</td>
+                <td>
+                  <app-button label="See Detail" backgroundColor="var(--PRIMARY)" typeBtn="button" ></app-button>
+                </td>
               </tr>
             </ng-template>
             <ng-template pTemplate="emptymessage">

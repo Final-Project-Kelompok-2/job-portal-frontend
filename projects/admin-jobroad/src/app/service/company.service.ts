@@ -7,15 +7,17 @@ import { CompanyInsertReqDto } from "../dto/company/company-insert.req.dto";
 import { InsertResDto } from "../dto/insert.res.dto";
 
 @Injectable({
-    providedIn : 'root'
+  providedIn: 'root'
 })
-export class CompanyService{
-    constructor(private base : BaseService){}
-    getAll() : Observable<CompanyResDto[]>{
-        return this.base.get<CompanyResDto[]>(`${BASE_URL}/companies`);
+export class CompanyService {
+  constructor(private base: BaseService) { }
 
-    }
-    create(data : CompanyInsertReqDto) : Observable<InsertResDto>{
-        return this.base.post<InsertResDto>(`${BASE_URL}/companies`,data);
-    }
+
+  getAll(): Observable<CompanyResDto[]> {
+    return this.base.get<CompanyResDto[]>(`${BASE_URL}/companies`);
+
+  }
+  create(data: CompanyInsertReqDto): Observable<InsertResDto> {
+    return this.base.post<InsertResDto>(`${BASE_URL}/companies`, data);
+  }
 }
