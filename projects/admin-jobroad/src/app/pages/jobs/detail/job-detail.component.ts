@@ -1,10 +1,8 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import { JobService } from "../../../service/job.service";
-import { CandidateUserService } from "../../../service/candidate-user.service";
 import { JobResDto } from "../../../dto/job/job.res.dto";
 import { ApplicantService } from "../../../service/applicant.service";
 import { ApplicantResDto } from "../../../dto/applicant/applicant.res.dto";
-import { CandidateUserResDto } from "../../../dto/candidate-user/candidate-user.res.dto";
 import { Subscription } from "rxjs";
 import { ActivatedRoute } from "@angular/router";
 import { Table } from "primeng/table";

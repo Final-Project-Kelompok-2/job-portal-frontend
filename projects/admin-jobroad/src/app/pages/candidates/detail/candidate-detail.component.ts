@@ -124,3 +124,4 @@ export class CandidateDetailComponent implements OnInit {
         })
 
     }
+}
