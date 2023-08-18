@@ -6,12 +6,6 @@
         <div class="col-12 md:col-9 title">
           <h2>Candidate List</h2>
         </div>
-        <div class="col-12 md:col-3 buttons">
-          <app-button type="button" label="Back" class="mr-2" classBtn="p-button-secondary"
-            link="/dashboard"></app-button>
-          <app-button backgroundColor="var(--PRIMARY)" type="button" iconBtn="pi pi-fw pi-plus"
-            label="Add new candidate" classBtn="p-button-primary" link="/candidates/new"></app-button>
-        </div>
 
         <div class="card col-12">
           <p-table [value]="candidates" [paginator]="true" [rows]="5" [showCurrentPageReport]="true"

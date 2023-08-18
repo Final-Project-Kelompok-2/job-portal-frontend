@@ -58,7 +58,7 @@ export class BaseService{
 export function response <T>(messageService : MessageService,router : Router){
     return tap<T>({
         next : (data) => {
-            console.log(data)
+            // console.log(data)
             if(data && (data as any).message){
                 
                 messageService.add({ severity: 'success', summary: 'Success', detail: (data as any).message });
