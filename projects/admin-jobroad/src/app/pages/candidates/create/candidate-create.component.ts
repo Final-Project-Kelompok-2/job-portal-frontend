@@ -1,6 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { CandidateAddressService } from "../../../service/candidate-address.service";
-import { Form, FormArray, NonNullableFormBuilder, Validators } from "@angular/forms";
+import { FormArray, NonNullableFormBuilder, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
 import { CandidateTrainingInsertReqDto } from "../../../dto/candidate-training/candidate-training-insert.req.dto";
 import { FileUpload } from "primeng/fileupload";
@@ -22,6 +21,8 @@ import { MaritalStatusService } from "../../../service/maritalstatus.service";
 import { MaritalResDto } from "../../../dto/marital/marital.res.dto";
 import { CandidateUserService } from "../../../service/candidate-user.service";
 import { CandidateDocumentInsertReqDto } from "../../../dto/candidate-document/candidate-document-insert.req.dto";
+import { FileTypeService } from "../../../service/file-type.service";
+import { FileTypeResDto } from "../../../dto/file-type/file-type.res.dto";
 
 interface Salutation {
   value: string;
@@ -41,7 +42,8 @@ interface Degree {
 }
 @Component({
   selector: 'candidate-create',
-  templateUrl: './candidate-create.component.html'
+  templateUrl: './candidate-create.component.html',
+  styleUrls: ['./candidate-create.component.css']
 })
 export class CandidateCreateComponent implements OnInit {
   loading = false
@@ -69,18 +71,22 @@ export class CandidateCreateComponent implements OnInit {
   degrees: Degree[] | undefined
   salutations: Salutation[] | undefined
   genders: Gender[] | undefined
+  residenceType: ResidenceType[] | undefined
   maritals!: MaritalResDto[]
   religions!: ReligionResDto[]
   types!: PersonTypeResDto[]
-  residenceType: ResidenceType[] | undefined
   candidateStatus!: CandidateStatusResDto[]
+  fileTypes!: FileTypeResDto[]
 
   constructor(
     private candidateService: CandidateUserService,
     private religionService: ReligionService,
-    private personTypeService : PersonTypeService,
-    private candidateStatusService : CandidateStatusService,
-    private maritalStatusService : MaritalStatusService,
+
+    private personTypeService: PersonTypeService,
+    private candidateStatusService: CandidateStatusService,
+    private maritalStatusService: MaritalStatusService,
+    private fileTypeService: FileTypeService,
+
     private fb: NonNullableFormBuilder,
     private router: Router
   ) { }
@@ -103,16 +109,16 @@ export class CandidateCreateComponent implements OnInit {
     file: ['', Validators.required],
     fileExtension: ['', Validators.required],
     candidateStatusId: ['', Validators.required],
-    cdtAddresses: this.fb.array(this.addresses),
-    cdtDocuments: this.fb.array(this.documents),
-    educationsExp: this.fb.array(this.educations),
-    cdtFamilies: this.fb.array(this.families),
-    cdtLanguages: this.fb.array(this.languages),
-    projectsExp: this.fb.array(this.projects),
-    cdtReferences: this.fb.array(this.references),
-    cdtSkills: this.fb.array(this.skills),
-    trainingsExp: this.fb.array(this.trainings),
-    workingsExp: this.fb.array(this.workings)
+    candidateAddress: this.fb.array(this.addresses),
+    candidateDocuments: this.fb.array(this.documents),
+    candidateEducations: this.fb.array(this.educations),
+    candidateFamily: this.fb.array(this.families),
+    candidateLanguage: this.fb.array(this.languages),
+    candidateProjectExp: this.fb.array(this.projects),
+    candidateReferences: this.fb.array(this.references),
+    candidateSkill: this.fb.array(this.skills),
+    candidateTrainingExp: this.fb.array(this.trainings),
+    candidateWorkExp: this.fb.array(this.workings),
   })
 
   trainingInsertReqDto = this.fb.group({
@@ -161,41 +167,41 @@ export class CandidateCreateComponent implements OnInit {
   })
 
   skillInsertReqDto = this.fb.group({
-    skillName : ['', [Validators.required]]
+    skillName: ['', [Validators.required]]
   })
 
   languageInsertReqDto = this.fb.group({
-    languageName : ['', [Validators.required]],
-    writingRate : ['', [Validators.required]],
-    speakingRate : ['', [Validators.required]],
-    listeningRate : ['', [Validators.required]]
+    languageName: ['', [Validators.required]],
+    writingRate: ['', [Validators.required]],
+    speakingRate: ['', [Validators.required]],
+    listeningRate: ['', [Validators.required]]
   })
 
   familyInsertReqDto = this.fb.group({
-    fullname : ['', [Validators.required]],
-    relationship : ['', [Validators.required]],
-    degreeName : ['', [Validators.required]],
-    occupation : ['', [Validators.required]],
-    birthDate : ['', [Validators.required]],
-    birthPlace : ['', [Validators.required]],
-    email : ['', [Validators.required]]
+    fullname: ['', [Validators.required]],
+    relationship: ['', [Validators.required]],
+    degreeName: ['', [Validators.required]],
+    occupation: ['', [Validators.required]],
+    birthDate: ['', [Validators.required]],
+    birthPlace: ['', [Validators.required]],
+    email: ['', [Validators.required]]
   })
 
   referenceInsertReqDto = this.fb.group({
-    fullname : ['', [Validators.required]],
-    relationship : ['', [Validators.required]],
-    occupation : ['', [Validators.required]],
-    phoneNumber : ['', [Validators.required]],
-    email : ['', [Validators.required]],
-    company : ['', [Validators.required]],
-    description : ['', [Validators.required]]
+    fullname: ['', [Validators.required]],
+    relationship: ['', [Validators.required]],
+    occupation: ['', [Validators.required]],
+    phoneNumber: ['', [Validators.required]],
+    email: ['', [Validators.required]],
+    company: ['', [Validators.required]],
+    description: ['', [Validators.required]]
   })
 
   documentInsertReqDto = this.fb.group({
-    docName : ['', [Validators.required]],
-    fileTypeCode : ['', [Validators.required]],
-    fileName :  ['', [Validators.required]],
-    fileExtension :  ['', [Validators.required]]
+    docName: ['', [Validators.required]],
+    fileTypeCode: ['', [Validators.required]],
+    fileName: ['', [Validators.required]],
+    fileExtension: ['', [Validators.required]]
   })
 
   ngOnInit(): void {
@@ -213,6 +219,10 @@ export class CandidateCreateComponent implements OnInit {
 
     this.maritalStatusService.getAll().subscribe((res) => {
       this.maritals = res
+    })
+
+    this.fileTypeService.getAll().subscribe((res) => {
+      this.fileTypes = res
     })
 
     this.salutations = [
@@ -279,150 +289,190 @@ export class CandidateCreateComponent implements OnInit {
   onSubmit() {
     if (this.candidateMasterInsertReqDto.valid) {
       const data = this.candidateMasterInsertReqDto.getRawValue()
-      // this.candidateService.register(data).subscribe((res) => {
-      //   this.router.navigateByUrl('/candidates')
-      // })
+      this.candidateService.register(data).subscribe((res) => {
+        this.router.navigateByUrl('/candidates')
+      })
     }
   }
 
-  get cdtAddresses() {
-    return this.candidateMasterInsertReqDto.get('cdtAddresses') as FormArray
+  get candidateAddress() {
+    return this.candidateMasterInsertReqDto.get('candidateAddress') as FormArray
   }
 
   onAddAddress() {
     if (this.addressInsertReqDto.valid) {
       const data = this.addressInsertReqDto.getRawValue()
 
-      this.cdtAddresses.push(this.fb.group(data))
+      this.candidateAddress.push(this.fb.group(data))
       this.addressInsertReqDto.reset()
       this.dialogAddress = false
     }
   }
 
-  get trainingsExp() {
-    return this.candidateMasterInsertReqDto.get('trainingsExp') as FormArray
+  onDeleteAddress(i: number) {
+    this.candidateAddress.removeAt(i)
+  }
+
+  get candidateTrainingExp() {
+    return this.candidateMasterInsertReqDto.get('candidateTrainingExp') as FormArray
   }
 
   onAddTraining() {
     if (this.trainingInsertReqDto.valid) {
       const data = this.trainingInsertReqDto.getRawValue()
 
-      this.trainingsExp.push(this.fb.group(data))
+      this.candidateTrainingExp.push(this.fb.group(data))
       this.trainingInsertReqDto.reset()
       this.dialogTraining = false
     }
   }
 
-  get educationsExp() {
-    return this.candidateMasterInsertReqDto.get('educationsExp') as FormArray
+  onDeleteTraining(i: number) {
+    this.candidateTrainingExp.removeAt(i)
+  }
+
+  get candidateEducations() {
+    return this.candidateMasterInsertReqDto.get('candidateEducations') as FormArray
   }
 
   onAddEducation() {
     if (this.educationInsertReqDto.valid) {
       const data = this.educationInsertReqDto.getRawValue()
 
-      this.educationsExp.push(this.fb.group(data))
+      this.candidateEducations.push(this.fb.group(data))
       this.educationInsertReqDto.reset()
       this.dialogEducation = false
     }
   }
 
-  get workingsExp() {
-    return this.candidateMasterInsertReqDto.get('workingsExp') as FormArray
+  onDeleteEducation(i: number) {
+    this.candidateEducations.removeAt(i)
+  }
+
+  get candidateWorkExp() {
+    return this.candidateMasterInsertReqDto.get('candidateWorkExp') as FormArray
   }
 
   onAddWorking() {
     if (this.workingInsertReqDto.valid) {
       const data = this.workingInsertReqDto.getRawValue()
 
-      this.workingsExp.push(this.fb.group(data))
+      this.candidateWorkExp.push(this.fb.group(data))
       this.workingInsertReqDto.reset()
       this.dialogWorking = false
     }
   }
 
-  get projectsExp() {
-    return this.candidateMasterInsertReqDto.get('projectsExp') as FormArray
+  onDeleteWorking(i: number) {
+    this.candidateWorkExp.removeAt(i)
+  }
+
+  get candidateProjectExp() {
+    return this.candidateMasterInsertReqDto.get('candidateProjectExp') as FormArray
   }
 
   onAddProject() {
     if (this.projectInsertReqDto.valid) {
       const data = this.projectInsertReqDto.getRawValue()
 
-      this.projectsExp.push(this.fb.group(data))
+      this.candidateProjectExp.push(this.fb.group(data))
       this.projectInsertReqDto.reset()
       this.dialogProject = false
     }
   }
 
-  get cdtSkills() {
-    return this.candidateMasterInsertReqDto.get('cdtSkills') as FormArray
+  onDeleteProject(i: number) {
+    this.candidateProjectExp.removeAt(i)
+  }
+
+  get candidateSkill() {
+    return this.candidateMasterInsertReqDto.get('candidateSkill') as FormArray
   }
 
   onAddSkill() {
     if (this.skillInsertReqDto.valid) {
       const data = this.skillInsertReqDto.getRawValue()
 
-      this.cdtSkills.push(this.fb.group(data))
+      this.candidateSkill.push(this.fb.group(data))
       this.skillInsertReqDto.reset()
       this.dialogSkill = false
     }
   }
 
-  get cdtLanguages() {
-    return this.candidateMasterInsertReqDto.get('cdtLanguages') as FormArray
+  onDeleteSkill(i: number) {
+    this.candidateSkill.removeAt(i)
+  }
+
+  get candidateLanguage() {
+    return this.candidateMasterInsertReqDto.get('candidateLanguage') as FormArray
   }
 
   onAddLanguage() {
     if (this.languageInsertReqDto.valid) {
       const data = this.languageInsertReqDto.getRawValue()
 
-      this.cdtLanguages.push(this.fb.group(data))
+      this.candidateLanguage.push(this.fb.group(data))
       this.languageInsertReqDto.reset()
       this.dialogLanguage = false
     }
   }
 
-  get cdtFamilies() {
-    return this.candidateMasterInsertReqDto.get('cdtFamilies') as FormArray
+  onDeleteLanguage(i: number) {
+    this.candidateLanguage.removeAt(i)
+  }
+
+  get candidateFamily() {
+    return this.candidateMasterInsertReqDto.get('candidateFamily') as FormArray
   }
 
   onAddFamily() {
     if (this.familyInsertReqDto.valid) {
       const data = this.familyInsertReqDto.getRawValue()
 
-      this.cdtFamilies.push(this.fb.group(data))
+      this.candidateFamily.push(this.fb.group(data))
       this.familyInsertReqDto.reset()
       this.dialogFamily = false
     }
   }
 
-  get cdtReferences() {
-    return this.candidateMasterInsertReqDto.get('cdtReferences') as FormArray
+  onDeleteFamily(i: number) {
+    this.candidateFamily.removeAt(i)
+  }
+
+  get candidateReferences() {
+    return this.candidateMasterInsertReqDto.get('candidateReferences') as FormArray
   }
 
   onAddReference() {
     if (this.referenceInsertReqDto.valid) {
       const data = this.referenceInsertReqDto.getRawValue()
 
-      this.cdtReferences.push(this.fb.group(data))
+      this.candidateReferences.push(this.fb.group(data))
       this.referenceInsertReqDto.reset()
       this.dialogReference = false
     }
   }
 
-  get cdtDocuments() {
-    return this.candidateMasterInsertReqDto.get('cdtDocuments') as FormArray
+  onDeleteReference(i: number) {
+    this.candidateReferences.removeAt(i)
+  }
+
+  get candidateDocuments() {
+    return this.candidateMasterInsertReqDto.get('candidateDocuments') as FormArray
   }
 
   onAddDocument() {
     if (this.documentInsertReqDto.valid) {
       const data = this.documentInsertReqDto.getRawValue()
-
-      this.cdtDocuments.push(this.fb.group(data))
+      console.log(data)
+      this.candidateDocuments.push(this.fb.group(data))
       this.documentInsertReqDto.reset()
       this.dialogDocument = false
     }
+  }
+
+  onDeleteDocument(i: number) {
+    this.candidateDocuments.removeAt(i)
   }
 
   fileUpload(event: any, fileUpload: FileUpload) {
@@ -442,6 +492,31 @@ export class CandidateCreateComponent implements OnInit {
 
         this.candidateMasterInsertReqDto.patchValue({
           file: resultBase64,
+          fileExtension: resultExtension
+        })
+
+        fileUpload.clear()
+      })
+    }
+  }
+
+  fileUploadDoc(event: any, fileUpload: FileUpload) {
+    const toBase64 = (file: File) => new Promise<string>((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        if (typeof reader.result === "string") resolve(reader.result)
+      };
+      reader.onerror = error => reject(error);
+    });
+
+    for (let file of event.files) {
+      toBase64(file).then(result => {
+        const resultBase64 = result.substring(result.indexOf(",") + 1, result.length)
+        const resultExtension = file.name.substring(file.name.indexOf(".") + 1, file.name.length)
+
+        this.documentInsertReqDto.patchValue({
+          fileName: resultBase64,
           fileExtension: resultExtension
         })
 

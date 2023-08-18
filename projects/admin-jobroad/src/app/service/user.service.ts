@@ -12,6 +12,10 @@ import { InsertResDto } from "../dto/insert.res.dto";
 export class UserService{
     constructor(private base : BaseService){}
 
+    getAllUser():Observable<UserResDto[]>{
+      return this.base.get<UserResDto[]>(`${BASE_URL}/users`);
+    }
+
     getByRole(roleCode : string) : Observable<UserResDto[]>{
         return this.base.get<UserResDto[]>(`${BASE_URL}/users/filter?roleCode=${roleCode}`);
     }

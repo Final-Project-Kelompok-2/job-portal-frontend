@@ -16,16 +16,17 @@ export class CompanyListComponent implements OnInit,OnDestroy{
   ngOnInit(): void {
     this.getCompany();
   }
+
   getCompany() {
    this.companySubscription = this.companyService.getAll().subscribe(result => {
       this.companies = result;
     })
-    
   }
+
+
   loading = false
 
   clear(table: Table) {
-    
     table.clear();
   }
   ngOnDestroy(): void {

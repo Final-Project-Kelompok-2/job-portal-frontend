@@ -4,6 +4,7 @@ import { QuestionResDto } from "../../../dto/question/question.res.dto";
 import { QuestionService } from "../../../service/question.service";
 import { Subscription } from "rxjs";
 
+
 @Component({
   selector: 'question-list',
   templateUrl: './question-list.component.html',

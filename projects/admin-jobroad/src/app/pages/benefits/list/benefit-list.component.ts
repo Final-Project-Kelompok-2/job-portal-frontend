@@ -38,10 +38,11 @@ export class BenefitListComponent implements OnInit,OnDestroy {
 
   insert() {
     const data = this.benefitReqDto.getRawValue();
-    this.benefitService.create(data).subscribe();
-    this.getBenefit();
-    this.benefitReqDto.reset();
-    this.visible = false;
+    this.benefitService.create(data).subscribe(result => {
+      this.getBenefit();
+      this.benefitReqDto.reset();
+      this.visible = false;
+    })
   }
 
   ngOnDestroy(): void {

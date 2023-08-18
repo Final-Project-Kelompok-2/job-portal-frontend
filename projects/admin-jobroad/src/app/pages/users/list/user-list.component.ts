@@ -1,5 +1,7 @@
 import { Component, OnInit } from "@angular/core"
 import { Table } from "primeng/table";
+import { UserService } from "../../../service/user.service";
+import { UserResDto } from "../../../dto/user/user.res.dto";
 
 
 @Component({
@@ -10,23 +12,23 @@ import { Table } from "primeng/table";
 export class UserListComponent implements OnInit {
 
   loading = false
-  // users!: UsersResDto[]  
+  users!: UserResDto[]
 
-  constructor() {
+  constructor(private userService: UserService) {
   }
 
   ngOnInit(): void {
-    // this.getUsers()
+    this.getUsers()
   }
 
   clear(table: Table) {
     table.clear();
-}
+  }
 
-  // getUsers() {
-  //   this.userService.getAllUser(true).subscribe(result => {
-  //     this.users = result
-  //   })
-  // }
+  getUsers() {
+    this.userService.getAllUser().subscribe(result => {
+      this.users = result
+    })
+  }
 
 }

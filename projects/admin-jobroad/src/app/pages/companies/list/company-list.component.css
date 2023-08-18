@@ -2,13 +2,12 @@
   background: #286e33;
 }
 
-::ng-deep .p-datatable.p-datatable-sm .p-datatable-thead>tr>th {
-  background: #286e33;
+::ng-deep .p-datatable .p-datatable-thead > tr > th {
   color: white;
+  background-color: #286e33;
 }
 
 ::ng-deep .p-column-filter-menu-button, .p-column-filter-clear-button {
-
   color: white;
 }
 

@@ -42,8 +42,8 @@
       <p-overlayPanel #op>
         <p-menu [model]="profile"> </p-menu>
       </p-overlayPanel>
-      <p-avatar image="https://sman3brebes.sch.id/wp-content/uploads/2020/10/romlah.jpg" styleClass="mr-2" size="large"
-        shape="circle" (click)="op.toggle($event)" alt="avatar image">
+      <p-avatar image="{{ imageUrl }}" styleClass="mr-2" size="large"
+        shape="circle" (click)="op.toggle($event)" alt="../../../assets/emptyProfile.jpeg">
       </p-avatar>
     </ng-template>
   </p-menubar>

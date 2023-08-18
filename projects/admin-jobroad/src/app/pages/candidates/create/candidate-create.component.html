@@ -13,7 +13,7 @@
           <label htmlFor="fullName">Full Name<span class="text-red-500"> *</span></label>
           <input pInputText id="fullName" required type="text" formControlName="fullname" />
         </div>
-        <div class="field col-12 md:col-10">
+        <div class="field col-12 md:col-12">
           <label htmlFor="email">Email<span class="text-red-500"> *</span></label>
           <input pInputText id="email" required type="email" formControlName="userEmail" />
         </div>
@@ -25,10 +25,10 @@
         <div class="col-9"></div>
         <div class="field col-12 md:col-2">
           <label for="exp">Experience (years)<span class="text-red-500"> *</span></label>
-          <p-inputNumber inputId="exp" inputId="minmax" mode="decimal" [min]="0" [max]="100"
+          <p-inputNumber inputId="exp" inputId="minmax" mode="decimal" [min]="0" [max]="120"
             formControlName="experience"></p-inputNumber>
         </div>
-        <div class="field col-12 md:col-10">
+        <div class="field col-12 md:col-12">
 
           <label for="salary">Expected Salary<span class="text-red-500"> *</span></label>
           <p-inputNumber inputId="salary" mode="currency" currency="IDR" locale="jp-JP"
@@ -93,21 +93,21 @@
 
       <div class="row align-items-center">
         <div class="grid">
-          <div class="col-12 md:col-10">
+          <div class="col-12 md:col-12">
             <div class="flex justify-content-between flex-wrap card-container purple-container">
               <div class="flex align-items-center justify-content-center">
                 <h3 class="col-12">Addresses</h3>
               </div>
               <div class="flex align-items-center justify-content-center">
-                <button pButton pRipple label="ADD" (click)="showAddAddress()" icon="pi pi-plus"
-                  class="p-button-success bg-green-700" styleClass="bg-green-700"></button>
+                <app-button typeBtn="button" (click)="showAddAddress()" iconBtn="pi pi-plus-circle"
+                  backgroundColor="var(--PRIMARY)" label="ADD"></app-button>
               </div>
             </div>
             <hr>
 
             <div class="card">
-              <p-dataView #dv [value]="cdtAddresses.value">
-                <ng-template let-address pTemplate="listItem">
+              <p-dataView #dv [value]="candidateAddress.value">
+                <ng-template let-address pTemplate="listItem" let-i="rowIndex">
                   <div class="col-12">
                     <div class="flex flex-column xl:flex-row xl:align-items-start p-4 gap-4">
                       <div
@@ -123,8 +123,9 @@
                         </div>
                         <div class="flex sm:flex-column align-items-center sm:align-items-end gap-3 sm:gap-2">
                           <span class="text-l font-semibold"></span>
-                          <button pButton icon="pi pi-trash"
-                            class="md:align-self-end mb-2 p-button-rounded p-button-danger"></button>
+                          <app-button typeBtn="button" (click)="onDeleteAddress(i)" iconBtn="pi pi-trash"
+                            backgroundColor="danger"
+                            classBtn="md:align-self-end mb-2 p-button-rounded p-button-danger"></app-button>
                         </div>
                       </div>
                     </div>
@@ -139,21 +140,21 @@
 
       <div class="row align-items-center">
         <div class="grid">
-          <div class="col-12 md:col-10">
+          <div class="col-12 md:col-12">
             <div class="flex justify-content-between flex-wrap card-container purple-container">
               <div class="flex align-items-center justify-content-center">
                 <h3 class="col-12">Educations</h3>
               </div>
               <div class="flex align-items-center justify-content-center">
-                <button pButton pRipple label="ADD" (click)="showAddEducation()" icon="pi pi-plus"
-                  class="p-button-success bg-green-700"></button>
+                <app-button typeBtn="button" (click)="showAddEducation()" iconBtn="pi pi-plus-circle"
+                  backgroundColor="var(--PRIMARY)" label="ADD"></app-button>
               </div>
             </div>
             <hr>
 
             <div class="card">
-              <p-dataView #dv [value]="educationsExp.value">
-                <ng-template let-education pTemplate="listItem">
+              <p-dataView #dv [value]="candidateEducations.value">
+                <ng-template let-education pTemplate="listItem" let-i="rowIndex">
                   <div class="col-12">
                     <div class="flex flex-column xl:flex-row xl:align-items-start p-4 gap-4">
                       <div
@@ -168,8 +169,9 @@
                         </div>
                         <div class="flex sm:flex-column align-items-center sm:align-items-end gap-3 sm:gap-2">
                           <span class="text-l font-semibold">{{ education.startYear }} - {{ education.endYear }}</span>
-                          <button pButton icon="pi pi-trash"
-                            class="md:align-self-end mb-2 p-button-rounded p-button-danger"></button>
+                          <app-button typeBtn="button" (click)="onDeleteEducation(i)" iconBtn="pi pi-trash"
+                            backgroundColor="danger"
+                            classBtn="md:align-self-end mb-2 p-button-rounded p-button-danger"></app-button>
                         </div>
                       </div>
                     </div>
@@ -184,21 +186,21 @@
 
       <div class="row align-items-center">
         <div class="grid">
-          <div class="col-12 md:col-10">
+          <div class="col-12 md:col-12">
             <div class="flex justify-content-between flex-wrap card-container purple-container">
               <div class="flex align-items-center justify-content-center">
                 <h3 class="col-12">Working Experiences</h3>
               </div>
               <div class="flex align-items-center justify-content-center">
-                <button pButton pRipple label="ADD" (click)="showAddWorking()" icon="pi pi-plus"
-                  class="p-button-success bg-green-700" styleClass="bg-green-700"></button>
+                <app-button typeBtn="button" (click)="showAddWorking()" iconBtn="pi pi-plus-circle"
+                  backgroundColor="var(--PRIMARY)" label="ADD"></app-button>
               </div>
             </div>
             <hr>
 
             <div class="card">
-              <p-dataView #dv [value]="workingsExp.value">
-                <ng-template let-working pTemplate="listItem">
+              <p-dataView #dv [value]="candidateWorkExp.value">
+                <ng-template let-working pTemplate="listItem" let-i="rowIndex">
                   <div class="col-12">
                     <div class="flex flex-column xl:flex-row xl:align-items-start p-4 gap-4">
                       <div
@@ -217,8 +219,9 @@
                         </div>
                         <div class="flex sm:flex-column align-items-center sm:align-items-end gap-3 sm:gap-2">
                           <span class="text-l font-semibold">{{ working.startDate }} - {{ working.endDate }}</span>
-                          <button pButton icon="pi pi-trash"
-                            class="md:align-self-end mb-2 p-button-rounded p-button-danger"></button>
+                          <app-button typeBtn="button" (click)="onDeleteWorking(i)" iconBtn="pi pi-trash"
+                            backgroundColor="danger"
+                            classBtn="md:align-self-end mb-2 p-button-rounded p-button-danger"></app-button>
                         </div>
                       </div>
                     </div>
@@ -233,21 +236,21 @@
 
       <div class="row align-items-center">
         <div class="grid">
-          <div class="col-12 md:col-10">
+          <div class="col-12 md:col-12">
             <div class="flex justify-content-between flex-wrap card-container purple-container">
               <div class="flex align-items-center justify-content-center">
                 <h3 class="col-12">Training Experiences</h3>
               </div>
               <div class="flex align-items-center justify-content-center">
-                <button pButton pRipple label="ADD" (click)="showAddTraining()" icon="pi pi-plus"
-                  class="p-button-success bg-green-700" styleClass="bg-green-700"></button>
+                <app-button typeBtn="button" (click)="showAddTraining()" iconBtn="pi pi-plus-circle"
+                  backgroundColor="var(--PRIMARY)" label="ADD"></app-button>
               </div>
             </div>
             <hr>
 
             <div class="card">
-              <p-dataView #dv [value]="trainingsExp.value">
-                <ng-template let-training pTemplate="listItem">
+              <p-dataView #dv [value]="candidateTrainingExp.value">
+                <ng-template let-training pTemplate="listItem" let-i="rowIndex">
                   <div class="col-12">
                     <div class="flex flex-column xl:flex-row xl:align-items-start p-4 gap-4">
                       <div
@@ -263,8 +266,9 @@
                         </div>
                         <div class="flex sm:flex-column align-items-center sm:align-items-end gap-3 sm:gap-2">
                           <span class="text-l font-semibold">{{ training.startDate }} - {{ training.endDate }}</span>
-                          <button pButton icon="pi pi-trash"
-                            class="md:align-self-end mb-2 p-button-rounded p-button-danger"></button>
+                          <app-button typeBtn="button" (click)="onDeleteTraining(i)" iconBtn="pi pi-trash"
+                            backgroundColor="danger"
+                            classBtn="md:align-self-end mb-2 p-button-rounded p-button-danger"></app-button>
                         </div>
                       </div>
                     </div>
@@ -279,21 +283,21 @@
 
       <div class="row align-items-center">
         <div class="grid">
-          <div class="col-12 md:col-10">
+          <div class="col-12 md:col-12">
             <div class="flex justify-content-between flex-wrap card-container purple-container">
               <div class="flex align-items-center justify-content-center">
                 <h3 class="col-12">Project Experiences</h3>
               </div>
               <div class="flex align-items-center justify-content-center">
-                <button pButton pRipple label="ADD" (click)="showAddProject()" icon="pi pi-plus"
-                  class="p-button-success bg-green-700" styleClass="bg-green-700"></button>
+                <app-button typeBtn="button" (click)="showAddProject()" iconBtn="pi pi-plus-circle"
+                  backgroundColor="var(--PRIMARY)" label="ADD"></app-button>
               </div>
             </div>
             <hr>
 
             <div class="card">
-              <p-dataView #dv [value]="projectsExp.value">
-                <ng-template let-training pTemplate="listItem">
+              <p-dataView #dv [value]="candidateProjectExp.value">
+                <ng-template let-training pTemplate="listItem" let-i="rowIndex">
                   <div class="col-12">
                     <div class="flex flex-column xl:flex-row xl:align-items-start p-4 gap-4">
                       <div
@@ -311,8 +315,9 @@
                         <div class="flex sm:flex-column align-items-center sm:align-items-end gap-3 sm:gap-2">
                           <span class="text-l font-semibold">{{ training.startDate }} - {{
                             training.endDate }}</span>
-                          <button pButton icon="pi pi-trash"
-                            class="md:align-self-end mb-2 p-button-rounded p-button-danger"></button>
+                          <app-button typeBtn="button" (click)="onDeleteProject(i)" iconBtn="pi pi-trash"
+                            backgroundColor="danger"
+                            classBtn="md:align-self-end mb-2 p-button-rounded p-button-danger"></app-button>
                         </div>
                       </div>
                     </div>
@@ -326,20 +331,20 @@
 
       <div class="row align-items-center">
         <div class="grid">
-          <div class="col-12 md:col-5">
+          <div class="col-12 md:col-6">
             <div class="flex justify-content-between flex-wrap card-container purple-container">
               <div class="flex align-items-center justify-content-center">
                 <h3 class="col-12">Skills</h3>
               </div>
               <div class="flex align-items-center justify-content-center">
-                <button pButton pRipple label="ADD" (click)="showAddSkill()" icon="pi pi-plus"
-                  class="p-button-success bg-green-700"></button>
+                <app-button typeBtn="button" (click)="showAddSkill()" iconBtn="pi pi-plus-circle"
+                  backgroundColor="var(--PRIMARY)" label="ADD"></app-button>
               </div>
             </div>
             <hr>
             <div class="card">
-              <p-dataView #dv [value]="cdtSkills.value">
-                <ng-template let-skill pTemplate="listItem">
+              <p-dataView #dv [value]="candidateSkill.value">
+                <ng-template let-skill pTemplate="listItem" let-i="rowIndex">
                   <div class="col-12">
                     <div class="flex flex-column xl:flex-row xl:align-items-start pl-4 gap-4">
                       <div
@@ -353,8 +358,9 @@
                         </div>
                         <div class="flex sm:flex-column align-items-center sm:align-items-end">
                           <span class="text-l font-semibold"></span>
-                          <button pButton icon="pi pi-trash"
-                            class="md:align-self-end mt-1 mb-1 p-button-rounded p-button-danger"></button>
+                          <app-button typeBtn="button" (click)="onDeleteSkill(i)" iconBtn="pi pi-trash"
+                            backgroundColor="danger"
+                            classBtn="md:align-self-end mb-2 p-button-rounded p-button-danger"></app-button>
                         </div>
                       </div>
                     </div>
@@ -364,20 +370,20 @@
             </div>
           </div>
 
-          <div class="col-12 md:col-5">
+          <div class="col-12 md:col-6">
             <div class="flex justify-content-between flex-wrap card-container purple-container">
               <div class="flex align-items-center justify-content-center">
                 <h3 class="col-12">Languages</h3>
               </div>
               <div class="flex align-items-center justify-content-center">
-                <button pButton pRipple label="ADD" (click)="showAddLanguage()" icon="pi pi-plus"
-                  class="p-button-success bg-green-700"></button>
+                <app-button typeBtn="button" (click)="showAddLanguage()" iconBtn="pi pi-plus-circle"
+                  backgroundColor="var(--PRIMARY)" label="ADD"></app-button>
               </div>
             </div>
             <hr>
             <div class="card">
-              <p-dataView #dv [value]="cdtLanguages.value">
-                <ng-template let-language pTemplate="listItem">
+              <p-dataView #dv [value]="candidateLanguage.value">
+                <ng-template let-language pTemplate="listItem" let-i="rowIndex">
                   <div class="col-12">
                     <div class="flex flex-column xl:flex-row xl:align-items-start pl-4 gap-4">
                       <div
@@ -398,8 +404,9 @@
                         </div>
                         <div class="flex sm:flex-column align-items-center sm:align-items-end">
                           <span class="text-l font-semibold"></span>
-                          <button pButton icon="pi pi-trash"
-                            class="md:align-self-end mt-1 mb-1 p-button-rounded p-button-danger"></button>
+                          <app-button typeBtn="button" (click)="onDeleteLanguage(i)" iconBtn="pi pi-trash"
+                            backgroundColor="danger"
+                            classBtn="md:align-self-end mb-2 p-button-rounded p-button-danger"></app-button>
                         </div>
                       </div>
                     </div>
@@ -413,19 +420,20 @@
 
       <div class="row align-items-center">
         <div class="grid">
-          <div class="col-12 md:col-10">
+          <div class="col-12 md:col-12">
             <div class="flex justify-content-between flex-wrap card-container">
               <div class="flex align-items-center justify-content-center">
                 <h3 class="col-12">Family Member</h3>
               </div>
               <div class="flex align-items-center justify-content-center">
-                <button pButton pRipple label="ADD" (click)="showAddFamily()" icon="pi pi-plus"
-                  class="p-button-success bg-green-700"></button>
+                <app-button typeBtn="button" (click)="showAddFamily()" iconBtn="pi pi-plus-circle"
+                  backgroundColor="var(--PRIMARY)" label="ADD"></app-button>
               </div>
             </div>
+            <hr>
           </div>
-          <div class="col-12 md:col-10">
-            <p-table [value]="cdtFamilies.value" [tableStyle]="{ 'min-width': '50rem' }">
+          <div class="col-12 md:col-12">
+            <p-table [value]="candidateFamily.value" [tableStyle]="{ 'min-width': '50rem' }">
               <ng-template pTemplate="header">
                 <tr>
                   <th>No.</th>
@@ -435,6 +443,7 @@
                   <th>Occupation</th>
                   <th>Birth</th>
                   <th>Email</th>
+                  <th></th>
                 </tr>
               </ng-template>
               <ng-template pTemplate="body" let-family let-i="rowIndex">
@@ -446,6 +455,11 @@
                   <td>{{ family.occupation }}</td>
                   <td>{{ family.birthPlace }}, {{ family.birthDate }}</td>
                   <td>{{ family.email }}</td>
+                  <td>
+                    <app-button typeBtn="button" (click)="onDeleteFamily(i)" iconBtn="pi pi-trash"
+                      backgroundColor="danger"
+                      classBtn="md:align-self-end mb-2 p-button-rounded p-button-danger"></app-button>
+                  </td>
                 </tr>
               </ng-template>
             </p-table>
@@ -455,19 +469,20 @@
 
       <div class="row align-items-center">
         <div class="grid">
-          <div class="col-12 md:col-10">
+          <div class="col-12 md:col-12">
             <div class="flex justify-content-between flex-wrap card-container">
               <div class="flex align-items-center justify-content-center">
                 <h3 class="col-12">References</h3>
               </div>
               <div class="flex align-items-center justify-content-center">
-                <button pButton pRipple label="ADD" (click)="showAddReference()" icon="pi pi-plus"
-                  class="p-button-success bg-green-700"></button>
+                <app-button typeBtn="button" (click)="showAddReference()" iconBtn="pi pi-plus-circle"
+                  backgroundColor="var(--PRIMARY)" label="ADD"></app-button>
               </div>
             </div>
+            <hr>
           </div>
-          <div class="col-12 md:col-10">
-            <p-table [value]="cdtReferences.value" [tableStyle]="{'min-width': '60rem'}">
+          <div class="col-12 md:col-12">
+            <p-table [value]="candidateReferences.value" [tableStyle]="{'min-width': '60rem'}">
               <ng-template pTemplate="header">
                 <tr>
                   <th>No.</th>
@@ -478,6 +493,7 @@
                   <th>Company</th>
                   <th>Description</th>
                   <th>Email</th>
+                  <th></th>
                 </tr>
               </ng-template>
               <ng-template pTemplate="body" let-reference let-i="rowIndex">
@@ -485,11 +501,58 @@
                   <td>{{ i + 1 }}</td>
                   <td>{{ reference.fullname }}</td>
                   <td>{{ reference.relationship }}</td>
-                  <td>{{ reference.occupation }} (S1)</td>
+                  <td>{{ reference.occupation }}</td>
                   <td>{{ reference.phoneNumber }} Swasta</td>
                   <td>{{ reference.company }}</td>
                   <td>{{ reference.description }}</td>
                   <td>{{ reference.email }}</td>
+                  <td>
+                    <app-button typeBtn="button" (click)="onDeleteReference(i)" iconBtn="pi pi-trash"
+                      backgroundColor="danger"
+                      classBtn="md:align-self-end mb-2 p-button-rounded p-button-danger"></app-button>
+                  </td>
+                </tr>
+              </ng-template>
+            </p-table>
+          </div>
+        </div>
+      </div>
+
+      <div class="row align-items-center">
+        <div class="grid">
+          <div class="col-12 md:col-12">
+            <div class="flex justify-content-between flex-wrap card-container">
+              <div class="flex align-items-center justify-content-center">
+                <h3 class="col-12">Documents</h3>
+              </div>
+              <div class="flex align-items-center justify-content-center">
+                <app-button typeBtn="button" (click)="showAddDocuments()" iconBtn="pi pi-plus-circle"
+                  backgroundColor="var(--PRIMARY)" label="ADD"></app-button>
+              </div>
+            </div>
+            <hr>
+
+          </div>
+          <div class="col-12 md:col-12">
+            <p-table [value]="candidateDocuments.value" [tableStyle]="{'min-width': '60rem'}">
+              <ng-template pTemplate="header">
+                <tr>
+                  <th>No.</th>
+                  <th>Document Name</th>
+                  <th>Document Type</th>
+                  <th></th>
+                </tr>
+              </ng-template>
+              <ng-template pTemplate="body" let-document let-i="rowIndex">
+                <tr>
+                  <td>{{ i + 1 }}</td>
+                  <td>{{ document.docName }}.{{ document.fileExtension}}</td>
+                  <td>{{ document.fileTypeCode }}</td>
+                  <td>
+                    <app-button typeBtn="button" (click)="onDeleteDocument(i)" iconBtn="pi pi-trash"
+                      backgroundColor="danger"
+                      classBtn="md:align-self-end mb-2 p-button-rounded p-button-danger"></app-button>
+                  </td>
                 </tr>
               </ng-template>
             </p-table>
@@ -498,9 +561,8 @@
       </div>
 
       <div class="col-12 md:col-9 mb-5 mt-6">
-        <button pButton pRipple label="SUBMIT" type="submit" class="p-button-success"></button>
-        <!-- <app-button backgroundColor="var(--PRIMARY)" iconBtn="pi pi-plus" [loading]="loading" typeBtn="submit"
-          label="Add" class=" mr-2"></app-button> -->
+        <app-button backgroundColor="var(--PRIMARY)" [loading]="loading" typeBtn="submit" label="Submit"
+          class=" mr-2"></app-button>
         <app-button link="/candidates" label="Back" classBtn="p-button-secondary"></app-button>
       </div>
     </form>
@@ -539,10 +601,8 @@
       </div>
     </div>
     <div class="field col-12">
-      <button pButton pRipple label="ADD" (click)="onAddAddress()" class="p-button-success"></button>
-      <!-- <app-button [loading]="loading" label="Add" class="mr-2" (click)="onAddAddress()"></app-button> -->
-      <app-button link="/candidates" label="Back" classBtn="p-button-secondary"></app-button>
-
+      <app-button backgroundColor="var(--PRIMARY)" (click)="onAddAddress()" [loading]="loading" typeBtn="submit"
+        label="Submit" class=" mr-2"></app-button>
     </div>
   </form>
 </p-dialog>
@@ -583,11 +643,8 @@
       </div>
     </div>
     <div class="field col-12">
-      <button pButton pRipple label="ADD" (click)="onAddEducation()" class="p-button-success"></button>
-      <!-- <app-button [loading]="loading" backgroundColor="var(--PRIMARY)" iconBtn="pi pi-plus" typeBtn="submit" label="Add"
-        class="mr-2"></app-button> -->
-      <p-button label="Cancel" (onClick)="dialogEducation = false"
-        styleClass="p-button-sm p-button-secondary"></p-button>
+      <app-button backgroundColor="var(--PRIMARY)" (click)="onAddEducation()" [loading]="loading" typeBtn="submit"
+        label="Submit" class=" mr-2"></app-button>
     </div>
   </form>
 </p-dialog>
@@ -628,10 +685,8 @@
       </div>
     </div>
     <div class="field col-12">
-      <button pButton pRipple label="ADD" (click)="onAddFamily()" class="p-button-success"></button>
-      <!-- <app-button [loading]="loading" backgroundColor="var(--PRIMARY)" iconBtn="pi pi-plus" typeBtn="submit" label="Add"
-        class="mr-2"></app-button> -->
-      <p-button label="Cancel" (onClick)="dialogFamily = false" styleClass="p-button-sm p-button-secondary"></p-button>
+      <app-button backgroundColor="var(--PRIMARY)" (click)="onAddFamily()" [loading]="loading" typeBtn="submit"
+        label="Submit" class=" mr-2"></app-button>
     </div>
   </form>
 </p-dialog>
@@ -647,10 +702,8 @@
       </div>
     </div>
     <div class="field col-12">
-      <button pButton pRipple label="ADD" (click)="onAddSkill()" class="p-button-success"></button>
-      <!-- <app-button [loading]="loading" backgroundColor="var(--PRIMARY)" iconBtn="pi pi-plus" typeBtn="submit" label="Add"
-        class="mr-2"></app-button> -->
-      <p-button label="Cancel" (onClick)="dialogSkill = false" styleClass="p-button-sm p-button-secondary"></p-button>
+      <app-button backgroundColor="var(--PRIMARY)" (click)="onAddSkill()" [loading]="loading" typeBtn="submit"
+        label="Submit" class=" mr-2"></app-button>
     </div>
   </form>
 </p-dialog>
@@ -678,11 +731,8 @@
       </div>
     </div>
     <div class="field col-12">
-      <button pButton pRipple label="ADD" (click)="onAddLanguage()" class="p-button-success"></button>
-      <!-- <app-button [loading]="loading" backgroundColor="var(--PRIMARY)" iconBtn="pi pi-plus" typeBtn="submit" label="Add"
-        class="mr-2"></app-button> -->
-      <p-button label="Cancel" (onClick)="dialogLanguage = false"
-        styleClass="p-button-sm p-button-secondary"></p-button>
+      <app-button backgroundColor="var(--PRIMARY)" (click)="onAddLanguage()" [loading]="loading" typeBtn="submit"
+        label="Submit" class=" mr-2"></app-button>
     </div>
   </form>
 </p-dialog>
@@ -723,11 +773,8 @@
 
     </div>
     <div class="field col-12">
-      <button pButton pRipple label="ADD" (click)="onAddReference()" class="p-button-success"></button>
-      <!-- <app-button [loading]="loading" backgroundColor="var(--PRIMARY)" iconBtn="pi pi-plus" typeBtn="submit" label="Add"
-        class="mr-2"></app-button> -->
-      <p-button label="Cancel" (onClick)="dialogReference = false"
-        styleClass="p-button-sm p-button-secondary"></p-button>
+      <app-button backgroundColor="var(--PRIMARY)" (click)="onAddReference()" [loading]="loading" typeBtn="submit"
+        label="Submit" class=" mr-2"></app-button>
     </div>
   </form>
 </p-dialog>
@@ -774,10 +821,8 @@
 
     </div>
     <div class="field col-12">
-      <button pButton pRipple label="ADD" (click)="onAddWorking()" class="p-button-success"></button>
-      <!-- <app-button [loading]="loading" backgroundColor="var(--PRIMARY)" iconBtn="pi pi-plus" typeBtn="submit" label="Add"
-        class="mr-2"></app-button> -->
-      <p-button label="Cancel" (onClick)="dialogWorking = false" styleClass="p-button-sm p-button-secondary"></p-button>
+      <app-button backgroundColor="var(--PRIMARY)" (click)="onAddWorking()" [loading]="loading" typeBtn="submit"
+        label="Submit" class=" mr-2"></app-button>
     </div>
   </form>
 </p-dialog>
@@ -810,11 +855,8 @@
       </div>
     </div>
     <div class="field col-12">
-      <button pButton pRipple label="ADD" (click)="onAddProject()" class="p-button-success"></button>
-      <!-- <app-button [loading]="loading" backgroundColor="var(--PRIMARY)" iconBtn="pi pi-plus" typeBtn="submit" label="Add"
-        class="mr-2"></app-button> -->
-      <p-button label="Cancel" (onClick)="dialogTraining = false"
-        styleClass="p-button-sm p-button-secondary"></p-button>
+      <app-button backgroundColor="var(--PRIMARY)" (click)="onAddProject()" [loading]="loading" typeBtn="submit"
+        label="Submit" class=" mr-2"></app-button>
     </div>
   </form>
 </p-dialog>
@@ -847,11 +889,37 @@
       </div>
     </div>
     <div class="field col-12">
+      <app-button backgroundColor="var(--PRIMARY)" (click)="onAddTraining()" [loading]="loading" typeBtn="submit"
+        label="Submit" class=" mr-2"></app-button>
+    </div>
+  </form>
+</p-dialog>
 
-      <button pButton pRipple label="ADD" (click)="onAddTraining()" class="p-button-success"></button>
-      <!-- <app-button [loading]="loading" typeBtn="submit" label="Add" class="mr-2"></app-button> -->
-      <app-button link="/candidates" label="Back" classBtn="p-button-secondary"></app-button>
+<!-- Dialog Add Documents -->
+<p-dialog header="Add Documents" [(visible)]="dialogDocument" [style]="{width: '30vw'}">
+  <form [formGroup]="documentInsertReqDto">
+    <pre>{{ documentInsertReqDto.value | json }}</pre>
+    <div class="p-fluid p-formgrid grid">
+      <div class="field col-12">
+        <label htmlFor="docName">Document Name <span class="text-red-500"> *</span> </label>
+        <input pInputText id="docName" required type="text" formControlName="docName" />
+      </div>
+      <div class="field col-12">
+        <label htmlFor="fileTypeCode">File Type <span class="text-red-500"> *</span> </label>
+        <p-dropdown [options]="fileTypes" optionLabel="typeName" optionValue="typeCode" [showClear]="true"
+          [required]="true" formControlName="fileTypeCode" placeholder="Choose File Type"></p-dropdown>
+      </div>
 
+      <div class="field col-12">
+        <label htmlFor="fileTypeCode">Upload Document<span class="text-red-500"> *</span> </label>
+        <p-fileUpload mode="basic" styleClass="bg-green-700" chooseLabel="Upload" chooseIcon="pi pi-upload"
+          class="form-control" (onSelect)="fileUploadDoc($event, doc)" #doc type="file" id="file"
+          required></p-fileUpload>
+      </div>
+    </div>
+    <div class="field col-12">
+      <app-button backgroundColor="var(--PRIMARY)" (click)="onAddDocument()" [loading]="loading" typeBtn="submit"
+        label="Submit" class=" mr-2"></app-button>
     </div>
   </form>
 </p-dialog>
