@@ -445,12 +445,13 @@
                                     <tr>
                                         <th>No.</th>
                                         <th>Document Name</th>
+                                        <th></th>
                                     </tr>
                                 </ng-template>
                                 <ng-template pTemplate="body" let-document let-i="rowIndex">
                                     <tr>
                                         <td>{{ i + 1 }}</td>
-                                        <td>{{ document.docName }}</td>
+                                        <td>{{ document.docName }}.{{ document.fileExtension}}</td>
                                     </tr>
                                 </ng-template>
                             </p-table>
