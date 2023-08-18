@@ -17,7 +17,7 @@ const routes: Routes = [
     component:CandidateCreateComponent
   },
   {
-    path:'detail',
+    path:'detail/:id',
     component:CandidateDetailComponent
   }
 ]
