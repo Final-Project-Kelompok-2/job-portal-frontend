@@ -1,15 +1,15 @@
 import { Injectable } from "@angular/core";
 import { BaseService } from "./base.service";
 import { Observable } from "rxjs";
-import { BASE_URL } from "../constant copy/api.constant";
+import { BASE_URL } from "../constant/api.constant";
 import { HiringStatusResDto } from "../dto/hiring-status/hiring-status.res.dto";
 
 @Injectable({
-    providedIn : 'root'
+    providedIn: 'root'
 })
-export class HiringStatusService{
-    constructor(private base : BaseService){}
-    getAll() : Observable<HiringStatusResDto[]>{
+export class HiringStatusService {
+    constructor(private base: BaseService) { }
+    getAll(): Observable<HiringStatusResDto[]> {
         return this.base.get<HiringStatusResDto[]>(`${BASE_URL}/hiring-status`);
     }
 }

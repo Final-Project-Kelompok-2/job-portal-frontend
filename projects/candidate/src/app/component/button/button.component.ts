@@ -16,7 +16,7 @@ export class ButtonComponent {
   @Input() label = ''
   @Input() classBtn = ''
   @Input() iconBtn = ''
-  @Input() link :undefined|string = undefined
+  @Input() link: undefined | string = undefined
   @Input() loading = false
   @Input() typeBtn = ''
   @Input() backgroundColor = ''

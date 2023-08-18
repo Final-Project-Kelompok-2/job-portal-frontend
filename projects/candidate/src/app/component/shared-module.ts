@@ -27,7 +27,7 @@ import { DataViewModule, DataViewLayoutOptions } from 'primeng/dataview';
 
 @NgModule({
   imports: [
-    ReactiveFormsModule,FormsModule,
+    ReactiveFormsModule, FormsModule,
 
     InputTextModule,
     MenubarModule,
@@ -56,8 +56,7 @@ import { DataViewModule, DataViewLayoutOptions } from 'primeng/dataview';
     DataViewModule
   ],
   exports: [
-    FormsModule,ReactiveFormsModule,
-
+    FormsModule, ReactiveFormsModule,
     InputTextModule,
     SidebarModule,
     MenuModule,
