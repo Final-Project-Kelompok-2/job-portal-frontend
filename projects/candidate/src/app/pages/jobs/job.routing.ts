@@ -1,12 +1,22 @@
 import { NgModule } from "@angular/core";
-import { Routes } from "@angular/router";
+import { RouterModule, Routes } from "@angular/router";
+import { JobListComponent } from "./list/job-list.component";
+import { SharedModuleComponent } from "../../component/shared-module";
 
-const route: Routes = []
+const route: Routes = [
+    {
+        path: "",
+        component: JobListComponent
+    }
+]
 
 @NgModule({
-    declarations: [],
-    imports: [],
-    exports: []
+    declarations: [JobListComponent],
+    imports: [
+        RouterModule.forChild(route),
+        SharedModuleComponent
+    ],
+    exports: [JobListComponent]
 })
 export class JobRouting {
 
