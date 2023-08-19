@@ -1,0 +1,5 @@
+.card-hover {}
+
+::ng-deep .card-hover:hover {
+    background-color: black;
+}

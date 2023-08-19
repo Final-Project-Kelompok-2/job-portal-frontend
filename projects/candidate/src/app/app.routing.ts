@@ -25,6 +25,11 @@ const routes: Routes = [
         }]
     },
     {
+        component: BaseComponent,
+        path: 'jobs',
+        loadChildren: () => import('./pages/jobs/job.module').then(u => u.JobModule)
+    },
+    {
         path: '',
         redirectTo: '/login',
         pathMatch: 'full'

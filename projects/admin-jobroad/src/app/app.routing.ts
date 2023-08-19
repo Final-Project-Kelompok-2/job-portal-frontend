@@ -40,9 +40,9 @@ const routes: Routes = [
     loadChildren: () => import('./pages/users/user.module').then(u => UserModule),
   },
   {
-    component : BaseComponent,
-    path : 'applicant',
-    loadChildren : () => import('./pages/applicant/applicant.module').then(a => ApplicantModule)
+    component: BaseComponent,
+    path: 'applicant',
+    loadChildren: () => import('./pages/applicant/applicant.module').then(a => ApplicantModule)
   },
   {
     component: BaseComponent,
@@ -77,7 +77,7 @@ const routes: Routes = [
     pathMatch: 'full'
   },
   {
-    path:'**',
+    path: '**',
     component: NotFoundComponent
   }
 

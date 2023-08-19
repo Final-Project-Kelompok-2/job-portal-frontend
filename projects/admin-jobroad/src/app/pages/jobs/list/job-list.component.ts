@@ -11,32 +11,32 @@ import { RoleCodeEnum } from "../../../constant/user-role.constant";
   templateUrl: './job-list.component.html',
   styleUrls: ['./job-list.component.css']
 })
-export class JobListComponent implements OnInit,OnDestroy {
+export class JobListComponent implements OnInit, OnDestroy {
   loading = false
-  jobs! : JobResDto[];
-  jobSubscription! : Subscription;
-  roleName? : string;
-  constructor(private jobService : JobService,private authService : AuthService){}
+  jobs!: JobResDto[];
+  jobSubscription!: Subscription;
+  roleName?: string;
+  constructor(private jobService: JobService, private authService: AuthService) { }
   ngOnInit(): void {
-      this.roleName = this.authService.getProfile()?.roleCode;
-      this.getJob();
+    this.roleName = this.authService.getProfile()?.roleCode;
+    this.getJob();
   }
   clear(table: Table) {
     table.clear();
   }
-  get isAdmin(){
+  get isAdmin() {
     return this.roleName == RoleCodeEnum.ADMIN;
   }
-  getJob(){
-    if(this.isAdmin){
-      this.jobSubscription =  this.jobService.getAll().subscribe(result =>{
+  getJob() {
+    if (this.isAdmin) {
+      this.jobSubscription = this.jobService.getAll().subscribe(result => {
         this.jobs = result;
       })
-    }else{
-      this.jobSubscription =  this.jobService.getByPrincipal().subscribe(result =>{
+    } else {
+      this.jobSubscription = this.jobService.getByPrincipal().subscribe(result => {
         this.jobs = result;
       })
-    } 
+    }
   }
 
   ngOnDestroy(): void {

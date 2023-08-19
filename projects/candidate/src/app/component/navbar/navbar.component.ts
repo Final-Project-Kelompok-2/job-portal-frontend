@@ -86,10 +86,20 @@ export class NavbarComponent implements OnInit {
             routerLink: '/companies'
           },
           {
-            label: 'Jobs',
+            label: 'Search Job',
             icon: 'pi pi-briefcase',
             routerLink: '/jobs'
           },
+          {
+            label: 'Saved Job',
+            icon: 'pi pi-heart-fill',
+            routerLink: ''
+          },
+          {
+            label: 'Applied Job',
+            icon: 'pi pi-check-square',
+            routerLink: ''
+          }
 
         ]
       },
