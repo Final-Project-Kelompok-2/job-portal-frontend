@@ -93,12 +93,12 @@ export class NavbarComponent implements OnInit {
           {
             label: 'Saved Job',
             icon: 'pi pi-heart-fill',
-            routerLink: ''
+            routerLink: '/jobs/saved'
           },
           {
             label: 'Applied Job',
             icon: 'pi pi-check-square',
-            routerLink: ''
+            routerLink: '/jobs/applied'
           }
 
         ]

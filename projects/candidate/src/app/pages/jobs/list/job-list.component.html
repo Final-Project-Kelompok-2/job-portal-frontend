@@ -1,9 +1,9 @@
-<div class="grid">
+<div class="grid mt-3">
   <div class="col-12 md:col-12">
     <p-card>
       <div class="grid">
         <div class="col-12 md:col-3">
-          <div class="p-input-icon-left">
+          <div class="p-input-icon-left w-full">
             <i class="pi pi-search"></i>
             <input type="text" pInputText placeholder="Job Title" />
           </div>
@@ -24,12 +24,8 @@
           <p-button label="Search" icon="pi pi-search"></p-button>
         </div>
       </div>
-
     </p-card>
   </div>
-
-
-
 </div>
 
 <div class="grid">
@@ -39,8 +35,8 @@
 </div>
 
 <div class="grid">
-  <div class="col-12 md:col-8">
-    <p-card styleClass="card-scroll">
+  <div class="col-12 md:col-9" *ngFor="let j of jobs">
+    <p-card styleClass="card-scroll" routerLink="/jobs/{{j.id}}/detail" class="cursor-pointer">
       <p-card class="card-hover m-3 " styleClass="card-hover">
         <div class="grid">
           <div class="col-12 md:col-2 text-center">
@@ -53,18 +49,21 @@
           </div>
           <div class="col-12 md:col-10">
             <div class="grid">
-              <div class="col-12 md:col-12">
-                <h3>Fullstack Developer</h3>
+              <div class="col-12 md:col-10">
+                <h3>{{j.jobName}}</h3>
+              </div>
+              <div class="col-12 md:col-2">
+                <p-toggleButton (onChange)="checker()" [onLabel]="result" [offLabel]="result"></p-toggleButton>
               </div>
             </div>
             <div class="grid">
               <div class="col-12 md:col-12">
                 <div class="grid">
                   <div class="col-12 md:col-6">
-                    Tangerang Selatan
+                    <i class="pi pi-building"></i> {{j.address}}
                   </div>
                   <div class="col-12 md:col-6">
-                    Above Rp 9.000.000
+                    <i class="pi pi-dollar"></i> Above Rp {{j.expectedSalaryMin}}
                   </div>
                 </div>
               </div>
@@ -75,10 +74,10 @@
               <div class="col-12 md:col-12">
                 <div class="grid">
                   <div class="col-12 md:col-6">
-                    Full Time
+                    <i class="pi pi-briefcase"></i> {{j.employementTypeName}}
                   </div>
                   <div class="col-12 md:col-6">
-                    12 December 2023
+                    <i class="pi pi-clock"></i> {{j.startDate}}
                   </div>
                 </div>
               </div>
@@ -86,236 +85,17 @@
           </div>
         </div>
       </p-card>
-      <p-card class="card-hover m-3 " styleClass="card-hover">
-        <div class="grid">
-          <div class="col-12 md:col-2 text-center">
-            <p-image src="https://primefaces.org/cdn/primeng/images/galleria/galleria1.jpg" [preview]="true" alt="Image"
-              width="100">
-              <ng-template pTemplate="indicator">
-                <i class="pi pi-check"></i>
-              </ng-template>
-            </p-image>
-          </div>
-          <div class="col-12 md:col-10">
-            <div class="grid">
-              <div class="col-12 md:col-12">
-                <h3>Fullstack Developer</h3>
-              </div>
-            </div>
-            <div class="grid">
-              <div class="col-12 md:col-12">
-                <div class="grid">
-                  <div class="col-12 md:col-6">
-                    Tangerang Selatan
-                  </div>
-                  <div class="col-12 md:col-6">
-                    Above Rp 9.000.000
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Employment Type & Start Date -->
-            <div class="grid">
-              <div class="col-12 md:col-12">
-                <div class="grid">
-                  <div class="col-12 md:col-6">
-                    Full Time
-                  </div>
-                  <div class="col-12 md:col-6">
-                    12 December 2023
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </p-card>
-      <p-card class="card-hover m-3 " styleClass="card-hover">
-        <div class="grid">
-          <div class="col-12 md:col-2 text-center">
-            <p-image src="https://primefaces.org/cdn/primeng/images/galleria/galleria1.jpg" [preview]="true" alt="Image"
-              width="100">
-              <ng-template pTemplate="indicator">
-                <i class="pi pi-check"></i>
-              </ng-template>
-            </p-image>
-          </div>
-          <div class="col-12 md:col-10">
-            <div class="grid">
-              <div class="col-12 md:col-12">
-                <h3>Fullstack Developer</h3>
-              </div>
-            </div>
-            <div class="grid">
-              <div class="col-12 md:col-12">
-                <div class="grid">
-                  <div class="col-12 md:col-6">
-                    Tangerang Selatan
-                  </div>
-                  <div class="col-12 md:col-6">
-                    Above Rp 9.000.000
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Employment Type & Start Date -->
-            <div class="grid">
-              <div class="col-12 md:col-12">
-                <div class="grid">
-                  <div class="col-12 md:col-6">
-                    Full Time
-                  </div>
-                  <div class="col-12 md:col-6">
-                    12 December 2023
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </p-card>
-      <p-card class="card-hover m-3 " styleClass="card-hover">
-        <div class="grid">
-          <div class="col-12 md:col-2 text-center">
-            <p-image src="https://primefaces.org/cdn/primeng/images/galleria/galleria1.jpg" [preview]="true" alt="Image"
-              width="100">
-              <ng-template pTemplate="indicator">
-                <i class="pi pi-check"></i>
-              </ng-template>
-            </p-image>
-          </div>
-          <div class="col-12 md:col-10">
-            <div class="grid">
-              <div class="col-12 md:col-12">
-                <h3>Fullstack Developer</h3>
-              </div>
-            </div>
-            <div class="grid">
-              <div class="col-12 md:col-12">
-                <div class="grid">
-                  <div class="col-12 md:col-6">
-                    Tangerang Selatan
-                  </div>
-                  <div class="col-12 md:col-6">
-                    Above Rp 9.000.000
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Employment Type & Start Date -->
-            <div class="grid">
-              <div class="col-12 md:col-12">
-                <div class="grid">
-                  <div class="col-12 md:col-6">
-                    Full Time
-                  </div>
-                  <div class="col-12 md:col-6">
-                    12 December 2023
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </p-card>
-      <p-card class="card-hover m-3 " styleClass="card-hover">
-        <div class="grid">
-          <div class="col-12 md:col-2 text-center">
-            <p-image src="https://primefaces.org/cdn/primeng/images/galleria/galleria1.jpg" [preview]="true" alt="Image"
-              width="100">
-              <ng-template pTemplate="indicator">
-                <i class="pi pi-check"></i>
-              </ng-template>
-            </p-image>
-          </div>
-          <div class="col-12 md:col-10">
-            <div class="grid">
-              <div class="col-12 md:col-12">
-                <h3>Fullstack Developer</h3>
-              </div>
-            </div>
-            <div class="grid">
-              <div class="col-12 md:col-12">
-                <div class="grid">
-                  <div class="col-12 md:col-6">
-                    Tangerang Selatan
-                  </div>
-                  <div class="col-12 md:col-6">
-                    Above Rp 9.000.000
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Employment Type & Start Date -->
-            <div class="grid">
-              <div class="col-12 md:col-12">
-                <div class="grid">
-                  <div class="col-12 md:col-6">
-                    Full Time
-                  </div>
-                  <div class="col-12 md:col-6">
-                    12 December 2023
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </p-card>
-      <p-card class="card-hover m-3 " styleClass="card-hover">
-        <div class="grid">
-          <div class="col-12 md:col-2 text-center">
-            <p-image src="https://primefaces.org/cdn/primeng/images/galleria/galleria1.jpg" [preview]="true" alt="Image"
-              width="100">
-              <ng-template pTemplate="indicator">
-                <i class="pi pi-check"></i>
-              </ng-template>
-            </p-image>
-          </div>
-          <div class="col-12 md:col-10">
-            <div class="grid">
-              <div class="col-12 md:col-12">
-                <h3>Fullstack Developer</h3>
-              </div>
-            </div>
-            <div class="grid">
-              <div class="col-12 md:col-12">
-                <div class="grid">
-                  <div class="col-12 md:col-6">
-                    Tangerang Selatan
-                  </div>
-                  <div class="col-12 md:col-6">
-                    Above Rp 9.000.000
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Employment Type & Start Date -->
-            <div class="grid">
-              <div class="col-12 md:col-12">
-                <div class="grid">
-                  <div class="col-12 md:col-6">
-                    Full Time
-                  </div>
-                  <div class="col-12 md:col-6">
-                    12 December 2023
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </p-card>
-
 
     </p-card>
   </div>
-  <div class="col-12 md:col-4">
-    hai
+  <div class="col-12 md:col-3">
+    <p-card>
+      <p class="m-0">
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error repudiandae numquam
+        deserunt quisquam repellat libero asperiores earum nam nobis, culpa ratione quam perferendis esse, cupiditate
+        neque
+        quas!
+      </p>
+    </p-card>
   </div>
 </div>
