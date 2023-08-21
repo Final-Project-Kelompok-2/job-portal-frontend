@@ -22,7 +22,7 @@ export const authValidationNonlogin = (route: Route, segments: UrlSegment[]) => 
 
     const profile = auth.getProfile()
     if (!profile) {
-        router.navigateByUrl(`/login`)
+        router.navigateByUrl("/login")
     }
     return true
 }
