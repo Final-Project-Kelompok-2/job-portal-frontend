@@ -25,11 +25,13 @@ import { ImageModule } from 'primeng/image';
 import { ChartModule } from 'primeng/chart';
 import { ToggleButtonModule } from 'primeng/togglebutton';
 import { DataViewModule, DataViewLayoutOptions } from 'primeng/dataview';
+import { TagModule } from 'primeng/tag';
+import { CarouselModule } from 'primeng/carousel';
 
 @NgModule({
   imports: [
     ReactiveFormsModule, FormsModule,
-
+    TagModule,
     InputTextModule,
     MenubarModule,
     SidebarModule,
@@ -39,6 +41,7 @@ import { DataViewModule, DataViewLayoutOptions } from 'primeng/dataview';
     PasswordModule,
     InputSwitchModule,
     InputTextareaModule,
+    CarouselModule,
     DropdownModule,
     FileUploadModule,
     DialogModule,
@@ -60,9 +63,11 @@ import { DataViewModule, DataViewLayoutOptions } from 'primeng/dataview';
   exports: [
     FormsModule, ReactiveFormsModule,
     InputTextModule,
+    CarouselModule,
     SidebarModule,
     MenuModule,
     MenubarModule,
+    TagModule,
     ButtonModule,
     TableModule,
     PasswordModule,

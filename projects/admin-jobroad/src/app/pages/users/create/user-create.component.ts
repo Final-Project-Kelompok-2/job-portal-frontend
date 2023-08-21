@@ -17,13 +17,11 @@ import { PersonTypeResDto } from "../../../dto/person-type/person-type.res.dto";
 export class UserCreateComponent implements OnInit, AfterViewChecked {
 
   roles!: RoleResDto[]
-  types!: PersonTypeResDto[]
 
   loading = false
   userReqDto = this.fb.group({
     userEmail: ['', Validators.required],
     roleId: ['', Validators.required],
-    personTypeId: ['', Validators.required],
     address: ['', Validators.required],
     fullName: ['', Validators.required],
     phoneNumber: ['', Validators.required],
@@ -31,13 +29,12 @@ export class UserCreateComponent implements OnInit, AfterViewChecked {
     extensionName: ['']
   })
 
-  constructor(private router: Router, private roleService: RoleService, private fb: NonNullableFormBuilder, private userService: UserService, private cd: ChangeDetectorRef, private typeService : PersonTypeService) {
+  constructor(private router: Router, private roleService: RoleService, private fb: NonNullableFormBuilder, private userService: UserService, private cd: ChangeDetectorRef, private typeService: PersonTypeService) {
 
   }
 
   ngOnInit(): void {
     this.getRoles()
-    this.getTypes()
   }
 
 
@@ -46,13 +43,6 @@ export class UserCreateComponent implements OnInit, AfterViewChecked {
       this.roles = result
     })
   }
-
-  getTypes() {
-    this.typeService.getAll().subscribe(result => {
-      this.types = result
-    })
-  }
-
 
   ngAfterViewChecked(): void {
     this.cd.detectChanges()
