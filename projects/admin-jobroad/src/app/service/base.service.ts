@@ -45,7 +45,6 @@ export class BaseService {
         return this.http.patch<T>(url, body, (withToken ? this.header : undefined))
             .pipe(response(this.messageService, this.router));
 
-
     }
 
     delete<T>(url: string, body: any, withToken = true): Observable<T> {

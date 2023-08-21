@@ -29,4 +29,8 @@ export class UserService {
     changePassword(data: UserChangePasswordReqDto): Observable<UpdateResDto> {
         return this.base.patch<UpdateResDto>(`${BASE_URL}/users`, data);
     }
+
+    getById(id : string) : Observable<UserResDto>{
+        return this.base.get<UserResDto>(`${BASE_URL}/users/detail?id=${id}`);
+    }
 }

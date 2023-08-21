@@ -9,4 +9,5 @@ export interface ApplicantResDto {
 	statusName : string
 	candidateId : string;
 	candidateName : string
+	statusCode : string;
 }

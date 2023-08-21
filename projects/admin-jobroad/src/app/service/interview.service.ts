@@ -4,6 +4,7 @@ import { InterviewInsertReqDto } from "../dto/interview/interview-insert.req.dto
 import { Observable } from "rxjs";
 import { InsertResDto } from "../dto/insert.res.dto";
 import { BASE_URL } from "../constant/api.constant";
+import { InterviewResDto } from "../dto/interview/interviewe.res.dto";
 
 @Injectable({
    providedIn : 'root' 
@@ -13,6 +14,9 @@ export class InterviewService{
 
     create(data : InterviewInsertReqDto) : Observable <InsertResDto>{
         return this.base.post<InsertResDto>(`${BASE_URL}/interviews`,data);
+    }
+    getByApplicant(id : string) : Observable<InterviewResDto> {
+        return this.base.get<InterviewResDto>(`${BASE_URL}/interviews?applicantId=${id}`);
     }
 
 }

@@ -4,5 +4,5 @@ export interface McusInsertReqDto {
     applicantId : string
 	applicantCode : string
 	statusCode : string
-	mcuData :  McuInsertReqDto[]
+	mcuData :  (McuInsertReqDto | unknown) []
 }
