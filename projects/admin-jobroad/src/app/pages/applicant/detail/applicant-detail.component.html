@@ -27,7 +27,7 @@
 
     </div>
     <div class="col-12 md:col-1 md:col-offset-6 buttons">
-        <app-button type="button" label="Reject" class="mr-2" classBtn="p-button-danger"></app-button>
+        <app-button type="button"  (click)="reject()" label="Reject" class="mr-2" classBtn="p-button-danger"></app-button>
     </div>
     <candidate-detail *ngIf="isApplied"></candidate-detail>
     <div class="col-12 " *ngIf="isApplied">
@@ -246,5 +246,7 @@
         </p-dialog>
     </div>
 
-    <div class="offering-letter" *ngIf="isOffering"></div>
+    <div class="offering-letter" *ngIf="isOffering">
+        <h3>Waiting for candidate to accept the offer ....</h3>
+    </div>
 </div>
