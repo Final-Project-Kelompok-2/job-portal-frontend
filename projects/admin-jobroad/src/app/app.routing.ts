@@ -18,25 +18,32 @@ import { BenefitModule } from "./pages/benefits/benefit.module";
 import { QuestionModule } from "./pages/questions/question.module";
 import { NotFoundComponent } from "./component/not-found/not-found.component";
 import { ApplicantModule } from "./pages/applicant/applicant.module";
+import { authValidation, authValidationNonLogin } from "./validation/auth.validation";
+import { RoleCodeEnum } from "./constant/user-role.constant";
+import { roleValidation } from "./validation/role.validation";
 
 
 const routes: Routes = [
   {
     path: 'login',
     component: LoginComponent,
-    // canMatch: [authValidation]
+    canMatch: [authValidation]
   },
   {
     component: BaseComponent,
     path: 'dashboard',
+    canMatch:[authValidationNonLogin],
     children: [{
       path: '',
       component: DashboardComponent
+
     }],
   },
   {
     component: BaseComponent,
     path: 'users',
+    data: [RoleCodeEnum.ADMIN],
+    canMatch: [authValidationNonLogin, roleValidation],
     loadChildren: () => import('./pages/users/user.module').then(u => UserModule),
   },
   {
@@ -47,28 +54,35 @@ const routes: Routes = [
   {
     component: BaseComponent,
     path: 'companies',
+    data: [RoleCodeEnum.ADMIN],
+    canMatch: [authValidationNonLogin, roleValidation],
     loadChildren: () => import('./pages/companies/company.module').then(u => CompanyModule),
   },
   {
     component: BaseComponent,
     path: 'candidates',
+    data: [RoleCodeEnum.ADMIN],
+    canMatch: [authValidationNonLogin, roleValidation],
     loadChildren: () => import('./pages/candidates/candidate.module').then(u => CandidateModule),
   },
   {
     component: BaseComponent,
     path: 'benefits',
+    data: [RoleCodeEnum.ADMIN],
+    canMatch: [authValidationNonLogin, roleValidation],
     loadChildren: () => import('./pages/benefits/benefit.module').then(u => BenefitModule),
   },
   {
     component: BaseComponent,
     path: 'questions',
+    data: [RoleCodeEnum.ADMIN],
+    canMatch: [authValidationNonLogin, roleValidation],
     loadChildren: () => import('./pages/questions/question.module').then(u => QuestionModule),
   },
   {
     component: BaseComponent,
     path: 'jobs',
-    // data: [Roles.ADMIN],
-    // canMatch : [authValidationNonLogin,roleValidation],
+    canMatch:[authValidationNonLogin],
     loadChildren: () => import('./pages/jobs/job.module').then(u => JobModule),
   },
   {
