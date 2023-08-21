@@ -69,7 +69,7 @@ export function response<T>(messageService: MessageService, router: Router) {
             if (err instanceof HttpErrorResponse) {
                 if (err && err.error && err.error.message) {
                     messageService.add({ severity: 'error', summary: 'Error', detail: err.error.message });
-                    console.log(err.error);
+                    // console.log(err.error);
 
                     if (err.status == 401 && err.error.message == 'Token Expired') {
                         localStorage.clear();
