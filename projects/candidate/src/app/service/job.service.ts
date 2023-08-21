@@ -15,9 +15,6 @@ export class JobService {
     getAll(): Observable<JobResDto[]> {
         return this.base.get<JobResDto[]>(`${BASE_URL}/jobs`);
     }
-
-
-
     getByPrincipal(): Observable<JobResDto[]> {
         return this.base.get<JobResDto[]>(`${BASE_URL}/jobs/person`);
     }

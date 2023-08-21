@@ -76,33 +76,26 @@ export class NavbarComponent implements OnInit {
         routerLink: '/dashboard'
       },
       {
-        label: 'Menu',
-        icon: 'pi pi-th-large',
-        items: [
-
-          {
-            label: 'Companies',
-            icon: 'pi pi-id-card',
-            routerLink: '/companies'
-          },
-          {
-            label: 'Search Job',
-            icon: 'pi pi-briefcase',
-            routerLink: '/jobs'
-          },
-          {
-            label: 'Saved Job',
-            icon: 'pi pi-heart-fill',
-            routerLink: '/jobs/saved'
-          },
-          {
-            label: 'Applied Job',
-            icon: 'pi pi-check-square',
-            routerLink: '/jobs/applied'
-          }
-
-        ]
+        label: 'Companies',
+        icon: 'pi pi-id-card',
+        routerLink: '/companies'
       },
+      {
+        label: 'Search Job',
+        icon: 'pi pi-briefcase',
+        routerLink: '/jobs'
+      },
+      {
+        label: 'Saved Job',
+        icon: 'pi pi-heart',
+        routerLink: '/jobs/saved'
+      },
+      {
+        label: 'Applied Job',
+        icon: 'pi pi-check-square',
+        routerLink: '/jobs/applied'
+      },
+
     ];
   }
 }
