@@ -1,6 +1,8 @@
 import { Component, OnInit } from "@angular/core";
 import { JobService } from "../../../service/job.service";
 import { JobResDto } from "../../../dto/job/job.res.dto";
+import { AuthService } from "../../../service/auth.service";
+import { SavedJobService } from "../../../service/saved-job.service";
 
 @Component({
     selector: "job-list",
@@ -16,9 +18,11 @@ export class JobListComponent implements OnInit {
 
     loading = true
 
-    jobs!: JobResDto[]
+    jobs?: JobResDto[]
 
-    constructor(private jobService: JobService) {
+    constructor(private jobService: JobService,
+        private authService: AuthService,
+        private savedJobService: SavedJobService) {
 
     }
 
@@ -32,7 +36,20 @@ export class JobListComponent implements OnInit {
         })
     }
 
+    updateSavedJob(jobId: string) {
+        const savedJobDto = {
+            jobId
+        }
+        this.savedJobService.insert(savedJobDto).subscribe(result => {
+            this.getAllJob()
+        })
+    }
 
+    deleteSavedJob(jobId: string) {
+        this.savedJobService.delete(jobId).subscribe(result => {
+            this.getAllJob()
+        })
+    }
 
 
 }

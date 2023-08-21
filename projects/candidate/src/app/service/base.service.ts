@@ -49,7 +49,7 @@ export class BaseService {
 
     }
 
-    delete<T>(url: string, body: any, withToken = true): Observable<T> {
+    delete<T>(url: string, withToken = true): Observable<T> {
         return this.http.delete<T>(url, (withToken ? this.header : undefined))
             .pipe(response(this.messageService, this.router));
 
