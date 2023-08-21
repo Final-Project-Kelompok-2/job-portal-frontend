@@ -1,12 +1,12 @@
 .header-text{
     background-color : rgba(176,176,176,0.7)
 }
-  
+
 .the-header{
     position: relative;
     padding : 100px 20px
 }
-  
+
 .header-background{
   position: absolute;
   width: 100%;
@@ -21,7 +21,7 @@
   height: 15rem;
   width: 13rem;
   margin-top: 2rem;
-  
+
 }
 .banner{
   position: absolute;
@@ -31,4 +31,28 @@
   /* left: 0;
   right: 0; */
   /* top: 0; */
+}
+
+::ng-deep .p-datatable .p-datatable-header {
+  background: #286e33;
+}
+
+::ng-deep .p-datatable .p-datatable-thead > tr > th {
+  color: white;
+  background-color: #286e33;
+}
+
+::ng-deep .p-column-filter-menu-button, .p-column-filter-clear-button {
+  color: white;
+}
+
+::ng-deep
+.p-button.p-button-outlined {
+  background-color: white;
+  color: #286e33;
+  border: 1px solid;
+}
+
+::ng-deep .p-button.p-button-outlined:enabled:hover {
+  color: white;
 }

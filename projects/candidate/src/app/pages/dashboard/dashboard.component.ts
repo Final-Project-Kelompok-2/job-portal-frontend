@@ -1,9 +1,38 @@
-import { Component } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
+import { JobService } from "../../service/job.service";
+import { JobResDto } from "../../dto/job/job.res.dto";
 
 @Component({
-    selector: "dashboard",
-    templateUrl: "./dashboard.component.html"
+  selector: "dashboard",
+  templateUrl: "./dashboard.component.html"
 })
-export class DashboardComponent {
+export class DashboardComponent implements OnInit{
+  jobs: JobResDto[] | undefined;
+
+  responsiveOptions: any[] | undefined;
+
+  constructor(private jobService: JobService) { }
+
+  ngOnInit() {
+
+
+    this.responsiveOptions = [
+      {
+        breakpoint: '1199px',
+        numVisible: 1,
+        numScroll: 1
+      },
+      {
+        breakpoint: '991px',
+        numVisible: 2,
+        numScroll: 1
+      },
+      {
+        breakpoint: '767px',
+        numVisible: 1,
+        numScroll: 1
+      }
+    ];
+  }
 
 }
