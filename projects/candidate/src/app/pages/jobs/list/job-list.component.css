@@ -9,3 +9,7 @@
     overflow-y: auto;
     overflow-x: hidden;
 }
+
+::ng-deep .title-hover:hover {
+    text-decoration: underline;
+}

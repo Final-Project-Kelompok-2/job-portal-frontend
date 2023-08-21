@@ -33,14 +33,6 @@ export class JobListComponent implements OnInit {
     }
 
 
-    checker() {
-        this.loading = !this.loading
-        if (this.loading) {
-            this.result = "Not Loved"
-        }
-        else {
-            this.result = "Loved"
-        }
-    }
+
 
 }
