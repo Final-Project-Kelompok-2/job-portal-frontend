@@ -11,4 +11,7 @@ export interface JobResDto{
 	 employementTypeName: string;
 	 fileId: string;
 	 companyPhotoId : string;
+	 hrId : string;
+	 picId : string;
+
 }
