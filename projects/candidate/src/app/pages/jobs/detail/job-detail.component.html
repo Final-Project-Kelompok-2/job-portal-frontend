@@ -3,11 +3,13 @@
     <p-card header="Job Detail">
       <div class="grid text-center">
         <div class="col-12">
-          <p-image [src]="job?.fileId | url" [preview]="true" alt="Image" width="250">
-            <ng-template pTemplate="indicator">
-              <i class="pi pi-check"></i>
-            </ng-template>
-          </p-image>
+          <ng-container *ngIf="job?.fileId">
+            <p-image [src]="job?.fileId | url" [preview]="true" alt="Image" width="250">
+              <ng-template pTemplate="indicator">
+                <i class="pi pi-check"></i>
+              </ng-template>
+            </p-image>
+          </ng-container>
         </div>
       </div>
 

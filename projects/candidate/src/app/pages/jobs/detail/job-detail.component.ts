@@ -40,11 +40,7 @@ export class JobDetailComponent implements OnInit {
             this.jobId = id
             this.getJobDetail(this.jobId)
         })
-
-
-
     }
-
 
     getJobDetail(jobId: string) {
         this.jobService.getDetail(jobId).subscribe(result => {
