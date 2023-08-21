@@ -10,6 +10,7 @@ import { UpdateResDto } from "../dto/update.res.dto";
 import { ApplicantUpdateReqDto } from "../dto/applicant/applicant-update.req.dto";
 import { InsertResDto } from "../dto/insert.res.dto";
 import { BASE_URL } from "../constant/api.constant";
+import { JobResDto } from "projects/admin-jobroad/src/app/dto/job/job.res.dto";
 
 
 @Injectable({
@@ -17,16 +18,14 @@ import { BASE_URL } from "../constant/api.constant";
 })
 export class ApplicantService {
     constructor(private base: BaseService) { }
-    getByJob(jobId: string): Observable<ApplicantResDto[]> {
-        return this.base.get<ApplicantResDto[]>(`${BASE_URL}/applicants?jobId=${jobId}`);
 
+    getByPrincipal(): Observable<ApplicantResDto[]> {
+        return this.base.get<ApplicantResDto[]>(`${BASE_URL}/applicants`)
     }
 
     create(applicantInsertDto: ApplicantInsertReqDto): Observable<InsertResDto> {
         return this.base.post<InsertResDto>(`${BASE_URL}/applicants`, applicantInsertDto);
     }
 
-    update(data: ApplicantUpdateReqDto): Observable<UpdateResDto> {
-        return this.base.patch<UpdateResDto>(`${BASE_URL}/applicants`, data);
-    }
+
 }

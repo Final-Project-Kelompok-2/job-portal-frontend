@@ -28,7 +28,7 @@ const route: Routes = [
 ]
 
 @NgModule({
-    declarations: [JobListComponent, JobSavedComponent, JobDetailComponent],
+    declarations: [JobListComponent, JobSavedComponent, JobDetailComponent, JobAppliedComponent],
     imports: [
         RouterModule.forChild(route),
         SharedModuleComponent,

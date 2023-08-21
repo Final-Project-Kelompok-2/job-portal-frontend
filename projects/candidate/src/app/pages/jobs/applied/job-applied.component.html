@@ -1,5 +1,32 @@
-<div class="grid">
-  <div class="col-12 md:col-6">
-    List Applied Job
+<div class="grid justify-content-center mt-2">
+  <div class="col-12 md:col-10">
+    <p-card header="Applied Jobs">
+      <p-card *ngFor="let a of appliedJob">
+        <div class="grid">
+          <div class="col-12 md:col-3">
+            <p-image [src]="a.companyPhotoId | url" [preview]="true" alt="Image" width="100">
+              <ng-template pTemplate="indicator">
+                <i class="pi pi-check"></i>
+              </ng-template>
+            </p-image>
+          </div>
+          <div class="col-12 md:col-9">
+            <div class="grid">
+              <div class="col-12 md:col-12">
+                <h4>{{a.jobName}} : {{a.statusName}}</h4>
+              </div>
+            </div>
+            <div class="grid">
+              <div class="col-12 md:col-6">
+                <p>{{a.companyName}}</p>
+              </div>
+              <div class="col-12 md:col-6">
+                <p>{{a.appliedDate}}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </p-card>
+    </p-card>
   </div>
 </div>
