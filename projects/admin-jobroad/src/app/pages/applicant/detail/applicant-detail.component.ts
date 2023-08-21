@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
-import { ActivatedRoute, Params } from "@angular/router";
+import { ActivatedRoute, Params, Router } from "@angular/router";
 import { Observable, Subscription } from "rxjs";
 import { MenuItem, MessageService } from "primeng/api";
 import { FormArray, NonNullableFormBuilder, Validators } from "@angular/forms";
@@ -19,6 +19,7 @@ import { InterviewResDto } from "../../../dto/interview/interviewe.res.dto";
 import { ReviewResDto } from "../../../dto/review/review.res.dto";
 import { ReviewService } from "../../../service/review.service";
 import { McuResDto } from "../../../dto/mcu/mcu.res.dto";
+import { HiringStatusEnum } from "../../../constant/hiring-status.constant";
 
 @Component({
     selector: 'applicant-detail',
@@ -52,7 +53,7 @@ export class ApplicantDetailComponent implements OnInit, OnDestroy {
     interviewSubscription!: Subscription;
     reviewSubscription!: Subscription;
     mcuSubscription!: Subscription;
-
+    offeringSubscription! : Subscription;
     assesmentForm = false;
     assesmentNoteForm = false;
     interviewForm = false;
@@ -60,6 +61,12 @@ export class ApplicantDetailComponent implements OnInit, OnDestroy {
     mcuForm = false;
     offeringForm = false;  
 
+    applicantReqDto = this.fb.group({
+        applicantId : ['',Validators.required],
+        applicantCode : ['',Validators.required],
+        statusId : ['',Validators.required],
+        statusCode : ['',Validators.required]
+    })
 
     assesmentReqDto = this.fb.group({
         applicantId: ['', Validators.required],
@@ -98,7 +105,8 @@ export class ApplicantDetailComponent implements OnInit, OnDestroy {
         salary : [0,Validators.required]
     })
 
-    constructor(private activated: ActivatedRoute,
+    constructor(private router : Router,
+        private activated: ActivatedRoute,
         private messageService: MessageService,
         private fb: NonNullableFormBuilder,
         private assesmentService: AssesmentService,
@@ -113,14 +121,14 @@ export class ApplicantDetailComponent implements OnInit, OnDestroy {
 
     onActiveIndexChange(event: number) {
         this.activeIndex = event;
-        if (event == 1) {
+        if (this.activeIndex == 1) {
             this.getAssesmentData();
-        } else if (event == 2) {
+        } else if (this.activeIndex == 2) {
             this.InterviewData();
             this.getReviewData();
-        } else if (event == 3) {
+        } else if (this.activeIndex == 3) {
             this.getMcuData();
-        } else if (event == 4) {
+        } else if (this.activeIndex == 4) {
 
         }
     }
@@ -138,7 +146,19 @@ export class ApplicantDetailComponent implements OnInit, OnDestroy {
             })
             this.applicantSubscription = this.applicantService.getById(params['applicantId']).subscribe(result => {
                 this.applicant = result;
-                
+                if(this.applicant.statusCode == HiringStatusEnum.APPLIED){
+                    this.activeIndex = 0
+                }else if(this.applicant.statusCode == HiringStatusEnum.ASSESMENT){
+                    this.activeIndex = 1
+                }else if(this.applicant.statusCode == HiringStatusEnum.HIRED){
+                    this.activeIndex = 2
+                }else if(this.applicant.statusCode == HiringStatusEnum.MCU){
+                    this.activeIndex = 3
+                }else if(this.applicant.statusCode == HiringStatusEnum.OFFERING){
+                    this.activeIndex = 4
+                }else{
+                    this.activeIndex = 5
+                }
                 this.interviewReqDto.patchValue({
                     applicantCode: this.applicant.applicantCode,
                     statusCode: this.applicant.statusCode
@@ -205,6 +225,21 @@ export class ApplicantDetailComponent implements OnInit, OnDestroy {
     get isHired() {
         return this.activeIndex == 5;
     }
+
+    reject(){
+        this.applicantReqDto.patchValue({
+            applicantId : this.appId,
+            applicantCode : this.applicant?.applicantCode,
+            statusId : this.applicant?.statusId,
+            statusCode : HiringStatusEnum.REJECT
+        })
+        const data = this.applicantReqDto.getRawValue();
+        this.applicantService.update(data).subscribe(()=>{
+            this.router.navigateByUrl(`/jobs/detail/${this.jobId}`);
+        });
+        
+    }
+
     submitAssesment() {
         this.activeIndex = 1
         const data = this.assesmentReqDto.getRawValue();
@@ -316,15 +351,7 @@ export class ApplicantDetailComponent implements OnInit, OnDestroy {
         return this.mcuReqDto.get("mcuData") as FormArray
     }
 
-    ngOnDestroy(): void {
-        this.applicantSubscription.unsubscribe();
-        this.jobSubcription.unsubscribe();
-        this.picSubscription.unsubscribe();
-        this.assesmentSubscription.unsubscribe();
-        this.interviewSubscription.unsubscribe();
-        this.reviewSubscription.unsubscribe();
-        // this.mcuSubscription.unsubscribe();
-    }
+   
     fileUpload(event: any) {
         this.mcuDataListReqDto.clear();
         const toBase64 = (file: File) => new Promise<string>((resolve, reject) => {
@@ -361,11 +388,32 @@ export class ApplicantDetailComponent implements OnInit, OnDestroy {
 
     offeringSubmit(){
         const data = this.offeringReqDto.getRawValue();
-        this.offeringService.create(data).subscribe(()=>{
+        this.offeringSubscription = this.offeringService.create(data).subscribe(()=>{
             this.offeringForm = false;
             this.activeIndex++;
             this.offeringReqDto.reset();
         });
+    }
+
+    ngOnDestroy(): void {
+        this.applicantSubscription.unsubscribe();
+        this.jobSubcription.unsubscribe();
+        this.picSubscription.unsubscribe();
+        if(this.assesmentSubscription){
+            this.assesmentSubscription.unsubscribe();
+        }
+        if(this.interviewSubscription){
+            this.interviewSubscription.unsubscribe();
+        }
+        if(this.reviewSubscription){
+            this.reviewSubscription.unsubscribe();
+        }
+        if(this.mcuSubscription){
+            this.mcuSubscription.unsubscribe();
+        }
+        if(this.offeringSubscription){
+            this.offeringSubscription.unsubscribe();
+        }
     }
 
 }
