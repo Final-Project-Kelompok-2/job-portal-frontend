@@ -79,7 +79,7 @@ export class CandidateDetailComponent implements OnInit {
 
             this.candidateAddressService.getByCandidate(res['id'])
                 .subscribe((res) => {
-                    this.candidateAddresses = res
+                        this.candidateAddresses = res
                 })
 
             this.candidateEducationService.getByCandidate(res['id'])

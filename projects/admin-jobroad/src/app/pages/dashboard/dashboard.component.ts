@@ -12,7 +12,6 @@ import { CandidateUserResDto } from "../../dto/candidate-user/candidate-user.res
 import { BenefitService } from "../../service/benefit.service";
 import { QuestionService } from "../../service/question.service";
 import { CandidateUserService } from "../../service/candidate-user.service";
-// import { AuthService } from "../../service/auth.service";
 
 @Component({
   selector: 'dashboard',
