@@ -23,11 +23,12 @@ import { ToastModule } from 'primeng/toast';
 import { SidebarModule } from 'primeng/sidebar';
 import { ImageModule } from 'primeng/image';
 import { ChartModule } from 'primeng/chart';
+import { ToggleButtonModule } from 'primeng/togglebutton';
 import { DataViewModule, DataViewLayoutOptions } from 'primeng/dataview';
 
 @NgModule({
   imports: [
-    ReactiveFormsModule,FormsModule,
+    ReactiveFormsModule, FormsModule,
 
     InputTextModule,
     MenubarModule,
@@ -53,11 +54,11 @@ import { DataViewModule, DataViewLayoutOptions } from 'primeng/dataview';
     ToastModule,
     ImageModule,
     ChartModule,
-    DataViewModule
+    DataViewModule,
+    ToggleButtonModule
   ],
   exports: [
-    FormsModule,ReactiveFormsModule,
-
+    FormsModule, ReactiveFormsModule,
     InputTextModule,
     SidebarModule,
     MenuModule,
@@ -82,7 +83,8 @@ import { DataViewModule, DataViewLayoutOptions } from 'primeng/dataview';
     ToastModule,
     ImageModule,
     ChartModule,
-    DataViewModule
+    DataViewModule,
+    ToggleButtonModule
   ]
 })
 export class SharedModuleComponent {

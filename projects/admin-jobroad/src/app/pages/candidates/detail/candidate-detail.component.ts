@@ -42,31 +42,31 @@ function getParams(activatedRoute: ActivatedRoute, parentLevel?: number): Observ
 })
 export class CandidateDetailComponent implements OnInit {
     loading = false
-    candidateUser? : CandidateUserResDto
-    candidateAddresses! : CandidateAddressResDto[]
-    candidateDocuments! : CandidateDocumentResDto[]
-    candidateEducations! : CandidateEducationResDto[]
-    candidateFamilies! : CandidateFamilyResDto[]
-    candidateLanguages! : CandidateLanguageResDto[]
-    candidateProjects! : CandidateProjectResDto[]
-    candidateReferences! : CandidateReferencesResDto[]
-    candidateSkills! : CandidateSkillResDto[]
-    candidateTrainings! : CandidateTrainingResDto[]
-    candidateWorks! : CandidateWorkResDto[]
+    candidateUser?: CandidateUserResDto
+    candidateAddresses!: CandidateAddressResDto[]
+    candidateDocuments!: CandidateDocumentResDto[]
+    candidateEducations!: CandidateEducationResDto[]
+    candidateFamilies!: CandidateFamilyResDto[]
+    candidateLanguages!: CandidateLanguageResDto[]
+    candidateProjects!: CandidateProjectResDto[]
+    candidateReferences!: CandidateReferencesResDto[]
+    candidateSkills!: CandidateSkillResDto[]
+    candidateTrainings!: CandidateTrainingResDto[]
+    candidateWorks!: CandidateWorkResDto[]
 
     constructor(
         private candidateService: CandidateUserService,
-        private candidateAddressService : CandidateAddressService,
-        private candidateDocumentService : CandidateDocumentService,
-        private candidateEducationService : CandidateEducationService,
-        private candidateFamilyService : CandidateFamilyService,
-        private candidateLanguageService : CandidateLanguageService,
-        private candidateProjectExpService : CandidateProjectExpService,
-        private candidateReferenceService : CandidateReferenceService,
-        private candidateSkillService : CandidateSkillService,
-        private candidateTrainingExpService : CandidateTrainingExpService,
-        private candidateWorkExpService : CandidateWorkExpService,
-        private route : ActivatedRoute
+        private candidateAddressService: CandidateAddressService,
+        private candidateDocumentService: CandidateDocumentService,
+        private candidateEducationService: CandidateEducationService,
+        private candidateFamilyService: CandidateFamilyService,
+        private candidateLanguageService: CandidateLanguageService,
+        private candidateProjectExpService: CandidateProjectExpService,
+        private candidateReferenceService: CandidateReferenceService,
+        private candidateSkillService: CandidateSkillService,
+        private candidateTrainingExpService: CandidateTrainingExpService,
+        private candidateWorkExpService: CandidateWorkExpService,
+        private route: ActivatedRoute
     ) {
 
     }

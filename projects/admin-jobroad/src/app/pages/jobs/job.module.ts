@@ -2,10 +2,10 @@ import { NgModule } from "@angular/core";
 import { JobRouting } from "./job.routing";
 
 @NgModule({
-  imports:[
+  imports: [
     JobRouting
   ]
 })
-export class JobModule{
+export class JobModule {
 
 }
