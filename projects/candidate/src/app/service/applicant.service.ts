@@ -22,8 +22,8 @@ export class ApplicantService {
 
     }
 
-    create(data: ApplicantInsertReqDto): Observable<InsertResDto> {
-        return this.base.post<InsertResDto>(`${BASE_URL}/applicants`, data);
+    create(applicantInsertDto: ApplicantInsertReqDto): Observable<InsertResDto> {
+        return this.base.post<InsertResDto>(`${BASE_URL}/applicants`, applicantInsertDto);
     }
 
     update(data: ApplicantUpdateReqDto): Observable<UpdateResDto> {

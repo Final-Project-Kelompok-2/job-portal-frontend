@@ -1,7 +1,8 @@
 import { Component, OnInit } from "@angular/core";
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { JobResDto } from "../../../dto/job/job.res.dto";
 import { JobService } from "../../../service/job.service";
+import { ApplicantService } from "../../../service/applicant.service";
 
 @Component({
     selector: 'job-detail',
@@ -9,13 +10,28 @@ import { JobService } from "../../../service/job.service";
 })
 export class JobDetailComponent implements OnInit {
 
-    job!: JobResDto
+    job?: JobResDto
     jobId!: string
+    visible: boolean = false;
+
 
 
     constructor(private activated: ActivatedRoute,
-        private jobService: JobService) {
+        private jobService: JobService,
+        private applicantService: ApplicantService,
+        private router: Router) {
 
+    }
+
+    apply(jobId: string) {
+        // this.visible = true
+        const applicantDto = {
+            jobId
+        }
+        this.applicantService.create(applicantDto).subscribe(result => {
+            this.router.navigateByUrl("/dashboard")
+
+        })
     }
 
     ngOnInit(): void {

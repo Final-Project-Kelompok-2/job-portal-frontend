@@ -9,6 +9,7 @@ import { DashboardComponent } from "./pages/dashboard/dashboard.component";
 import { BaseComponent } from "./component/base/base.component";
 import { BaseModule } from "./component/base/base.module";
 import { NotFoundComponent } from "./component/not-found/not-found.component";
+import { authValidation, authValidationNonlogin } from "./validation/auth.validation";
 
 const routes: Routes = [
     {
@@ -19,9 +20,11 @@ const routes: Routes = [
     {
         component: BaseComponent,
         path: 'dashboard',
+        canMatch: [authValidationNonlogin],
         children: [{
             path: '',
-            component: DashboardComponent
+            component: DashboardComponent,
+
         }]
     },
     {
