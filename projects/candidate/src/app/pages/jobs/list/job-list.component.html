@@ -52,8 +52,10 @@
                 <h3 class="title-hover cursor-pointer" routerLink="/jobs/{{j.id}}/detail">{{j.jobName}}</h3>
               </div>
               <div class="col-12 md:col-2">
-                <i class="pi pi-bookmark" *ngIf="!j.isBookmark" (click)="updateSavedJob(j.id)"></i>
-                <i class="pi pi-bookmark-fill" *ngIf="j.isBookmark" (click)="deleteSavedJob(j.id)"></i>
+                <i class="pi pi-bookmark" style="font-size: 2rem" *ngIf="!j.isBookmark"
+                  (click)="updateSavedJob(j.id)"></i>
+                <i class="pi pi-bookmark-fill" style="font-size: 2rem" *ngIf="j.isBookmark"
+                  (click)="deleteSavedJob(j.id)"></i>
 
               </div>
             </div>
