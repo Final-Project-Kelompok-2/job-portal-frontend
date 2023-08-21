@@ -135,7 +135,9 @@ export class CandidateUpdateComponent implements OnInit {
         country: ['', [Validators.required]],
         province: ['', [Validators.required]],
         city: ['', [Validators.required]],
-        postalCode: ['', [Validators.required]]
+        postalCode: ['', [Validators.required]],
+        candidateId: ['', [Validators.required]],
+        email: ['', [Validators.required]]
       })
     
       educationInsertReqDto = this.fb.group({
@@ -383,6 +385,16 @@ export class CandidateUpdateComponent implements OnInit {
 
     showAddDocuments() {
         this.dialogDocument = true;
+    }
+
+    onAddAddress() {
+        if(this.addressInsertReqDto.valid) {
+            const data = this.addressInsertReqDto.getRawValue()
+            this.candidateAddressService.create(data).subscribe((res) => {
+                this.addressInsertReqDto.reset()
+                this.dialogAddress = false
+            })
+        }
     }
 
     onDeleteAddress(i: number) {
