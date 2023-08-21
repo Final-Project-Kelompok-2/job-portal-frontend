@@ -33,6 +33,11 @@ const routes: Routes = [
         loadChildren: () => import('./pages/jobs/job.module').then(u => u.JobModule)
     },
     {
+        component: BaseComponent,
+        path: 'companies',
+        loadChildren: () => import('./pages/company/company.module').then(c => c.CompanyModule)
+    },
+    {
         path: '',
         redirectTo: '/login',
         pathMatch: 'full'
