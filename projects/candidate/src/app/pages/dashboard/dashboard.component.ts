@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { JobService } from "../../service/job.service";
 import { JobResDto } from "../../dto/job/job.res.dto";
+import { AuthService } from "../../service/auth.service";
 
 @Component({
   selector: "dashboard",
@@ -11,10 +12,17 @@ export class DashboardComponent implements OnInit{
 
   responsiveOptions: any[] | undefined;
 
-  constructor(private jobService: JobService) { }
+  constructor(private jobService: JobService, private auth : AuthService) { }
+
+  isLogin = false
 
   ngOnInit() {
 
+    const profile = this.auth.getProfile()
+
+    if(profile){
+      this.isLogin = true
+    }
 
     this.responsiveOptions = [
       {

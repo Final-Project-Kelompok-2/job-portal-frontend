@@ -8,7 +8,7 @@
       <p-overlayPanel #op>
         <p-menu [model]="profile"> </p-menu>
       </p-overlayPanel>
-      <p-avatar image="{{ imageUrl }}" styleClass="mr-2" size="large"
+      <p-avatar *ngIf="profile" image="{{ imageUrl }}" styleClass="mr-2" size="large"
         shape="circle" (click)="op.toggle($event)" alt="../../../assets/emptyProfile.jpeg">
       </p-avatar>
     </ng-template>
