@@ -6,6 +6,7 @@ import { ApplicantResDto } from "../../../dto/applicant/applicant.res.dto";
 import { Subscription } from "rxjs";
 import { ActivatedRoute } from "@angular/router";
 import { Table } from "primeng/table";
+import { HiringStatusEnum } from "../../../constant/hiring-status.constant";
 
 @Component({
     selector: 'job-detail',
@@ -19,6 +20,8 @@ export class JobDetailComponent implements OnInit, OnDestroy {
     applicantSubscription!: Subscription;
     loading = false;
     jobId!: string;
+    reject = HiringStatusEnum.REJECT;
+    hired = HiringStatusEnum.HIRED;
     constructor(private jobService: JobService,
         private applicantService: ApplicantService, private activated: ActivatedRoute) { }
     ngOnInit(): void {
@@ -33,6 +36,7 @@ export class JobDetailComponent implements OnInit, OnDestroy {
         })
 
     }
+
     ngOnDestroy(): void {
         this.jobSubscription.unsubscribe();
         this.applicantSubscription.unsubscribe();
