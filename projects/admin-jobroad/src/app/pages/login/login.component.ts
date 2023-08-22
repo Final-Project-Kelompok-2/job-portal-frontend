@@ -45,7 +45,7 @@ export class LoginComponent {
       this.loginService.login(data).subscribe({
 
         next: (result: any) => {
-
+          console.log('aaaaaaaa')
           this.loading = false
           console.log(result)
 

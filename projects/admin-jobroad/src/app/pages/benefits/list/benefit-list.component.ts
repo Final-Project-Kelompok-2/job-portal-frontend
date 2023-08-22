@@ -10,21 +10,21 @@ import { Subscription } from "rxjs";
   templateUrl: './benefit-list.component.html',
   styleUrls: ['./benefit-list.component.css']
 })
-export class BenefitListComponent implements OnInit,OnDestroy {
+export class BenefitListComponent implements OnInit, OnDestroy {
   loading = false
   visible: boolean = false;
   benefits!: BenefitResDto[];
-  benefitSubscription! : Subscription;
+  benefitSubscription!: Subscription;
   benefitReqDto = this.fb.group({
     benefitName : [null, [Validators.required]]
   })
-  constructor(private benefitService: BenefitService,private fb : NonNullableFormBuilder) { }
+  constructor(private benefitService: BenefitService, private fb: NonNullableFormBuilder) { }
   ngOnInit(): void {
-   this.getBenefit();
+    this.getBenefit();
   }
 
-  getBenefit(){
-    this.benefitSubscription = this.benefitService.getAll().subscribe(result =>{
+  getBenefit() {
+    this.benefitSubscription = this.benefitService.getAll().subscribe(result => {
       this.benefits = result;
     })
   }
