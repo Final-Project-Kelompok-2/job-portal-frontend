@@ -16,7 +16,7 @@ export class BenefitListComponent implements OnInit, OnDestroy {
   benefits!: BenefitResDto[];
   benefitSubscription!: Subscription;
   benefitReqDto = this.fb.group({
-    benefitName: [null, Validators.required]
+    benefitName : [null, [Validators.required]]
   })
   constructor(private benefitService: BenefitService, private fb: NonNullableFormBuilder) { }
   ngOnInit(): void {
@@ -38,17 +38,18 @@ export class BenefitListComponent implements OnInit, OnDestroy {
 
   insert() {
     const data = this.benefitReqDto.getRawValue();
+    this.loading = true
     this.benefitService.create(data).subscribe({
       next: () => {
-        console.log('next')
         this.getBenefit();
         this.benefitReqDto.reset();
         this.visible = false;
+        this.loading = false
       },
       error: () => {
-        console.log('failed')
+        console.log("error")
+        this.loading = false
       }
-
     })
   }
 
