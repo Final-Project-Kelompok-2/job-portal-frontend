@@ -57,10 +57,10 @@ export class JobCreateComponent implements OnInit,OnDestroy{
     private questionService : QuestionService){}
     
   ngOnInit(): void {
-    this.hrSubscription = this.userService.getByRole(RoleCodeEnum.HR).subscribe(result =>{
+    this.hrSubscription = this.userService.getByRole(RoleCodeEnum.ADMIN).subscribe(result =>{
       this.hr = result;
     })
-    this.picSubscription = this.userService.getByRole(RoleCodeEnum.PIC).subscribe(result =>{
+    this.picSubscription = this.userService.getByRole(RoleCodeEnum.ADMIN).subscribe(result =>{
       this.pic = result;
     })
     this.employmentTypeSubscription = this.employmentTypeService.getAll().subscribe(result =>{
