@@ -1,6 +1,6 @@
 <div class="grid justify-content-center mt-3">
   <div class="col-12 md:col-8">
-    <p-card header="Job Detail">
+    <p-card>
       <div class="grid text-center">
         <div class="col-12">
           <ng-container *ngIf="job?.fileId">
@@ -16,39 +16,30 @@
       <div class="grid">
         <div class="col-12 md:col-6">
           <h2>{{job?.jobName}}</h2>
-          <p-button (click)="apply(jobId)" label="Apply Job"></p-button>
         </div>
       </div>
-      <div class="grid">
+      <div class="grid flex justify-content-center">
         <div class="col-12 md:col-6">
-
           <p><i class="pi pi-building"></i> {{job?.companyName}}</p>
-        </div>
-        <div class="col-12 md:col-6">
-
           <p><i class="pi pi-money-bill"></i> IDR {{job?.expectedSalaryMin}} - IDR {{ job?.expectedSalaryMax }} / month</p>
         </div>
-      </div>
-
-      <div class="grid">
         <div class="col-12 md:col-6">
           <p> <i class="pi pi-home"></i> {{job?.address}}</p>
-        </div>
-        <div class="col-12 md:col-6">
-
           <p><i class="pi pi-calendar-times"></i> {{job?.startDate}}</p>
         </div>
       </div>
 
-      <div class="grid">
+
         <div class="col-12 md:col-12">
           <h3>Description</h3>
+          <p>
+            {{job?.description}}
+          </p>
         </div>
-        <div class="col-12 md:col-12">
-          {{job?.description}}
-        </div>
-      </div>
 
+      <div class="col-12">
+        <app-button (clickChange)="apply(jobId)" backgroundColor="var(--PRIMARY)" label="Apply Job"></app-button>
+      </div>
     </p-card>
   </div>
 </div>
