@@ -261,7 +261,7 @@ export class CandidateUpdateComponent implements OnInit {
             this.candidateUserLanguages
             this.candidateUserFamilies
             this.candidateUserReferences
-            this.candidateUserReferences
+            this.candidateUserDocuments
         })
 
         this.religionService.getAll().subscribe((res) => {

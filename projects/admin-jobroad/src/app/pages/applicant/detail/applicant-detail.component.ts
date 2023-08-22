@@ -141,9 +141,7 @@ export class ApplicantDetailComponent implements OnInit, OnDestroy {
             this.getReviewData();
         } else if (this.activeIndex == 3) {
             this.getMcuData();
-        } else if (this.activeIndex == 4) {
-
-        }
+        } 
     }
     loading = false;
 
