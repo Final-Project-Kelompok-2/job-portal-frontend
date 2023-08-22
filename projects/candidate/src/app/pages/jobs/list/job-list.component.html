@@ -5,7 +5,7 @@
         <div class="col-12 md:col-3">
           <div class="p-input-icon-left w-full">
             <i class="pi pi-search"></i>
-            <input type="text" pInputText placeholder="Job Title" class="w-full"/>
+            <input type="text" pInputText placeholder="Job Title" class="w-full" />
           </div>
         </div>
         <div class="col-12 md:col-3">
@@ -40,8 +40,7 @@
     <div class="card-scroll">
       <p-card *ngFor="let j of jobs" class="card-hover" styleClass="card-hover mr-4 mb-2 mt-2">
         <div class="flex justify-content-end cursor-pointer mb-3">
-          <i class="pi pi-bookmark" style="font-size: 2rem" *ngIf="!j.isBookmark"
-            (click)="updateSavedJob(j.id)"></i>
+          <i class="pi pi-bookmark" style="font-size: 2rem" *ngIf="!j.isBookmark" (click)="updateSavedJob(j.id)"></i>
           <i class="pi pi-bookmark-fill" style="font-size: 2rem" *ngIf="j.isBookmark"
             (click)="deleteSavedJob(j.id)"></i>
         </div>
