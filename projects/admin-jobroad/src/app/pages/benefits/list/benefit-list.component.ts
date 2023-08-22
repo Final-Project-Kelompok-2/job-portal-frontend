@@ -10,21 +10,21 @@ import { Subscription } from "rxjs";
   templateUrl: './benefit-list.component.html',
   styleUrls: ['./benefit-list.component.css']
 })
-export class BenefitListComponent implements OnInit,OnDestroy {
+export class BenefitListComponent implements OnInit, OnDestroy {
   loading = false
   visible: boolean = false;
   benefits!: BenefitResDto[];
-  benefitSubscription! : Subscription;
+  benefitSubscription!: Subscription;
   benefitReqDto = this.fb.group({
-    benefitName : ['',Validators.required]
+    benefitName: [null, Validators.required]
   })
-  constructor(private benefitService: BenefitService,private fb : NonNullableFormBuilder) { }
+  constructor(private benefitService: BenefitService, private fb: NonNullableFormBuilder) { }
   ngOnInit(): void {
-   this.getBenefit();
+    this.getBenefit();
   }
 
-  getBenefit(){
-    this.benefitSubscription = this.benefitService.getAll().subscribe(result =>{
+  getBenefit() {
+    this.benefitSubscription = this.benefitService.getAll().subscribe(result => {
       this.benefits = result;
     })
   }
@@ -38,10 +38,17 @@ export class BenefitListComponent implements OnInit,OnDestroy {
 
   insert() {
     const data = this.benefitReqDto.getRawValue();
-    this.benefitService.create(data).subscribe(result => {
-      this.getBenefit();
-      this.benefitReqDto.reset();
-      this.visible = false;
+    this.benefitService.create(data).subscribe({
+      next: () => {
+        console.log('next')
+        this.getBenefit();
+        this.benefitReqDto.reset();
+        this.visible = false;
+      },
+      error: () => {
+        console.log('failed')
+      }
+
     })
   }
 
