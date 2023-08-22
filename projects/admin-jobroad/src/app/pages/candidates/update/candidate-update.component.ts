@@ -21,8 +21,8 @@ import { CandidateReferenceService } from "../../../service/candidate-reference.
 import { CandidateSkillService } from "../../../service/candidate-skill.service";
 import { CandidateTrainingExpService } from "../../../service/candidate-training-exp.service";
 import { CandidateWorkExpService } from "../../../service/candidate-work-exp.service";
-import { ActivatedRoute, Params } from "@angular/router";
-import { NonNullableFormBuilder, Validators } from "@angular/forms";
+import { ActivatedRoute, Params, Router } from "@angular/router";
+import { FormGroup, NonNullableFormBuilder, Validators } from "@angular/forms";
 import { MaritalResDto } from "../../../dto/marital/marital.res.dto";
 import { ReligionResDto } from "../../../dto/religion/religion.res.dto";
 import { PersonTypeResDto } from "../../../dto/person-type/person-type.res.dto";
@@ -35,6 +35,7 @@ import { MaritalStatusService } from "../../../service/maritalstatus.service";
 import { FileTypeService } from "../../../service/file-type.service";
 import { FileUpload } from "primeng/fileupload";
 import { Observable } from "rxjs";
+import { CandidateProfileUpdateReqDto } from "../../../dto/candidate-profile/candidate-profile-update.req.dto";
 
 interface Salutation {
     value: string;
@@ -80,6 +81,7 @@ export class CandidateUpdateComponent implements OnInit {
     dialogTraining: boolean = false
     dialogProject: boolean = false
     dialogDocument: boolean = false
+    candidateProfile!: CandidateProfileUpdateReqDto
     candidateUser?: CandidateUserResDto
     candidateAddresses!: CandidateAddressResDto[]
     candidateDocuments!: CandidateDocumentResDto[]
@@ -100,36 +102,40 @@ export class CandidateUpdateComponent implements OnInit {
     types!: PersonTypeResDto[]
     candidateStatus!: CandidateStatusResDto[]
     fileTypes!: FileTypeResDto[]
+    candidateId!: string
 
     candidateUpdateInsertReqDto = this.fb.group({
+        id: ['', [Validators.required]],
         userEmail: ['', Validators.required],
-        salutation: ['', Validators.required],
-        fullname: ['', Validators.required],
-        gender: ['', Validators.required],
-        experience: ['', Validators.required],
-        expectedSalary: [0, Validators.required],
-        phoneNumber: ['', Validators.required],
-        mobileNumber: ['', Validators.required],
-        nik: ['', Validators.required],
-        birthDate: ['', Validators.required],
-        birthPlace: ['', Validators.required],
-        maritalStatusId: ['', Validators.required],
-        religionId: ['', Validators.required],
-        personTypeId: ['', Validators.required],
-        file: ['', Validators.required],
-        fileExtension: ['', Validators.required],
-        candidateStatusId: ['', Validators.required]
-      })
+        salutation: ['', [Validators.required]],
+        fullname: ['', [Validators.required]],
+        gender: ['', [Validators.required]],
+        experience: ['', [Validators.required]],
+        expectedSalary: [0, [Validators.required]],
+        phoneNumber: ['', [Validators.required]],
+        mobileNumber: ['', [Validators.required]],
+        nik: ['', [Validators.required]],
+        birthDate: ['', [Validators.required]],
+        birthPlace: ['', [Validators.required]],
+        maritalStatusId: ['', [Validators.required]],
+        religionId: ['', [Validators.required]],
+        personTypeId: ['', [Validators.required]],
+        fileId: ['', [Validators.required]],
+        file: [''],
+        fileExtension: [''],
+        candidateStatusId: ['', [Validators.required]]
+    })
 
     trainingInsertReqDto = this.fb.group({
         organizationName: ['', [Validators.required]],
         trainingName: ['', [Validators.required]],
         description: ['', [Validators.required]],
         startDate: ['', [Validators.required]],
-        endDate: ['', [Validators.required]]
-      })
-    
-      addressInsertReqDto = this.fb.group({
+        endDate: ['', [Validators.required]],
+        email: ['', [Validators.required]]
+    })
+
+    addressInsertReqDto = this.fb.group({
         address: ['', [Validators.required]],
         residenceType: ['', [Validators.required]],
         country: ['', [Validators.required]],
@@ -138,48 +144,57 @@ export class CandidateUpdateComponent implements OnInit {
         postalCode: ['', [Validators.required]],
         candidateId: ['', [Validators.required]],
         email: ['', [Validators.required]]
-      })
-    
-      educationInsertReqDto = this.fb.group({
+    })
+
+    educationInsertReqDto = this.fb.group({
         degreeName: ['', [Validators.required]],
         instituitionName: ['', [Validators.required]],
         majors: ['', [Validators.required]],
-        cgpa: ['', [Validators.required]],
+        cgpa: [0, [Validators.required]],
         startYear: ['', [Validators.required]],
-        endYear: ['', [Validators.required]]
-      })
-    
-      workingInsertReqDto = this.fb.group({
+        endYear: ['', [Validators.required]],
+        candidateId: ['', [Validators.required]],
+        email: ['', [Validators.required]]
+    })
+
+    workingInsertReqDto = this.fb.group({
         positionName: ['', [Validators.required]],
         companyName: ['', [Validators.required]],
         address: ['', [Validators.required]],
         responsibility: ['', [Validators.required]],
         reasonLeave: ['', [Validators.required]],
-        lastSalary: ['', [Validators.required]],
+        lastSalary: [0, [Validators.required]],
         startDate: ['', [Validators.required]],
-        endDate: ['', [Validators.required]]
-      })
-    
-      projectInsertReqDto = this.fb.group({
+        endDate: ['', [Validators.required]],
+        candidateId: ['', [Validators.required]],
+        email: ['', [Validators.required]]
+    })
+
+    projectInsertReqDto = this.fb.group({
         projectName: ['', [Validators.required]],
         projectUrl: ['', [Validators.required]],
         description: ['', [Validators.required]],
         startDate: ['', [Validators.required]],
-        endDate: ['', [Validators.required]]
-      })
-    
-      skillInsertReqDto = this.fb.group({
-        skillName: ['', [Validators.required]]
-      })
-    
-      languageInsertReqDto = this.fb.group({
+        endDate: ['', [Validators.required]],
+        candidateId: ['', [Validators.required]],
+        email: ['', [Validators.required]]
+    })
+
+    skillInsertReqDto = this.fb.group({
+        skillName: ['', [Validators.required]],
+        email: ['', [Validators.required]],
+        candidateId: ['', [Validators.required]]
+    })
+
+    languageInsertReqDto = this.fb.group({
         languageName: ['', [Validators.required]],
         writingRate: ['', [Validators.required]],
         speakingRate: ['', [Validators.required]],
-        listeningRate: ['', [Validators.required]]
-      })
-    
-      familyInsertReqDto = this.fb.group({
+        listeningRate: ['', [Validators.required]],
+        email: ['', [Validators.required]]
+    })
+
+    familyInsertReqDto = this.fb.group({
         fullname: ['', [Validators.required]],
         relationship: ['', [Validators.required]],
         degreeName: ['', [Validators.required]],
@@ -187,24 +202,27 @@ export class CandidateUpdateComponent implements OnInit {
         birthDate: ['', [Validators.required]],
         birthPlace: ['', [Validators.required]],
         email: ['', [Validators.required]]
-      })
-    
-      referenceInsertReqDto = this.fb.group({
+    })
+
+    referenceInsertReqDto = this.fb.group({
         fullname: ['', [Validators.required]],
         relationship: ['', [Validators.required]],
         occupation: ['', [Validators.required]],
         phoneNumber: ['', [Validators.required]],
         email: ['', [Validators.required]],
         company: ['', [Validators.required]],
-        description: ['', [Validators.required]]
-      })
-    
-      documentInsertReqDto = this.fb.group({
+        description: ['', [Validators.required]],
+        candidateEmail: ['', [Validators.required]]
+    })
+
+    documentInsertReqDto = this.fb.group({
         docName: ['', [Validators.required]],
+        candidateId: ['', [Validators.required]],
+        email: ['', [Validators.required]],
         fileTypeCode: ['', [Validators.required]],
         fileName: ['', [Validators.required]],
         fileExtension: ['', [Validators.required]]
-      })
+    })
 
     constructor(
         private religionService: ReligionService,
@@ -223,6 +241,7 @@ export class CandidateUpdateComponent implements OnInit {
         private candidateSkillService: CandidateSkillService,
         private candidateTrainingExpService: CandidateTrainingExpService,
         private candidateWorkExpService: CandidateWorkExpService,
+        private router: Router,
         private route: ActivatedRoute,
         private fb: NonNullableFormBuilder
     ) {
@@ -230,80 +249,19 @@ export class CandidateUpdateComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        
         getParams(this.route, 0).subscribe((res) => {
-            this.candidateService.getCandidateUserById(res['id'])
-                .subscribe((res) => {
-                    this.candidateUser = res
-                    this.candidateUpdateInsertReqDto.patchValue({
-                        userEmail: res.userEmail,
-                        salutation: res.salutation,
-                        fullname: res.fullname,
-                        gender: res.gender,
-                        experience: res.experience,
-                        expectedSalary: res.expectedSalary,
-                        phoneNumber: res.phoneNumber,
-                        mobileNumber: res.mobileNumber,
-                        nik: res.nik,
-                        birthDate: res.birthDate,
-                        birthPlace: res.birthPlace,
-                        maritalStatusId: res.maritalStatusId,
-                        religionId: res.religionId,
-                        personTypeId: res.personTypeId,
-                        file: res.fileId,
-                        candidateStatusId: res.candidateStatusId
-                    })
-                })
-
-            this.candidateAddressService.getByCandidate(res['id'])
-                .subscribe((res) => {
-                    this.candidateAddresses = res
-                })
-
-            this.candidateEducationService.getByCandidate(res['id'])
-                .subscribe((res) => {
-                    this.candidateEducations = res
-                })
-
-            this.candidateFamilyService.getByCandidate(res['id'])
-                .subscribe((res) => {
-                    this.candidateFamilies = res
-                })
-
-            this.candidateLanguageService.getByCandidate(res['id'])
-                .subscribe((res) => {
-                    this.candidateLanguages = res
-                })
-
-            this.candidateProjectExpService.getByCandidate(res['id'])
-                .subscribe((res) => {
-                    this.candidateProjects = res
-                })
-
-            this.candidateReferenceService.getByCandidate(res['id'])
-                .subscribe((res) => {
-                    this.candidateReferences = res
-                })
-
-            this.candidateSkillService.getByCandidate(res['id'])
-                .subscribe((res) => {
-                    this.candidateSkills = res
-                })
-
-            this.candidateTrainingExpService.getByCandidate(res['id'])
-                .subscribe((res) => {
-                    this.candidateTrainings = res
-                })
-
-            this.candidateWorkExpService.getByCandidate(res['id'])
-                .subscribe((res) => {
-                    this.candidateWorks = res
-                })    
-            
-            this.candidateDocumentService.getByCandidate(res['id'])
-                .subscribe((res) => {
-                    this.candidateDocuments = res
-                })
+            this.candidateId = res['id']
+            this.candidateUserProfile
+            this.candidateUserAddresses
+            this.candidateUserEducations
+            this.candidateUserWorkings
+            this.candidateUserTrainings
+            this.candidateUserProjects
+            this.candidateUserSkills
+            this.candidateUserLanguages
+            this.candidateUserFamilies
+            this.candidateUserReferences
+            this.candidateUserReferences
         })
 
         this.religionService.getAll().subscribe((res) => {
@@ -347,6 +305,151 @@ export class CandidateUpdateComponent implements OnInit {
         ]
     }
 
+    get candidateUserProfile() {
+        return this.candidateService.getCandidateUserById(this.candidateId)
+            .subscribe((res) => {
+                this.candidateUser = res
+
+                this.candidateUpdateInsertReqDto.patchValue({
+                    id: res.id,
+                    userEmail: res.userEmail,
+                    salutation: res.salutation,
+                    fullname: res.fullname,
+                    gender: res.gender,
+                    experience: res.experience,
+                    expectedSalary: res.expectedSalary,
+                    phoneNumber: res.phoneNumber,
+                    mobileNumber: res.mobileNumber,
+                    nik: res.nik,
+                    birthDate: res.birthDate,
+                    birthPlace: res.birthPlace,
+                    maritalStatusId: res.maritalStatusId,
+                    religionId: res.religionId,
+                    personTypeId: res.personTypeId,
+                    fileId: res.fileId,
+                    file: '',
+                    fileExtension: '',
+                    candidateStatusId: res.candidateStatusId
+                })
+
+                this.addressInsertReqDto.patchValue({
+                    candidateId: res.id,
+                    email: res.userEmail
+                })
+
+                this.educationInsertReqDto.patchValue({
+                    candidateId: res.id,
+                    email: res.userEmail
+                })
+
+                this.workingInsertReqDto.patchValue({
+                    candidateId: res.id,
+                    email: res.userEmail
+                })
+
+                this.trainingInsertReqDto.patchValue({
+                    email: res.userEmail
+                })
+
+                this.projectInsertReqDto.patchValue({
+                    candidateId: res.id,
+                    email: res.userEmail
+                })
+
+                this.skillInsertReqDto.patchValue({
+                    candidateId: res.id,
+                    email: res.userEmail
+                })
+
+                this.languageInsertReqDto.patchValue({
+                    email: res.userEmail
+                })
+
+                this.familyInsertReqDto.patchValue({
+                    email: res.userEmail
+                })
+
+                this.referenceInsertReqDto.patchValue({
+                    candidateEmail: res.userEmail
+                })
+
+                this.documentInsertReqDto.patchValue({
+                    candidateId: res.id,
+                    email: res.userEmail
+                })
+            })
+    }
+
+    get candidateUserAddresses() {
+        return this.candidateAddressService.getByCandidate(this.candidateId)
+            .subscribe((res) => {
+                this.candidateAddresses = res
+            })
+    }
+
+    get candidateUserEducations() {
+        return this.candidateEducationService.getByCandidate(this.candidateId)
+            .subscribe((res) => {
+                this.candidateEducations = res
+            })
+    }
+
+    get candidateUserWorkings() {
+        return this.candidateWorkExpService.getByCandidate(this.candidateId)
+            .subscribe((res) => {
+                this.candidateWorks = res
+            })
+    }
+
+    get candidateUserTrainings() {
+        return this.candidateTrainingExpService.getByCandidate(this.candidateId)
+            .subscribe((res) => {
+                this.candidateTrainings = res
+            })
+    }
+
+    get candidateUserProjects() {
+        return this.candidateProjectExpService.getByCandidate(this.candidateId)
+            .subscribe((res) => {
+                this.candidateProjects = res
+            })
+    }
+
+    get candidateUserSkills() {
+        return this.candidateSkillService.getByCandidate(this.candidateId)
+            .subscribe((res) => {
+                this.candidateSkills = res
+            })
+    }
+
+    get candidateUserLanguages() {
+        return this.candidateLanguageService.getByCandidate(this.candidateId)
+            .subscribe((res) => {
+                this.candidateLanguages = res
+            })
+    }
+
+    get candidateUserFamilies() {
+        return this.candidateFamilyService.getByCandidate(this.candidateId)
+            .subscribe((res) => {
+                this.candidateFamilies = res
+            })
+    }
+
+    get candidateUserReferences() {
+        return this.candidateReferenceService.getByCandidate(this.candidateId)
+            .subscribe((res) => {
+                this.candidateReferences = res
+            })
+    }
+
+    get candidateUserDocuments() {
+        return this.candidateDocumentService.getByCandidate(this.candidateId)
+            .subscribe((res) => {
+                this.candidateDocuments = res
+            })
+    }
+
     showAddAddress() {
         this.dialogAddress = true;
     }
@@ -388,53 +491,162 @@ export class CandidateUpdateComponent implements OnInit {
     }
 
     onAddAddress() {
-        if(this.addressInsertReqDto.valid) {
+        if (this.addressInsertReqDto.valid) {
             const data = this.addressInsertReqDto.getRawValue()
             this.candidateAddressService.create(data).subscribe((res) => {
+                this.candidateUserAddresses
                 this.addressInsertReqDto.reset()
                 this.dialogAddress = false
             })
         }
     }
 
-    onDeleteAddress(i: number) {
+    onAddEducation() {
+        if (this.educationInsertReqDto.valid) {
+            const data = this.educationInsertReqDto.getRawValue()
+            this.candidateEducationService.create(data).subscribe((res) => {
+                this.candidateUserEducations
+                this.educationInsertReqDto.reset()
+                this.dialogEducation = false
+            })
+        }
+    }
+
+    onAddWorking() {
+        if (this.workingInsertReqDto.valid) {
+            const data = this.workingInsertReqDto.getRawValue()
+            this.candidateWorkExpService.create(data).subscribe((res) => {
+                this.candidateUserWorkings
+                this.workingInsertReqDto.reset()
+                this.dialogWorking = false
+            })
+        }
+    }
+
+    onAddTraining() {
+        if (this.trainingInsertReqDto.valid) {
+            const data = this.trainingInsertReqDto.getRawValue()
+            this.candidateTrainingExpService.create(data).subscribe((res) => {
+                this.candidateUserTrainings
+                this.trainingInsertReqDto.reset()
+                this.dialogTraining = false
+            })
+        }
+    }
+
+    onAddProject() {
+        if (this.projectInsertReqDto.valid) {
+            const data = this.projectInsertReqDto.getRawValue()
+            this.candidateProjectExpService.create(data).subscribe((res) => {
+                this.candidateUserProjects
+                this.projectInsertReqDto.reset()
+                this.dialogProject = false
+            })
+        }
+    }
+
+    onAddSkill() {
+        if (this.skillInsertReqDto.valid) {
+            const data = this.skillInsertReqDto.getRawValue()
+            this.candidateSkillService.create(data).subscribe((res) => {
+                this.candidateUserSkills
+                this.skillInsertReqDto.reset()
+                this.dialogSkill = false
+            })
+        }
+    }
+
+    onAddLanguage() {
+        if (this.languageInsertReqDto.valid) {
+            const data = this.languageInsertReqDto.getRawValue()
+            this.candidateLanguageService.create(data).subscribe((res) => {
+                this.candidateUserLanguages
+                this.languageInsertReqDto.reset()
+                this.dialogLanguage = false
+            })
+        }
+    }
+
+    onAddFamily() {
+        if (this.familyInsertReqDto.valid) {
+            const data = this.familyInsertReqDto.getRawValue()
+            this.candidateFamilyService.create(data).subscribe((res) => {
+                this.candidateUserFamilies
+                this.familyInsertReqDto.reset()
+                this.dialogFamily = false
+            })
+        }
+    }
+
+    onAddReference() {
+        if (this.referenceInsertReqDto.valid) {
+            const data = this.referenceInsertReqDto.getRawValue()
+            this.candidateReferenceService.create(data).subscribe((res) => {
+                this.candidateUserReferences
+                this.referenceInsertReqDto.reset()
+                this.dialogReference = false
+            })
+        }
+    }
+
+    onAddDocument() {
+        if (this.documentInsertReqDto.valid) {
+            const data = this.documentInsertReqDto.getRawValue()
+            this.candidateDocumentService.create(data).subscribe((res) => {
+                this.candidateUserDocuments
+                this.documentInsertReqDto.reset()
+                this.dialogDocument = false
+            })
+        }
+    }
+
+    onDeleteAddress(id: string) {
 
     }
 
-    onDeleteTraining(i: number) {
+    onDeleteTraining(id: string) {
 
     }
 
-    onDeleteEducation(i: number) {
+    onDeleteEducation(id: string) {
 
     }
 
-    onDeleteWorking(i: number) {
+    onDeleteWorking(id: string) {
 
     }
 
-    onDeleteProject(i: number) {
+    onDeleteProject(id: string) {
 
     }
 
-    onDeleteSkill(i: number) {
+    onDeleteSkill(id: string) {
 
     }
 
-    onDeleteLanguage(i: number) {
+    onDeleteLanguage(id: string) {
 
     }
 
-    onDeleteFamily(i: number) {
+    onDeleteFamily(id: string) {
 
     }
 
-    onDeleteReference(i: number) {
+    onDeleteReference(id: string) {
 
     }
 
-    onDeleteDocument(i: number) {
+    onDeleteDocument(id: string) {
 
+    }
+
+    onUpdate() {
+        if (this.candidateUpdateInsertReqDto.valid) {
+            const data = this.candidateUpdateInsertReqDto.getRawValue()
+            this.candidateService.update(data).subscribe((res) => {
+                this.router.navigateByUrl(`/candidates/detail/${this.candidateId}`)
+            })
+        }
     }
 
     fileUpload(event: any, fileUpload: FileUpload) {
@@ -452,10 +664,10 @@ export class CandidateUpdateComponent implements OnInit {
                 const resultBase64 = result.substring(result.indexOf(",") + 1, result.length)
                 const resultExtension = file.name.substring(file.name.indexOf(".") + 1, file.name.length)
 
-                // this.candidateMasterInsertReqDto.patchValue({
-                //   file: resultBase64,
-                //   fileExtension: resultExtension
-                // })
+                this.candidateUpdateInsertReqDto.patchValue({
+                  file: resultBase64,
+                  fileExtension: resultExtension
+                })
 
                 fileUpload.clear()
             })
@@ -477,10 +689,10 @@ export class CandidateUpdateComponent implements OnInit {
                 const resultBase64 = result.substring(result.indexOf(",") + 1, result.length)
                 const resultExtension = file.name.substring(file.name.indexOf(".") + 1, file.name.length)
 
-                // this.documentInsertReqDto.patchValue({
-                //   fileName: resultBase64,
-                //   fileExtension: resultExtension
-                // })
+                this.documentInsertReqDto.patchValue({
+                    fileName: resultBase64,
+                    fileExtension: resultExtension
+                })
 
                 fileUpload.clear()
             })
