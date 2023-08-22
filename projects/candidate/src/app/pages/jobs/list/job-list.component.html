@@ -30,7 +30,7 @@
 
 <div class="grid">
   <!-- <h2 class="col-12">Job Vacancies</h2> -->
-  <div class="col-12 md:col-12">
+  <div class="col-12">
     {{jobs?.length}} Jobs Found
   </div>
 </div>
@@ -38,7 +38,7 @@
 <div class="grid ">
   <div class="col-12 md:col-9">
     <div class="card-scroll">
-      <p-card *ngFor="let j of jobs" class="card-hover m-3 " styleClass="card-hover mr-4">
+      <p-card *ngFor="let j of jobs" class="card-hover " styleClass="card-hover mr-4">
         <div class="col-12 flex justify-content-end cursor-pointer">
           <i class="pi pi-bookmark" style="font-size: 2rem" *ngIf="!j.isBookmark"
             (click)="updateSavedJob(j.id)"></i>
@@ -47,23 +47,24 @@
         </div>
         <div class=" grid  cursor-pointer" routerLink="/jobs/{{j.id}}/detail">
           <div class="col-12 md:col-2 text-center">
-            <p-image [src]="j.fileId | url" [preview]="true" alt="Image" width="100">
+            <p-image   [src]="j.fileId | url" imageClass="w-full" alt="Image">
               <ng-template pTemplate="indicator">
                 <i class="pi pi-check"></i>
               </ng-template>
             </p-image>
           </div>
           <div class="col-12 md:col-10">
-            <div class="col-12 md:col-6">
-              <h3 class="title-hover">{{j.jobName}}</h3>
+            <div class="col-12">
+              <h3>{{j.jobName}}</h3>
             </div>
+            <!-- Address & Salary -->
             <div class="col-12 md:col-12">
               <div class="grid">
                 <div class="col-12 md:col-6">
                   <i class="pi pi-building"></i> {{j.address}}
                 </div>
                 <div class="col-12 md:col-6">
-                  <i class="pi pi-dollar"></i> Above Rp {{j.expectedSalaryMin}}
+                  <i class="pi pi-money-bill"></i> IDR {{j.expectedSalaryMin}} - IDR {{ j.expectedSalaryMax }}
                 </div>
               </div>
             </div>
