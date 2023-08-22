@@ -25,12 +25,15 @@
         <app-button *ngIf="isMcu" type="button" label="Offering Letter" (click)="offeringClick()" class="mr-2"
             classBtn="p-button-primary mt-2"></app-button>
 
+        <app-button *ngIf="isOffering" backgroundColor="var(--PRIMARY)" [loading]="loading" typeBtn="submit"
+            label="Accept" iconBtn="pi pi-user-plus" class="mt-2" (click)="accept()"></app-button>
+
     </div>
     <div class="col-12 md:col-1 md:col-offset-6 buttons">
         <app-button type="button" (click)="reject()" label="Reject" class="mr-2"
             classBtn="p-button-danger"></app-button>
     </div>
-    <candidate-detail *ngIf="isApplied"></candidate-detail>
+    <candidate-detail class="col-12" *ngIf="isApplied"></candidate-detail>
     <div class="col-12 " *ngIf="isApplied">
 
         <!-- Modal Form Insert Assesment -->
@@ -62,27 +65,27 @@
     <div class="assesment col-12 justify-content-center" *ngIf="isAssesment">
         <p-card header="Assesment">
             <div class="grid">
-                <div class="col-12 md:col-5"><i class="pi pi-calendar"></i> Date</div>
-                <div class="col-12 md:col-1">:</div>
-                <div class="col-12 md:col-6">{{assesmentData?.assesmentDate}}</div>
+                <div class="col-5 md:col-5"><i class="pi pi-calendar"></i> Date</div>
+                <div class="col-1 md:col-1">:</div>
+                <div class="col-6 md:col-6">{{assesmentData?.assesmentDate}}</div>
 
-                <div class="col-12 md:col-5"><i class="pi pi-home"></i> Location</div>
-                <div class="col-12 md:col-1">:</div>
-                <div class="col-12 md:col-6">{{assesmentData?.assesmentLocation}}</div>
+                <div class="col-5 md:col-5"><i class="pi pi-home"></i> Location</div>
+                <div class="col-1 md:col-1">:</div>
+                <div class="col-6 md:col-6">{{assesmentData?.assesmentLocation}}</div>
 
-                <div class="col-12 md:col-5"><i class="pi pi-book"></i> Notes</div>
-                <div class="col-12 md:col-1">:</div>
-                <div class="col-12 md:col-6">{{assesmentData?.notes}}</div>
+                <div class="col-5 md:col-5"><i class="pi pi-book"></i> Notes</div>
+                <div class="col-1 md:col-1">:</div>
+                <div class="col-6 md:col-6">{{assesmentData?.notes}}</div>
                 <div class="col-12 md:col-12">
                     <h4>Contact Person</h4>
                     <hr>
                 </div>
-                <div class="col-12 md:col-5">Name</div>
-                <div class="col-12 md:col-1">:</div>
-                <div class="col-12 md:col-6">{{pic?.fullName}}</div>
-                <div class="col-12 md:col-5">Email</div>
-                <div class="col-12 md:col-1">:</div>
-                <div class="col-12 md:col-6">{{pic?.email}}</div>
+                <div class="col-5 md:col-5">Name</div>
+                <div class="col-1 md:col-1">:</div>
+                <div class="col-6 md:col-6">{{pic?.fullName}}</div>
+                <div class="col-5 md:col-5">Email</div>
+                <div class="col-1 md:col-1">:</div>
+                <div class="col-6 md:col-6">{{pic?.email}}</div>
             </div>
         </p-card>
 
@@ -132,31 +135,31 @@
         <p-card header="Interview Data ">
 
             <div class="grid">
-                <div class="col-12 md:col-5"><i class="pi pi-calendar"></i> Date</div>
-                <div class="col-12 md:col-1">:</div>
-                <div class="col-12 md:col-6">{{interviewData?.interviewDate}}</div>
+                <div class="col-5 md:col-5"><i class="pi pi-calendar"></i> Date</div>
+                <div class="col-1 md:col-1">:</div>
+                <div class="col-6 md:col-6">{{interviewData?.interviewDate}}</div>
 
-                <div class="col-12 md:col-5"><i class="pi pi-home"></i> Location</div>
-                <div class="col-12 md:col-1">:</div>
-                <div class="col-12 md:col-6">{{interviewData?.interviewLocation}}</div>
+                <div class="col-5 md:col-5"><i class="pi pi-home"></i> Location</div>
+                <div class="col-1 md:col-1">:</div>
+                <div class="col-6 md:col-6">{{interviewData?.interviewLocation}}</div>
 
-                <div class="col-12 md:col-5"><i class="pi pi-book"></i> Notes</div>
-                <div class="col-12 md:col-1">:</div>
-                <div class="col-12 md:col-6">{{reviewData?.notes}}</div>
+                <div class="col-5 md:col-5"><i class="pi pi-book"></i> Notes</div>
+                <div class="col-1 md:col-1">:</div>
+                <div class="col-6 md:col-6">{{reviewData?.notes}}</div>
 
-                <div class="col-12 md:col-5"><i class="pi pi-info-circle"></i> Score</div>
-                <div class="col-12 md:col-1">:</div>
-                <div class="col-12 md:col-6">{{reviewData?.score}}</div>
+                <div class="col-5 md:col-5"><i class="pi pi-info-circle"></i> Score</div>
+                <div class="col-1 md:col-1">:</div>
+                <div class="col-6 md:col-6">{{reviewData?.score}}</div>
                 <div class="col-12 md:col-12">
                     <h4>Contact Person</h4>
                     <hr>
                 </div>
-                <div class="col-12 md:col-5">Name</div>
-                <div class="col-12 md:col-1">:</div>
-                <div class="col-12 md:col-6">{{pic?.fullName}}</div>
-                <div class="col-12 md:col-5">Email</div>
-                <div class="col-12 md:col-1">:</div>
-                <div class="col-12 md:col-6">{{pic?.email}}</div>
+                <div class="col-5 md:col-5">Name</div>
+                <div class="col-1 md:col-1">:</div>
+                <div class="col-6 md:col-6">{{pic?.fullName}}</div>
+                <div class="col-5 md:col-5">Email</div>
+                <div class="col-1 md:col-1">:</div>
+                <div class="col-6 md:col-6">{{pic?.email}}</div>
             </div>
         </p-card>
 
@@ -221,14 +224,14 @@
             <form [formGroup]="offeringReqDto" (ngSubmit)="offeringSubmit()">
                 <div class="grid">
                     <div class="col-12 md:col-4">
-                        <label for="address">Address</label>
+                        <label for="address">Address<span class="text-red-500">*</span></label>
                     </div>
                     <div class="col-12 md:col-8">
                         <textarea pInputTextarea id="address" formControlName="address" class="col-12"
                             rows="10"></textarea>
                     </div>
                     <div class="col-12 md:col-4">
-                        <label htmlFor="salary">Salary</label>
+                        <label htmlFor="salary">Salary<span class="text-red-500">*</span></label>
                     </div>
                     <div class="col-12 md:col-8">
                         <p-inputNumber id="salary" inputId="max" mode="currency" currency="IDR" locale="jp-JP"
@@ -243,30 +246,30 @@
 
     <div class="offering-letter " *ngIf="isOffering">
 
-        <app-button backgroundColor="var(--PRIMARY)" [loading]="loading" typeBtn="submit" label="Accept"
-            iconBtn="pi pi-user-plus" class="mt-2" (click)="accept()"></app-button>
+
         <h3>Waiting for candidate to accept the offer ....</h3>
 
         <p-dialog [breakpoints]="{ '960px': '75vw' }" [style]="{ width: '50vw' }" [modal]="true"
             [(visible)]="hiringForm" header="Hiring Form">
             <form [formGroup]="hiringReqDto" (ngSubmit)="hiringSubmit()">
-                <div class="grid mt-3">
-                    <div class="start-date">
+                <div class="start">
+                        <div class="grid mt-3">
                         <div class="col-12 md:col-4">
-                            <label for="start-date">Start Date</label>
+                            <label for="start-date">Start Date<span class="text-red-500">*</span></label>
                         </div>
                         <div class="col-12 md:col-8">
-                            <input pInputText id="start-date" required type="date"
-                                formControlName="startDate" />
+                            <input pInputText id="start-date" required type="date" formControlName="startDate" />
                         </div>
                     </div>
-                    <div class="end-date" *ngIf="job?.jobName == intern || job?.jobName == contract">
+                    <div class="end-date" *ngIf="job?.jobName != intern || job?.jobName == contract">
+                        <div class="grid">
                         <div class="col-12 md:col-4">
-                            <label for="end-date">Start Date</label>
+                            <label for="end-date">End Date</label>
                         </div>
                         <div class="col-12 md:col-8">
                             <input pInputText id="end-date" type="date" formControlName="endDate" />
                         </div>
+                    </div>
                     </div>
                 </div>
                 <app-button backgroundColor="var(--PRIMARY)" [loading]="loading" typeBtn="submit" label="Add"
