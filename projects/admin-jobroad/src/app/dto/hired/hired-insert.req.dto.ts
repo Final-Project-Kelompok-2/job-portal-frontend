@@ -3,5 +3,5 @@ export interface HiredInsertReqDto {
 	applicantCode : string
 	statusCode : string
 	startDate : string
-	endDate : string
+	endDate : string | null
 }
