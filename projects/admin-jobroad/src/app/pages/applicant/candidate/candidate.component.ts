@@ -45,7 +45,7 @@ function getParams(activatedRoute: ActivatedRoute, parentLevel?: number): Observ
 export class ApplicantCandidateDetailComponent implements OnInit {
     loading = false
     candidateUser?: CandidateUserResDto
-    candidateAddresses!: CandidateAddressResDto[]
+    candidateAddresses?: CandidateAddressResDto[]
     candidateDocuments!: CandidateDocumentResDto[]
     candidateEducations!: CandidateEducationResDto[]
     candidateFamilies!: CandidateFamilyResDto[]

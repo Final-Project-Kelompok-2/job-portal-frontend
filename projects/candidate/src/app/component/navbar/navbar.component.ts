@@ -54,12 +54,12 @@ export class NavbarComponent implements OnInit {
             {
               icon: 'pi pi-fw pi-user',
               label: 'Profile',
-              routerLink: '/users/profile'
+              routerLink: '/candidates/profile'
             },
             {
               icon: 'pi pi-fw pi-unlock',
               label: 'Change Password',
-              routerLink: '/users/change-password'
+              routerLink: '/candidates/change-password'
             },
             {
               icon: 'pi pi-fw pi-sign-out',

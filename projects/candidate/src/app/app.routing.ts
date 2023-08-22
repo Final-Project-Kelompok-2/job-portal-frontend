@@ -52,6 +52,13 @@ const routes: Routes = [
     loadChildren: () => import('./pages/company/company.module').then(c => c.CompanyModule)
   },
   {
+    component: BaseComponent,
+    path: 'candidates',
+    canMatch: [authValidationNonlogin],
+
+    loadChildren: () => import('./pages/candidates/candidate.module').then(c => c.CandidateModule)
+  },
+  {
     path: '',
     redirectTo: '/login',
     pathMatch: 'full'

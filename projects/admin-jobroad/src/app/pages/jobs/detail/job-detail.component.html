@@ -96,13 +96,12 @@
       </tr>
     </ng-template>
     <ng-template pTemplate="body" let-a let-i="rowIndex">
-      <tr routerLink="/applicant/{{jobId}}/{{a.id}}" class="cursor-pointer">
+      <tr *ngIf="a.statusCode != reject || a.statusCode != hired" routerLink="/applicant/{{jobId}}/{{a.id}}" class="cursor-pointer">
         <td>{{ i+1 }}</td>
         <td>{{a.applicantCode}}</td>
         <td>{{a.appliedDate}}</td>
         <td>{{a.statusName}}</td>
         <td>{{a.candidateName}}</td>
-
       </tr>
     </ng-template>
   </p-table>

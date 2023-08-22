@@ -20,17 +20,20 @@ import { ReviewResDto } from "../../../dto/review/review.res.dto";
 import { ReviewService } from "../../../service/review.service";
 import { McuResDto } from "../../../dto/mcu/mcu.res.dto";
 import { HiringStatusEnum } from "../../../constant/hiring-status.constant";
+import { employmentTypeEnum } from "../../../constant/employment-type.constant";
 
 @Component({
     selector: 'applicant-detail',
-    templateUrl: './applicant-detail.component.html'
+    templateUrl: './applicant-detail.component.html',
+    styleUrls :['./applicant-detail.component.css']
 })
 export class ApplicantDetailComponent implements OnInit, OnDestroy {
     jobId!: string;
     appId!: string;
     status!: MenuItem[] | undefined;
     activeIndex: number = 0;
-
+    intern = employmentTypeEnum.INTERN;
+    contract = employmentTypeEnum.CONTRACT;
 
     //Master Data
     applicant?: ApplicantResDto;
@@ -59,7 +62,8 @@ export class ApplicantDetailComponent implements OnInit, OnDestroy {
     interviewForm = false;
     interviewNoteForm = false;
     mcuForm = false;
-    offeringForm = false;
+    offeringForm = false;  
+    hiringForm = false;
 
     applicantReqDto = this.fb.group({
         applicantId: ['', Validators.required],
@@ -105,7 +109,16 @@ export class ApplicantDetailComponent implements OnInit, OnDestroy {
         salary: [0, Validators.required]
     })
 
-    constructor(private router: Router,
+    hiringReqDto = this.fb.group({
+        applicantId : ['',Validators.required],
+        applicantCode : [''],
+        statusId : [''],
+        statusCode : [''],
+        startDate : ['',Validators.required],
+        endDate : [null]
+    })
+
+    constructor(private router : Router,
         private activated: ActivatedRoute,
         private messageService: MessageService,
         private fb: NonNullableFormBuilder,
@@ -156,8 +169,8 @@ export class ApplicantDetailComponent implements OnInit, OnDestroy {
                     this.activeIndex = 3
                 } else if (this.applicant.statusCode == HiringStatusEnum.OFFERING) {
                     this.activeIndex = 4
-                } else {
-                    this.activeIndex = 5
+                }else{
+                    this.activeIndex = 0
                 }
                 this.interviewReqDto.patchValue({
                     applicantCode: this.applicant.applicantCode,
@@ -193,10 +206,6 @@ export class ApplicantDetailComponent implements OnInit, OnDestroy {
             {
                 label: 'Offering',
                 command: (event: any) => this.messageService.add({ severity: 'info', summary: 'Fifth Step', detail: event.item.label })
-            },
-            {
-                label: 'Hired',
-                command: (event: any) => this.messageService.add({ severity: 'info', summary: 'Sixth Step', detail: event.item.label })
             }
         ]
 
@@ -241,11 +250,12 @@ export class ApplicantDetailComponent implements OnInit, OnDestroy {
     }
 
     submitAssesment() {
-        this.activeIndex = 1
+      
         const data = this.assesmentReqDto.getRawValue();
         this.assesmentSubscription = this.assesmentService.create(data).subscribe(() => {
             this.assesmentForm = false;
-            this.getAssesmentData()
+            this.getAssesmentData();
+            this.activeIndex ++;;
         });
 
         this.assesmentReqDto.reset();
@@ -340,8 +350,8 @@ export class ApplicantDetailComponent implements OnInit, OnDestroy {
 
     submitMcu() {
         const data = this.mcuReqDto.getRawValue();
-        this.mcuService.create(data).subscribe(() => {
-            this.getMcuData()
+        this.mcuService.create(data).subscribe(()=>{
+            this.getMcuData();
             this.mcuForm = false;
             this.activeIndex++;
             this.mcuReqDto.reset();
@@ -393,6 +403,22 @@ export class ApplicantDetailComponent implements OnInit, OnDestroy {
             this.offeringForm = false;
             this.activeIndex++;
             this.offeringReqDto.reset();
+        });
+    }
+    accept(){
+        this.hiringReqDto.patchValue({
+            applicantId : this.appId,
+        })
+           this.hiringForm = !this.hiringForm;
+        
+        
+    }
+
+    hiringSubmit(){
+        const data = this.hiringReqDto.getRawValue();
+        this.hiredService.create(data).subscribe(result=>{
+            console.log('ISI RESULT => '+result)
+            // this.router.navigateByUrl(`/jobs/detail/${this.jobId}`);
         });
     }
 
