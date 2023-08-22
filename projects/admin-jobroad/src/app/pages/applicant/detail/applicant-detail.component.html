@@ -256,16 +256,16 @@
               <label for="start-date">Start Date<span class="text-red-500">*</span></label>
             </div>
             <div class="col-12 md:col-8">
-              <input pInputText id="start-date" required type="date" formControlName="startDate" />
+              <input pInputText id="start-date" required type="datetime-local" formControlName="startDate" />
             </div>
           </div>
-          <div class="end-date" *ngIf="job?.jobName == 'intern' || job?.jobName == 'contract'">
+          <div class="end-date" *ngIf="job?.jobName == intern || job?.jobName == contract">
             <div class="grid">
               <div class="col-12 md:col-4">
                 <label for="end-date">End Date</label>
               </div>
               <div class="col-12 md:col-8">
-                <input pInputText id="end-date" type="date" formControlName="endDate" />
+                <input pInputText id="end-date" type="" formControlName="endDate" />
               </div>
             </div>
           </div>
