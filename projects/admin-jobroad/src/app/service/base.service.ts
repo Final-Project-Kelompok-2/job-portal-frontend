@@ -1,7 +1,7 @@
 import { HttpClient, HttpErrorResponse, HttpResponse } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
-import { tap } from "rxjs/operators";
+import { catchError, tap } from "rxjs/operators";
 import { AuthService } from "./auth.service";
 
 import { Router } from "@angular/router";
@@ -32,7 +32,7 @@ export class BaseService {
     }
     post<T>(url: string, body: any, withToken = true): Observable<T> {
         return this.http.post<T>(url, body, (withToken ? this.header : undefined))
-            .pipe(response(this.messageService, this.router));
+            .pipe(response(this.messageService, this.router),catchError(err=> {throw new Error('error bro')}) );
     }
 
     get<T>(url: string, withToken = true): Observable<T> {
@@ -76,6 +76,7 @@ export function response<T>(messageService: MessageService, router: Router) {
                         router.navigateByUrl('/login');
                     }
                 }
+                throw new Error('error bro')
             }
 
         }

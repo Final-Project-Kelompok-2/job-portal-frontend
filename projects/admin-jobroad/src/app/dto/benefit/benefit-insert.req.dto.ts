@@ -1,3 +1,3 @@
 export interface BenefitInsertReqDto {
-    benefitName : string
+    benefitName : string | null
 }
