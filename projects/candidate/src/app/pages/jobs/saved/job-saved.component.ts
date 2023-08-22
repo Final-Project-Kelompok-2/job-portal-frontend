@@ -9,6 +9,9 @@ import { SavedJobResDto } from "../../../dto/saved-job/saved-job.res.dto";
 export class JobSavedComponent implements OnInit {
 
     savedJobs!: SavedJobResDto[]
+    savedJobsLength = 0
+
+    haveSaved = false
 
     constructor(private savedJobService: SavedJobService) {
 
@@ -16,13 +19,18 @@ export class JobSavedComponent implements OnInit {
 
     ngOnInit(): void {
         this.getSavedJobs()
+        this.check()
     }
-
 
     getSavedJobs() {
         this.savedJobService.getByPrincipal().subscribe(result => {
             this.savedJobs = result
+            this.savedJobsLength = this.savedJobs.length
         })
+    }
+
+    check() {
+        return this.savedJobsLength > 0
     }
 
 }
