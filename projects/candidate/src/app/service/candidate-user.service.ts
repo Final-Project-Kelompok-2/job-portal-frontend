@@ -1,12 +1,12 @@
 import { Injectable } from "@angular/core";
-import { BaseService } from "./base.service";
 import { Observable } from "rxjs";
-
+import { BaseService } from "./base.service";
 import { BASE_URL } from "../constant/api.constant";
-import { CandidateUserInsertReqDto } from "../dto/candidate-user/candidate-user-insert.req.dto";
-import { InsertResDto } from "../dto/insert.res.dto";
-import { CandidateMasterInsertReqDto } from "../dto/candidate/candidate-master-insert.req.dto";
+import { CandidateMasterResDto } from "../dto/candidate-user/candidate-master.res.dto";
 import { ChangePasswordReqDto } from "../dto/candidate-user/candidate-user-change-password.req.dto";
+import { CandidateUserInsertReqDto } from "../dto/candidate-user/candidate-user-insert.req.dto";
+import { CandidateMasterInsertReqDto } from "../dto/candidate/candidate-master-insert.req.dto";
+import { InsertResDto } from "../dto/insert.res.dto";
 import { UpdateResDto } from "../dto/update.res.dto";
 
 
@@ -25,6 +25,10 @@ export class CandidateUserService {
     }
     changePassword(data: ChangePasswordReqDto): Observable<UpdateResDto> {
         return this.base.post<UpdateResDto>(`${BASE_URL}/candidate-user/password`, data);
+    }
+
+    getById(id: string): Observable<CandidateMasterResDto> {
+        return this.base.get<CandidateMasterResDto>(`${BASE_URL}/candidate-user?id=${id}`)
     }
 
 
