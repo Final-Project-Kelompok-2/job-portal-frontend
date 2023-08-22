@@ -14,8 +14,6 @@ export class JobDetailComponent implements OnInit {
     jobId!: string
     visible: boolean = false;
 
-
-
     constructor(private activated: ActivatedRoute,
         private jobService: JobService,
         private applicantService: ApplicantService,
