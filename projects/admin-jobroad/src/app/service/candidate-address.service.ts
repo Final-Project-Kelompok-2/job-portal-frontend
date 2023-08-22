@@ -29,8 +29,6 @@ export class CandidateAddressService{
     }
 
     delete(id : string) : Observable<DeleteResDto>{
-
         return this.base.delete<DeleteResDto>(`${BASE_URL}/candidate-address/${id}`, true);
-
     }
 }

@@ -4,10 +4,27 @@
       <app-button type="button" label="Back" class="mr-2" classBtn="p-button-secondary"
         link="/candidates/detail/{{ candidateUser?.id }}"></app-button>
     </div>
-  </div>
-  <p-card header="Update Candidate Information">
+  </div>  <p-card header="Update Candidate Information">
     <form [formGroup]="candidateUpdateInsertReqDto" (ngSubmit)="onUpdate()">
       <pre>{{ candidateUpdateInsertReqDto.value | json }}</pre>
+      <div class="grid">
+        <div class="col-12 md:col-10 md:col-offset-2">
+          <div class="row align-items-center">
+            <div class="grid">
+              <div class="col-12 md:col-12">
+                <div class="flex justify-content-end flex-wrap card-container">
+                  <div class="flex align-items-right justify-content-center">
+                    <app-button backgroundColor="secondary" label="Cancel" class="mr-2"
+                      classBtn="p-button-secondary" link="/candidates/detail/{{candidateId}}"></app-button>
+                    <app-button backgroundColor="var(--PRIMARY)" [loading]="loading" typeBtn="submit" label="Submit"
+                      class="mr-2" iconBtn="pi pi-save"></app-button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
       <div class="grid">
         <div class="col-12 md:col-2">
           <p-image [src]="candidateUser?.fileId | url" alt="Image" width="100%" height="250px"></p-image>
@@ -21,52 +38,55 @@
             <div class="col-1">:</div>
             <div class="col-7">
               <p-dropdown [options]="salutations" optionLabel="label" optionValue="value" [showClear]="true"
-                [required]="true" formControlName="salutation" placeholder="Choose Salutation"></p-dropdown>
+                [required]="true" formControlName="salutation" placeholder="Choose Salutation" autoWidth="false"
+                [style]="{'width':'100%'}"></p-dropdown>
             </div>
             <div class="col-4">Full Name</div>
             <div class="col-1">:</div>
             <div class="col-7">
-              <input pInputText id="fullName" required type="text" formControlName="fullname" />
+              <input pInputText id="fullName" required type="text" formControlName="fullname"
+                [style]="{'width':'100%'}" />
             </div>
             <div class="col-4">Email</div>
             <div class="col-1">:</div>
             <div class="col-7">
-              <input pInputText id="email" required type="email" formControlName="userEmail" />
+              <input pInputText id="email" required type="email" formControlName="userEmail"
+                [style]="{'width':'100%'}" />
             </div>
             <div class="col-4">Gender</div>
             <div class="col-1">:</div>
             <div class="col-7">
               <p-dropdown [options]="genders" optionLabel="label" optionValue="value" [showClear]="true"
-                [required]="true" formControlName="gender" placeholder="Choose Gender"></p-dropdown>
+                [required]="true" formControlName="gender" placeholder="Choose Gender" [style]="{'width':'100%'}"></p-dropdown>
             </div>
             <div class="col-4">Birth Place</div>
             <div class="col-1">:</div>
             <div class="col-7">
-              <input pInputText id="birthPlace" required type="text" formControlName="birthPlace" />
+              <input pInputText id="birthPlace" required type="text" formControlName="birthPlace" [style]="{'width':'100%'}" />
             </div>
             <div class="col-4">Birth Date</div>
             <div class="col-1">:</div>
             <div class="col-7">
-              <input pInputText id="birthDate" required type="date" formControlName="birthDate" />
+              <input pInputText id="birthDate" required type="date" formControlName="birthDate" [style]="{'width':'100%'}"/>
             </div>
             <div class="col-4">Marital Status</div>
             <div class="col-1">:</div>
             <div class="col-7">
               <p-dropdown [options]="maritals" optionLabel="maritalName" optionValue="id" [showClear]="true"
-                [required]="true" formControlName="maritalStatusId" placeholder="Choose Marital"></p-dropdown>
+                [required]="true" formControlName="maritalStatusId" placeholder="Choose Marital" [style]="{'width':'100%'}"></p-dropdown>
             </div>
             <div class="col-4">Religion</div>
             <div class="col-1">:</div>
             <div class="col-7">
               <p-dropdown [options]="religions" optionLabel="religionName" optionValue="id" [showClear]="true"
-                [required]="true" formControlName="religionId" placeholder="Choose Religion"></p-dropdown>
+                [required]="true" formControlName="religionId" placeholder="Choose Religion" [style]="{'width':'100%'}"></p-dropdown>
             </div>
             <div class="col-4">Status</div>
             <div class="col-1">:</div>
             <div class="col-7">
               <p-dropdown [options]="candidateStatus" optionLabel="statusName" optionValue="id" [showClear]="true"
                 [required]="true" formControlName="candidateStatusId"
-                placeholder="Choose Candidate Status"></p-dropdown>
+                placeholder="Choose Candidate Status" [style]="{'width':'100%'}"></p-dropdown>
             </div>
           </div>
         </div>
@@ -76,35 +96,35 @@
             <div class="col-4">NIK</div>
             <div class="col-1">:</div>
             <div class="col-7">
-              <input pInputText id="nik" required type="text" formControlName="nik" />
+              <input pInputText id="nik" required type="text" formControlName="nik" [style]="{'width':'100%'}" />
             </div>
             <div class="col-4">Phone Number</div>
             <div class="col-1">:</div>
             <div class="col-7">
-              <input pInputText id="phoneNumber" required type="text" formControlName="phoneNumber" />
+              <input pInputText id="phoneNumber" required type="text" formControlName="phoneNumber" [style]="{'width':'100%'}" />
             </div>
             <div class="col-4">Mobile Number</div>
             <div class="col-1">:</div>
             <div class="col-7">
-              <input pInputText id="mobileNumber" required type="text" formControlName="mobileNumber" />
+              <input pInputText id="mobileNumber" required type="text" formControlName="mobileNumber" [style]="{'width':'100%'}" />
             </div>
             <div class="col-4">Experiences (years)</div>
             <div class="col-1">:</div>
             <div class="col-7">
               <p-inputNumber inputId="exp" inputId="minmax" mode="decimal" [min]="0" [max]="120"
-                formControlName="experience"></p-inputNumber>
+                formControlName="experience"  autoWidth="false"  [style]="{'width':'100%'}"></p-inputNumber>
             </div>
             <div class="col-4">Expected Salary</div>
             <div class="col-1">:</div>
             <div class="col-7">
               <p-inputNumber inputId="salary" mode="currency" currency="IDR" locale="jp-JP"
-                formControlName="expectedSalary"></p-inputNumber>
+                formControlName="expectedSalary" [style]="{'width':'100%'}"></p-inputNumber>
             </div>
             <div class="col-4">Person Type</div>
             <div class="col-1">:</div>
             <div class="col-7">
               <p-dropdown [options]="types" optionLabel="typeName" optionValue="id" [showClear]="true" [required]="true"
-                formControlName="personTypeId" placeholder="Person Type"></p-dropdown>
+                formControlName="personTypeId" placeholder="Person Type" [style]="{'width':'100%'}"></p-dropdown>
             </div>
           </div>
         </div>
@@ -141,10 +161,11 @@
                       </div>
                       <div class="flex sm:flex-column align-items-center sm:align-items-end gap-3 sm:gap-2">
                         <span class="text-l font-semibold"></span>
-                        <app-button typeBtn="button" (click)="onDeleteAddress(i)" iconBtn="pi pi-trash"
+                        <app-button typeBtn="button" (click)="showDeleteAddress(address.id)" iconBtn="pi pi-trash"
                           backgroundColor="danger"
                           classBtn="md:align-self-end mb-2 p-button-rounded p-button-danger"></app-button>
                       </div>
+
                     </div>
                   </div>
                 </div>
@@ -183,7 +204,7 @@
                       </div>
                       <div class="flex sm:flex-column align-items-center sm:align-items-end gap-3 sm:gap-2">
                         <span class="text-l font-semibold">{{ education.startYear }} - {{ education.endYear }}</span>
-                        <app-button typeBtn="button" (click)="onDeleteEducation(i)" iconBtn="pi pi-trash"
+                        <app-button typeBtn="button" (click)="showDeleteEducation(education.id)" iconBtn="pi pi-trash"
                           backgroundColor="danger"
                           classBtn="md:align-self-end mb-2 p-button-rounded p-button-danger"></app-button>
                       </div>
@@ -232,7 +253,7 @@
                       <div class="flex sm:flex-column align-items-center sm:align-items-end gap-3 sm:gap-2">
                         <span class="text-l font-semibold">{{ working.startDate }} - {{
                           working.endDate }}</span>
-                        <app-button typeBtn="button" (click)="onDeleteWorking(i)" iconBtn="pi pi-trash"
+                        <app-button typeBtn="button" (click)="showDeleteWorking(working.id)" iconBtn="pi pi-trash"
                           backgroundColor="danger"
                           classBtn="md:align-self-end mb-2 p-button-rounded p-button-danger"></app-button>
                       </div>
@@ -276,7 +297,7 @@
                       <div class="flex sm:flex-column align-items-center sm:align-items-end gap-3 sm:gap-2">
                         <span class="text-l font-semibold">{{ training.startDate }} - {{
                           training.endDate }}</span>
-                        <app-button typeBtn="button" (click)="onDeleteTraining(i)" iconBtn="pi pi-trash"
+                        <app-button typeBtn="button" (click)="showDeleteTraining(training.id)" iconBtn="pi pi-trash"
                           backgroundColor="danger"
                           classBtn="md:align-self-end mb-2 p-button-rounded p-button-danger"></app-button>
                       </div>
@@ -320,7 +341,7 @@
                       <div class="flex sm:flex-column align-items-center sm:align-items-end gap-3 sm:gap-2">
                         <span class="text-l font-semibold">{{ project.startDate }} - {{
                           project.endDate }}</span>
-                        <app-button typeBtn="button" (click)="onDeleteProject(i)" iconBtn="pi pi-trash"
+                        <app-button typeBtn="button" (click)="showDeleteProject(project.id)" iconBtn="pi pi-trash"
                           backgroundColor="danger"
                           classBtn="md:align-self-end mb-2 p-button-rounded p-button-danger"></app-button>
                       </div>
@@ -362,7 +383,7 @@
                               </div>
                             </div>
                             <div class="flex sm:flex-column align-items-center sm:align-items-end gap-3 sm:gap-2">
-                              <app-button typeBtn="button" (click)="onDeleteSkill(i)" iconBtn="pi pi-trash"
+                              <app-button typeBtn="button" (click)="showDeleteSkill(skill.id)" iconBtn="pi pi-trash"
                                 backgroundColor="danger"
                                 classBtn="md:align-self-end mb-2 p-button-rounded p-button-danger"></app-button>
                             </div>
@@ -410,9 +431,9 @@
                               </div>
                             </div>
                             <div class="flex sm:flex-column align-items-center sm:align-items-end">
-                              <app-button typeBtn="button" (click)="onDeleteLanguage(i)" iconBtn="pi pi-trash"
-                              backgroundColor="danger"
-                              classBtn="md:align-self-end mb-2 p-button-rounded p-button-danger"></app-button>
+                              <app-button typeBtn="button" (click)="showDeleteLanguage(language.id)"
+                                iconBtn="pi pi-trash" backgroundColor="danger"
+                                classBtn="md:align-self-end mb-2 p-button-rounded p-button-danger"></app-button>
                             </div>
                           </div>
                         </div>
@@ -462,7 +483,7 @@
                       <td>{{ family.occupation }}</td>
                       <td>{{ family.birthPlace }}, {{ family.birthDate }}</td>
                       <td>
-                        <app-button typeBtn="button" (click)="onDeleteFamily(i)" iconBtn="pi pi-trash"
+                        <app-button typeBtn="button" (click)="showDeleteFamily(family.id)" iconBtn="pi pi-trash"
                           backgroundColor="danger"
                           classBtn="md:align-self-end mb-2 p-button-rounded p-button-danger"></app-button>
                       </td>
@@ -515,7 +536,7 @@
                       <td>{{ reference.description }}</td>
                       <td>{{ reference.email }}</td>
                       <td>
-                        <app-button typeBtn="button" (click)="onDeleteReference(i)" iconBtn="pi pi-trash"
+                        <app-button typeBtn="button" (click)="showDeleteReference(reference.id)" iconBtn="pi pi-trash"
                           backgroundColor="danger"
                           classBtn="md:align-self-end mb-2 p-button-rounded p-button-danger"></app-button>
                       </td>
@@ -556,7 +577,7 @@
                       <td>{{ i + 1 }}</td>
                       <td>{{ document.docName }}.{{ document.fileExtension}}</td>
                       <td>
-                        <app-button typeBtn="button" (click)="onDeleteDocument(i)" iconBtn="pi pi-trash"
+                        <app-button typeBtn="button" (click)="showDeleteDocument(document.id)" iconBtn="pi pi-trash"
                           backgroundColor="danger"
                           classBtn="md:align-self-end mb-2 p-button-rounded p-button-danger"></app-button>
                       </td>
@@ -567,6 +588,24 @@
             </div>
           </div>
         </div>
+
+        <div class="col-12 md:col-8 md:col-offset-2">
+          <div class="row align-items-center">
+            <div class="grid">
+              <div class="col-12 md:col-12">
+                <div class="flex justify-content-end flex-wrap card-container">
+                  <div class="flex align-items-right justify-content-center">
+                    <app-button backgroundColor="secondary" label="Cancel" class="mr-2"
+                      classBtn="p-button-secondary" link="/candidates/detail/{{candidateId}}"></app-button>
+                    <app-button backgroundColor="var(--PRIMARY)" [loading]="loading" typeBtn="submit" label="Submit"
+                      class=" mr-2"></app-button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
       </div>
     </form>
   </p-card>
@@ -922,4 +961,117 @@
         label="Submit" class=" mr-2"></app-button>
     </div>
   </form>
+</p-dialog>
+
+<!-- Dialog Delete Address -->
+<p-dialog header="Deleting Address" [modal]="true" [(visible)]="dialogDeleteAddress" [style]="{width: '30vw'}">
+  <p>
+    This action will delete the candidate address. Are you sure?
+  </p>
+  <app-button backgroundColor="secondary" [loading]="loading" label="No" class="mt-2 mr-2"
+    classBtn="p-button-secondary"></app-button>
+  <app-button backgroundColor="danger" (click)="onDeleteAddress()" [loading]="loading" label="Yes" class="mt-2"
+    classBtn="p-button-danger"></app-button>
+</p-dialog>
+
+<!-- Dialog Delete Education -->
+<p-dialog header="Deleting Education" [modal]="true" [(visible)]="dialogDeleteEducation" [style]="{width: '30vw'}">
+  <p>
+    This action will delete the candidate education. Are you sure?
+  </p>
+  <app-button backgroundColor="secondary" [loading]="loading" label="No" class="mt-2 mr-2"
+    classBtn="p-button-secondary"></app-button>
+  <app-button backgroundColor="danger" (click)="onDeleteEducation()" [loading]="loading" label="Yes" class="mt-2"
+    classBtn="p-button-danger"></app-button>
+</p-dialog>
+
+<!-- Dialog Delete Working Experience -->
+<p-dialog header="Deleting Working Experience" [modal]="true" [(visible)]="dialogDeleteWorking"
+  [style]="{width: '30vw'}">
+  <p>
+    This action will delete the candidate working experience. Are you sure?
+  </p>
+  <app-button backgroundColor="secondary" [loading]="loading" label="No" class="mt-2 mr-2"
+    classBtn="p-button-secondary"></app-button>
+  <app-button backgroundColor="danger" (click)="onDeleteWorking()" [loading]="loading" label="Yes" class="mt-2"
+    classBtn="p-button-danger"></app-button>
+</p-dialog>
+
+<!-- Dialog Delete Training Experience -->
+<p-dialog header="Deleting Training Experience" [modal]="true" [(visible)]="dialogDeleteTraining"
+  [style]="{width: '30vw'}">
+  <p>
+    This action will delete the candidate training experience. Are you sure?
+  </p>
+  <app-button backgroundColor="secondary" [loading]="loading" label="No" class="mt-2 mr-2"
+    classBtn="p-button-secondary"></app-button>
+  <app-button backgroundColor="danger" (click)="onDeleteTraining()" [loading]="loading" label="Yes" class="mt-2"
+    classBtn="p-button-danger"></app-button>
+</p-dialog>
+
+<!-- Dialog Delete Project Experience -->
+<p-dialog header="Deleting Project Experience" [modal]="true" [(visible)]="dialogDeleteProject"
+  [style]="{width: '30vw'}">
+  <p>
+    This action will delete the candidate project experience. Are you sure?
+  </p>
+  <app-button backgroundColor="secondary" [loading]="loading" label="No" class="mt-2 mr-2"
+    classBtn="p-button-secondary"></app-button>
+  <app-button backgroundColor="danger" (click)="onDeleteProject()" [loading]="loading" label="Yes" class="mt-2"
+    classBtn="p-button-danger"></app-button>
+</p-dialog>
+
+<!-- Dialog Delete Skill -->
+<p-dialog header="Deleting Skill" [modal]="true" [(visible)]="dialogDeleteSkill" [style]="{width: '30vw'}">
+  <p>
+    This action will delete the candidate skill. Are you sure?
+  </p>
+  <app-button backgroundColor="secondary" [loading]="loading" label="No" class="mt-2 mr-2"
+    classBtn="p-button-secondary"></app-button>
+  <app-button backgroundColor="danger" (click)="onDeleteSkill()" [loading]="loading" label="Yes" class="mt-2"
+    classBtn="p-button-danger"></app-button>
+</p-dialog>
+
+<!-- Dialog Delete Language -->
+<p-dialog header="Deleting Skill" [modal]="true" [(visible)]="dialogDeleteLanguage" [style]="{width: '30vw'}">
+  <p>
+    This action will delete the candidate language. Are you sure?
+  </p>
+  <app-button backgroundColor="secondary" [loading]="loading" label="No" class="mt-2 mr-2"
+    classBtn="p-button-secondary"></app-button>
+  <app-button backgroundColor="danger" (click)="onDeleteLanguage()" [loading]="loading" label="Yes" class="mt-2"
+    classBtn="p-button-danger"></app-button>
+</p-dialog>
+
+<!-- Dialog Delete Family -->
+<p-dialog header="Deleting Family" [modal]="true" [(visible)]="dialogDeleteFamily" [style]="{width: '30vw'}">
+  <p>
+    This action will delete the candidate family. Are you sure?
+  </p>
+  <app-button backgroundColor="secondary" [loading]="loading" label="No" class="mt-2 mr-2"
+    classBtn="p-button-secondary"></app-button>
+  <app-button backgroundColor="danger" (click)="onDeleteFamily()" [loading]="loading" label="Yes" class="mt-2"
+    classBtn="p-button-danger"></app-button>
+</p-dialog>
+
+<!-- Dialog Delete Reference -->
+<p-dialog header="Deleting Reference" [modal]="true" [(visible)]="dialogDeleteReference" [style]="{width: '30vw'}">
+  <p>
+    This action will delete the candidate reference. Are you sure?
+  </p>
+  <app-button backgroundColor="secondary" [loading]="loading" label="No" class="mt-2 mr-2"
+    classBtn="p-button-secondary"></app-button>
+  <app-button backgroundColor="danger" (click)="onDeleteReference()" [loading]="loading" label="Yes" class="mt-2"
+    classBtn="p-button-danger"></app-button>
+</p-dialog>
+
+<!-- Dialog Delete Document -->
+<p-dialog header="Deleting Document" [modal]="true" [(visible)]="dialogDeleteDocument" [style]="{width: '30vw'}">
+  <p>
+    This action will delete the candidate document. Are you sure?
+  </p>
+  <app-button backgroundColor="secondary" [loading]="loading" label="No" class="mt-2 mr-2"
+    classBtn="p-button-secondary"></app-button>
+  <app-button backgroundColor="danger" (click)="onDeleteDocument()" [loading]="loading" label="Yes" class="mt-2"
+    classBtn="p-button-danger"></app-button>
 </p-dialog>
