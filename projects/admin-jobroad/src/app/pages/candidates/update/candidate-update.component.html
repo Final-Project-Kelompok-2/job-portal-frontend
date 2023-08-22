@@ -1,574 +1,611 @@
 <div class="col-12">
   <div class="flex justify-content-between flex-wrap card-container mb-3">
     <div class="flex align-items-center justify-content-center">
-      <app-button type="button" label="Back" class="mr-2" classBtn="p-button-secondary" link="/candidates/detail/{{candidateUser?.id}}"></app-button>
+      <app-button type="button" label="Back" class="mr-2" classBtn="p-button-secondary"
+        link="/candidates/detail/{{ candidateUser?.id }}"></app-button>
     </div>
-  </div>
-  <p-card header="Update Candidate">
-    <pre>{{ candidateUpdateInsertReqDto.value | json }}</pre>
+  </div>  <p-card header="Update Candidate Information">
     <form [formGroup]="candidateUpdateInsertReqDto" (ngSubmit)="onUpdate()">
-      <div class="p-fluid p-formgrid grid">
-        <h3 class="col-12">Profile Information</h3>
-        <div class="field col-12 md:col-2">
-          <label htmlFor="salutation">Salutation <span class="text-red-500"> *</span> </label>
-          <p-dropdown [options]="salutations" optionLabel="label" optionValue="value" [showClear]="true"
-            [required]="true" formControlName="salutation" placeholder="Choose Salutation"></p-dropdown>
-        </div>
-        <div class="field col-12 md:col-10">
-          <label htmlFor="fullName">Full Name<span class="text-red-500"> *</span></label>
-          <input pInputText id="fullName" required type="text" formControlName="fullname" />
-        </div>
-        <div class="field col-12 md:col-12">
-          <label htmlFor="email">Email<span class="text-red-500"> *</span></label>
-          <input pInputText id="email" required type="email" formControlName="userEmail"
-            [value]="candidateUser?.userEmail" />
-        </div>
-        <div class="field col-12 md:col-3">
-          <label htmlFor="gender">Gender<span class="text-red-500"> *</span></label>
-          <p-dropdown [options]="genders" optionLabel="label" optionValue="value" [showClear]="true" [required]="true"
-            formControlName="gender" placeholder="Choose Gender"></p-dropdown>
-        </div>
-        <div class="col-9"></div>
-        <div class="field col-12 md:col-2">
-          <label for="exp">Experience (years)<span class="text-red-500"> *</span></label>
-          <p-inputNumber inputId="exp" inputId="minmax" mode="decimal" [min]="0" [max]="120"
-            formControlName="experience"></p-inputNumber>
-        </div>
-        <div class="field col-12 md:col-12">
-
-          <label for="salary">Expected Salary<span class="text-red-500"> *</span></label>
-          <p-inputNumber inputId="salary" mode="currency" currency="IDR" locale="jp-JP"
-            formControlName="expectedSalary"></p-inputNumber>
-
-        </div>
-        <div class="field col-12 md:col-6">
-          <label htmlFor="phoneNumber">Phone Number<span class="text-red-500"> *</span></label>
-          <input pInputText id="phoneNumber" required type="text" formControlName="phoneNumber"
-            [value]="candidateUser?.phoneNumber" />
-        </div>
-        <div class="field col-12 md:col-6">
-          <label htmlFor="mobileNumber">Mobile Number<span class="text-red-500"> *</span></label>
-          <input pInputText id="mobileNumber" required type="text" formControlName="mobileNumber"
-            [value]="candidateUser?.mobileNumber" />
-        </div>
-
-        <h3 class="col-12">
-          Basic Information
-        </h3>
-        <div class="field col-12 md:col-12">
-          <label htmlFor="nik">NIK<span class="text-red-500"> *</span></label>
-          <input pInputText id="nik" required type="text" formControlName="nik" [value]="candidateUser?.nik" />
-        </div>
-        <div class="field col-12 md:col-3">
-          <label htmlFor="birthPlace">Birth Place<span class="text-red-500"> *</span></label>
-          <input pInputText id="birthPlace" required type="text" formControlName="birthPlace"
-            [value]="candidateUser?.birthPlace" />
-        </div>
-        <div class="field col-12 md:col-6">
-          <label htmlFor="birthDate">Birth Date<span class="text-red-500"> *</span></label>
-          <input pInputText id="birthDate" required type="date" formControlName="birthDate" />
-        </div>
-        <div class="field col-12 md:col-4">
-          <label htmlFor="maritalStatus">Marital Status<span class="text-red-500"> *</span></label>
-          <p-dropdown [options]="maritals" optionLabel="maritalName" optionValue="id" [showClear]="true"
-            [required]="true" formControlName="maritalStatusId" placeholder="Choose Marital"></p-dropdown>
-        </div>
-        <div class="field col-12 md:col-4">
-          <label htmlFor="type">Religion<span class="text-red-500"> *</span></label>
-          <p-dropdown [options]="religions" optionLabel="religionName" optionValue="id" [showClear]="true"
-            [required]="true" formControlName="religionId" placeholder="Choose Religion"></p-dropdown>
-        </div>
-        <div class="field col-12 md:col-4">
-          <label htmlFor="type">Type<span class="text-red-500"> *</span></label>
-          <p-dropdown [options]="types" optionLabel="typeName" optionValue="id" [showClear]="true" [required]="true"
-            formControlName="personTypeId" placeholder="Person Type"></p-dropdown>
-        </div>
-        <div class="field col-12 md:col-4">
-          <label htmlFor="type">Candidate Status<span class="text-red-500"> *</span></label>
-          <p-dropdown [options]="candidateStatus" optionLabel="statusName" optionValue="id" [showClear]="true"
-            [required]="true" formControlName="candidateStatusId" placeholder="Choose Candidate Status"></p-dropdown>
-        </div>
-        <div class="col-12 ">
-          <label for="picture" class="form-label">Profile Picture</label>
-        </div>
-        <div class="col-12 ">
-          <div class="mb-3">
-            <p-fileUpload mode="basic" styleClass="bg-green-700" chooseLabel="Upload" chooseIcon="pi pi-upload"
-              class="form-control" (onSelect)="fileUpload($event, file)" #file type="file" id="picture"
-              required></p-fileUpload>
-          </div>
-        </div>
-      </div>
-
-      <div class="row align-items-center">
-        <div class="grid">
-          <div class="col-12 md:col-12">
-            <div class="flex justify-content-between flex-wrap card-container purple-container">
-              <div class="flex align-items-center justify-content-center">
-                <h3 class="col-12">Addresses</h3>
-              </div>
-              <div class="flex align-items-center justify-content-center">
-                <app-button typeBtn="button" (click)="showAddAddress()" iconBtn="pi pi-plus-circle"
-                  backgroundColor="var(--PRIMARY)" label="ADD"></app-button>
-              </div>
-            </div>
-            <hr>
-
-            <div class="card">
-              <p-dataView #dv [value]="candidateAddresses">
-                <ng-template let-address pTemplate="listItem" let-i="rowIndex">
-                  <div class="col-12">
-                    <div class="flex flex-column xl:flex-row xl:align-items-start p-4 gap-4">
-                      <div
-                        class="flex flex-column sm:flex-row justify-content-between align-items-center xl:align-items-start flex-1 gap-4">
-                        <div class="flex flex-column align-items-center sm:align-items-start">
-                          <div class="text-2xl font-bold text-900">{{ address.residenceType }}</div>
-                          <div class="flex align-items-center gap-3">
-                            <span class="flex align-items-center gap-2">
-                              <span class="font-semibold">{{ address.address }} {{ address.city }}, {{
-                                address.province }}, {{ address.country }} {{ address.postalCode }}</span>
-                            </span>
-                          </div>
-                        </div>
-                        <div class="flex sm:flex-column align-items-center sm:align-items-end gap-3 sm:gap-2">
-                          <span class="text-l font-semibold"></span>
-                          <app-button typeBtn="button" (click)="onDeleteAddress(i)" iconBtn="pi pi-trash"
-                            backgroundColor="danger"
-                            classBtn="md:align-self-end mb-2 p-button-rounded p-button-danger"></app-button>
-                        </div>
-                      </div>
-                    </div>
+      <pre>{{ candidateUpdateInsertReqDto.value | json }}</pre>
+      <div class="grid">
+        <div class="col-12 md:col-10 md:col-offset-2">
+          <div class="row align-items-center">
+            <div class="grid">
+              <div class="col-12 md:col-12">
+                <div class="flex justify-content-end flex-wrap card-container">
+                  <div class="flex align-items-right justify-content-center">
+                    <app-button backgroundColor="secondary" label="Cancel" class="mr-2"
+                      classBtn="p-button-secondary" link="/candidates/detail/{{candidateId}}"></app-button>
+                    <app-button backgroundColor="var(--PRIMARY)" [loading]="loading" typeBtn="submit" label="Submit"
+                      class="mr-2" iconBtn="pi pi-save"></app-button>
                   </div>
-                </ng-template>
-              </p-dataView>
-            </div>
-
-          </div>
-        </div>
-      </div>
-
-      <div class="row align-items-center">
-        <div class="grid">
-          <div class="col-12 md:col-12">
-            <div class="flex justify-content-between flex-wrap card-container purple-container">
-              <div class="flex align-items-center justify-content-center">
-                <h3 class="col-12">Educations</h3>
+                </div>
               </div>
-              <div class="flex align-items-center justify-content-center">
-                <app-button typeBtn="button" (click)="showAddEducation()" iconBtn="pi pi-plus-circle"
-                  backgroundColor="var(--PRIMARY)" label="ADD"></app-button>
-              </div>
-            </div>
-            <hr>
-
-            <div class="card">
-              <p-dataView #dv [value]="candidateEducations">
-                <ng-template let-education pTemplate="listItem" let-i="rowIndex">
-                  <div class="col-12">
-                    <div class="flex flex-column xl:flex-row xl:align-items-start p-4 gap-4">
-                      <div
-                        class="flex flex-column sm:flex-row justify-content-between align-items-center xl:align-items-start flex-1 gap-4">
-                        <div class="flex flex-column align-items-center sm:align-items-start gap-3">
-                          <div class="text-2xl font-bold text-900">{{ education.instituitionName }}</div>
-                          <div class="flex align-items-center gap-3">
-                            <span class="flex align-items-center gap-2">
-                              <span class="font-semibold">{{ education.degreeName }} | {{ education.majors }}</span>
-                            </span>
-                          </div>
-                        </div>
-                        <div class="flex sm:flex-column align-items-center sm:align-items-end gap-3 sm:gap-2">
-                          <span class="text-l font-semibold">{{ education.startYear }} - {{ education.endYear }}</span>
-                          <app-button typeBtn="button" (click)="onDeleteEducation(i)" iconBtn="pi pi-trash"
-                            backgroundColor="danger"
-                            classBtn="md:align-self-end mb-2 p-button-rounded p-button-danger"></app-button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </ng-template>
-              </p-dataView>
-            </div>
-
-          </div>
-        </div>
-      </div>
-
-      <div class="row align-items-center">
-        <div class="grid">
-          <div class="col-12 md:col-12">
-            <div class="flex justify-content-between flex-wrap card-container purple-container">
-              <div class="flex align-items-center justify-content-center">
-                <h3 class="col-12">Working Experiences</h3>
-              </div>
-              <div class="flex align-items-center justify-content-center">
-                <app-button typeBtn="button" (click)="showAddWorking()" iconBtn="pi pi-plus-circle"
-                  backgroundColor="var(--PRIMARY)" label="ADD"></app-button>
-              </div>
-            </div>
-            <hr>
-
-            <div class="card">
-              <p-dataView #dv [value]="candidateWorks">
-                <ng-template let-working pTemplate="listItem" let-i="rowIndex">
-                  <div class="col-12">
-                    <div class="flex flex-column xl:flex-row xl:align-items-start p-4 gap-4">
-                      <div
-                        class="flex flex-column sm:flex-row justify-content-between align-items-center xl:align-items-start flex-1 gap-4">
-                        <div class="flex flex-column align-items-center sm:align-items-start">
-                          <div class="text-2xl font-bold text-900">{{ working.positionName }}</div>
-                          <div class="flex align-items-center">
-                            <span class="flex align-items-center">
-                              <span class="font-semibold">{{ working.companyName }}</span>
-                            </span>
-                          </div>
-
-                          <div class="mt-3"><strong>Responsibility:</strong> {{ working.responsibility }}</div>
-                          <div class="mt-1"><strong>Last Salary:</strong> {{ working.lastSalary }}</div>
-                          <div class="mt-1"><strong>Reasons Leave:</strong> {{ working.reasonLeave }}</div>
-                        </div>
-                        <div class="flex sm:flex-column align-items-center sm:align-items-end gap-3 sm:gap-2">
-                          <span class="text-l font-semibold">{{ working.startDate }} - {{ working.endDate }}</span>
-                          <app-button typeBtn="button" (click)="onDeleteWorking(i)" iconBtn="pi pi-trash"
-                            backgroundColor="danger"
-                            classBtn="md:align-self-end mb-2 p-button-rounded p-button-danger"></app-button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </ng-template>
-              </p-dataView>
-            </div>
-
-          </div>
-        </div>
-      </div>
-
-      <div class="row align-items-center">
-        <div class="grid">
-          <div class="col-12 md:col-12">
-            <div class="flex justify-content-between flex-wrap card-container purple-container">
-              <div class="flex align-items-center justify-content-center">
-                <h3 class="col-12">Training Experiences</h3>
-              </div>
-              <div class="flex align-items-center justify-content-center">
-                <app-button typeBtn="button" (click)="showAddTraining()" iconBtn="pi pi-plus-circle"
-                  backgroundColor="var(--PRIMARY)" label="ADD"></app-button>
-              </div>
-            </div>
-            <hr>
-
-            <div class="card">
-              <p-dataView #dv [value]="candidateTrainings">
-                <ng-template let-training pTemplate="listItem" let-i="rowIndex">
-                  <div class="col-12">
-                    <div class="flex flex-column xl:flex-row xl:align-items-start p-4 gap-4">
-                      <div
-                        class="flex flex-column sm:flex-row justify-content-between align-items-center xl:align-items-start flex-1 gap-4">
-                        <div class="flex flex-column align-items-center sm:align-items-start gap-3">
-                          <div class="text-2xl font-bold text-900">{{ training.trainingName }}</div>
-                          <div class="flex align-items-center gap-3">
-                            <span class="flex align-items-center gap-2">
-                              <span class="font-semibold">{{ training.organizationName }}</span>
-                            </span>
-                          </div>
-                          <div>{{ training.description }}</div>
-                        </div>
-                        <div class="flex sm:flex-column align-items-center sm:align-items-end gap-3 sm:gap-2">
-                          <span class="text-l font-semibold">{{ training.startDate }} - {{ training.endDate }}</span>
-                          <app-button typeBtn="button" (click)="onDeleteTraining(i)" iconBtn="pi pi-trash"
-                            backgroundColor="danger"
-                            classBtn="md:align-self-end mb-2 p-button-rounded p-button-danger"></app-button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </ng-template>
-              </p-dataView>
-            </div>
-
-          </div>
-        </div>
-      </div>
-
-      <div class="row align-items-center">
-        <div class="grid">
-          <div class="col-12 md:col-12">
-            <div class="flex justify-content-between flex-wrap card-container purple-container">
-              <div class="flex align-items-center justify-content-center">
-                <h3 class="col-12">Project Experiences</h3>
-              </div>
-              <div class="flex align-items-center justify-content-center">
-                <app-button typeBtn="button" (click)="showAddProject()" iconBtn="pi pi-plus-circle"
-                  backgroundColor="var(--PRIMARY)" label="ADD"></app-button>
-              </div>
-            </div>
-            <hr>
-
-            <div class="card">
-              <p-dataView #dv [value]="candidateProjects">
-                <ng-template let-training pTemplate="listItem" let-i="rowIndex">
-                  <div class="col-12">
-                    <div class="flex flex-column xl:flex-row xl:align-items-start p-4 gap-4">
-                      <div
-                        class="flex flex-column sm:flex-row justify-content-between align-items-center xl:align-items-start flex-1 gap-4">
-                        <div class="flex flex-column align-items-center sm:align-items-start gap-3">
-                          <div class="text-2xl font-bold text-900">{{ training.projectName }}</div>
-                          <div class="flex align-items-center gap-3">
-                            <span class="flex align-items-center gap-2">
-                              <span class="font-semibold"><a href="http://github.com" target="_blank">{{
-                                  training.projectUrl }}</a></span>
-                            </span>
-                          </div>
-                          <div>{{ training.description }}</div>
-                        </div>
-                        <div class="flex sm:flex-column align-items-center sm:align-items-end gap-3 sm:gap-2">
-                          <span class="text-l font-semibold">{{ training.startDate }} - {{
-                            training.endDate }}</span>
-                          <app-button typeBtn="button" (click)="onDeleteProject(i)" iconBtn="pi pi-trash"
-                            backgroundColor="danger"
-                            classBtn="md:align-self-end mb-2 p-button-rounded p-button-danger"></app-button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </ng-template>
-              </p-dataView>
             </div>
           </div>
         </div>
       </div>
-
-      <div class="row align-items-center">
-        <div class="grid">
-          <div class="col-12 md:col-6">
-            <div class="flex justify-content-between flex-wrap card-container purple-container">
-              <div class="flex align-items-center justify-content-center">
-                <h3 class="col-12">Skills</h3>
-              </div>
-              <div class="flex align-items-center justify-content-center">
-                <app-button typeBtn="button" (click)="showAddSkill()" iconBtn="pi pi-plus-circle"
-                  backgroundColor="var(--PRIMARY)" label="ADD"></app-button>
-              </div>
+      <div class="grid">
+        <div class="col-12 md:col-2">
+          <p-image [src]="candidateUser?.fileId | url" alt="Image" width="100%" height="250px"></p-image>
+          <p-fileUpload mode="basic" styleClass="bg-green-700" chooseLabel="Change Picture" chooseIcon="pi pi-upload"
+            class="form-control" (onSelect)="fileUpload($event, file)" #file type="file" id="picture"
+            required></p-fileUpload>
+        </div>
+        <div class="col-12 md:col-5">
+          <div class="grid">
+            <div class="col-4">Salutation</div>
+            <div class="col-1">:</div>
+            <div class="col-7">
+              <p-dropdown [options]="salutations" optionLabel="label" optionValue="value" [showClear]="true"
+                [required]="true" formControlName="salutation" placeholder="Choose Salutation" autoWidth="false"
+                [style]="{'width':'100%'}"></p-dropdown>
             </div>
-            <hr>
-            <div class="card">
-              <p-dataView #dv [value]="candidateSkills">
-                <ng-template let-skill pTemplate="listItem" let-i="rowIndex">
-                  <div class="col-12">
-                    <div class="flex flex-column xl:flex-row xl:align-items-start pl-4 gap-4">
-                      <div
-                        class="flex flex-column sm:flex-row justify-content-between align-items-center xl:align-items-start flex-1 gap-4">
-                        <div class="flex flex-column align-items-center sm:align-items-start gap-3">
-                          <div class="flex align-items-center gap-3 mt-3">
-                            <span class="flex align-items-center gap-2">
-                              <span class="font-semibold">{{ skill.skillName }}</span>
-                            </span>
-                          </div>
-                        </div>
-                        <div class="flex sm:flex-column align-items-center sm:align-items-end">
-                          <span class="text-l font-semibold"></span>
-                          <app-button typeBtn="button" (click)="onDeleteSkill(i)" iconBtn="pi pi-trash"
-                            backgroundColor="danger"
-                            classBtn="md:align-self-end mb-2 p-button-rounded p-button-danger"></app-button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </ng-template>
-              </p-dataView>
+            <div class="col-4">Full Name</div>
+            <div class="col-1">:</div>
+            <div class="col-7">
+              <input pInputText id="fullName" required type="text" formControlName="fullname"
+                [style]="{'width':'100%'}" />
             </div>
-          </div>
-
-          <div class="col-12 md:col-6">
-            <div class="flex justify-content-between flex-wrap card-container purple-container">
-              <div class="flex align-items-center justify-content-center">
-                <h3 class="col-12">Languages</h3>
-              </div>
-              <div class="flex align-items-center justify-content-center">
-                <app-button typeBtn="button" (click)="showAddLanguage()" iconBtn="pi pi-plus-circle"
-                  backgroundColor="var(--PRIMARY)" label="ADD"></app-button>
-              </div>
+            <div class="col-4">Email</div>
+            <div class="col-1">:</div>
+            <div class="col-7">
+              <input pInputText id="email" required type="email" formControlName="userEmail"
+                [style]="{'width':'100%'}" />
             </div>
-            <hr>
-            <div class="card">
-              <p-dataView #dv [value]="candidateLanguages">
-                <ng-template let-language pTemplate="listItem" let-i="rowIndex">
-                  <div class="col-12">
-                    <div class="flex flex-column xl:flex-row xl:align-items-start pl-4 gap-4">
-                      <div
-                        class="flex flex-column sm:flex-row justify-content-between align-items-center xl:align-items-start flex-1 gap-4">
-                        <div class="flex flex-column align-items-center sm:align-items-start gap-3">
-                          <div class="flex align-items-center gap-3 mt-3">
-                            <span class="flex align-items-center gap-2">
-                              <span class="font-semibold">{{ language.languageName }}</span>
-                            </span>
-                          </div>
-                          <div class="flex align-items-center gap-3 mb-2">
-                            <span class="flex align-items-center gap-2">
-                              <span>Writing : {{ language.writingRate }}/5</span>
-                              <span>Speaking : {{ language.speakingRate }}/5</span>
-                              <span>Listening : {{ language.listeningRate }}/5</span>
-                            </span>
-                          </div>
-                        </div>
-                        <div class="flex sm:flex-column align-items-center sm:align-items-end">
-                          <span class="text-l font-semibold"></span>
-                          <app-button typeBtn="button" (click)="onDeleteLanguage(i)" iconBtn="pi pi-trash"
-                            backgroundColor="danger"
-                            classBtn="md:align-self-end mb-2 p-button-rounded p-button-danger"></app-button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </ng-template>
-              </p-dataView>
+            <div class="col-4">Gender</div>
+            <div class="col-1">:</div>
+            <div class="col-7">
+              <p-dropdown [options]="genders" optionLabel="label" optionValue="value" [showClear]="true"
+                [required]="true" formControlName="gender" placeholder="Choose Gender" [style]="{'width':'100%'}"></p-dropdown>
+            </div>
+            <div class="col-4">Birth Place</div>
+            <div class="col-1">:</div>
+            <div class="col-7">
+              <input pInputText id="birthPlace" required type="text" formControlName="birthPlace" [style]="{'width':'100%'}" />
+            </div>
+            <div class="col-4">Birth Date</div>
+            <div class="col-1">:</div>
+            <div class="col-7">
+              <input pInputText id="birthDate" required type="date" formControlName="birthDate" [style]="{'width':'100%'}"/>
+            </div>
+            <div class="col-4">Marital Status</div>
+            <div class="col-1">:</div>
+            <div class="col-7">
+              <p-dropdown [options]="maritals" optionLabel="maritalName" optionValue="id" [showClear]="true"
+                [required]="true" formControlName="maritalStatusId" placeholder="Choose Marital" [style]="{'width':'100%'}"></p-dropdown>
+            </div>
+            <div class="col-4">Religion</div>
+            <div class="col-1">:</div>
+            <div class="col-7">
+              <p-dropdown [options]="religions" optionLabel="religionName" optionValue="id" [showClear]="true"
+                [required]="true" formControlName="religionId" placeholder="Choose Religion" [style]="{'width':'100%'}"></p-dropdown>
+            </div>
+            <div class="col-4">Status</div>
+            <div class="col-1">:</div>
+            <div class="col-7">
+              <p-dropdown [options]="candidateStatus" optionLabel="statusName" optionValue="id" [showClear]="true"
+                [required]="true" formControlName="candidateStatusId"
+                placeholder="Choose Candidate Status" [style]="{'width':'100%'}"></p-dropdown>
             </div>
           </div>
         </div>
-      </div>
 
-      <div class="row align-items-center">
-        <div class="grid">
-          <div class="col-12 md:col-12">
-            <div class="flex justify-content-between flex-wrap card-container">
-              <div class="flex align-items-center justify-content-center">
-                <h3 class="col-12">Family Member</h3>
-              </div>
-              <div class="flex align-items-center justify-content-center">
-                <app-button typeBtn="button" (click)="showAddFamily()" iconBtn="pi pi-plus-circle"
-                  backgroundColor="var(--PRIMARY)" label="ADD"></app-button>
-              </div>
+        <div class="col-12 md:col-5">
+          <div class="grid">
+            <div class="col-4">NIK</div>
+            <div class="col-1">:</div>
+            <div class="col-7">
+              <input pInputText id="nik" required type="text" formControlName="nik" [style]="{'width':'100%'}" />
             </div>
-            <hr>
+            <div class="col-4">Phone Number</div>
+            <div class="col-1">:</div>
+            <div class="col-7">
+              <input pInputText id="phoneNumber" required type="text" formControlName="phoneNumber" [style]="{'width':'100%'}" />
+            </div>
+            <div class="col-4">Mobile Number</div>
+            <div class="col-1">:</div>
+            <div class="col-7">
+              <input pInputText id="mobileNumber" required type="text" formControlName="mobileNumber" [style]="{'width':'100%'}" />
+            </div>
+            <div class="col-4">Experiences (years)</div>
+            <div class="col-1">:</div>
+            <div class="col-7">
+              <p-inputNumber inputId="exp" inputId="minmax" mode="decimal" [min]="0" [max]="120"
+                formControlName="experience"  autoWidth="false"  [style]="{'width':'100%'}"></p-inputNumber>
+            </div>
+            <div class="col-4">Expected Salary</div>
+            <div class="col-1">:</div>
+            <div class="col-7">
+              <p-inputNumber inputId="salary" mode="currency" currency="IDR" locale="jp-JP"
+                formControlName="expectedSalary" [style]="{'width':'100%'}"></p-inputNumber>
+            </div>
+            <div class="col-4">Person Type</div>
+            <div class="col-1">:</div>
+            <div class="col-7">
+              <p-dropdown [options]="types" optionLabel="typeName" optionValue="id" [showClear]="true" [required]="true"
+                formControlName="personTypeId" placeholder="Person Type" [style]="{'width':'100%'}"></p-dropdown>
+            </div>
           </div>
-          <div class="col-12 md:col-12">
-            <p-table [value]="candidateFamilies" [tableStyle]="{ 'min-width': '50rem' }">
-              <ng-template pTemplate="header">
-                <tr>
-                  <th>No.</th>
-                  <th>Full Name</th>
-                  <th>Relationship</th>
-                  <th>Degree</th>
-                  <th>Occupation</th>
-                  <th>Birth</th>
-                  <th></th>
-                </tr>
+        </div>
+
+        <div class="col-12 md:col-8 md:col-offset-2">
+          <div class="flex justify-content-between flex-wrap card-container purple-container">
+            <div class="flex align-items-center justify-content-center">
+              <h3 class="col-12">Addresses</h3>
+            </div>
+            <div class="flex align-items-center justify-content-center">
+              <app-button typeBtn="button" (click)="showAddAddress()" iconBtn="pi pi-plus-circle"
+                backgroundColor="var(--PRIMARY)" label="ADD"></app-button>
+            </div>
+          </div>
+          <hr>
+          <div class="card">
+            <p-dataView #dv [value]="candidateAddresses">
+              <ng-template let-address pTemplate="listItem" let-i="rowIndex">
+                <div class="col-12">
+                  <div class="flex flex-column xl:flex-row xl:align-items-start p-4 gap-4">
+                    <div
+                      class="flex flex-column sm:flex-row justify-content-between align-items-center xl:align-items-start flex-1 gap-4">
+                      <div class="flex flex-column align-items-center sm:align-items-start">
+                        <div class="text-2xl font-bold text-900">{{ address.residenceType }}
+                        </div>
+                        <div class="flex align-items-center gap-3">
+                          <span class="flex align-items-center gap-2">
+                            <span class="font-semibold">{{ address.address }} {{
+                              address.city }}, {{
+                              address.province }}, {{ address.country }} {{
+                              address.postalCode }}</span>
+                          </span>
+                        </div>
+                      </div>
+                      <div class="flex sm:flex-column align-items-center sm:align-items-end gap-3 sm:gap-2">
+                        <span class="text-l font-semibold"></span>
+                        <app-button typeBtn="button" (click)="showDeleteAddress(address.id)" iconBtn="pi pi-trash"
+                          backgroundColor="danger"
+                          classBtn="md:align-self-end mb-2 p-button-rounded p-button-danger"></app-button>
+                      </div>
+
+                    </div>
+                  </div>
+                </div>
               </ng-template>
-              <ng-template pTemplate="body" let-family let-i="rowIndex">
-                <tr>
-                  <td>{{ i + 1 }}</td>
-                  <td>{{ family.fullname }}</td>
-                  <td>{{ family.relationship }}</td>
-                  <td>{{ family.degreeName }}</td>
-                  <td>{{ family.occupation }}</td>
-                  <td>{{ family.birthPlace }}, {{ family.birthDate }}</td>
-                  <td>
-                    <app-button typeBtn="button" (click)="onDeleteFamily(i)" iconBtn="pi pi-trash"
-                      backgroundColor="danger"
-                      classBtn="md:align-self-end mb-2 p-button-rounded p-button-danger"></app-button>
-                  </td>
-                </tr>
-              </ng-template>
-            </p-table>
+            </p-dataView>
           </div>
         </div>
-      </div>
 
-      <div class="row align-items-center">
-        <div class="grid">
-          <div class="col-12 md:col-12">
-            <div class="flex justify-content-between flex-wrap card-container">
-              <div class="flex align-items-center justify-content-center">
-                <h3 class="col-12">References</h3>
+        <div class="col-12 md:col-8 md:col-offset-2">
+          <div class="flex justify-content-between flex-wrap card-container purple-container">
+            <div class="flex align-items-center justify-content-center">
+              <h3 class="col-12">Educations</h3>
+            </div>
+            <div class="flex align-items-center justify-content-center">
+              <app-button typeBtn="button" (click)="showAddEducation()" iconBtn="pi pi-plus-circle"
+                backgroundColor="var(--PRIMARY)" label="ADD"></app-button>
+            </div>
+          </div>
+          <hr>
+          <div class="card">
+            <p-dataView #dv [value]="candidateEducations">
+              <ng-template let-education pTemplate="listItem" let-i="rowIndex">
+                <div class="col-12">
+                  <div class="flex flex-column xl:flex-row xl:align-items-start p-4 gap-4">
+                    <div
+                      class="flex flex-column sm:flex-row justify-content-between align-items-center xl:align-items-start flex-1 gap-4">
+                      <div class="flex flex-column align-items-center sm:align-items-start gap-3">
+                        <div class="text-2xl font-bold text-900">{{ education.instituitionName
+                          }}</div>
+                        <div class="flex align-items-center gap-3">
+                          <span class="flex align-items-center gap-2">
+                            <span class="font-semibold">{{ education.degreeName }} | {{
+                              education.majors }}</span>
+                          </span>
+                        </div>
+                      </div>
+                      <div class="flex sm:flex-column align-items-center sm:align-items-end gap-3 sm:gap-2">
+                        <span class="text-l font-semibold">{{ education.startYear }} - {{ education.endYear }}</span>
+                        <app-button typeBtn="button" (click)="showDeleteEducation(education.id)" iconBtn="pi pi-trash"
+                          backgroundColor="danger"
+                          classBtn="md:align-self-end mb-2 p-button-rounded p-button-danger"></app-button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </ng-template>
+            </p-dataView>
+          </div>
+        </div>
+
+        <div class="col-12 md:col-8 md:col-offset-2">
+          <div class="flex justify-content-between flex-wrap card-container purple-container">
+            <div class="flex align-items-center justify-content-center">
+              <h3 class="col-12">Working Experiences</h3>
+            </div>
+            <div class="flex align-items-center justify-content-center">
+              <app-button typeBtn="button" (click)="showAddWorking()" iconBtn="pi pi-plus-circle"
+                backgroundColor="var(--PRIMARY)" label="ADD"></app-button>
+            </div>
+          </div>
+          <hr>
+          <div class="card">
+            <p-dataView #dv [value]="candidateWorks">
+              <ng-template let-working pTemplate="listItem" let-i="rowIndex">
+                <div class="col-12">
+                  <div class="flex flex-column xl:flex-row xl:align-items-start p-4 gap-4">
+                    <div
+                      class="flex flex-column sm:flex-row justify-content-between align-items-center xl:align-items-start flex-1 gap-4">
+                      <div class="flex flex-column align-items-center sm:align-items-start">
+                        <div class="text-2xl font-bold text-900">{{ working.positionName }}
+                        </div>
+                        <div class="flex align-items-center">
+                          <span class="flex align-items-center">
+                            <span class="font-semibold">{{ working.companyName }}</span>
+                          </span>
+                        </div>
+
+                        <div class="mt-3"><strong>Responsibility:</strong> {{
+                          working.responsibility }}</div>
+                        <div class="mt-1"><strong>Last Salary:</strong> {{ working.lastSalary }}
+                        </div>
+                        <div class="mt-1"><strong>Reasons Leave:</strong> {{ working.reasonLeave
+                          }}</div>
+                      </div>
+                      <div class="flex sm:flex-column align-items-center sm:align-items-end gap-3 sm:gap-2">
+                        <span class="text-l font-semibold">{{ working.startDate }} - {{
+                          working.endDate }}</span>
+                        <app-button typeBtn="button" (click)="showDeleteWorking(working.id)" iconBtn="pi pi-trash"
+                          backgroundColor="danger"
+                          classBtn="md:align-self-end mb-2 p-button-rounded p-button-danger"></app-button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </ng-template>
+            </p-dataView>
+          </div>
+        </div>
+
+        <div class="col-12 md:col-8 md:col-offset-2">
+          <div class="flex justify-content-between flex-wrap card-container purple-container">
+            <div class="flex align-items-center justify-content-center">
+              <h3 class="col-12">Training Experiences</h3>
+            </div>
+            <div class="flex align-items-center justify-content-center">
+              <app-button typeBtn="button" (click)="showAddTraining()" iconBtn="pi pi-plus-circle"
+                backgroundColor="var(--PRIMARY)" label="ADD"></app-button>
+            </div>
+          </div>
+          <hr>
+          <div class="card">
+            <p-dataView #dv [value]="candidateTrainings">
+              <ng-template let-training pTemplate="listItem" let-i="rowIndex">
+                <div class="col-12">
+                  <div class="flex flex-column xl:flex-row xl:align-items-start p-4 gap-4">
+                    <div
+                      class="flex flex-column sm:flex-row justify-content-between align-items-center xl:align-items-start flex-1 gap-4">
+                      <div class="flex flex-column align-items-center sm:align-items-start gap-3">
+                        <div class="text-2xl font-bold text-900">{{ training.trainingName }}
+                        </div>
+                        <div class="flex align-items-center gap-3">
+                          <span class="flex align-items-center gap-2">
+                            <span class="font-semibold">{{ training.organizationName
+                              }}</span>
+                          </span>
+                        </div>
+                        <div>{{ training.description }}</div>
+                      </div>
+                      <div class="flex sm:flex-column align-items-center sm:align-items-end gap-3 sm:gap-2">
+                        <span class="text-l font-semibold">{{ training.startDate }} - {{
+                          training.endDate }}</span>
+                        <app-button typeBtn="button" (click)="showDeleteTraining(training.id)" iconBtn="pi pi-trash"
+                          backgroundColor="danger"
+                          classBtn="md:align-self-end mb-2 p-button-rounded p-button-danger"></app-button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </ng-template>
+            </p-dataView>
+          </div>
+        </div>
+
+        <div class="col-12 md:col-8 md:col-offset-2">
+          <div class="flex justify-content-between flex-wrap card-container purple-container">
+            <div class="flex align-items-center justify-content-center">
+              <h3 class="col-12">Project Experiences</h3>
+            </div>
+            <div class="flex align-items-center justify-content-center">
+              <app-button typeBtn="button" (click)="showAddProject()" iconBtn="pi pi-plus-circle"
+                backgroundColor="var(--PRIMARY)" label="ADD"></app-button>
+            </div>
+          </div>
+          <hr>
+          <div class="card">
+            <p-dataView #dv [value]="candidateProjects">
+              <ng-template let-project pTemplate="listItem" let-i="rowIndex">
+                <div class="col-12">
+                  <div class="flex flex-column xl:flex-row xl:align-items-start p-4 gap-4">
+                    <div
+                      class="flex flex-column sm:flex-row justify-content-between align-items-center xl:align-items-start flex-1 gap-4">
+                      <div class="flex flex-column align-items-center sm:align-items-start gap-3">
+                        <div class="text-2xl font-bold text-900">{{ project.projectName }}
+                        </div>
+                        <div class="flex align-items-center gap-3">
+                          <span class="flex align-items-center gap-2">
+                            <span class="font-semibold"><a href="http://github.com" target="_blank">{{
+                                project.projectUrl }}</a></span>
+                          </span>
+                        </div>
+                        <div>{{ project.description }}</div>
+                      </div>
+                      <div class="flex sm:flex-column align-items-center sm:align-items-end gap-3 sm:gap-2">
+                        <span class="text-l font-semibold">{{ project.startDate }} - {{
+                          project.endDate }}</span>
+                        <app-button typeBtn="button" (click)="showDeleteProject(project.id)" iconBtn="pi pi-trash"
+                          backgroundColor="danger"
+                          classBtn="md:align-self-end mb-2 p-button-rounded p-button-danger"></app-button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </ng-template>
+            </p-dataView>
+          </div>
+        </div>
+
+        <div class="col-12 md:col-8 md:col-offset-2">
+          <div class="row align-items-center">
+            <div class="grid">
+              <div class="col-12 md:col-6">
+                <div class="flex justify-content-between flex-wrap card-container purple-container">
+                  <div class="flex align-items-center justify-content-center">
+                    <h3 class="col-12">Skills</h3>
+                  </div>
+                  <div class="flex align-items-center justify-content-center">
+                    <app-button typeBtn="button" (click)="showAddSkill()" iconBtn="pi pi-plus-circle"
+                      backgroundColor="var(--PRIMARY)" label="ADD"></app-button>
+                  </div>
+                </div>
+                <hr>
+                <div class="card">
+                  <p-dataView #dv [value]="candidateSkills">
+                    <ng-template let-skill pTemplate="listItem" let-i="rowIndex">
+                      <div class="col-12">
+                        <div class="flex flex-column xl:flex-row xl:align-items-start pl-4 gap-4">
+                          <div
+                            class="flex flex-column sm:flex-row justify-content-between align-items-center xl:align-items-start flex-1 gap-4">
+                            <div class="flex flex-column align-items-center sm:align-items-start gap-3">
+                              <div class="flex align-items-center gap-3 mt-3">
+                                <span class="flex align-items-center gap-2 mb-3">
+                                  <span class="font-semibold">{{ skill.skillName
+                                    }}</span>
+                                </span>
+                              </div>
+                            </div>
+                            <div class="flex sm:flex-column align-items-center sm:align-items-end gap-3 sm:gap-2">
+                              <app-button typeBtn="button" (click)="showDeleteSkill(skill.id)" iconBtn="pi pi-trash"
+                                backgroundColor="danger"
+                                classBtn="md:align-self-end mb-2 p-button-rounded p-button-danger"></app-button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </ng-template>
+                  </p-dataView>
+                </div>
               </div>
-              <div class="flex align-items-center justify-content-center">
-                <app-button typeBtn="button" (click)="showAddReference()" iconBtn="pi pi-plus-circle"
-                  backgroundColor="var(--PRIMARY)" label="ADD"></app-button>
+
+              <div class="col-12 md:col-6">
+                <div class="flex justify-content-between flex-wrap card-container purple-container">
+                  <div class="flex align-items-center justify-content-center">
+                    <h3 class="col-12">Languages</h3>
+                  </div>
+                  <div class="flex align-items-center justify-content-center">
+                    <app-button typeBtn="button" (click)="showAddLanguage()" iconBtn="pi pi-plus-circle"
+                      backgroundColor="var(--PRIMARY)" label="ADD"></app-button>
+                  </div>
+                </div>
+                <hr>
+                <div class="card">
+                  <p-dataView #dv [value]="candidateLanguages">
+                    <ng-template let-language pTemplate="listItem" let-i="rowIndex">
+                      <div class="col-12">
+                        <div class="flex flex-column xl:flex-row xl:align-items-start pl-4 gap-4">
+                          <div
+                            class="flex flex-column sm:flex-row justify-content-between align-items-center xl:align-items-start flex-1 gap-4">
+                            <div class="flex flex-column align-items-center sm:align-items-start gap-3">
+                              <div class="flex align-items-center gap-3 mt-3">
+                                <span class="flex align-items-center gap-2">
+                                  <span class="font-semibold">{{ language.languageName
+                                    }}</span>
+                                </span>
+                              </div>
+                              <div class="flex align-items-center gap-3 mb-2">
+                                <span class="flex align-items-center gap-2">
+                                  <span>Writing : {{ language.writingRate }}/5</span>
+                                  <span>Speaking : {{ language.speakingRate
+                                    }}/5</span>
+                                  <span>Listening : {{ language.listeningRate
+                                    }}/5</span>
+                                </span>
+                              </div>
+                            </div>
+                            <div class="flex sm:flex-column align-items-center sm:align-items-end">
+                              <app-button typeBtn="button" (click)="showDeleteLanguage(language.id)"
+                                iconBtn="pi pi-trash" backgroundColor="danger"
+                                classBtn="md:align-self-end mb-2 p-button-rounded p-button-danger"></app-button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </ng-template>
+                  </p-dataView>
+                </div>
               </div>
             </div>
-            <hr>
-          </div>
-          <div class="col-12 md:col-12">
-            <p-table [value]="candidateReferences" [tableStyle]="{'min-width': '60rem'}">
-              <ng-template pTemplate="header">
-                <tr>
-                  <th>No.</th>
-                  <th>Full Name</th>
-                  <th>Relationship</th>
-                  <th>Occupation</th>
-                  <th>Phone</th>
-                  <th>Company</th>
-                  <th>Description</th>
-                  <th>Email</th>
-                  <th></th>
-                </tr>
-              </ng-template>
-              <ng-template pTemplate="body" let-reference let-i="rowIndex">
-                <tr>
-                  <td>{{ i + 1 }}</td>
-                  <td>{{ reference.fullname }}</td>
-                  <td>{{ reference.relationship }}</td>
-                  <td>{{ reference.occupation }}</td>
-                  <td>{{ reference.phoneNumber }}</td>
-                  <td>{{ reference.company }}</td>
-                  <td>{{ reference.description }}</td>
-                  <td>{{ reference.email }}</td>
-                  <td>
-                    <app-button typeBtn="button" (click)="onDeleteReference(i)" iconBtn="pi pi-trash"
-                      backgroundColor="danger"
-                      classBtn="md:align-self-end mb-2 p-button-rounded p-button-danger"></app-button>
-                  </td>
-                </tr>
-              </ng-template>
-            </p-table>
           </div>
         </div>
-      </div>
 
-      <div class="row align-items-center">
-        <div class="grid">
-          <div class="col-12 md:col-12">
-            <div class="flex justify-content-between flex-wrap card-container">
-              <div class="flex align-items-center justify-content-center">
-                <h3 class="col-12">Documents</h3>
+        <div class="col-12 md:col-8 md:col-offset-2">
+          <div class="row align-items-center">
+            <div class="grid">
+              <div class="col-12 md:col-12">
+                <div class="flex justify-content-between flex-wrap card-container">
+                  <div class="flex align-items-center justify-content-center">
+                    <h3 class="col-12">Family Member</h3>
+                  </div>
+                  <div class="flex align-items-center justify-content-center">
+                    <app-button typeBtn="button" (click)="showAddFamily()" iconBtn="pi pi-plus-circle"
+                      backgroundColor="var(--PRIMARY)" label="ADD"></app-button>
+                  </div>
+                </div>
+                <hr>
               </div>
-              <div class="flex align-items-center justify-content-center">
-                <app-button typeBtn="button" (click)="showAddDocuments()" iconBtn="pi pi-plus-circle"
-                  backgroundColor="var(--PRIMARY)" label="ADD"></app-button>
+              <div class="col-12 md:col-12">
+                <p-table [value]="candidateFamilies" [tableStyle]="{ 'min-width': '50rem' }">
+                  <ng-template pTemplate="header">
+                    <tr>
+                      <th>No.</th>
+                      <th>Full Name</th>
+                      <th>Relationship</th>
+                      <th>Degree</th>
+                      <th>Occupation</th>
+                      <th>Birth</th>
+                      <th></th>
+                    </tr>
+                  </ng-template>
+                  <ng-template pTemplate="body" let-family let-i="rowIndex">
+                    <tr>
+                      <td>{{ i + 1 }}</td>
+                      <td>{{ family.fullname }}</td>
+                      <td>{{ family.relationship }}</td>
+                      <td>{{ family.degreeName }}</td>
+                      <td>{{ family.occupation }}</td>
+                      <td>{{ family.birthPlace }}, {{ family.birthDate }}</td>
+                      <td>
+                        <app-button typeBtn="button" (click)="showDeleteFamily(family.id)" iconBtn="pi pi-trash"
+                          backgroundColor="danger"
+                          classBtn="md:align-self-end mb-2 p-button-rounded p-button-danger"></app-button>
+                      </td>
+                    </tr>
+                  </ng-template>
+                </p-table>
               </div>
             </div>
-            <hr>
-
-          </div>
-          <div class="col-12 md:col-12">
-            <p-table [value]="candidateDocuments" [tableStyle]="{'min-width': '60rem'}">
-              <ng-template pTemplate="header">
-                <tr>
-                  <th>No.</th>
-                  <th>Document Name</th>
-                  <th></th>
-                </tr>
-              </ng-template>
-              <ng-template pTemplate="body" let-document let-i="rowIndex">
-                <tr>
-                  <td>{{ i + 1 }}</td>
-                  <td>{{ document.docName }}.{{ document.fileExtension}}</td>
-                  <td>
-                    <app-button typeBtn="button" (click)="onDeleteDocument(i)" iconBtn="pi pi-trash"
-                      backgroundColor="danger"
-                      classBtn="md:align-self-end mb-2 p-button-rounded p-button-danger"></app-button>
-                  </td>
-                </tr>
-              </ng-template>
-            </p-table>
           </div>
         </div>
-      </div>
 
-      <div class="col-12 md:col-9 mb-5 mt-6">
-        <app-button backgroundColor="var(--PRIMARY)" [loading]="loading" typeBtn="submit" label="Submit"
-          class=" mr-2"></app-button>
-        <app-button link="/candidates" label="Back" classBtn="p-button-secondary"></app-button>
+        <div class="col-12 md:col-8 md:col-offset-2">
+          <div class="row align-items-center">
+            <div class="grid">
+              <div class="col-12 md:col-12">
+                <div class="flex justify-content-between flex-wrap card-container">
+                  <div class="flex align-items-center justify-content-center">
+                    <h3 class="col-12">References</h3>
+                  </div>
+                  <div class="flex align-items-center justify-content-center">
+                    <app-button typeBtn="button" (click)="showAddReference()" iconBtn="pi pi-plus-circle"
+                      backgroundColor="var(--PRIMARY)" label="ADD"></app-button>
+                  </div>
+                </div>
+                <hr>
+              </div>
+              <div class="col-12 md:col-12">
+                <p-table [value]="candidateReferences" [tableStyle]="{'min-width': '60rem'}">
+                  <ng-template pTemplate="header">
+                    <tr>
+                      <th>No.</th>
+                      <th>Name</th>
+                      <th>Relationship</th>
+                      <th>Occupation</th>
+                      <th>Phone</th>
+                      <th>Company</th>
+                      <th>Description</th>
+                      <th>Email</th>
+                      <th></th>
+                    </tr>
+                  </ng-template>
+                  <ng-template pTemplate="body" let-reference let-i="rowIndex">
+                    <tr>
+                      <td>{{ i + 1 }}</td>
+                      <td>{{ reference.fullname }}</td>
+                      <td>{{ reference.relationship }}</td>
+                      <td>{{ reference.occupation }}</td>
+                      <td>{{ reference.phoneNumber }}</td>
+                      <td>{{ reference.company }}</td>
+                      <td>{{ reference.description }}</td>
+                      <td>{{ reference.email }}</td>
+                      <td>
+                        <app-button typeBtn="button" (click)="showDeleteReference(reference.id)" iconBtn="pi pi-trash"
+                          backgroundColor="danger"
+                          classBtn="md:align-self-end mb-2 p-button-rounded p-button-danger"></app-button>
+                      </td>
+                    </tr>
+                  </ng-template>
+                </p-table>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-12 md:col-8 md:col-offset-2">
+          <div class="row align-items-center">
+            <div class="grid">
+              <div class="col-12 md:col-12">
+                <div class="flex justify-content-between flex-wrap card-container">
+                  <div class="flex align-items-center justify-content-center">
+                    <h3 class="col-12">Documents</h3>
+                  </div>
+                  <div class="flex align-items-center justify-content-center">
+                    <app-button typeBtn="button" (click)="showAddDocuments()" iconBtn="pi pi-plus-circle"
+                      backgroundColor="var(--PRIMARY)" label="ADD"></app-button>
+                  </div>
+                </div>
+                <hr>
+              </div>
+              <div class="col-12 md:col-12">
+                <p-table [value]="candidateDocuments" [tableStyle]="{'min-width': '60rem'}">
+                  <ng-template pTemplate="header">
+                    <tr>
+                      <th>No.</th>
+                      <th>Document Name</th>
+                      <th></th>
+                    </tr>
+                  </ng-template>
+                  <ng-template pTemplate="body" let-document let-i="rowIndex">
+                    <tr>
+                      <td>{{ i + 1 }}</td>
+                      <td>{{ document.docName }}.{{ document.fileExtension}}</td>
+                      <td>
+                        <app-button typeBtn="button" (click)="showDeleteDocument(document.id)" iconBtn="pi pi-trash"
+                          backgroundColor="danger"
+                          classBtn="md:align-self-end mb-2 p-button-rounded p-button-danger"></app-button>
+                      </td>
+                    </tr>
+                  </ng-template>
+                </p-table>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-12 md:col-8 md:col-offset-2">
+          <div class="row align-items-center">
+            <div class="grid">
+              <div class="col-12 md:col-12">
+                <div class="flex justify-content-end flex-wrap card-container">
+                  <div class="flex align-items-right justify-content-center">
+                    <app-button backgroundColor="secondary" label="Cancel" class="mr-2"
+                      classBtn="p-button-secondary" link="/candidates/detail/{{candidateId}}"></app-button>
+                    <app-button backgroundColor="var(--PRIMARY)" [loading]="loading" typeBtn="submit" label="Submit"
+                      class=" mr-2"></app-button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
       </div>
     </form>
   </p-card>
@@ -607,7 +644,7 @@
     </div>
     <div class="field col-12">
       <app-button backgroundColor="var(--PRIMARY)" (click)="onAddAddress()" [loading]="loading" typeBtn="submit"
-          label="Submit" class=" mr-2"></app-button>
+        label="Submit" class=" mr-2"></app-button>
     </div>
   </form>
 </p-dialog>
@@ -649,7 +686,7 @@
     </div>
     <div class="field col-12">
       <app-button backgroundColor="var(--PRIMARY)" (click)="onAddEducation()" [loading]="loading" typeBtn="submit"
-          label="Submit" class=" mr-2"></app-button>
+        label="Submit" class=" mr-2"></app-button>
     </div>
   </form>
 </p-dialog>
@@ -687,7 +724,7 @@
     </div>
     <div class="field col-12">
       <app-button backgroundColor="var(--PRIMARY)" (click)="onAddFamily()" [loading]="loading" typeBtn="submit"
-          label="Submit" class=" mr-2"></app-button>
+        label="Submit" class=" mr-2"></app-button>
     </div>
   </form>
 </p-dialog>
@@ -704,7 +741,7 @@
     </div>
     <div class="field col-12">
       <app-button backgroundColor="var(--PRIMARY)" (click)="onAddSkill()" [loading]="loading" typeBtn="submit"
-          label="Submit" class=" mr-2"></app-button>
+        label="Submit" class=" mr-2"></app-button>
     </div>
   </form>
 </p-dialog>
@@ -733,7 +770,7 @@
     </div>
     <div class="field col-12">
       <app-button backgroundColor="var(--PRIMARY)" (click)="onAddLanguage()" [loading]="loading" typeBtn="submit"
-          label="Submit" class=" mr-2"></app-button>
+        label="Submit" class=" mr-2"></app-button>
     </div>
   </form>
 </p-dialog>
@@ -775,7 +812,7 @@
     </div>
     <div class="field col-12">
       <app-button backgroundColor="var(--PRIMARY)" (click)="onAddReference()" [loading]="loading" typeBtn="submit"
-          label="Submit" class=" mr-2"></app-button>
+        label="Submit" class=" mr-2"></app-button>
     </div>
   </form>
 </p-dialog>
@@ -823,7 +860,7 @@
     </div>
     <div class="field col-12">
       <app-button backgroundColor="var(--PRIMARY)" (click)="onAddWorking()" [loading]="loading" typeBtn="submit"
-          label="Submit" class=" mr-2"></app-button>
+        label="Submit" class=" mr-2"></app-button>
     </div>
   </form>
 </p-dialog>
@@ -857,7 +894,7 @@
     </div>
     <div class="field col-12">
       <app-button backgroundColor="var(--PRIMARY)" (click)="onAddProject()" [loading]="loading" typeBtn="submit"
-          label="Submit" class=" mr-2"></app-button>
+        label="Submit" class=" mr-2"></app-button>
     </div>
   </form>
 </p-dialog>
@@ -891,7 +928,7 @@
     </div>
     <div class="field col-12">
       <app-button backgroundColor="var(--PRIMARY)" (click)="onAddTraining()" [loading]="loading" typeBtn="submit"
-          label="Submit" class=" mr-2"></app-button>
+        label="Submit" class=" mr-2"></app-button>
     </div>
   </form>
 </p-dialog>
@@ -921,7 +958,120 @@
     </div>
     <div class="field col-12">
       <app-button backgroundColor="var(--PRIMARY)" (click)="onAddDocument()" [loading]="loading" typeBtn="submit"
-          label="Submit" class=" mr-2"></app-button>
+        label="Submit" class=" mr-2"></app-button>
     </div>
   </form>
+</p-dialog>
+
+<!-- Dialog Delete Address -->
+<p-dialog header="Deleting Address" [modal]="true" [(visible)]="dialogDeleteAddress" [style]="{width: '30vw'}">
+  <p>
+    This action will delete the candidate address. Are you sure?
+  </p>
+  <app-button backgroundColor="secondary" [loading]="loading" label="No" class="mt-2 mr-2"
+    classBtn="p-button-secondary"></app-button>
+  <app-button backgroundColor="danger" (click)="onDeleteAddress()" [loading]="loading" label="Yes" class="mt-2"
+    classBtn="p-button-danger"></app-button>
+</p-dialog>
+
+<!-- Dialog Delete Education -->
+<p-dialog header="Deleting Education" [modal]="true" [(visible)]="dialogDeleteEducation" [style]="{width: '30vw'}">
+  <p>
+    This action will delete the candidate education. Are you sure?
+  </p>
+  <app-button backgroundColor="secondary" [loading]="loading" label="No" class="mt-2 mr-2"
+    classBtn="p-button-secondary"></app-button>
+  <app-button backgroundColor="danger" (click)="onDeleteEducation()" [loading]="loading" label="Yes" class="mt-2"
+    classBtn="p-button-danger"></app-button>
+</p-dialog>
+
+<!-- Dialog Delete Working Experience -->
+<p-dialog header="Deleting Working Experience" [modal]="true" [(visible)]="dialogDeleteWorking"
+  [style]="{width: '30vw'}">
+  <p>
+    This action will delete the candidate working experience. Are you sure?
+  </p>
+  <app-button backgroundColor="secondary" [loading]="loading" label="No" class="mt-2 mr-2"
+    classBtn="p-button-secondary"></app-button>
+  <app-button backgroundColor="danger" (click)="onDeleteWorking()" [loading]="loading" label="Yes" class="mt-2"
+    classBtn="p-button-danger"></app-button>
+</p-dialog>
+
+<!-- Dialog Delete Training Experience -->
+<p-dialog header="Deleting Training Experience" [modal]="true" [(visible)]="dialogDeleteTraining"
+  [style]="{width: '30vw'}">
+  <p>
+    This action will delete the candidate training experience. Are you sure?
+  </p>
+  <app-button backgroundColor="secondary" [loading]="loading" label="No" class="mt-2 mr-2"
+    classBtn="p-button-secondary"></app-button>
+  <app-button backgroundColor="danger" (click)="onDeleteTraining()" [loading]="loading" label="Yes" class="mt-2"
+    classBtn="p-button-danger"></app-button>
+</p-dialog>
+
+<!-- Dialog Delete Project Experience -->
+<p-dialog header="Deleting Project Experience" [modal]="true" [(visible)]="dialogDeleteProject"
+  [style]="{width: '30vw'}">
+  <p>
+    This action will delete the candidate project experience. Are you sure?
+  </p>
+  <app-button backgroundColor="secondary" [loading]="loading" label="No" class="mt-2 mr-2"
+    classBtn="p-button-secondary"></app-button>
+  <app-button backgroundColor="danger" (click)="onDeleteProject()" [loading]="loading" label="Yes" class="mt-2"
+    classBtn="p-button-danger"></app-button>
+</p-dialog>
+
+<!-- Dialog Delete Skill -->
+<p-dialog header="Deleting Skill" [modal]="true" [(visible)]="dialogDeleteSkill" [style]="{width: '30vw'}">
+  <p>
+    This action will delete the candidate skill. Are you sure?
+  </p>
+  <app-button backgroundColor="secondary" [loading]="loading" label="No" class="mt-2 mr-2"
+    classBtn="p-button-secondary"></app-button>
+  <app-button backgroundColor="danger" (click)="onDeleteSkill()" [loading]="loading" label="Yes" class="mt-2"
+    classBtn="p-button-danger"></app-button>
+</p-dialog>
+
+<!-- Dialog Delete Language -->
+<p-dialog header="Deleting Skill" [modal]="true" [(visible)]="dialogDeleteLanguage" [style]="{width: '30vw'}">
+  <p>
+    This action will delete the candidate language. Are you sure?
+  </p>
+  <app-button backgroundColor="secondary" [loading]="loading" label="No" class="mt-2 mr-2"
+    classBtn="p-button-secondary"></app-button>
+  <app-button backgroundColor="danger" (click)="onDeleteLanguage()" [loading]="loading" label="Yes" class="mt-2"
+    classBtn="p-button-danger"></app-button>
+</p-dialog>
+
+<!-- Dialog Delete Family -->
+<p-dialog header="Deleting Family" [modal]="true" [(visible)]="dialogDeleteFamily" [style]="{width: '30vw'}">
+  <p>
+    This action will delete the candidate family. Are you sure?
+  </p>
+  <app-button backgroundColor="secondary" [loading]="loading" label="No" class="mt-2 mr-2"
+    classBtn="p-button-secondary"></app-button>
+  <app-button backgroundColor="danger" (click)="onDeleteFamily()" [loading]="loading" label="Yes" class="mt-2"
+    classBtn="p-button-danger"></app-button>
+</p-dialog>
+
+<!-- Dialog Delete Reference -->
+<p-dialog header="Deleting Reference" [modal]="true" [(visible)]="dialogDeleteReference" [style]="{width: '30vw'}">
+  <p>
+    This action will delete the candidate reference. Are you sure?
+  </p>
+  <app-button backgroundColor="secondary" [loading]="loading" label="No" class="mt-2 mr-2"
+    classBtn="p-button-secondary"></app-button>
+  <app-button backgroundColor="danger" (click)="onDeleteReference()" [loading]="loading" label="Yes" class="mt-2"
+    classBtn="p-button-danger"></app-button>
+</p-dialog>
+
+<!-- Dialog Delete Document -->
+<p-dialog header="Deleting Document" [modal]="true" [(visible)]="dialogDeleteDocument" [style]="{width: '30vw'}">
+  <p>
+    This action will delete the candidate document. Are you sure?
+  </p>
+  <app-button backgroundColor="secondary" [loading]="loading" label="No" class="mt-2 mr-2"
+    classBtn="p-button-secondary"></app-button>
+  <app-button backgroundColor="danger" (click)="onDeleteDocument()" [loading]="loading" label="Yes" class="mt-2"
+    classBtn="p-button-danger"></app-button>
 </p-dialog>

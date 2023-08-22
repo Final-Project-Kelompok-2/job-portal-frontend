@@ -71,6 +71,26 @@ function getParams(activatedRoute: ActivatedRoute, parentLevel?: number): Observ
 })
 export class CandidateUpdateComponent implements OnInit {
     loading = false
+    addressId!: string
+    educationId!: string
+    workingId!: string
+    trainingId!: string
+    projectId!: string
+    skillId!: string
+    languageId!: string
+    familyId!: string
+    referenceId!: string
+    documentId!: string
+    dialogDeleteAddress: boolean = false
+    dialogDeleteEducation: boolean = false
+    dialogDeleteWorking: boolean = false
+    dialogDeleteTraining: boolean = false
+    dialogDeleteProject: boolean = false
+    dialogDeleteSkill: boolean = false
+    dialogDeleteLanguage: boolean = false
+    dialogDeleteFamily: boolean = false
+    dialogDeleteReference: boolean = false
+    dialogDeleteDocument: boolean = false
     dialogAddress: boolean = false
     dialogEducation: boolean = false
     dialogFamily: boolean = false
@@ -261,7 +281,7 @@ export class CandidateUpdateComponent implements OnInit {
             this.candidateUserLanguages
             this.candidateUserFamilies
             this.candidateUserReferences
-            this.candidateUserReferences
+            this.candidateUserDocuments
         })
 
         this.religionService.getAll().subscribe((res) => {
@@ -454,40 +474,90 @@ export class CandidateUpdateComponent implements OnInit {
         this.dialogAddress = true;
     }
 
+    showDeleteAddress(id: string) {
+        this.addressId = id
+        this.dialogDeleteAddress = true;
+    }
+
     showAddEducation() {
         this.dialogEducation = true;
+    }
+
+    showDeleteEducation(id: string) {
+        this.educationId = id
+        this.dialogDeleteEducation = true
     }
 
     showAddFamily() {
         this.dialogFamily = true;
     }
 
+    showDeleteFamily(id: string) {
+        this.familyId = id
+        this.dialogDeleteFamily = true
+    }
+
     showAddSkill() {
         this.dialogSkill = true;
+    }
+
+    showDeleteSkill(id: string) {
+        this.skillId = id
+        this.dialogDeleteSkill = true
     }
 
     showAddLanguage() {
         this.dialogLanguage = true;
     }
 
+    showDeleteLanguage(id: string) {
+        this.languageId = id
+        this.dialogDeleteLanguage = true
+    }
+
     showAddReference() {
         this.dialogReference = true;
+    }
+
+    showDeleteReference(id: string) {
+        this.referenceId = id
+        this.dialogDeleteReference = true
     }
 
     showAddWorking() {
         this.dialogWorking = true;
     }
 
+    showDeleteWorking(id: string) {
+        this.workingId = id
+        this.dialogDeleteWorking = true
+    }
+
     showAddTraining() {
         this.dialogTraining = true;
+    }
+
+    showDeleteTraining(id: string) {
+        this.trainingId = id
+        this.dialogDeleteTraining = true
     }
 
     showAddProject() {
         this.dialogProject = true;
     }
 
+    showDeleteProject(id: string) {
+        this.projectId = id
+        this.dialogDeleteProject = true
+    }
+
     showAddDocuments() {
         this.dialogDocument = true;
+    }
+
+    showDeleteDocument(id: string) {
+        this.documentId = id 
+        this.dialogDeleteDocument = true
     }
 
     onAddAddress() {
@@ -600,44 +670,74 @@ export class CandidateUpdateComponent implements OnInit {
         }
     }
 
-    onDeleteAddress(id: string) {
-
+    onDeleteAddress() {
+        this.candidateAddressService.delete(this.addressId).subscribe((res) => {
+            this.candidateUserAddresses
+            this.dialogDeleteAddress = false
+        })
     }
 
-    onDeleteTraining(id: string) {
-
+    onDeleteTraining() {
+        this.candidateTrainingExpService.delete(this.trainingId).subscribe((res) => {
+            this.candidateUserTrainings
+            this.dialogDeleteTraining = false
+        })
     }
 
-    onDeleteEducation(id: string) {
-
+    onDeleteEducation() {
+        this.candidateEducationService.delete(this.educationId).subscribe((res) => {
+            this.candidateUserEducations
+            this.dialogDeleteEducation = false
+        })
     }
 
-    onDeleteWorking(id: string) {
-
+    onDeleteWorking() {
+        this.candidateWorkExpService.delete(this.workingId).subscribe((res) => {
+            this.candidateUserWorkings
+            this.dialogDeleteWorking = false
+        })
     }
 
-    onDeleteProject(id: string) {
-
+    onDeleteProject() {
+        this.candidateProjectExpService.delete(this.projectId).subscribe((res) => {
+            this.candidateUserProjects
+            this.dialogDeleteProject = false
+        })
     }
 
-    onDeleteSkill(id: string) {
-
+    onDeleteSkill() {
+        this.candidateSkillService.delete(this.skillId).subscribe((res) => {
+            this.candidateUserSkills
+            this.dialogDeleteSkill = false
+        })
     }
 
-    onDeleteLanguage(id: string) {
-
+    onDeleteLanguage() {
+        this.candidateLanguageService.delete(this.languageId).subscribe((res) => {
+            this.candidateUserLanguages
+            this.dialogDeleteLanguage = false
+        })
     }
 
-    onDeleteFamily(id: string) {
-
+    onDeleteFamily() {
+        this.candidateFamilyService.delete(this.familyId).subscribe((res) => {
+            this.candidateUserFamilies
+            this.dialogDeleteFamily = false
+        })
     }
 
-    onDeleteReference(id: string) {
-
+    onDeleteReference() {
+        this.candidateReferenceService.delete(this.referenceId).subscribe((res) => {
+            this.candidateUserReferences
+            this.dialogDeleteReference = false
+        })
     }
 
-    onDeleteDocument(id: string) {
-
+    onDeleteDocument() {
+        this.candidateDocumentService.delete(this.documentId).subscribe((res) => {
+            this.candidateUserDocuments
+            this.dialogDeleteDocument = false
+        })
     }
 
     onUpdate() {
@@ -665,8 +765,8 @@ export class CandidateUpdateComponent implements OnInit {
                 const resultExtension = file.name.substring(file.name.indexOf(".") + 1, file.name.length)
 
                 this.candidateUpdateInsertReqDto.patchValue({
-                  file: resultBase64,
-                  fileExtension: resultExtension
+                    file: resultBase64,
+                    fileExtension: resultExtension
                 })
 
                 fileUpload.clear()

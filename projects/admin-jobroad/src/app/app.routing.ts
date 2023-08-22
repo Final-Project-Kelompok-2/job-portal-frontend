@@ -32,7 +32,7 @@ const routes: Routes = [
   {
     component: BaseComponent,
     path: 'dashboard',
-    canMatch:[authValidationNonLogin],
+    canMatch: [authValidationNonLogin],
     children: [{
       path: '',
       component: DashboardComponent
@@ -82,9 +82,16 @@ const routes: Routes = [
   {
     component: BaseComponent,
     path: 'jobs',
-    canMatch:[authValidationNonLogin],
+    canMatch: [authValidationNonLogin],
     loadChildren: () => import('./pages/jobs/job.module').then(u => JobModule),
   },
+  {
+    component: BaseComponent,
+    path: 'employees',
+    canMatch: [authValidationNonLogin],
+    loadChildren: () => import('./pages/employees/employees.module').then(e => e.EmployeesModule)
+  }
+  ,
   {
     path: '',
     redirectTo: '/login',

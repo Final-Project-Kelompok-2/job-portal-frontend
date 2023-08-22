@@ -47,7 +47,12 @@ export class ApplicantDetailComponent implements OnInit {
     reviewData?: ReviewResDto;
     mcuDatas!: McuResDto[];
 
-
+    //Transaction Subscription
+    assesmentSubscription!: Subscription;
+    interviewSubscription!: Subscription;
+    reviewSubscription!: Subscription;
+    mcuSubscription!: Subscription;
+    offeringSubscription!: Subscription;
     assesmentForm = false;
     assesmentNoteForm = false;
     interviewForm = false;
@@ -234,8 +239,10 @@ export class ApplicantDetailComponent implements OnInit {
             statusCode: HiringStatusEnum.REJECT
         })
         const data = this.applicantReqDto.getRawValue();
+      
+      this.loading = true
         firstValueFrom(this.applicantService.update(data)).then(() => {
-            this.loading = true
+            this.loading = false
             this.router.navigateByUrl(`/jobs/detail/${this.jobId}`);
         }).catch(() => {
             this.loading = false;
@@ -432,7 +439,26 @@ export class ApplicantDetailComponent implements OnInit {
         });
     }
 
-
+    ngOnDestroy(): void {
+        this.applicantSubscription.unsubscribe();
+        this.jobSubcription.unsubscribe();
+        this.picSubscription.unsubscribe();
+        if (this.assesmentSubscription) {
+            this.assesmentSubscription.unsubscribe();
+        }
+        if (this.interviewSubscription) {
+            this.interviewSubscription.unsubscribe();
+        }
+        if (this.reviewSubscription) {
+            this.reviewSubscription.unsubscribe();
+        }
+        if (this.mcuSubscription) {
+            this.mcuSubscription.unsubscribe();
+        }
+        if (this.offeringSubscription) {
+            this.offeringSubscription.unsubscribe();
+        }
+    }
 
 }
 function getParams(activatedRoute: ActivatedRoute, parentLevel?: number): Observable<Params> {
