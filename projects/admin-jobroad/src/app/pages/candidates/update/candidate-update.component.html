@@ -6,7 +6,7 @@
   </div>
   <p-card header="Update Candidate">
     <pre>{{ candidateUpdateInsertReqDto.value | json }}</pre>
-    <form [formGroup]="candidateUpdateInsertReqDto">
+    <form [formGroup]="candidateUpdateInsertReqDto" (ngSubmit)="onUpdate()">
       <div class="p-fluid p-formgrid grid">
         <h3 class="col-12">Profile Information</h3>
         <div class="field col-12 md:col-2">
@@ -451,7 +451,6 @@
                   <th>Degree</th>
                   <th>Occupation</th>
                   <th>Birth</th>
-                  <th>Email</th>
                   <th></th>
                 </tr>
               </ng-template>
@@ -463,7 +462,6 @@
                   <td>{{ family.degreeName }}</td>
                   <td>{{ family.occupation }}</td>
                   <td>{{ family.birthPlace }}, {{ family.birthDate }}</td>
-                  <td>{{ family.email }}</td>
                   <td>
                     <app-button typeBtn="button" (click)="onDeleteFamily(i)" iconBtn="pi pi-trash"
                       backgroundColor="danger"
@@ -650,8 +648,8 @@
       </div>
     </div>
     <div class="field col-12">
-      <!-- <app-button backgroundColor="var(--PRIMARY)" (click)="onAddEducation()" [loading]="loading" typeBtn="submit"
-          label="Submit" class=" mr-2"></app-button> -->
+      <app-button backgroundColor="var(--PRIMARY)" (click)="onAddEducation()" [loading]="loading" typeBtn="submit"
+          label="Submit" class=" mr-2"></app-button>
     </div>
   </form>
 </p-dialog>
@@ -686,14 +684,10 @@
         <label htmlFor="birthDate">Birth Date <span class="text-red-500"> *</span></label>
         <input pInputText id="birthDate" required type="date" formControlName="birthDate" />
       </div>
-      <div class="field col-12">
-        <label htmlFor="email">Email <span class="text-red-500"> *</span> </label>
-        <input pInputText id="email" required type="email" formControlName="email" />
-      </div>
     </div>
     <div class="field col-12">
-      <!-- <app-button backgroundColor="var(--PRIMARY)" (click)="onAddFamily()" [loading]="loading" typeBtn="submit"
-          label="Submit" class=" mr-2"></app-button> -->
+      <app-button backgroundColor="var(--PRIMARY)" (click)="onAddFamily()" [loading]="loading" typeBtn="submit"
+          label="Submit" class=" mr-2"></app-button>
     </div>
   </form>
 </p-dialog>
@@ -709,8 +703,8 @@
       </div>
     </div>
     <div class="field col-12">
-      <!-- <app-button backgroundColor="var(--PRIMARY)" (click)="onAddSkill()" [loading]="loading" typeBtn="submit"
-          label="Submit" class=" mr-2"></app-button> -->
+      <app-button backgroundColor="var(--PRIMARY)" (click)="onAddSkill()" [loading]="loading" typeBtn="submit"
+          label="Submit" class=" mr-2"></app-button>
     </div>
   </form>
 </p-dialog>
@@ -738,8 +732,8 @@
       </div>
     </div>
     <div class="field col-12">
-      <!-- <app-button backgroundColor="var(--PRIMARY)" (click)="onAddLanguage()" [loading]="loading" typeBtn="submit"
-          label="Submit" class=" mr-2"></app-button> -->
+      <app-button backgroundColor="var(--PRIMARY)" (click)="onAddLanguage()" [loading]="loading" typeBtn="submit"
+          label="Submit" class=" mr-2"></app-button>
     </div>
   </form>
 </p-dialog>
@@ -780,8 +774,8 @@
 
     </div>
     <div class="field col-12">
-      <!-- <app-button backgroundColor="var(--PRIMARY)" (click)="onAddReference()" [loading]="loading" typeBtn="submit"
-          label="Submit" class=" mr-2"></app-button> -->
+      <app-button backgroundColor="var(--PRIMARY)" (click)="onAddReference()" [loading]="loading" typeBtn="submit"
+          label="Submit" class=" mr-2"></app-button>
     </div>
   </form>
 </p-dialog>
@@ -828,8 +822,8 @@
 
     </div>
     <div class="field col-12">
-      <!-- <app-button backgroundColor="var(--PRIMARY)" (click)="onAddWorking()" [loading]="loading" typeBtn="submit"
-          label="Submit" class=" mr-2"></app-button> -->
+      <app-button backgroundColor="var(--PRIMARY)" (click)="onAddWorking()" [loading]="loading" typeBtn="submit"
+          label="Submit" class=" mr-2"></app-button>
     </div>
   </form>
 </p-dialog>
@@ -862,8 +856,8 @@
       </div>
     </div>
     <div class="field col-12">
-      <!-- <app-button backgroundColor="var(--PRIMARY)" (click)="onAddProject()" [loading]="loading" typeBtn="submit"
-          label="Submit" class=" mr-2"></app-button> -->
+      <app-button backgroundColor="var(--PRIMARY)" (click)="onAddProject()" [loading]="loading" typeBtn="submit"
+          label="Submit" class=" mr-2"></app-button>
     </div>
   </form>
 </p-dialog>
@@ -896,8 +890,8 @@
       </div>
     </div>
     <div class="field col-12">
-      <!-- <app-button backgroundColor="var(--PRIMARY)" (click)="onAddTraining()" [loading]="loading" typeBtn="submit"
-          label="Submit" class=" mr-2"></app-button> -->
+      <app-button backgroundColor="var(--PRIMARY)" (click)="onAddTraining()" [loading]="loading" typeBtn="submit"
+          label="Submit" class=" mr-2"></app-button>
     </div>
   </form>
 </p-dialog>
@@ -926,8 +920,8 @@
       </div>
     </div>
     <div class="field col-12">
-      <!-- <app-button backgroundColor="var(--PRIMARY)" (click)="onAddDocument()" [loading]="loading" typeBtn="submit"
-          label="Submit" class=" mr-2"></app-button> -->
+      <app-button backgroundColor="var(--PRIMARY)" (click)="onAddDocument()" [loading]="loading" typeBtn="submit"
+          label="Submit" class=" mr-2"></app-button>
     </div>
   </form>
 </p-dialog>
