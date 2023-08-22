@@ -1,5 +1,6 @@
 import { Component, OnInit } from "@angular/core";
-import { CandidateUserResDto } from "../../../dto/candidate-user/candidate-user.res.dto";
+import { CandidateProfileUpdateReqDto } from "../../../dto/candidate-profile/candidate-profile-update.req.dto";
+import { CandidateMasterResDto } from "../../../dto/candidate-user/candidate-master.res.dto";
 import { CandidateAddressResDto } from "../../../dto/candidate-address/candidate-address.res.dto";
 import { CandidateDocumentResDto } from "../../../dto/candidate-document/candidate-document.res.dto";
 import { CandidateEducationResDto } from "../../../dto/candidate-education/candidate-education.res.dto";
@@ -7,9 +8,20 @@ import { CandidateFamilyResDto } from "../../../dto/candidate-family/candidate-f
 import { CandidateLanguageResDto } from "../../../dto/candidate-language/candidate-language.res.dto";
 import { CandidateProjectResDto } from "../../../dto/candidate-project/candidate-project.res.dto";
 import { CandidateReferencesResDto } from "../../../dto/candidate-references/candidate-references.res.dto";
-import { CandidateSkillResDto } from "../../../dto/candidate-skill/candidate-skill.res.dto";
 import { CandidateTrainingResDto } from "../../../dto/candidate-training/candidate-training.res.dto";
+import { CandidateSkillResDto } from "../../../dto/candidate-skill/candidate-skill.res.dto";
 import { CandidateWorkResDto } from "../../../dto/candidate-work/candidate-work.res.dto";
+import { MaritalResDto } from "../../../dto/marital/marital.res.dto";
+import { ReligionResDto } from "../../../dto/religion/religion.res.dto";
+import { PersonTypeResDto } from "../../../dto/person-type/person-type.res.dto";
+import { CandidateStatusResDto } from "../../../dto/candidate-status/candidate-status.res.dto";
+import { FileTypeResDto } from "../../../dto/file-type/file-type.res.dto";
+import { NonNullableFormBuilder, Validators } from "@angular/forms";
+import { ReligionService } from "../../../service/religion.service";
+import { PersonTypeService } from "../../../service/person-type.service";
+import { CandidateStatusService } from "projects/admin-jobroad/src/app/service/candidate-status.service";
+import { MaritalStatusService } from "../../../service/maritalstatus.service";
+import { FileTypeService } from "../../../service/file-type.service";
 import { CandidateUserService } from "../../../service/candidate-user.service";
 import { CandidateAddressService } from "../../../service/candidate-address.service";
 import { CandidateDocumentService } from "../../../service/candidate-documents.service";
@@ -21,21 +33,8 @@ import { CandidateReferenceService } from "../../../service/candidate-reference.
 import { CandidateSkillService } from "../../../service/candidate-skill.service";
 import { CandidateTrainingExpService } from "../../../service/candidate-training-exp.service";
 import { CandidateWorkExpService } from "../../../service/candidate-work-exp.service";
-import { ActivatedRoute, Params, Router } from "@angular/router";
-import { FormGroup, NonNullableFormBuilder, Validators } from "@angular/forms";
-import { MaritalResDto } from "../../../dto/marital/marital.res.dto";
-import { ReligionResDto } from "../../../dto/religion/religion.res.dto";
-import { PersonTypeResDto } from "../../../dto/person-type/person-type.res.dto";
-import { CandidateStatusResDto } from "../../../dto/candidate-status/candidate-status.res.dto";
-import { FileTypeResDto } from "../../../dto/file-type/file-type.res.dto";
-import { ReligionService } from "../../../service/religion.service";
-import { PersonTypeService } from "../../../service/person-type.service";
-import { CandidateStatusService } from "../../../service/candidate-status.service";
-import { MaritalStatusService } from "../../../service/maritalstatus.service";
-import { FileTypeService } from "../../../service/file-type.service";
+import { ActivatedRoute, Router } from "@angular/router";
 import { FileUpload } from "primeng/fileupload";
-import { Observable } from "rxjs";
-import { CandidateProfileUpdateReqDto } from "../../../dto/candidate-profile/candidate-profile-update.req.dto";
 
 interface Salutation {
     value: string;
@@ -53,21 +52,9 @@ interface Degree {
     value: string,
     label: string
 }
-function getParams(activatedRoute: ActivatedRoute, parentLevel?: number): Observable<Params> {
-    let route = activatedRoute
-    if (parentLevel) {
-        for (let i = 0; i < parentLevel; i++) {
-            if (route.parent) {
-                route = route.parent
-            }
-        }
-    }
-    return route.params
-}
 @Component({
     selector: 'candidate-update',
-    templateUrl: './candidate-update.component.html',
-    styleUrls: ['./candidate-update.component.css']
+    templateUrl: './candidate-update.component.html'
 })
 export class CandidateUpdateComponent implements OnInit {
     loading = false
@@ -102,7 +89,7 @@ export class CandidateUpdateComponent implements OnInit {
     dialogProject: boolean = false
     dialogDocument: boolean = false
     candidateProfile!: CandidateProfileUpdateReqDto
-    candidateUser?: CandidateUserResDto
+    candidateUser?: CandidateMasterResDto
     candidateAddresses!: CandidateAddressResDto[]
     candidateDocuments!: CandidateDocumentResDto[]
     candidateEducations!: CandidateEducationResDto[]
@@ -263,46 +250,21 @@ export class CandidateUpdateComponent implements OnInit {
         private candidateWorkExpService: CandidateWorkExpService,
         private router: Router,
         private route: ActivatedRoute,
-        private fb: NonNullableFormBuilder
-    ) {
-
-    }
+        private fb : NonNullableFormBuilder
+    ) {}
 
     ngOnInit(): void {
-        getParams(this.route, 0).subscribe((res) => {
-            this.candidateId = res['id']
-            this.candidateUserProfile
-            this.candidateUserAddresses
-            this.candidateUserEducations
-            this.candidateUserWorkings
-            this.candidateUserTrainings
-            this.candidateUserProjects
-            this.candidateUserSkills
-            this.candidateUserLanguages
-            this.candidateUserFamilies
-            this.candidateUserReferences
-            this.candidateUserDocuments
-        })
-
-        this.religionService.getAll().subscribe((res) => {
-            this.religions = res
-        })
-
-        this.personTypeService.getAll().subscribe((res) => {
-            this.types = res
-        })
-
-        this.candidateStatusService.getAll().subscribe((res) => {
-            this.candidateStatus = res
-        })
-
-        this.maritalStatusService.getAll().subscribe((res) => {
-            this.maritals = res
-        })
-
-        this.fileTypeService.getAll().subscribe((res) => {
-            this.fileTypes = res
-        })
+        // this.candidateUserProfile
+        this.candidateUserAddresses
+        this.candidateUserEducations
+        this.candidateUserWorkings
+        this.candidateUserTrainings
+        this.candidateUserProjects
+        this.candidateUserSkills
+        this.candidateUserLanguages
+        this.candidateUserFamilies
+        this.candidateUserReferences
+        this.candidateUserDocuments
 
         this.salutations = [
             { value: 'Mr.', label: 'Mr.' },
@@ -326,76 +288,76 @@ export class CandidateUpdateComponent implements OnInit {
     }
 
     get candidateUserProfile() {
-        return this.candidateService.getCandidateUserById(this.candidateId)
+        return this.candidateService.getById(this.candidateId)
             .subscribe((res) => {
                 this.candidateUser = res
 
                 this.candidateUpdateInsertReqDto.patchValue({
-                    id: res.id,
-                    userEmail: res.userEmail,
-                    salutation: res.salutation,
-                    fullname: res.fullname,
-                    gender: res.gender,
-                    experience: res.experience,
-                    expectedSalary: res.expectedSalary,
-                    phoneNumber: res.phoneNumber,
-                    mobileNumber: res.mobileNumber,
-                    nik: res.nik,
-                    birthDate: res.birthDate,
-                    birthPlace: res.birthPlace,
-                    maritalStatusId: res.maritalStatusId,
-                    religionId: res.religionId,
-                    personTypeId: res.personTypeId,
-                    fileId: res.fileId,
+                    id: res.candidateUser.id,
+                    userEmail: res.candidateUser.userEmail,
+                    salutation: res.candidateProfile.salutation,
+                    fullname: res.candidateProfile.fullname,
+                    gender: res.candidateProfile.gender,
+                    experience: res.candidateProfile.experience,
+                    // expectedSalary: res.candidateProfile.expectedSalary,
+                    phoneNumber: res.candidateProfile.phoneNumber,
+                    mobileNumber: res.candidateProfile.mobileNumber,
+                    nik: res.candidateProfile.nik,
+                    birthDate: res.candidateProfile.birthDate,
+                    birthPlace: res.candidateProfile.birthPlace,
+                    maritalStatusId: res.candidateProfile.maritalStatusId,
+                    religionId: res.candidateProfile.religionId,
+                    personTypeId: res.candidateProfile.personTypeId,
+                    fileId: res.candidateProfile.fileId,
                     file: '',
                     fileExtension: '',
-                    candidateStatusId: res.candidateStatusId
+                    candidateStatusId: res.candidateProfile.candidateStatusId
                 })
 
                 this.addressInsertReqDto.patchValue({
-                    candidateId: res.id,
-                    email: res.userEmail
+                    candidateId: res.candidateUser.id,
+                    email: res.candidateUser.userEmail
                 })
 
                 this.educationInsertReqDto.patchValue({
-                    candidateId: res.id,
-                    email: res.userEmail
+                    candidateId: res.candidateUser.id,
+                    email: res.candidateUser.userEmail
                 })
 
                 this.workingInsertReqDto.patchValue({
-                    candidateId: res.id,
-                    email: res.userEmail
+                    candidateId: res.candidateUser.id,
+                    email: res.candidateUser.userEmail
                 })
 
                 this.trainingInsertReqDto.patchValue({
-                    email: res.userEmail
+                    email: res.candidateUser.userEmail
                 })
 
                 this.projectInsertReqDto.patchValue({
-                    candidateId: res.id,
-                    email: res.userEmail
+                    candidateId: res.candidateUser.id,
+                    email: res.candidateUser.userEmail
                 })
 
                 this.skillInsertReqDto.patchValue({
-                    candidateId: res.id,
-                    email: res.userEmail
+                    candidateId: res.candidateUser.id,
+                    email: res.candidateUser.userEmail
                 })
 
                 this.languageInsertReqDto.patchValue({
-                    email: res.userEmail
+                    email: res.candidateUser.userEmail
                 })
 
                 this.familyInsertReqDto.patchValue({
-                    email: res.userEmail
+                    email: res.candidateUser.userEmail
                 })
 
                 this.referenceInsertReqDto.patchValue({
-                    candidateEmail: res.userEmail
+                    candidateEmail: res.candidateUser.userEmail
                 })
 
                 this.documentInsertReqDto.patchValue({
-                    candidateId: res.id,
-                    email: res.userEmail
+                    candidateId: res.candidateUser.id,
+                    email: res.candidateUser.userEmail
                 })
             })
     }
@@ -741,12 +703,12 @@ export class CandidateUpdateComponent implements OnInit {
     }
 
     onUpdate() {
-        if (this.candidateUpdateInsertReqDto.valid) {
-            const data = this.candidateUpdateInsertReqDto.getRawValue()
-            this.candidateService.update(data).subscribe((res) => {
-                this.router.navigateByUrl(`/candidates/detail/${this.candidateId}`)
-            })
-        }
+        // if (this.candidateUpdateInsertReqDto.valid) {
+        //     const data = this.candidateUpdateInsertReqDto.getRawValue()
+        //     this.candidateService.update(data).subscribe((res) => {
+        //         this.router.navigateByUrl(`/candidates/detail/${this.candidateId}`)
+        //     })
+        // }
     }
 
     fileUpload(event: any, fileUpload: FileUpload) {

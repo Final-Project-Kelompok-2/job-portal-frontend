@@ -247,33 +247,36 @@
 
     <h3>Waiting for candidate to accept the offer ....</h3>
 
-    <p-dialog [breakpoints]="{ '960px': '75vw' }" [style]="{ width: '50vw' }" [modal]="true" [(visible)]="hiringForm"
-      header="Hiring Form">
-      <form [formGroup]="hiringReqDto" (ngSubmit)="hiringSubmit()">
-        <div class="start">
-          <div class="grid mt-3">
-            <div class="col-12 md:col-4">
-              <label for="start-date">Start Date<span class="text-red-500">*</span></label>
-            </div>
-            <div class="col-12 md:col-8">
-              <input pInputText id="start-date" required type="datetime-local" formControlName="startDate" />
-            </div>
-          </div>
-          <div class="end-date" *ngIf="job?.jobName == intern || job?.jobName == contract">
-            <div class="grid">
-              <div class="col-12 md:col-4">
-                <label for="end-date">End Date</label>
-              </div>
-              <div class="col-12 md:col-8">
-                <input pInputText id="end-date" type="" formControlName="endDate" />
-              </div>
-            </div>
-          </div>
-        </div>
-        <app-button backgroundColor="var(--PRIMARY)" [loading]="loading" typeBtn="submit" label="Add"
-          iconBtn="pi pi-plus" class="mt-2"></app-button>
-      </form>
-    </p-dialog>
+        <p-dialog [breakpoints]="{ '960px': '75vw' }" [style]="{ width: '50vw' }" [modal]="true"
+            [(visible)]="hiringForm" header="Hiring Form">
+            <pre>
+                {{hiringReqDto.value | json}}
+            </pre>
+            <form [formGroup]="hiringReqDto" (ngSubmit)="hiringSubmit()">
+                <div class="start">
+                        <div class="grid mt-3">
+                        <div class="col-12 md:col-4">
+                            <label for="start-date">Start Date<span class="text-red-500">*</span></label>
+                        </div>
+                        <div class="col-12 md:col-8">
+                            <input pInputText id="start-date" required type="datetime-local" formControlName="startDate" />
+                        </div>
+                    </div>
+                    <div class="end-date" *ngIf="job?.jobName == intern || job?.jobName == contract">
+                        <div class="grid">
+                        <div class="col-12 md:col-4">
+                            <label for="end-date">End Date</label>
+                        </div>
+                        <div class="col-12 md:col-8">
+                            <input pInputText id="end-date" type="date" formControlName="endDate" />
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                <app-button backgroundColor="var(--PRIMARY)" [loading]="loading" typeBtn="submit" label="Add"
+                    iconBtn="pi pi-plus" class="mt-2"></app-button>
+            </form>
+        </p-dialog>
 
   </div>
 </div>
