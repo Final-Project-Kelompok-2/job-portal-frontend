@@ -6,11 +6,13 @@ import { InsertResDto } from "../dto/insert.res.dto";
 import { BASE_URL } from "../constant/api.constant";
 
 @Injectable({
-    providedIn : 'root'
+    providedIn: 'root'
 })
-export class HiredService{
-    constructor(private base : BaseService){}
-    create(data : HiredInsertReqDto) : Observable<InsertResDto>{
-        return this.base.post<InsertResDto>(`${BASE_URL}/hired`,data);
+export class HiredService {
+
+    constructor(private base: BaseService) { }
+
+    create(data: HiredInsertReqDto): Observable<InsertResDto> {
+        return this.base.post<InsertResDto>(`${BASE_URL}/hired`, data);
     }
 }
