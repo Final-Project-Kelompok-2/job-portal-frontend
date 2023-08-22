@@ -3,7 +3,7 @@
     <p-card header="Saved Jobs">
 
 
-      <ng-container *ngIf="savedJobs?.length==0">
+      <ng-container *ngIf="!check()">
         <div class="grid text-center">
           <div class="col-12 md:col-12">
 
@@ -16,7 +16,7 @@
       </ng-container>
 
 
-      <ng-container *ngIf="savedJobs.length > 0">
+      <ng-container *ngIf="check()">
         <div class="grid">
           <div class="col-12 md:col-12">
             <p-card styleClass="mt-3" *ngFor="let s of savedJobs">

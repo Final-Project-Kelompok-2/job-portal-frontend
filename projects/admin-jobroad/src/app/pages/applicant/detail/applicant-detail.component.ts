@@ -56,7 +56,7 @@ export class ApplicantDetailComponent implements OnInit, OnDestroy {
     interviewSubscription!: Subscription;
     reviewSubscription!: Subscription;
     mcuSubscription!: Subscription;
-    offeringSubscription! : Subscription;
+    offeringSubscription!: Subscription;
     assesmentForm = false;
     assesmentNoteForm = false;
     interviewForm = false;
@@ -66,10 +66,10 @@ export class ApplicantDetailComponent implements OnInit, OnDestroy {
     hiringForm = false;
 
     applicantReqDto = this.fb.group({
-        applicantId : ['',Validators.required],
-        applicantCode : ['',Validators.required],
-        statusId : ['',Validators.required],
-        statusCode : ['',Validators.required]
+        applicantId: ['', Validators.required],
+        applicantCode: ['', Validators.required],
+        statusId: ['', Validators.required],
+        statusCode: ['', Validators.required]
     })
 
     assesmentReqDto = this.fb.group({
@@ -95,18 +95,18 @@ export class ApplicantDetailComponent implements OnInit, OnDestroy {
     })
 
     mcuReqDto = this.fb.group({
-        applicantId : ['',Validators.required],
-        applicantCode : ['',Validators.required],
-        statusCode : ['',Validators.required],
-        mcuData : this.fb.array([McuResDto])
+        applicantId: ['', Validators.required],
+        applicantCode: ['', Validators.required],
+        statusCode: ['', Validators.required],
+        mcuData: this.fb.array([McuResDto])
     })
 
     offeringReqDto = this.fb.group({
-        applicantId : ['',Validators.required],
-        applicantCode : ['',Validators.required],
-        statusCode : ['',Validators.required],
-        address : ['',Validators.required],
-        salary : [0,Validators.required]
+        applicantId: ['', Validators.required],
+        applicantCode: ['', Validators.required],
+        statusCode: ['', Validators.required],
+        address: ['', Validators.required],
+        salary: [0, Validators.required]
     })
 
     hiringReqDto = this.fb.group({
@@ -159,15 +159,15 @@ export class ApplicantDetailComponent implements OnInit, OnDestroy {
             })
             this.applicantSubscription = this.applicantService.getById(params['applicantId']).subscribe(result => {
                 this.applicant = result;
-                if(this.applicant.statusCode == HiringStatusEnum.APPLIED){
+                if (this.applicant.statusCode == HiringStatusEnum.APPLIED) {
                     this.activeIndex = 0
-                }else if(this.applicant.statusCode == HiringStatusEnum.ASSESMENT){
+                } else if (this.applicant.statusCode == HiringStatusEnum.ASSESMENT) {
                     this.activeIndex = 1
-                }else if(this.applicant.statusCode == HiringStatusEnum.HIRED){
+                } else if (this.applicant.statusCode == HiringStatusEnum.HIRED) {
                     this.activeIndex = 2
-                }else if(this.applicant.statusCode == HiringStatusEnum.MCU){
+                } else if (this.applicant.statusCode == HiringStatusEnum.MCU) {
                     this.activeIndex = 3
-                }else if(this.applicant.statusCode == HiringStatusEnum.OFFERING){
+                } else if (this.applicant.statusCode == HiringStatusEnum.OFFERING) {
                     this.activeIndex = 4
                 }else{
                     this.activeIndex = 0
@@ -235,18 +235,18 @@ export class ApplicantDetailComponent implements OnInit, OnDestroy {
         return this.activeIndex == 5;
     }
 
-    reject(){
+    reject() {
         this.applicantReqDto.patchValue({
-            applicantId : this.appId,
-            applicantCode : this.applicant?.applicantCode,
-            statusId : this.applicant?.statusId,
-            statusCode : HiringStatusEnum.REJECT
+            applicantId: this.appId,
+            applicantCode: this.applicant?.applicantCode,
+            statusId: this.applicant?.statusId,
+            statusCode: HiringStatusEnum.REJECT
         })
         const data = this.applicantReqDto.getRawValue();
-        this.applicantService.update(data).subscribe(()=>{
+        this.applicantService.update(data).subscribe(() => {
             this.router.navigateByUrl(`/jobs/detail/${this.jobId}`);
         });
-        
+
     }
 
     submitAssesment() {
@@ -273,7 +273,7 @@ export class ApplicantDetailComponent implements OnInit, OnDestroy {
     }
     assesmentNotesUpdate() {
         const data = this.assesmentNotesReqDto.getRawValue();
-        this.assesmentService.updateNotes(data).subscribe(()=>{
+        this.assesmentService.updateNotes(data).subscribe(() => {
             this.assesmentNoteForm = false;
             this.getAssesmentData();
             this.assesmentNotesReqDto.reset();
@@ -332,11 +332,11 @@ export class ApplicantDetailComponent implements OnInit, OnDestroy {
         })
     }
 
-    mcuClick(){
+    mcuClick() {
         this.mcuReqDto.patchValue({
-            applicantId : this.appId,
-            applicantCode : this.applicant?.applicantCode,
-            statusCode : this.applicant?.statusCode
+            applicantId: this.appId,
+            applicantCode: this.applicant?.applicantCode,
+            statusCode: this.applicant?.statusCode
         })
         return this.mcuForm = !this.mcuForm;
     }
@@ -348,7 +348,7 @@ export class ApplicantDetailComponent implements OnInit, OnDestroy {
         })
     }
 
-    submitMcu(){
+    submitMcu() {
         const data = this.mcuReqDto.getRawValue();
         this.mcuService.create(data).subscribe(()=>{
             this.getMcuData();
@@ -358,11 +358,11 @@ export class ApplicantDetailComponent implements OnInit, OnDestroy {
         })
     }
 
-    get mcuDataListReqDto(){
+    get mcuDataListReqDto() {
         return this.mcuReqDto.get("mcuData") as FormArray
     }
 
-   
+
     fileUpload(event: any) {
         this.mcuDataListReqDto.clear();
         const toBase64 = (file: File) => new Promise<string>((resolve, reject) => {
@@ -373,7 +373,7 @@ export class ApplicantDetailComponent implements OnInit, OnDestroy {
             };
             reader.onerror = error => reject(error);
         });
- 
+
         for (let file of event.files) {
             toBase64(file).then(result => {
                 const resultBase64 = result.substring(result.indexOf(",") + 1, result.length)
@@ -388,18 +388,18 @@ export class ApplicantDetailComponent implements OnInit, OnDestroy {
         }
     }
 
-    offeringClick(){
+    offeringClick() {
         this.offeringReqDto.patchValue({
-            applicantId : this.appId,
-            applicantCode : this.applicant?.applicantCode,
-            statusCode : this.applicant?.statusCode
+            applicantId: this.appId,
+            applicantCode: this.applicant?.applicantCode,
+            statusCode: this.applicant?.statusCode
         })
         return this.offeringForm = !this.offeringForm;
     }
 
-    offeringSubmit(){
+    offeringSubmit() {
         const data = this.offeringReqDto.getRawValue();
-        this.offeringSubscription = this.offeringService.create(data).subscribe(()=>{
+        this.offeringSubscription = this.offeringService.create(data).subscribe(() => {
             this.offeringForm = false;
             this.activeIndex++;
             this.offeringReqDto.reset();
@@ -426,19 +426,19 @@ export class ApplicantDetailComponent implements OnInit, OnDestroy {
         this.applicantSubscription.unsubscribe();
         this.jobSubcription.unsubscribe();
         this.picSubscription.unsubscribe();
-        if(this.assesmentSubscription){
+        if (this.assesmentSubscription) {
             this.assesmentSubscription.unsubscribe();
         }
-        if(this.interviewSubscription){
+        if (this.interviewSubscription) {
             this.interviewSubscription.unsubscribe();
         }
-        if(this.reviewSubscription){
+        if (this.reviewSubscription) {
             this.reviewSubscription.unsubscribe();
         }
-        if(this.mcuSubscription){
+        if (this.mcuSubscription) {
             this.mcuSubscription.unsubscribe();
         }
-        if(this.offeringSubscription){
+        if (this.offeringSubscription) {
             this.offeringSubscription.unsubscribe();
         }
     }

@@ -35,9 +35,9 @@ export class NavbarComponent implements OnInit {
 
     if (profile) {
 
-      if(profile?.photoId){
+      if (profile?.photoId) {
         this.imageUrl = `http://localhost:8080/files/${profile.photoId}`
-      }else{
+      } else {
         this.imageUrl = '../../../assets/emptyProfile.jpeg'
       }
 
@@ -72,41 +72,46 @@ export class NavbarComponent implements OnInit {
     this.items = [
       {
         label: 'Home',
-        icon:'pi pi-home',
+        icon: 'pi pi-home',
         routerLink: '/dashboard'
       },
       {
         label: 'Menu',
-        icon:'pi pi-th-large',
-        items:[
+        icon: 'pi pi-th-large',
+        items: [
           {
             label: 'Users',
-            icon:'pi pi-users',
+            icon: 'pi pi-users',
             routerLink: '/users'
           },
           {
+            label: 'Employees',
+            icon: 'pi pi-id-card',
+            routerLink: '/employees'
+          },
+          {
             label: 'Candidates',
-            icon:'pi pi-user',
+            icon: 'pi pi-user',
             routerLink: '/candidates'
           },
           {
             label: 'Companies',
-            icon:'pi pi-id-card',
+            icon: 'pi pi-id-card',
             routerLink: '/companies'
           },
           {
             label: 'Benefits',
-            icon:'pi pi-money-bill',
+            icon: 'pi pi-money-bill',
             routerLink: '/benefits'
           },
           {
             label: 'Jobs',
-            icon:'pi pi-briefcase',
+            icon: 'pi pi-briefcase',
             routerLink: '/jobs'
           },
           {
             label: 'Questions',
-            icon:'pi pi-question-circle',
+            icon: 'pi pi-question-circle',
             routerLink: '/questions'
           },
         ]
