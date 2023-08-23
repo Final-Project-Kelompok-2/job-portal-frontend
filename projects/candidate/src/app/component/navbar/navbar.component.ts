@@ -36,7 +36,7 @@ export class NavbarComponent implements OnInit {
     if (profile) {
 
       if (profile?.photoId) {
-        this.imageUrl = `http://localhost:8080/files/${profile.photoId}`
+        this.imageUrl = `http://localhost:8081/files/${profile.photoId}`
       } else {
         this.imageUrl = '../../../assets/emptyProfile.jpeg'
       }
