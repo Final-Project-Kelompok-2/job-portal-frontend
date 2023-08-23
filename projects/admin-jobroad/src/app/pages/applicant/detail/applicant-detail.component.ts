@@ -47,12 +47,7 @@ export class ApplicantDetailComponent implements OnInit {
     reviewData?: ReviewResDto;
     mcuDatas!: McuResDto[];
 
-    //Transaction Subscription
-    assesmentSubscription!: Subscription;
-    interviewSubscription!: Subscription;
-    reviewSubscription!: Subscription;
-    mcuSubscription!: Subscription;
-    offeringSubscription!: Subscription;
+
     assesmentForm = false;
     assesmentNoteForm = false;
     interviewForm = false;
@@ -439,28 +434,10 @@ export class ApplicantDetailComponent implements OnInit {
         });
     }
 
-    ngOnDestroy(): void {
-        this.applicantSubscription.unsubscribe();
-        this.jobSubcription.unsubscribe();
-        this.picSubscription.unsubscribe();
-        if (this.assesmentSubscription) {
-            this.assesmentSubscription.unsubscribe();
-        }
-        if (this.interviewSubscription) {
-            this.interviewSubscription.unsubscribe();
-        }
-        if (this.reviewSubscription) {
-            this.reviewSubscription.unsubscribe();
-        }
-        if (this.mcuSubscription) {
-            this.mcuSubscription.unsubscribe();
-        }
-        if (this.offeringSubscription) {
-            this.offeringSubscription.unsubscribe();
-        }
+ 
     }
 
-}
+
 function getParams(activatedRoute: ActivatedRoute, parentLevel?: number): Observable<Params> {
     let route = activatedRoute
     if (parentLevel) {
