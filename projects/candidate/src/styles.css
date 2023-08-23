@@ -4,11 +4,14 @@
 
 body {
     font-family: var(--font-family);
+    margin: 0;
 }
 
 html {
     /* background-color: var(--SECONDARY); */
     color: var(--PRIMARY);
+    /* width: 100%;
+    margin: 0; */
 }
 
 :root {

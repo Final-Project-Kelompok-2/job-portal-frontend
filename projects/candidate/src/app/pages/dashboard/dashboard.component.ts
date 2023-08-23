@@ -7,22 +7,24 @@ import { AuthService } from "../../service/auth.service";
   selector: "dashboard",
   templateUrl: "./dashboard.component.html"
 })
-export class DashboardComponent implements OnInit{
+export class DashboardComponent implements OnInit {
   jobs: JobResDto[] | undefined;
 
   responsiveOptions: any[] | undefined;
 
-  constructor(private jobService: JobService, private auth : AuthService) { }
+  constructor(private jobService: JobService, private auth: AuthService) { }
 
-  isLogin = false
+  visible: boolean = false;
+  isLogin: boolean = false
 
   ngOnInit() {
 
     const profile = this.auth.getProfile()
 
-    if(profile){
+    if (profile) {
       this.isLogin = true
     }
+
 
     this.responsiveOptions = [
       {
@@ -41,6 +43,11 @@ export class DashboardComponent implements OnInit{
         numScroll: 1
       }
     ];
+  }
+
+
+  showDialog() {
+    this.visible = true;
   }
 
 }
