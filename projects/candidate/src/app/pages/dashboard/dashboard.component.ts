@@ -56,7 +56,7 @@ export class DashboardComponent implements OnInit {
   }
 
   goToProfile(){
-    this.router.navigateByUrl('/candidates/profile')
+    this.router.navigateByUrl('/candidates/profile/update')
   }
 
 }
