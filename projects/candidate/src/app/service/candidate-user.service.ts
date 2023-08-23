@@ -17,11 +17,7 @@ import { CandidateUserUpdateReqDto } from "../dto/candidate-user/candidate-user-
 export class CandidateUserService {
     constructor(private base: BaseService) { }
 
-    create(data: CandidateUserInsertReqDto): Observable<InsertResDto> {
-        return this.base.post<InsertResDto>(`${BASE_URL}/candidate-user`, data);
-    }
-
-    register(data: CandidateMasterInsertReqDto): Observable<InsertResDto> {
+    register(data: CandidateUserInsertReqDto): Observable<InsertResDto> {
         return this.base.post<InsertResDto>(`${BASE_URL}/candidate-user`, data);
     }
     changePassword(data: ChangePasswordReqDto): Observable<UpdateResDto> {

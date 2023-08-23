@@ -11,11 +11,17 @@ import { BaseModule } from "./component/base/base.module";
 import { NotFoundComponent } from "./component/not-found/not-found.component";
 import { authValidation, authValidationNonlogin } from "./validation/auth.validation";
 import { LandingComponent } from "./pages/landing/landing.component";
+import { RegisterComponent } from "./pages/register/register.component";
 
 const routes: Routes = [
   {
     path: 'login',
     component: LoginComponent,
+    canMatch: [authValidation]
+  },
+  {
+    path: 'register',
+    component: RegisterComponent,
     canMatch: [authValidation]
   },
   {
@@ -73,7 +79,8 @@ const routes: Routes = [
   declarations: [LoginComponent,
     NotFoundComponent,
     DashboardComponent,
-    LandingComponent
+    LandingComponent,
+    RegisterComponent
   ],
   exports: [
     LoginComponent,

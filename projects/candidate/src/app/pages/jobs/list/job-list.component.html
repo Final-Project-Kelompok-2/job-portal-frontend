@@ -1,26 +1,26 @@
-<div class="grid mt-3">
+<div class="grid grid-nogutter mt-3">
   <div class="col-12 md:col-12">
     <div>
-      <div class="grid">
-        <div class="col-12 md:col-3">
+      <div class="grid grid-nogutter pl-1">
+        <div class="col-12 md:col-3 pr-1">
           <div class="p-input-icon-left w-full">
             <i class="pi pi-search"></i>
             <input type="text" pInputText placeholder="Job Title" class="w-full" />
           </div>
         </div>
-        <div class="col-12 md:col-3">
+        <div class="col-12 md:col-3 pr-1">
           <div class="p-input-icon-left w-full">
             <i class="pi pi-building"></i>
             <input type="text" pInputText placeholder="Location" class="w-full" />
           </div>
         </div>
-        <div class="col-12 md:col-3">
+        <div class="col-12 md:col-3 pr-1">
           <div class="p-input-icon-left w-full">
             <i class="pi pi-money-bill"></i>
             <input type="text" pInputText placeholder="Minimum Salary" class="w-full" />
           </div>
         </div>
-        <div class="col-12 md:col-3">
+        <div class="col-12 md:col-3 flex align-item-center">
           <app-button label="Search"  backgroundColor="var(--PRIMARY)" iconBtn="pi pi-search"></app-button>
         </div>
       </div>
@@ -28,14 +28,14 @@
   </div>
 </div>
 
-<div class="grid">
+<div class="grid grid-nogutter pl-2 pt-4">
   <!-- <h2 class="col-12">Job Vacancies</h2> -->
   <div class="col-12">
     {{jobs?.length}} Jobs Found
   </div>
 </div>
 
-<div class="grid ">
+<div class="grid grid-nogutter">
   <div class="col-12 md:col-9 p-5">
     <div class="card-scroll">
       <p-card *ngFor="let j of jobs" class="card-hover" styleClass="card-hover mr-4 mb-2 mt-2">
@@ -44,7 +44,7 @@
           <i class="pi pi-bookmark-fill" style="font-size: 2rem" *ngIf="j.isBookmark"
             (click)="deleteSavedJob(j.id)"></i>
         </div>
-        <div class=" grid  cursor-pointer" routerLink="/jobs/{{j.id}}/detail">
+        <div class=" grid grid-nogutter cursor-pointer" routerLink="/jobs/{{j.id}}/detail">
           <div class="col-12 md:col-2 text-center">
             <p-image   [src]="j.fileId | url" imageClass="w-full" alt="Image">
               <ng-template pTemplate="indicator">
@@ -52,13 +52,16 @@
               </ng-template>
             </p-image>
           </div>
-          <div class="col-12 md:col-10">
+          <div class="col-12 md:col-10 pl-2">
             <div class="col-12">
-              <h3>{{j.jobName}}</h3>
+              <span style="font-size: 1.75rem; font-weight: bold;"> {{j.jobName}}</span>
+            </div>
+            <div class="col-12">
+              <span style="font-size: 1rem; font-weight: bold;"> {{j.companyName}}</span>
             </div>
             <!-- Address & Salary -->
             <div class="col-12 md:col-12">
-              <div class="grid">
+              <div class="grid grid-nogutter">
                 <div class="col-12 md:col-6">
                   <i class="pi pi-building"></i> {{j.address}}
                 </div>
@@ -69,7 +72,7 @@
             </div>
             <!-- Employment Type & Start Date -->
             <div class="col-12 md:col-12">
-              <div class="grid">
+              <div class="grid grid-nogutter">
                 <div class="col-12 md:col-6">
                   <i class="pi pi-briefcase"></i> {{j.employementTypeName}}
                 </div>

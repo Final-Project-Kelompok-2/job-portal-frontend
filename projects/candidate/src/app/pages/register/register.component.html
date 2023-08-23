@@ -6,10 +6,10 @@
       </div>
       <div class="registerBtn text-sm">
         <span class="text-900">
-          Don't have an account?
+          Already have an account?
         </span>
-        <span class="text-green-700 cursor-pointer" routerLink="/register">
-          Sign Up
+        <span class="text-green-700 cursor-pointer" routerLink="/login">
+          Sign In
         </span>
       </div>
     </div>
@@ -17,20 +17,27 @@
       style="height: 90vh;">
       <div class="text-center">
         <img src="../../../assets/jobroad.png" alt="Logo Jobroad" width="300">
-        <div class="text-black-900 text-lg font-medium mb-3">Login</div>
+        <div class="text-black-900 text-lg font-medium mb-3">Register</div>
       </div>
 
       <div>
-        <form [formGroup]="loginReqDto" (ngSubmit)="onLogin()">
-          <label for=" email1" class="block text-900 font-medium mb-2">Email</label>
+        <form [formGroup]="registerReqDto" (ngSubmit)="register()">
+          <div class="" formGroupName="profile">
+            <label for="fullName" class="block text-900 font-medium mb-2">Full Name <span
+                class="text-red-500">*</span></label>
+            <input id="fullName" formControlName="fullname" type="text" pInputText class="w-full mb-3">
+          </div>
+
+          <label for=" email1" class="block text-900 font-medium mb-2">Email <span class="text-red-500">*</span></label>
           <input id="email1" formControlName="userEmail" type="text" pInputText class="w-full mb-3">
 
-          <label for="password1" class="block text-900 font-medium mb-2">Password</label>
+          <label for="password1" class="block text-900 font-medium mb-2">Password <span
+              class="text-red-500">*</span></label>
           <p-password formControlName="userPassword" inputStyleClass="w-full" styleClass="w-full" [feedback]="false"
             [toggleMask]="true"></p-password>
 
           <app-button [loading]="loading" backgroundColor="var(--PRIMARY)" type="submit" classBtn="mt-5 w-full"
-            label="Log in"></app-button>
+            label="Register Account"></app-button>
         </form>
       </div>
 
@@ -39,7 +46,7 @@
   </div>
 
   <div class="col-12 md:col-7 pictureSide pt-8">
-    <h2 class="text-center p-8 text-100" >
+    <h2 class="text-center p-8 text-100">
       <br><br><br>
       <q>
         The pessimist sees difficulty in every opportunity. The optimist sees opportunity in every difficulty.
