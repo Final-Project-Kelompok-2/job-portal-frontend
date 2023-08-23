@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { JobService } from "../../service/job.service";
 import { JobResDto } from "../../dto/job/job.res.dto";
 import { AuthService } from "../../service/auth.service";
+import { Router } from "@angular/router";
 
 @Component({
   selector: "dashboard",
@@ -12,7 +13,7 @@ export class DashboardComponent implements OnInit {
 
   responsiveOptions: any[] | undefined;
 
-  constructor(private jobService: JobService, private auth: AuthService) { }
+  constructor(private jobService: JobService, private auth: AuthService, private router:Router) { }
 
   visible: boolean = false;
   isLogin: boolean = false
@@ -25,6 +26,9 @@ export class DashboardComponent implements OnInit {
       this.isLogin = true
     }
 
+    if(!profile?.nik){
+      this.visible = true
+    }
 
     this.responsiveOptions = [
       {
@@ -48,6 +52,10 @@ export class DashboardComponent implements OnInit {
 
   showDialog() {
     this.visible = true;
+  }
+
+  goToProfile(){
+    this.router.navigateByUrl('/candidates/profile')
   }
 
 }

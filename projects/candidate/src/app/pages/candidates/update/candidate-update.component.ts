@@ -58,6 +58,8 @@ interface Degree {
     templateUrl: './candidate-update.component.html'
 })
 export class CandidateUpdateComponent implements OnInit {
+
+    imageUrl!:string
     loading = false
     addressId!: string
     educationId!: string
@@ -269,7 +271,7 @@ export class CandidateUpdateComponent implements OnInit {
         if (profile) {
             this.candidateId = profile.userId
         }
-        
+
         this.candidateUserProfile
         this.candidateUserAddresses
         this.candidateUserEducations
@@ -321,6 +323,12 @@ export class CandidateUpdateComponent implements OnInit {
             { value: 'Sarjana (S1)', label: 'Sarjana (S1)' },
             { value: 'Magister (S2)', label: 'Magister (S2)' }
         ]
+
+        if (this.candidateUser?.candidateProfile?.fileId) {
+          this.imageUrl = `http://localhost:8080/files/${this.candidateUser?.candidateProfile?.fileId}`
+        } else {
+          this.imageUrl = '../../../assets/emptyProfile.jpeg'
+        }
     }
 
     get candidateUserProfile() {
@@ -758,7 +766,7 @@ export class CandidateUpdateComponent implements OnInit {
 
     onUpdate() {
         if (this.candidateUpdateInsertReqDto.valid) {
-            const data = this.candidateUpdateInsertReqDto.getRawValue()            
+            const data = this.candidateUpdateInsertReqDto.getRawValue()
             this.candidateService.update(data).subscribe((res) => {
                 this.router.navigateByUrl(`/candidates/profile`)
             })
