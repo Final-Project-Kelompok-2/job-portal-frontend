@@ -16,10 +16,9 @@ import { ReligionResDto } from "../../../dto/religion/religion.res.dto";
 import { PersonTypeResDto } from "../../../dto/person-type/person-type.res.dto";
 import { CandidateStatusResDto } from "../../../dto/candidate-status/candidate-status.res.dto";
 import { FileTypeResDto } from "../../../dto/file-type/file-type.res.dto";
-import { NonNullableFormBuilder, Validators } from "@angular/forms";
+import { FormArray, FormGroup, NonNullableFormBuilder, Validators } from "@angular/forms";
 import { ReligionService } from "../../../service/religion.service";
 import { PersonTypeService } from "../../../service/person-type.service";
-import { CandidateStatusService } from "projects/admin-jobroad/src/app/service/candidate-status.service";
 import { MaritalStatusService } from "../../../service/maritalstatus.service";
 import { FileTypeService } from "../../../service/file-type.service";
 import { CandidateUserService } from "../../../service/candidate-user.service";
@@ -35,6 +34,8 @@ import { CandidateTrainingExpService } from "../../../service/candidate-training
 import { CandidateWorkExpService } from "../../../service/candidate-work-exp.service";
 import { ActivatedRoute, Router } from "@angular/router";
 import { FileUpload } from "primeng/fileupload";
+import { AuthService } from "../../../service/auth.service";
+import { CandidateStatusService } from "../../../service/candidate-status.service";
 
 interface Salutation {
     value: string;
@@ -113,24 +114,32 @@ export class CandidateUpdateComponent implements OnInit {
 
     candidateUpdateInsertReqDto = this.fb.group({
         id: ['', [Validators.required]],
-        userEmail: ['', Validators.required],
-        salutation: ['', [Validators.required]],
-        fullname: ['', [Validators.required]],
-        gender: ['', [Validators.required]],
-        experience: ['', [Validators.required]],
-        expectedSalary: [0, [Validators.required]],
-        phoneNumber: ['', [Validators.required]],
-        mobileNumber: ['', [Validators.required]],
-        nik: ['', [Validators.required]],
-        birthDate: ['', [Validators.required]],
-        birthPlace: ['', [Validators.required]],
-        maritalStatusId: ['', [Validators.required]],
-        religionId: ['', [Validators.required]],
-        personTypeId: ['', [Validators.required]],
-        fileId: ['', [Validators.required]],
-        file: [''],
-        fileExtension: [''],
-        candidateStatusId: ['', [Validators.required]]
+        userEmail: ['', [Validators.required]],
+        userPassword: ['', [Validators.required]],
+        profile: this.fb.group({
+            id: ['', [Validators.required]],
+            salutation: ['', [Validators.required]],
+            fullname: ['', [Validators.required]],
+            gender: ['', [Validators.required]],
+            experience: ['', [Validators.required]],
+            expectedSalary: [0, [Validators.required]],
+            phoneNumber: ['', [Validators.required]],
+            mobileNumber: ['', [Validators.required]],
+            nik: ['', [Validators.required]],
+            birthDate: ['', [Validators.required]],
+            birthPlace: ['', [Validators.required]],
+            maritalStatusCode: [''],
+            maritalStatusId: ['', [Validators.required]],
+            religionCode: [''],
+            religionId: ['', [Validators.required]],
+            personTypeCode: [''],
+            personTypeId: ['', [Validators.required]],
+            fileId: [''],
+            file: [''],
+            fileExtension: [''],
+            candidateStatusCode: [''],
+            candidateStatusId: ['', [Validators.required]]
+        })
     })
 
     trainingInsertReqDto = this.fb.group({
@@ -232,6 +241,7 @@ export class CandidateUpdateComponent implements OnInit {
     })
 
     constructor(
+        private authService : AuthService,
         private religionService: ReligionService,
         private personTypeService: PersonTypeService,
         private candidateStatusService: CandidateStatusService,
@@ -250,11 +260,17 @@ export class CandidateUpdateComponent implements OnInit {
         private candidateWorkExpService: CandidateWorkExpService,
         private router: Router,
         private route: ActivatedRoute,
-        private fb : NonNullableFormBuilder
-    ) {}
+        private fb: NonNullableFormBuilder
+    ) { }
 
     ngOnInit(): void {
-        // this.candidateUserProfile
+
+        const profile = this.authService.getProfile()
+        if (profile) {
+            this.candidateId = profile.userId
+        }
+        
+        this.candidateUserProfile
         this.candidateUserAddresses
         this.candidateUserEducations
         this.candidateUserWorkings
@@ -265,6 +281,26 @@ export class CandidateUpdateComponent implements OnInit {
         this.candidateUserFamilies
         this.candidateUserReferences
         this.candidateUserDocuments
+
+        this.religionService.getAll().subscribe((res) => {
+            this.religions = res
+        })
+
+        this.personTypeService.getAll().subscribe((res) => {
+            this.types = res
+        })
+
+        this.candidateStatusService.getAll().subscribe((res) => {
+            this.candidateStatus = res
+        })
+
+        this.maritalStatusService.getAll().subscribe((res) => {
+            this.maritals = res
+        })
+
+        this.fileTypeService.getAll().subscribe((res) => {
+            this.fileTypes = res
+        })
 
         this.salutations = [
             { value: 'Mr.', label: 'Mr.' },
@@ -295,23 +331,31 @@ export class CandidateUpdateComponent implements OnInit {
                 this.candidateUpdateInsertReqDto.patchValue({
                     id: res.candidateUser.id,
                     userEmail: res.candidateUser.userEmail,
-                    salutation: res.candidateProfile.salutation,
-                    fullname: res.candidateProfile.fullname,
-                    gender: res.candidateProfile.gender,
-                    experience: res.candidateProfile.experience,
-                    // expectedSalary: res.candidateProfile.expectedSalary,
-                    phoneNumber: res.candidateProfile.phoneNumber,
-                    mobileNumber: res.candidateProfile.mobileNumber,
-                    nik: res.candidateProfile.nik,
-                    birthDate: res.candidateProfile.birthDate,
-                    birthPlace: res.candidateProfile.birthPlace,
-                    maritalStatusId: res.candidateProfile.maritalStatusId,
-                    religionId: res.candidateProfile.religionId,
-                    personTypeId: res.candidateProfile.personTypeId,
-                    fileId: res.candidateProfile.fileId,
-                    file: '',
-                    fileExtension: '',
-                    candidateStatusId: res.candidateProfile.candidateStatusId
+                    userPassword: res.candidateUser.userPassword,
+                    profile: {
+                        id: res.candidateProfile.id,
+                        salutation: res.candidateProfile.salutation,
+                        fullname: res.candidateProfile.fullname,
+                        gender: res.candidateProfile.gender,
+                        experience: res.candidateProfile.experience,
+                        expectedSalary: Number(res.candidateProfile.expectedSalary),
+                        phoneNumber: res.candidateProfile.phoneNumber,
+                        mobileNumber: res.candidateProfile.mobileNumber,
+                        nik: res.candidateProfile.nik,
+                        birthDate: res.candidateProfile.birthDate,
+                        birthPlace: res.candidateProfile.birthPlace,
+                        maritalStatusCode: res.candidateProfile.maritalStatusCode,
+                        maritalStatusId: res.candidateProfile.maritalStatusId,
+                        religionCode: res.candidateProfile.religionCode,
+                        religionId: res.candidateProfile.religionId,
+                        personTypeCode: res.candidateProfile.personTypeCode,
+                        personTypeId: res.candidateProfile.personTypeId,
+                        fileId: res.candidateProfile.fileId,
+                        file: '',
+                        fileExtension: '',
+                        candidateStatusCode: res.candidateProfile.candidateStatusCode,
+                        candidateStatusId: res.candidateProfile.candidateStatusId
+                    }
                 })
 
                 this.addressInsertReqDto.patchValue({
@@ -433,6 +477,7 @@ export class CandidateUpdateComponent implements OnInit {
     }
 
     showAddAddress() {
+        this.candidateUserProfile
         this.dialogAddress = true;
     }
 
@@ -442,6 +487,7 @@ export class CandidateUpdateComponent implements OnInit {
     }
 
     showAddEducation() {
+        this.candidateUserProfile
         this.dialogEducation = true;
     }
 
@@ -451,6 +497,7 @@ export class CandidateUpdateComponent implements OnInit {
     }
 
     showAddFamily() {
+        this.candidateUserProfile
         this.dialogFamily = true;
     }
 
@@ -460,6 +507,7 @@ export class CandidateUpdateComponent implements OnInit {
     }
 
     showAddSkill() {
+        this.candidateUserProfile
         this.dialogSkill = true;
     }
 
@@ -469,6 +517,7 @@ export class CandidateUpdateComponent implements OnInit {
     }
 
     showAddLanguage() {
+        this.candidateUserProfile
         this.dialogLanguage = true;
     }
 
@@ -478,6 +527,7 @@ export class CandidateUpdateComponent implements OnInit {
     }
 
     showAddReference() {
+        this.candidateUserProfile
         this.dialogReference = true;
     }
 
@@ -487,6 +537,7 @@ export class CandidateUpdateComponent implements OnInit {
     }
 
     showAddWorking() {
+        this.candidateUserProfile
         this.dialogWorking = true;
     }
 
@@ -496,6 +547,7 @@ export class CandidateUpdateComponent implements OnInit {
     }
 
     showAddTraining() {
+        this.candidateUserProfile
         this.dialogTraining = true;
     }
 
@@ -505,6 +557,7 @@ export class CandidateUpdateComponent implements OnInit {
     }
 
     showAddProject() {
+        this.candidateUserProfile
         this.dialogProject = true;
     }
 
@@ -514,11 +567,12 @@ export class CandidateUpdateComponent implements OnInit {
     }
 
     showAddDocuments() {
+        this.candidateUserProfile
         this.dialogDocument = true;
     }
 
     showDeleteDocument(id: string) {
-        this.documentId = id 
+        this.documentId = id
         this.dialogDeleteDocument = true
     }
 
@@ -703,12 +757,16 @@ export class CandidateUpdateComponent implements OnInit {
     }
 
     onUpdate() {
-        // if (this.candidateUpdateInsertReqDto.valid) {
-        //     const data = this.candidateUpdateInsertReqDto.getRawValue()
-        //     this.candidateService.update(data).subscribe((res) => {
-        //         this.router.navigateByUrl(`/candidates/detail/${this.candidateId}`)
-        //     })
-        // }
+        if (this.candidateUpdateInsertReqDto.valid) {
+            const data = this.candidateUpdateInsertReqDto.getRawValue()            
+            this.candidateService.update(data).subscribe((res) => {
+                this.router.navigateByUrl(`/candidates/profile`)
+            })
+        }
+    }
+
+    get profile() {
+        return this.candidateUpdateInsertReqDto.get('profile') as FormGroup
     }
 
     fileUpload(event: any, fileUpload: FileUpload) {
@@ -726,7 +784,7 @@ export class CandidateUpdateComponent implements OnInit {
                 const resultBase64 = result.substring(result.indexOf(",") + 1, result.length)
                 const resultExtension = file.name.substring(file.name.indexOf(".") + 1, file.name.length)
 
-                this.candidateUpdateInsertReqDto.patchValue({
+                this.profile.patchValue({
                     file: resultBase64,
                     fileExtension: resultExtension
                 })
