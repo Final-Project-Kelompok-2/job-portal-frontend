@@ -6,6 +6,7 @@ import { SharedModuleComponent } from "projects/candidate/src/app/component/shar
 import { ButtonComponent } from "../../component/button/button.component";
 import { CommonModule } from "@angular/common";
 import { ReactiveFormsModule } from "@angular/forms";
+import { QuestionDetailComponent } from "./detail/question-detail.component";
 
 const routes: Routes = [
   {
@@ -15,6 +16,10 @@ const routes: Routes = [
   {
     path: 'new',
     component: QuestionCreateComponent
+  },
+  {
+    path :'detail/:id',
+    component : QuestionDetailComponent
   }
 
 ]
@@ -24,7 +29,8 @@ const routes: Routes = [
   ],
   declarations:[
     QuestionCreateComponent,
-    QuestionListComponent
+    QuestionListComponent,
+    QuestionDetailComponent
   ]
   ,
   imports:[
