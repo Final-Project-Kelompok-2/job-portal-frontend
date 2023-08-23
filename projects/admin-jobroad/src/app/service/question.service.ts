@@ -6,6 +6,8 @@ import { BASE_URL } from "../constant/api.constant";
 import { QuestionInsertReqDto } from "../dto/question/question-insert.req.dto";
 import { InsertResDto } from "../dto/insert.res.dto";
 import { QuestionsInsertReqDto } from "../dto/question/questions-insert.req.dto";
+import { QuestionUpdateReqDto } from "../dto/question/question.update.req.dto";
+import { UpdateResDto } from "../dto/update.res.dto";
 
 @Injectable({
     providedIn : 'root'
@@ -18,7 +20,14 @@ export class QuestionService{
     }
 
     create(data : QuestionsInsertReqDto) : Observable<InsertResDto>{
-        console.log("Question data => ",data);
         return this.base.post<InsertResDto>(`${BASE_URL}/questions`,data);
+    }
+
+    getById(id : string) : Observable<QuestionResDto>{
+        return this.base.get<QuestionResDto>(`${BASE_URL}/questions/filter?id=${id}`);
+    }
+
+    update(data : QuestionUpdateReqDto) : Observable<UpdateResDto>{
+        return this.base.patch<UpdateResDto>(`${BASE_URL}/questions`,data);
     }
 }
