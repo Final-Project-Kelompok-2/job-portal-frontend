@@ -15,7 +15,7 @@
         <div class="card col-12">
           <p-table [paginator]="true" [rows]="5" [showCurrentPageReport]="true" [tableStyle]="{ 'min-width': '50rem' }"
             currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
-            [rowsPerPageOptions]="[10, 25, 50]">
+            [rowsPerPageOptions]="[10, 25, 50]" [value]="employees">
             <ng-template pTemplate="header">
               <tr>
                 <th>
@@ -23,18 +23,17 @@
                 </th>
                 <th style="min-width:10rem">
                   <div class="flex align-items-center">
-                    Code
+                    Candidate Name
                   </div>
                 </th>
                 <th style="min-width:15rem">
                   <div class="flex align-items-center">
-                    Name
+                    Phone Number
                   </div>
                 </th>
                 <th style="min-width:15rem">
                   <div class="flex align-items-center">
-                    Address
-
+                    Job Name
                   </div>
                 </th>
                 <th style="min-width:15rem">
@@ -45,25 +44,24 @@
                 </th>
                 <th style="min-width:15rem">
                   <div class="flex align-items-center">
-                    Phone Number
-
+                    Employment Type Name
                   </div>
                 </th>
               </tr>
             </ng-template>
             <ng-template pTemplate="emptymessage">
               <tr>
-                <td colspan="7">No companies found.</td>
+                <td colspan="7">No Employees found.</td>
               </tr>
             </ng-template>
-            <ng-template pTemplate="body" let-c let-i="rowIndex">
+            <ng-template pTemplate="body" let-e let-i="rowIndex">
               <tr>
                 <td>{{i+1}}</td>
-                <td>{{c.companyCode}}</td>
-                <td>{{c.companyName}}</td>
-                <td>{{c.address}}</td>
-                <td>{{c.companyUrl}}</td>
-                <td>{{c.companyPhone}}</td>
+                <td>{{e.candidateName}}</td>
+                <td>{{e.phoneNumber}}</td>
+                <td>{{e.jobName}}</td>
+                <td>{{e.companyUrl}}</td>
+                <td>{{e.employmentTypeName}}</td>
               </tr>
             </ng-template>
           </p-table>
