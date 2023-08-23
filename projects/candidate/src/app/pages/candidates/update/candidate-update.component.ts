@@ -152,6 +152,7 @@ export class CandidateUpdateComponent implements OnInit {
     })
 
     addressInsertReqDto = this.fb.group({
+        addressCode: [''],
         address: ['', [Validators.required]],
         residenceType: ['', [Validators.required]],
         country: ['', [Validators.required]],

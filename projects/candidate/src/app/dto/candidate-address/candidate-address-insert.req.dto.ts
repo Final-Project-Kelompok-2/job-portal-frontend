@@ -1,4 +1,5 @@
 export interface CandidateAddressInsertReqDto {
+	addressCode: string
     address : string
 	residenceType : string
 	country : string
