@@ -29,7 +29,7 @@ const routes: Routes = [
     path: 'landing',
     canMatch: [authValidation],
     children: [{
-      path:'',
+      path: '',
       component: LandingComponent,
     }]
   },
