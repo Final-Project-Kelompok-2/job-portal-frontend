@@ -70,6 +70,7 @@ function getParams(activatedRoute: ActivatedRoute, parentLevel?: number): Observ
     styleUrls: ['./candidate-update.component.css']
 })
 export class CandidateUpdateComponent implements OnInit {
+    imageUrl!:string
     loading = false
     addressId!: string
     educationId!: string
@@ -337,6 +338,12 @@ export class CandidateUpdateComponent implements OnInit {
             .subscribe((res) => {
                 this.candidateUser = res
 
+                if (this.candidateUser?.fileId) {
+                  this.imageUrl = `http://localhost:8080/files/${this.candidateUser?.fileId}`
+                } else {
+                  this.imageUrl = '../../../assets/emptyProfile.jpeg'
+                }
+
                 this.candidateUpdateInsertReqDto.patchValue({
                     id: res.id,
                     userEmail: res.userEmail,
@@ -566,7 +573,7 @@ export class CandidateUpdateComponent implements OnInit {
     }
 
     showDeleteDocument(id: string) {
-        this.documentId = id 
+        this.documentId = id
         this.dialogDeleteDocument = true
     }
 
@@ -759,7 +766,7 @@ export class CandidateUpdateComponent implements OnInit {
         }
     }
 
-    
+
     get profile() {
         return this.candidateUpdateInsertReqDto.get('profile') as FormGroup
     }

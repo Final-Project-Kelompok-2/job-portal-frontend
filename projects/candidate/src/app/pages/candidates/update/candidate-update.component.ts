@@ -325,17 +325,18 @@ export class CandidateUpdateComponent implements OnInit {
             { value: 'Magister (S2)', label: 'Magister (S2)' }
         ]
 
-        if (this.candidateUser?.candidateProfile?.fileId) {
-          this.imageUrl = `http://localhost:8080/files/${this.candidateUser?.candidateProfile?.fileId}`
-        } else {
-          this.imageUrl = '../../../assets/emptyProfile.jpeg'
-        }
     }
 
     get candidateUserProfile() {
         return this.candidateService.getById(this.candidateId)
             .subscribe((res) => {
                 this.candidateUser = res
+
+                if (this.candidateUser?.candidateProfile?.fileId) {
+                  this.imageUrl = `http://localhost:8081/files/${this.candidateUser?.candidateProfile?.fileId}`
+                } else {
+                  this.imageUrl = '../../../assets/emptyProfile.jpeg'
+                }
 
                 this.candidateUpdateInsertReqDto.patchValue({
                     id: res.candidateUser.id,

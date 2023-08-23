@@ -71,11 +71,7 @@ export class CandidateProfileComponent implements OnInit {
     this.candidateUserEducations
 
 
-    if (this.candidateUser?.candidateProfile?.fileId) {
-      this.imageUrl = `http://localhost:8080/files/${this.candidateUser?.candidateProfile?.fileId}`
-    } else {
-      this.imageUrl = '../../../assets/emptyProfile.jpeg'
-    }
+
 
   }
 
@@ -83,6 +79,12 @@ export class CandidateProfileComponent implements OnInit {
     return this.candidateService.getById(this.candidateId)
       .subscribe((res) => {
         this.candidateUser = res
+
+        if (this.candidateUser?.candidateProfile?.fileId) {
+          this.imageUrl = `http://localhost:8081/files/${this.candidateUser?.candidateProfile?.fileId}`
+        } else {
+          this.imageUrl = '../../../assets/emptyProfile.jpeg'
+        }
       })
   }
 

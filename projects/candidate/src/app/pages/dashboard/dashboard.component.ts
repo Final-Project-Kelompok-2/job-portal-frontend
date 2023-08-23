@@ -10,7 +10,7 @@ import { Router } from "@angular/router";
 })
 export class DashboardComponent implements OnInit {
   jobs: JobResDto[] | undefined;
-
+  name = ''
   responsiveOptions: any[] | undefined;
 
   constructor(private jobService: JobService, private auth: AuthService, private router:Router) { }
@@ -24,6 +24,7 @@ export class DashboardComponent implements OnInit {
 
     if (profile) {
       this.isLogin = true
+      this.name = profile.fullName
     }
 
     if(!profile?.nik){
@@ -55,7 +56,7 @@ export class DashboardComponent implements OnInit {
   }
 
   goToProfile(){
-    this.router.navigateByUrl('/candidates/profile')
+    this.router.navigateByUrl('/candidates/profile/update')
   }
 
 }
