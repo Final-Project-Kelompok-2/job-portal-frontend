@@ -7,6 +7,8 @@ import { UserInsertReqDto } from "../dto/user/user-insert.req.dto";
 import { InsertResDto } from "../dto/insert.res.dto";
 import { UpdateResDto } from "../dto/update.res.dto";
 import { UserChangePasswordReqDto } from "../dto/user/user-changepassword.req.dto";
+import { ProfileResDto } from "../dto/profile/profile.res.dto";
+import { ProfileUpdateReqDto } from "../dto/profile/profile-update.req.dto";
 
 @Injectable({
     providedIn: 'root'
@@ -32,5 +34,13 @@ export class UserService {
 
     getById(id : string) : Observable<UserResDto>{
         return this.base.get<UserResDto>(`${BASE_URL}/users/detail?id=${id}`);
+    }
+
+    getProfile(id : string) : Observable<ProfileResDto>{
+        return this.base.get<ProfileResDto>(`${BASE_URL}/users/profile?id=${id}`);
+    }
+
+    updateProfile(data : ProfileUpdateReqDto) : Observable<UpdateResDto>{
+        return this.base.patch<UpdateResDto>(`${BASE_URL}/users/profile`,data);
     }
 }
