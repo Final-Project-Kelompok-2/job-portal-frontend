@@ -21,7 +21,7 @@ export class CandidateUserService {
         return this.base.post<InsertResDto>(`${BASE_URL}/candidate-user`, data);
     }
     changePassword(data: ChangePasswordReqDto): Observable<UpdateResDto> {
-        return this.base.post<UpdateResDto>(`${BASE_URL}/candidate-user/password`, data);
+        return this.base.patch<UpdateResDto>(`${BASE_URL}/candidate-user/password`, data);
     }
 
     getById(id: string): Observable<CandidateMasterResDto> {
