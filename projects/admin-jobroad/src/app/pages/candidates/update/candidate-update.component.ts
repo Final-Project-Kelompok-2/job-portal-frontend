@@ -127,23 +127,30 @@ export class CandidateUpdateComponent implements OnInit {
     candidateUpdateInsertReqDto = this.fb.group({
         id: ['', [Validators.required]],
         userEmail: ['', Validators.required],
-        salutation: ['', [Validators.required]],
-        fullname: ['', [Validators.required]],
-        gender: ['', [Validators.required]],
-        experience: ['', [Validators.required]],
-        expectedSalary: [0, [Validators.required]],
-        phoneNumber: ['', [Validators.required]],
-        mobileNumber: ['', [Validators.required]],
-        nik: ['', [Validators.required]],
-        birthDate: ['', [Validators.required]],
-        birthPlace: ['', [Validators.required]],
-        maritalStatusId: ['', [Validators.required]],
-        religionId: ['', [Validators.required]],
-        personTypeId: ['', [Validators.required]],
-        fileId: ['', [Validators.required]],
-        file: [''],
-        fileExtension: [''],
-        candidateStatusId: ['', [Validators.required]]
+        profile: this.fb.group({
+            id: ['', [Validators.required]],
+            salutation: ['', [Validators.required]],
+            fullname: ['', [Validators.required]],
+            gender: ['', [Validators.required]],
+            experience: ['', [Validators.required]],
+            expectedSalary: [0, [Validators.required]],
+            phoneNumber: ['', [Validators.required]],
+            mobileNumber: ['', [Validators.required]],
+            nik: ['', [Validators.required]],
+            birthDate: ['', [Validators.required]],
+            birthPlace: ['', [Validators.required]],
+            maritalStatusCode: ['', [Validators.required]],
+            maritalStatusId: ['', [Validators.required]],
+            religionCode: ['', [Validators.required]],
+            religionId: ['', [Validators.required]],
+            personTypeCode: ['', [Validators.required]],
+            personTypeId: ['', [Validators.required]],
+            fileId: [''],
+            file: [''],
+            fileExtension: [''],
+            candidateStatusCode: ['', [Validators.required]],
+            candidateStatusId: ['', [Validators.required]]
+        })
     })
 
     trainingInsertReqDto = this.fb.group({
@@ -333,23 +340,26 @@ export class CandidateUpdateComponent implements OnInit {
                 this.candidateUpdateInsertReqDto.patchValue({
                     id: res.id,
                     userEmail: res.userEmail,
-                    salutation: res.salutation,
-                    fullname: res.fullname,
-                    gender: res.gender,
-                    experience: res.experience,
-                    expectedSalary: res.expectedSalary,
-                    phoneNumber: res.phoneNumber,
-                    mobileNumber: res.mobileNumber,
-                    nik: res.nik,
-                    birthDate: res.birthDate,
-                    birthPlace: res.birthPlace,
-                    maritalStatusId: res.maritalStatusId,
-                    religionId: res.religionId,
-                    personTypeId: res.personTypeId,
-                    fileId: res.fileId,
-                    file: '',
-                    fileExtension: '',
-                    candidateStatusId: res.candidateStatusId
+                    profile: {
+                        id: res.id,
+                        salutation: res.salutation,
+                        fullname: res.fullname,
+                        gender: res.gender,
+                        experience: res.experience,
+                        expectedSalary: Number(res.expectedSalary),
+                        phoneNumber: res.phoneNumber,
+                        mobileNumber: res.mobileNumber,
+                        nik: res.nik,
+                        birthDate: res.birthDate,
+                        birthPlace: res.birthPlace,
+                        maritalStatusId: res.maritalStatusId,
+                        religionId: res.religionId,
+                        personTypeId: res.personTypeId,
+                        fileId: res.fileId,
+                        file: '',
+                        fileExtension: '',
+                        candidateStatusId: res.candidateStatusId
+                    }
                 })
 
                 this.addressInsertReqDto.patchValue({
@@ -749,6 +759,11 @@ export class CandidateUpdateComponent implements OnInit {
         }
     }
 
+    
+    get profile() {
+        return this.candidateUpdateInsertReqDto.get('profile') as FormGroup
+    }
+
     fileUpload(event: any, fileUpload: FileUpload) {
         const toBase64 = (file: File) => new Promise<string>((resolve, reject) => {
             const reader = new FileReader();
@@ -764,7 +779,7 @@ export class CandidateUpdateComponent implements OnInit {
                 const resultBase64 = result.substring(result.indexOf(",") + 1, result.length)
                 const resultExtension = file.name.substring(file.name.indexOf(".") + 1, file.name.length)
 
-                this.candidateUpdateInsertReqDto.patchValue({
+                this.profile.patchValue({
                     file: resultBase64,
                     fileExtension: resultExtension
                 })

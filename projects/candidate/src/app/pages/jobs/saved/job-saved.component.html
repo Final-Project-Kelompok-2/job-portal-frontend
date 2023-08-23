@@ -1,92 +1,41 @@
-<div class="grid justify-content-center mt-2">
-  <div class="col-12 md:col-8">
-    <p-card header="Saved Jobs">
+<div class="mt-2 ">
 
+  <ng-container *ngIf="!check()">
+    <div class="grid grid-nogutter text-center">
+      <div class="col-12 md:col-12">
+        <h1>
+          You don't have any saved jobs, try to save one
+        </h1>
+      </div>
+    </div>
+  </ng-container>
 
-      <ng-container *ngIf="!check()">
-        <div class="grid text-center">
-          <div class="col-12 md:col-12">
+  <div *ngIf="check()" class="flex flex-wrap justify-content-center">
+    <div class="flex flex-wrap justify-content-center gap-2" *ngFor="let s of savedJobs">
+      <p-card styleClass="mt-3 card-hover" class="cursor-pointer" onclick="openDetail(s.id)">
+        <div class="grid grid-nogutter">
+          <p-image class="col-12 md:col-3" [src]=" s.jobPictureId | url" alt="Image" width="125">
+          </p-image>
+          <div class="col-12 md:col-9">
+            <div class="col-12">
+              <span style="font-size: 1.75rem; font-weight: bold;"> {{s.jobName}}</span>
+            </div>
+            <div class="col-12">
+              <span style="font-size: 1rem; font-weight: bold;"> {{s.companyName}}</span>
+            </div>
+          </div>
 
-            <h1>
-              You don't have any saved jobs, try to save one
-            </h1>
+          <div class="col-12 mt-2">
+            <i class="pi pi-building"></i>
+            {{s.address}} <br>
+            <i class="pi pi-money-bill"></i> IDR {{s.expectedSalaryMin}} - IDR {{ s.expectedSalaryMax }} <br>
+            <i class="pi pi-briefcase"></i> {{s.employmenTypeName}} <br>
+            <i class="pi pi-clock"></i> {{s.startDate}} <br>
           </div>
 
         </div>
-      </ng-container>
-
-
-      <ng-container *ngIf="check()">
-        <div class="grid">
-          <div class="col-12 md:col-12">
-            <p-card styleClass="mt-3" *ngFor="let s of savedJobs">
-              <div class="grid">
-                <div class="col-12 md:col-3 text-center">
-                  <p-image [src]=" s.jobPictureId | url" [preview]="true" alt="Image" width="100">
-                    <ng-template pTemplate="indicator">
-                      <i class="pi pi-check"></i>
-                    </ng-template>
-                  </p-image>
-                </div>
-                <div class="col-12 md:col-9">
-                  <div class="grid">
-                    <div class="col-12 md:col-6">
-                      <h3> {{s.jobName}}</h3>
-                    </div>
-                  </div>
-                  <div class="grid">
-                    <div class="col-12 md:col-12">
-                      <div class="grid">
-                        <div class="col-12 md:col-6">
-                          <i class="pi pi-building"></i> {{s.address}}
-                        </div>
-                        <div class="col-12 md:col-6">
-                          <i class="pi pi-dollar"></i> Above Rp {{s.expectedSalaryMin}}
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="grid">
-                    <div class="col-12 md:col-12">
-                      <div class="grid">
-                        <div class="col-12 md:col-6">
-                          <i class="pi pi-briefcase"></i> {{s.employmenTypeName}}
-                        </div>
-                        <div class="col-12 md:col-6">
-                          <i class="pi pi-clock"></i> {{s.startDate}}
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                </div>
-
-              </div>
-
-              <!-- jobId: string
-                jobPictureId: string
-                companyName: string
-                address: string
-                startDate: string
-                endDate: string -->
-            </p-card>
-          </div>
-
-        </div>
-
-      </ng-container>
-
-
-
-
-
-
-
-
-
-
-    </p-card>
+      </p-card>
+    </div>
   </div>
-
 
 </div>

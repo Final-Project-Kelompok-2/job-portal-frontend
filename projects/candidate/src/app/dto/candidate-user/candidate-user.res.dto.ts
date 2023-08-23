@@ -1,6 +1,6 @@
 export interface CandidateUserResDto {
     id : string
 	userEmail : string
-	userPasswor: string
+	userPassword: string
 	profileId : string
 }

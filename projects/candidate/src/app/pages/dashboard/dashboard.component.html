@@ -6,8 +6,6 @@
           <div class="text-6xl text-green-700 font-bold mb-3">A place to find new opportunities</div>
           <p class="mt-0 mb-4 text-700 line-height-3">Here you can find your dream jobs that suits you, also we look forward seeing you get that job that you have always wanted.</p>
 
-          <app-button *ngIf="!isLogin" label="Sign In" typeBtn="button" link="/login" backgroundColor="var(--PRIMARY)" classBtn="mr-3 p-button-raised"></app-button>
-          <app-button *ngIf="!isLogin" label="Register" classBtn="p-button-raised p-button-text text-green-700"></app-button>
           <app-button *ngIf="isLogin" label="Browse Jobs" link="/jobs" backgroundColor="var(--PRIMARY)"></app-button>
       </section>
   </div>
@@ -44,26 +42,15 @@
           <div class="text-900 text-xl mb-3 font-medium">Easy to Use</div>
           <span class="text-700 line-height-3">Just register, input your data, choose the job you want and follow the process.</span>
       </div>
-      <!-- <div class="col-12 md:col-4 mb-4 px-5">
-          <span class="p-3 shadow-2 mb-3 inline-block surface-card" style="border-radius: 10px">
-              <i class="pi pi-globe text-4xl text-green-700"></i>
-          </span>
-          <div class="text-900 text-xl mb-3 font-medium">Fast & Global Support</div>
-          <span class="text-700 line-height-3">Fermentum et sollicitudin ac orci phasellus egestas tellus rutrum tellus.</span>
-      </div>
-      <div class="col-12 md:col-4 mb-4 px-5">
-          <span class="p-3 shadow-2 mb-3 inline-block surface-card" style="border-radius: 10px">
-              <i class="pi pi-github text-4xl text-green-700"></i>
-          </span>
-          <div class="text-900 text-xl mb-3 font-medium">Open Source</div>
-          <span class="text-700 line-height-3">Nec tincidunt praesent semper feugiat. Sed adipiscing diam donec adipiscing tristique risus nec feugiat. </span>
-      </div>
-      <div class="col-12 md:col-4 md:mb-4 mb-0 px-3">
-          <span class="p-3 shadow-2 mb-3 inline-block surface-card" style="border-radius: 10px">
-              <i class="pi pi-shield text-4xl text-green-700"></i>
-          </span>
-          <div class="text-900 text-xl mb-3 font-medium">Trusted Securitty</div>
-          <span class="text-700 line-height-3">Mattis rhoncus urna neque viverra justo nec ultrices. Id cursus metus aliquam eleifend.</span>
-      </div> -->
   </div>
 </div>
+
+<p-dialog header="Complete Your Profile" [(visible)]="visible" [modal]="true" [style]="{ width: '50vw' }" [draggable]="false" [resizable]="false">
+  <p class="m-0">
+    Add a profile photo, name, and bio to let people know who you are before you apply a job.
+  </p>
+  <ng-template pTemplate="footer">
+    <app-button label="Go to Profile" backgroundColor="var(--PRIMARY)" (clickChange)="goToProfile()"></app-button>
+    <app-button label="Later" classBtn="p-button-secondary" (clickChange)="visible = false"></app-button>
+  </ng-template>
+</p-dialog>

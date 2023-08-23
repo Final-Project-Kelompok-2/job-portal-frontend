@@ -1,11 +1,11 @@
-<div class="grid">
-  <div class="col-12">
-    <h3>Companies</h3>
+<div class="grid grid-nogutter">
+  <div class="col-12 pl-4">
+    <h1>Companies</h1>
   </div>
 
-  <div class="col-12 flex flex-wrap justify-content-evenly">
-    <div class="card flex justify-content-center" *ngFor="let c of companies">
-      <p-card header="{{c.companyName}}" [style]="{ width: '360px' }">
+  <div class="col-12 ">
+    <div class="card flex justify-content-center flex-wrap gap-2" *ngFor="let c of companies">
+      <p-card class="mb-3" header="{{c.companyName}}" [style]="{ width: '240px' }">
         <ng-template pTemplate="header">
           <img alt="Card" [src]="c.photoId|url" />
         </ng-template>
