@@ -61,7 +61,7 @@ export class ApplicantDetailComponent implements OnInit {
     offeringForm = false;
     hiringForm = false;
     loading = false;
-    
+
     applicantReqDto = this.fb.group({
         applicantId: ['', Validators.required],
         applicantCode: ['', Validators.required],
@@ -128,7 +128,7 @@ export class ApplicantDetailComponent implements OnInit {
         private offeringService: OfferingService,
         private hiredService: HiredService,
         private reviewService: ReviewService
-        ) { }
+    ) { }
 
     onActiveIndexChange(event: number) {
         this.activeIndex = event;
@@ -141,7 +141,7 @@ export class ApplicantDetailComponent implements OnInit {
             this.getMcuData();
         }
     }
-    
+
 
     ngOnInit(): void {
         getParams(this.activated, 0).subscribe(params => {
@@ -239,8 +239,8 @@ export class ApplicantDetailComponent implements OnInit {
             statusCode: HiringStatusEnum.REJECT
         })
         const data = this.applicantReqDto.getRawValue();
-      
-      this.loading = true
+
+        this.loading = true
         firstValueFrom(this.applicantService.update(data)).then(() => {
             this.loading = false
             this.router.navigateByUrl(`/jobs/detail/${this.jobId}`);
@@ -252,18 +252,18 @@ export class ApplicantDetailComponent implements OnInit {
     }
 
     submitAssesment() {
-            const data = this.assesmentReqDto.getRawValue();
-            this.loading = true;
-            firstValueFrom(this.assesmentService.create(data)).then(()=>{
-                this.assesmentForm = false;
-                this.getAssesmentData();
-                this.activeIndex++;
-                this.assesmentReqDto.reset();
-                this.loading = false;
-            }).catch(()=>{
-                this.loading = false;
-            })
-       
+        const data = this.assesmentReqDto.getRawValue();
+        this.loading = true;
+        firstValueFrom(this.assesmentService.create(data)).then(() => {
+            this.assesmentForm = false;
+            this.getAssesmentData();
+            this.activeIndex++;
+            this.assesmentReqDto.reset();
+            this.loading = false;
+        }).catch(() => {
+            this.loading = false;
+        })
+
 
 
     }
@@ -325,7 +325,7 @@ export class ApplicantDetailComponent implements OnInit {
         }).catch(() => {
             this.loading = false;
         });
-       
+
 
     }
     getReviewData() {

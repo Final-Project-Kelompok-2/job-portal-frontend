@@ -148,8 +148,8 @@
 
               <div class="col-12 md:col-12 gy-2">
                 <div class="flex justify-content-end">
-                  <app-button (clickChange)="remove(i)" label="Remove" iconBtn="pi pi-trash"
-                    classBtn="p-button-danger"></app-button>
+                  <app-button (clickChange)="remove(i)" label="Remove" iconBtn="pi pi-trash" classBtn="p-button-danger">
+                  </app-button>
                 </div>
               </div>
 
@@ -170,8 +170,7 @@
                 </app-button>
               </div>
 
-              <div class="col-12" formArrayName="options"
-                *ngFor="let o of questionOption(i).controls; let j = index">
+              <div class="col-12" formArrayName="options" *ngFor="let o of questionOption(i).controls; let j = index">
 
                 <div [formGroupName]="j">
                   <h4>Option {{ j+1 }}</h4>
@@ -204,6 +203,5 @@
         </form>
       </div>
     </div>
-      
   </div>
 </div>
