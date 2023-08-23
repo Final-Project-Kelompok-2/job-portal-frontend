@@ -33,8 +33,8 @@ export class ChangePasswordComponent implements OnInit {
     if (this.changePasswordDto.valid && data.newPassword === data.confirmPassword) {
       this.candidateUserService.changePassword(data).subscribe(result => {
         console.log(result)
-        localStorage.clear()
         this.router.navigateByUrl('/login')
+        localStorage.clear()
       })
     }
     else {
