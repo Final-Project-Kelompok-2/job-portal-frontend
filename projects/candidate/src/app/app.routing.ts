@@ -29,7 +29,7 @@ const routes: Routes = [
     path: 'landing',
     canMatch: [authValidation],
     children: [{
-      path:'',
+      path: '',
       component: LandingComponent,
     }]
   },
@@ -40,7 +40,6 @@ const routes: Routes = [
     children: [{
       path: '',
       component: DashboardComponent,
-
     }]
   },
   {

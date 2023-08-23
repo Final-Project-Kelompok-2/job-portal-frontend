@@ -417,6 +417,7 @@ export class ApplicantDetailComponent implements OnInit {
     accept() {
         this.hiringReqDto.patchValue({
             applicantId: this.appId,
+            applicantCode: this.applicant?.applicantCode
         })
         this.hiringForm = !this.hiringForm;
 
@@ -434,7 +435,7 @@ export class ApplicantDetailComponent implements OnInit {
         });
     }
 
-    }
+}
 
 
 function getParams(activatedRoute: ActivatedRoute, parentLevel?: number): Observable<Params> {
