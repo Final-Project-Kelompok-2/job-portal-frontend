@@ -10,9 +10,17 @@ export interface CandidateProfileResDto {
 	nik : string
 	birthDate : string
 	birthPlace : string
+	maritalStatus : string 
 	maritalStatusId : string
+	maritalStatusCode : string 
+	religionCode : string 
+	religion : string 
 	religionId : string
+	personType : string
+	personTypeCode : string 
 	personTypeId : string
 	fileId : string
+	candidateStatus : string
+	candidateStatusCode : string 
 	candidateStatusId : string
 }

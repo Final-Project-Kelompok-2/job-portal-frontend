@@ -4,7 +4,7 @@
       <app-button type="button" label="Back" class="mr-2" classBtn="p-button-secondary"
         link="/candidates/detail/{{ candidateUser?.id }}"></app-button>
     </div>
-  </div>  <p-card header="Update Candidate Information">
+  </div> <p-card header="Update Candidate Information">
     <form [formGroup]="candidateUpdateInsertReqDto" (ngSubmit)="onUpdate()">
       <pre>{{ candidateUpdateInsertReqDto.value | json }}</pre>
       <div class="grid">
@@ -14,8 +14,8 @@
               <div class="col-12 md:col-12">
                 <div class="flex justify-content-end flex-wrap card-container">
                   <div class="flex align-items-right justify-content-center">
-                    <app-button backgroundColor="secondary" label="Cancel" class="mr-2"
-                      classBtn="p-button-secondary" link="/candidates/detail/{{candidateId}}"></app-button>
+                    <app-button backgroundColor="secondary" label="Cancel" class="mr-2" classBtn="p-button-secondary"
+                      link="/candidates/detail/{{candidateId}}"></app-button>
                     <app-button backgroundColor="var(--PRIMARY)" [loading]="loading" typeBtn="submit" label="Submit"
                       class="mr-2" iconBtn="pi pi-save"></app-button>
                   </div>
@@ -32,67 +32,78 @@
             class="form-control" (onSelect)="fileUpload($event, file)" #file type="file" id="picture"
             required></p-fileUpload>
         </div>
+
         <div class="col-12 md:col-5">
           <div class="grid">
-            <div class="col-4">Salutation</div>
-            <div class="col-1">:</div>
-            <div class="col-7">
-              <p-dropdown [options]="salutations" optionLabel="label" optionValue="value" [showClear]="true"
-                [required]="true" formControlName="salutation" placeholder="Choose Salutation" autoWidth="false"
-                [style]="{'width':'100%'}"></p-dropdown>
-            </div>
-            <div class="col-4">Full Name</div>
-            <div class="col-1">:</div>
-            <div class="col-7">
-              <input pInputText id="fullName" required type="text" formControlName="fullname"
-                [style]="{'width':'100%'}" />
-            </div>
             <div class="col-4">Email</div>
             <div class="col-1">:</div>
             <div class="col-7">
               <input pInputText id="email" required type="email" formControlName="userEmail"
-                [style]="{'width':'100%'}" />
+                [style]="{'width':'100%'}" readonly="readonly" />
             </div>
-            <div class="col-4">Gender</div>
-            <div class="col-1">:</div>
-            <div class="col-7">
-              <p-dropdown [options]="genders" optionLabel="label" optionValue="value" [showClear]="true"
-                [required]="true" formControlName="gender" placeholder="Choose Gender" [style]="{'width':'100%'}"></p-dropdown>
-            </div>
-            <div class="col-4">Birth Place</div>
-            <div class="col-1">:</div>
-            <div class="col-7">
-              <input pInputText id="birthPlace" required type="text" formControlName="birthPlace" [style]="{'width':'100%'}" />
-            </div>
-            <div class="col-4">Birth Date</div>
-            <div class="col-1">:</div>
-            <div class="col-7">
-              <input pInputText id="birthDate" required type="date" formControlName="birthDate" [style]="{'width':'100%'}"/>
-            </div>
-            <div class="col-4">Marital Status</div>
-            <div class="col-1">:</div>
-            <div class="col-7">
-              <p-dropdown [options]="maritals" optionLabel="maritalName" optionValue="id" [showClear]="true"
-                [required]="true" formControlName="maritalStatusId" placeholder="Choose Marital" [style]="{'width':'100%'}"></p-dropdown>
-            </div>
-            <div class="col-4">Religion</div>
-            <div class="col-1">:</div>
-            <div class="col-7">
-              <p-dropdown [options]="religions" optionLabel="religionName" optionValue="id" [showClear]="true"
-                [required]="true" formControlName="religionId" placeholder="Choose Religion" [style]="{'width':'100%'}"></p-dropdown>
-            </div>
-            <div class="col-4">Status</div>
-            <div class="col-1">:</div>
-            <div class="col-7">
-              <p-dropdown [options]="candidateStatus" optionLabel="statusName" optionValue="id" [showClear]="true"
-                [required]="true" formControlName="candidateStatusId"
-                placeholder="Choose Candidate Status" [style]="{'width':'100%'}"></p-dropdown>
+          </div>
+          <div formGroupName="profile">
+            <div class="grid">
+              <div class="col-4">Salutation</div>
+              <div class="col-1">:</div>
+              <div class="col-7">
+                <p-dropdown [options]="salutations" optionLabel="label" optionValue="value" [showClear]="true"
+                  [required]="true" formControlName="salutation" placeholder="Choose Salutation" autoWidth="false"
+                  [style]="{'width':'100%'}"></p-dropdown>
+              </div>
+              <div class="col-4">Full Name</div>
+              <div class="col-1">:</div>
+              <div class="col-7">
+                <input pInputText id="fullName" required type="text" formControlName="fullname"
+                  [style]="{'width':'100%'}" />
+              </div>
+              <div class="col-4">Gender</div>
+              <div class="col-1">:</div>
+              <div class="col-7">
+                <p-dropdown [options]="genders" optionLabel="label" optionValue="value" [showClear]="true"
+                  [required]="true" formControlName="gender" placeholder="Choose Gender"
+                  [style]="{'width':'100%'}"></p-dropdown>
+              </div>
+              <div class="col-4">Birth Place</div>
+              <div class="col-1">:</div>
+              <div class="col-7">
+                <input pInputText id="birthPlace" required type="text" formControlName="birthPlace"
+                  [style]="{'width':'100%'}" />
+              </div>
+              <div class="col-4">Birth Date</div>
+              <div class="col-1">:</div>
+              <div class="col-7">
+                <input pInputText id="birthDate" required type="date" formControlName="birthDate"
+                  [style]="{'width':'100%'}" />
+              </div>
+              <div class="col-4">Marital Status</div>
+              <div class="col-1">:</div>
+              <div class="col-7">
+                <p-dropdown [options]="maritals" optionLabel="maritalName" optionValue="id" [showClear]="true"
+                  [required]="true" formControlName="maritalStatusId" placeholder="Choose Marital"
+                  [style]="{'width':'100%'}"></p-dropdown>
+              </div>
+              <div class="col-4">Religion</div>
+              <div class="col-1">:</div>
+              <div class="col-7">
+                <p-dropdown [options]="religions" optionLabel="religionName" optionValue="id" [showClear]="true"
+                  [required]="true" formControlName="religionId" placeholder="Choose Religion"
+                  [style]="{'width':'100%'}"></p-dropdown>
+              </div>
+              <div class="col-4">Status</div>
+              <div class="col-1">:</div>
+              <div class="col-7">
+                <p-dropdown [options]="candidateStatus" optionLabel="statusName" optionValue="id" [showClear]="true"
+                  [required]="true" formControlName="candidateStatusId" placeholder="Choose Candidate Status"
+                  [style]="{'width':'100%'}"></p-dropdown>
+              </div>
             </div>
           </div>
         </div>
 
+
         <div class="col-12 md:col-5">
-          <div class="grid">
+          <div class="grid" formGroupName="profile">
             <div class="col-4">NIK</div>
             <div class="col-1">:</div>
             <div class="col-7">
@@ -101,18 +112,20 @@
             <div class="col-4">Phone Number</div>
             <div class="col-1">:</div>
             <div class="col-7">
-              <input pInputText id="phoneNumber" required type="text" formControlName="phoneNumber" [style]="{'width':'100%'}" />
+              <input pInputText id="phoneNumber" required type="text" formControlName="phoneNumber"
+                [style]="{'width':'100%'}" />
             </div>
             <div class="col-4">Mobile Number</div>
             <div class="col-1">:</div>
             <div class="col-7">
-              <input pInputText id="mobileNumber" required type="text" formControlName="mobileNumber" [style]="{'width':'100%'}" />
+              <input pInputText id="mobileNumber" required type="text" formControlName="mobileNumber"
+                [style]="{'width':'100%'}" />
             </div>
             <div class="col-4">Experiences (years)</div>
             <div class="col-1">:</div>
             <div class="col-7">
               <p-inputNumber inputId="exp" inputId="minmax" mode="decimal" [min]="0" [max]="120"
-                formControlName="experience"  autoWidth="false"  [style]="{'width':'100%'}"></p-inputNumber>
+                formControlName="experience" autoWidth="false" [style]="{'width':'100%'}"></p-inputNumber>
             </div>
             <div class="col-4">Expected Salary</div>
             <div class="col-1">:</div>
@@ -595,8 +608,8 @@
               <div class="col-12 md:col-12">
                 <div class="flex justify-content-end flex-wrap card-container">
                   <div class="flex align-items-right justify-content-center">
-                    <app-button backgroundColor="secondary" label="Cancel" class="mr-2"
-                      classBtn="p-button-secondary" link="/candidates/detail/{{candidateId}}"></app-button>
+                    <app-button backgroundColor="secondary" label="Cancel" class="mr-2" classBtn="p-button-secondary"
+                      link="/candidates/detail/{{candidateId}}"></app-button>
                     <app-button backgroundColor="var(--PRIMARY)" [loading]="loading" typeBtn="submit" label="Submit"
                       class=" mr-2"></app-button>
                   </div>

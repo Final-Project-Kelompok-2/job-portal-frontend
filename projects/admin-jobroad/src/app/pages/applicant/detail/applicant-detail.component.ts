@@ -440,9 +440,9 @@ export class ApplicantDetailComponent implements OnInit {
     }
 
     ngOnDestroy(): void {
-        this.applicantSubscription.unsubscribe();
-        this.jobSubcription.unsubscribe();
-        this.picSubscription.unsubscribe();
+        // this.applicantSubscription.unsubscribe();
+        // this.jobSubcription.unsubscribe();
+        // this.picSubscription.unsubscribe();
         if (this.assesmentSubscription) {
             this.assesmentSubscription.unsubscribe();
         }
