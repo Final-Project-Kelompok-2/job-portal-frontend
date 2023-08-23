@@ -24,125 +24,136 @@ import { CandidateTrainingExpService } from "../../../service/candidate-training
 import { CandidateWorkExpService } from "../../../service/candidate-work-exp.service";
 
 @Component({
-    selector: 'candidate-profile',
-    templateUrl: './candidate-profile.component.html'
+  selector: 'candidate-profile',
+  templateUrl: './candidate-profile.component.html'
 })
 export class CandidateProfileComponent implements OnInit {
 
-    candidateId!: string
-    candidateUser?: CandidateMasterResDto
-    candidateAddresses!: CandidateAddressResDto[]
-    candidateDocuments!: CandidateDocumentResDto[]
-    candidateEducations!: CandidateEducationResDto[]
-    candidateFamilies!: CandidateFamilyResDto[]
-    candidateLanguages!: CandidateLanguageResDto[]
-    candidateProjects!: CandidateProjectResDto[]
-    candidateReferences!: CandidateReferencesResDto[]
-    candidateSkills!: CandidateSkillResDto[]
-    candidateTrainings!: CandidateTrainingResDto[]
-    candidateWorks!: CandidateWorkResDto[]
+  imageUrl!: string
 
-    constructor(
-        private authService: AuthService,
-        private candidateService: CandidateUserService,
-        private candidateAddressService: CandidateAddressService,
-        private candidateDocumentService: CandidateDocumentService,
-        private candidateEducationService: CandidateEducationService,
-        private candidateFamilyService: CandidateFamilyService,
-        private candidateLanguageService: CandidateLanguageService,
-        private candidateProjectExpService: CandidateProjectExpService,
-        private candidateReferenceService: CandidateReferenceService,
-        private candidateSkillService: CandidateSkillService,
-        private candidateTrainingExpService: CandidateTrainingExpService,
-        private candidateWorkExpService: CandidateWorkExpService,
-    ) { }
+  candidateId!: string
+  candidateUser?: CandidateMasterResDto
+  candidateAddresses!: CandidateAddressResDto[]
+  candidateDocuments!: CandidateDocumentResDto[]
+  candidateEducations!: CandidateEducationResDto[]
+  candidateFamilies!: CandidateFamilyResDto[]
+  candidateLanguages!: CandidateLanguageResDto[]
+  candidateProjects!: CandidateProjectResDto[]
+  candidateReferences!: CandidateReferencesResDto[]
+  candidateSkills!: CandidateSkillResDto[]
+  candidateTrainings!: CandidateTrainingResDto[]
+  candidateWorks!: CandidateWorkResDto[]
 
-    ngOnInit(): void {
-        const profile = this.authService.getProfile()
-        if (profile) {
-            this.candidateId = profile.userId
-        }
+  constructor(
+    private authService: AuthService,
+    private candidateService: CandidateUserService,
+    private candidateAddressService: CandidateAddressService,
+    private candidateDocumentService: CandidateDocumentService,
+    private candidateEducationService: CandidateEducationService,
+    private candidateFamilyService: CandidateFamilyService,
+    private candidateLanguageService: CandidateLanguageService,
+    private candidateProjectExpService: CandidateProjectExpService,
+    private candidateReferenceService: CandidateReferenceService,
+    private candidateSkillService: CandidateSkillService,
+    private candidateTrainingExpService: CandidateTrainingExpService,
+    private candidateWorkExpService: CandidateWorkExpService,
+  ) { }
 
-        this.candidateUserProfile
-        this.candidateUserAddresses
-        this.candidateUserEducations
+  ngOnInit(): void {
+    const profile = this.authService.getProfile()
+
+    if (profile) {
+      this.candidateId = profile.userId
     }
 
-    get candidateUserProfile() {
-        return this.candidateService.getById(this.candidateId)
-            .subscribe((res) => {
-                this.candidateUser = res
-            })
+    this.candidateUserProfile
+    this.candidateUserAddresses
+    this.candidateUserEducations
+
+
+    if (this.candidateUser?.candidateProfile?.fileId) {
+      this.imageUrl = `http://localhost:8080/files/${this.candidateUser?.candidateProfile?.fileId}`
+    } else {
+      this.imageUrl = '../../../assets/emptyProfile.jpeg'
     }
 
-    get candidateUserAddresses() {
-        return this.candidateAddressService.getByCandidate(this.candidateId)
-            .subscribe((res) => {
-                this.candidateAddresses = res
-            })
-    }
+  }
 
-    get candidateUserEducations() {
-        return this.candidateEducationService.getByCandidate(this.candidateId)
-            .subscribe((res) => {
-                this.candidateEducations = res
-            })
-    }
+  get candidateUserProfile() {
+    return this.candidateService.getById(this.candidateId)
+      .subscribe((res) => {
+        this.candidateUser = res
+      })
+  }
 
-    get candidateUserFamilies() {
-        return this.candidateFamilyService.getByCandidate(this.candidateId)
-            .subscribe((res) => {
-                this.candidateFamilies = res
-            })
-    }
+  get candidateUserAddresses() {
+    return this.candidateAddressService.getByCandidate(this.candidateId)
+      .subscribe((res) => {
+        this.candidateAddresses = res
+      })
+  }
 
-    get candidateUserDocuments() {
-        return this.candidateDocumentService.getByCandidate(this.candidateId)
-            .subscribe((res) => {
-                this.candidateDocuments = res
-            })
-    }
+  get candidateUserEducations() {
+    return this.candidateEducationService.getByCandidate(this.candidateId)
+      .subscribe((res) => {
+        this.candidateEducations = res
+      })
+  }
 
-    get candidateUserLanguages() {
-        return this.candidateLanguageService.getByCandidate(this.candidateId)
-            .subscribe((res) => {
-                this.candidateLanguages = res
-            })
-    }
+  get candidateUserFamilies() {
+    return this.candidateFamilyService.getByCandidate(this.candidateId)
+      .subscribe((res) => {
+        this.candidateFamilies = res
+      })
+  }
 
-    get candidateUserProjects() {
-        return this.candidateProjectExpService.getByCandidate(this.candidateId)
-            .subscribe((res) => {
-                this.candidateProjects = res
-            })
-    }
+  get candidateUserDocuments() {
+    return this.candidateDocumentService.getByCandidate(this.candidateId)
+      .subscribe((res) => {
+        this.candidateDocuments = res
+      })
+  }
 
-    get candidateUserReferences() {
-        return this.candidateReferenceService.getByCandidate(this.candidateId)
-            .subscribe((res) => {
-                this.candidateReferences = res
-            })
-    }
+  get candidateUserLanguages() {
+    return this.candidateLanguageService.getByCandidate(this.candidateId)
+      .subscribe((res) => {
+        this.candidateLanguages = res
+      })
+  }
 
-    get candidateUserSkills() {
-        return this.candidateSkillService.getByCandidate(this.candidateId)
-            .subscribe((res) => {
-                this.candidateSkills = res
-            })
-    }
+  get candidateUserProjects() {
+    return this.candidateProjectExpService.getByCandidate(this.candidateId)
+      .subscribe((res) => {
+        this.candidateProjects = res
+      })
+  }
 
-    get candidateUserTrainings() {
-        return this.candidateTrainingExpService.getByCandidate(this.candidateId)
-            .subscribe((res) => {
-                this.candidateTrainings = res
-            })
-    }
+  get candidateUserReferences() {
+    return this.candidateReferenceService.getByCandidate(this.candidateId)
+      .subscribe((res) => {
+        this.candidateReferences = res
+      })
+  }
 
-    get candidateUserWorkings() {
-        return this.candidateWorkExpService.getByCandidate(this.candidateId)
-            .subscribe((res) => {
-                this.candidateWorks = res
-            })
-    }
+  get candidateUserSkills() {
+    return this.candidateSkillService.getByCandidate(this.candidateId)
+      .subscribe((res) => {
+        this.candidateSkills = res
+      })
+  }
+
+  get candidateUserTrainings() {
+    return this.candidateTrainingExpService.getByCandidate(this.candidateId)
+      .subscribe((res) => {
+        this.candidateTrainings = res
+      })
+  }
+
+  get candidateUserWorkings() {
+    return this.candidateWorkExpService.getByCandidate(this.candidateId)
+      .subscribe((res) => {
+        this.candidateWorks = res
+      })
+  }
 
 }
