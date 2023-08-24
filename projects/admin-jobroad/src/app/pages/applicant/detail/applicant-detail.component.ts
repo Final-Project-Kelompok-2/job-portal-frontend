@@ -90,7 +90,7 @@ export class ApplicantDetailComponent implements OnInit {
         applicantId: ['', Validators.required],
         applicantCode: ['', Validators.required],
         statusCode: ['', Validators.required],
-        mcuData: this.fb.array([McuResDto])
+        mcuData: this.fb.array([])
     })
 
     offeringReqDto = this.fb.group({
@@ -372,7 +372,7 @@ export class ApplicantDetailComponent implements OnInit {
 
 
     fileUpload(event: any) {
-        this.mcuDataListReqDto.clear();
+        // this.mcuDataListReqDto.clear();
         const toBase64 = (file: File) => new Promise<string>((resolve, reject) => {
             const reader = new FileReader();
             reader.readAsDataURL(file);
@@ -391,6 +391,25 @@ export class ApplicantDetailComponent implements OnInit {
                 )
             })
         }
+    }
+
+    fileRemove(event : any,index : any){
+        console.log('ini event' + JSON.stringify(event));
+        console.log('ini index ' + index );
+        const toBase64 = (file: File) => new Promise<string>((resolve, reject) => {
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = () => {
+                if (typeof reader.result === "string") resolve(reader.result)
+            };
+            reader.onerror = error => reject(error);
+        });
+        let file = event.file
+        // for (let file of event.files) {
+            toBase64(file).then(() => {
+                this.mcuDataListReqDto.removeAt(file.indexOf)
+            })
+        // }
     }
 
     offeringClick() {
