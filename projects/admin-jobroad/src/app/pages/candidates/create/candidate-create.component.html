@@ -3,6 +3,82 @@
   <p-card header="Add New Candidate">
     <form [formGroup]="candidateMasterInsertReqDto" (ngSubmit)="onSubmit()">
       <div class="p-fluid p-formgrid grid">
+        <div class="col-12 md:col-2">
+          <p-image [src]="imgUrl" alt="Image" width="100%" height="250px"></p-image>
+          <p-fileUpload mode="basic" styleClass="bg-green-700" chooseLabel="Upload Picture" chooseIcon="pi pi-upload"
+            class="form-control" (onSelect)="fileUpload($event, file)" #file type="file" id="picture" required
+            [style]="{'width':'100%'}"></p-fileUpload>
+        </div>
+        <div class="col-12 md:col-10">
+          <div class="grid">
+            <div class="field col-12 md:col-3">
+              <label htmlFor="salutation">Salutation <span class="text-red-500"> *</span> </label>
+              <p-dropdown [options]="salutations" optionLabel="label" optionValue="value" [showClear]="true"
+                [required]="true" formControlName="salutation" placeholder="Choose Salutation"></p-dropdown>
+            </div>
+            <div class="field col-12 md:col-5">
+              <label htmlFor="fullName">Full Name<span class="text-red-500"> *</span></label>
+              <input pInputText id="fullName" required type="text" formControlName="fullname" />
+            </div>
+            <div class="field col-12 md:col-4">
+              <label htmlFor="email">Email<span class="text-red-500"> *</span></label>
+              <input pInputText id="email" required type="email" formControlName="userEmail" />
+            </div>
+            <div class="field col-12 md:col-3">
+              <label htmlFor="gender">Gender<span class="text-red-500"> *</span></label>
+              <p-dropdown [options]="genders" optionLabel="label" optionValue="value" [showClear]="true"
+                [required]="true" formControlName="gender" placeholder="Choose Gender"></p-dropdown>
+            </div>
+            <div class="field col-12 md:col-5">
+              <label htmlFor="birthPlace">Birth Place<span class="text-red-500"> *</span></label>
+              <input pInputText id="birthPlace" required type="text" formControlName="birthPlace" />
+            </div>
+            <div class="field col-12 md:col-4">
+              <label htmlFor="birthDate">Birth Date<span class="text-red-500"> *</span></label>
+              <input pInputText id="birthDate" required type="date" formControlName="birthDate" />
+            </div>
+            <div class="field col-12 md:col-6">
+              <label htmlFor="phoneNumber">Phone Number<span class="text-red-500"> *</span></label>
+              <input pInputText id="phoneNumber" required type="text" formControlName="phoneNumber" />
+            </div>
+            <div class="field col-12 md:col-6">
+              <label htmlFor="mobileNumber">Mobile Number<span class="text-red-500"> *</span></label>
+              <input pInputText id="mobileNumber" required type="text" formControlName="mobileNumber" />
+            </div>
+
+            <div class="field col-12 md:col-12">
+              <label htmlFor="nik">NIK<span class="text-red-500"> *</span></label>
+              <input pInputText id="nik" required type="text" formControlName="nik" />
+            </div>
+            <div class="field col-12 md:col-6">
+              <label htmlFor="maritalStatus">Marital Status<span class="text-red-500"> *</span></label>
+              <p-dropdown [options]="maritals" optionLabel="maritalName" optionValue="id" [showClear]="true"
+                [required]="true" formControlName="maritalStatusId" placeholder="Choose Marital"></p-dropdown>
+            </div>
+            <div class="field col-12 md:col-6">
+              <label htmlFor="type">Religion<span class="text-red-500"> *</span></label>
+              <p-dropdown [options]="religions" optionLabel="religionName" optionValue="id" [showClear]="true"
+                [required]="true" formControlName="religionId" placeholder="Choose Religion"></p-dropdown>
+            </div>
+
+            <h3 class="col-12">
+              Employment Information
+            </h3>
+            <div class="field col-12 md:col-6">
+              <label for="exp">Experience (years)<span class="text-red-500"> *</span></label>
+              <p-inputNumber inputId="exp" inputId="minmax" mode="decimal" [min]="0" [max]="120"
+                formControlName="experience"></p-inputNumber>
+            </div>
+            <div class="field col-12 md:col-6">
+              <label for="salary">Expected Salary<span class="text-red-500"> *</span></label>
+              <p-inputNumber inputId="salary" mode="currency" currency="IDR" locale="jp-JP"
+                formControlName="expectedSalary"></p-inputNumber>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- <div class="p-fluid p-formgrid grid">
         <h3 class="col-12">Profile Information</h3>
         <div class="field col-12 md:col-2">
           <label htmlFor="salutation">Salutation <span class="text-red-500"> *</span> </label>
@@ -69,16 +145,6 @@
           <p-dropdown [options]="religions" optionLabel="religionName" optionValue="id" [showClear]="true"
             [required]="true" formControlName="religionId" placeholder="Choose Religion"></p-dropdown>
         </div>
-        <div class="field col-12 md:col-4">
-          <label htmlFor="type">Type<span class="text-red-500"> *</span></label>
-          <p-dropdown [options]="types" optionLabel="typeName" optionValue="id" [showClear]="true" [required]="true"
-            formControlName="personTypeId" placeholder="Person Type"></p-dropdown>
-        </div>
-        <div class="field col-12 md:col-4">
-          <label htmlFor="type">Candidate Status<span class="text-red-500"> *</span></label>
-          <p-dropdown [options]="candidateStatus" optionLabel="statusName" optionValue="id" [showClear]="true"
-            [required]="true" formControlName="candidateStatusId" placeholder="Choose Candidate Status"></p-dropdown>
-        </div>
         <div class="col-12 ">
           <label for="picture" class="form-label">Profile Picture</label>
         </div>
@@ -89,7 +155,7 @@
               required></p-fileUpload>
           </div>
         </div>
-      </div>
+      </div> -->
 
       <div class="row align-items-center">
         <div class="grid">
@@ -539,6 +605,7 @@
                 <tr>
                   <th>No.</th>
                   <th>Document Name</th>
+                  <th>Document Type</th>
                   <th></th>
                 </tr>
               </ng-template>
@@ -546,6 +613,7 @@
                 <tr>
                   <td>{{ i + 1 }}</td>
                   <td>{{ document.docName }}.{{ document.fileExtension}}</td>
+                  <td>{{ document.fileTypeCode }}</td>
                   <td>
                     <app-button typeBtn="button" (click)="onDeleteDocument(i)" iconBtn="pi pi-trash"
                       backgroundColor="danger"
@@ -568,7 +636,7 @@
 </div>
 
 <!-- Dialog Add Address -->
-<p-dialog header="Add Address" [modal]="true"  [(visible)]="dialogAddress" [style]="{width: '30vw'}">
+<p-dialog header="Add Address" [modal]="true" [(visible)]="dialogAddress" [style]="{width: '30vw'}">
   <form [formGroup]="addressInsertReqDto">
     <pre>{{ addressInsertReqDto.value | json }}</pre>
     <div class="p-fluid p-formgrid grid">
@@ -626,8 +694,9 @@
       <div class="field col-12">
 
         <label htmlFor="cgpa">CGPA <span class="text-red-500"> *</span> </label>
-        <p-inputNumber inputId="cgpa" inputId="minmax" mode="decimal" [min]="0" [max]="4"
-          formControlName="cgpa"></p-inputNumber>
+        <p-inputNumber inputId="cgpa" formControlName="cgpa" mode="decimal" [minFractionDigits]="1"
+          [maxFractionDigits]="4" minValue="0" maxValue="4">
+        </p-inputNumber>
 
       </div>
       <div class="field col-12">
@@ -827,7 +896,7 @@
 
 
 <!-- Dialog Add Project -->
-<p-dialog header="Add Project"  [modal]="true"  [(visible)]="dialogProject" [style]="{width: '30vw'}">
+<p-dialog header="Add Project" [modal]="true" [(visible)]="dialogProject" [style]="{width: '30vw'}">
   <pre>{{ projectInsertReqDto.value | json }}</pre>
   <form [formGroup]="projectInsertReqDto">
     <div class="p-fluid p-formgrid grid">
@@ -861,7 +930,7 @@
 
 
 <!-- Dialog Add Training -->
-<p-dialog header="Add Training" [modal]="true"  [(visible)]="dialogTraining" [style]="{width: '30vw'}">
+<p-dialog header="Add Training" [modal]="true" [(visible)]="dialogTraining" [style]="{width: '30vw'}">
   <form [formGroup]="trainingInsertReqDto">
     <pre>{{ trainingInsertReqDto.value | json }}</pre>
     <div class="p-fluid p-formgrid grid">
@@ -894,7 +963,7 @@
 </p-dialog>
 
 <!-- Dialog Add Documents -->
-<p-dialog header="Add Documents" [modal]="true"  [(visible)]="dialogDocument" [style]="{width: '30vw'}">
+<p-dialog header="Add Documents" [modal]="true" [(visible)]="dialogDocument" [style]="{width: '30vw'}">
 
   <form [formGroup]="documentInsertReqDto">
     <pre>{{ documentInsertReqDto.value | json }}</pre>

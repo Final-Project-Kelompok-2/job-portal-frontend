@@ -131,16 +131,12 @@ export class CandidateUpdateComponent implements OnInit {
             nik: ['', [Validators.required]],
             birthDate: ['', [Validators.required]],
             birthPlace: ['', [Validators.required]],
-            maritalStatusCode: [''],
             maritalStatusId: ['', [Validators.required]],
-            religionCode: [''],
             religionId: ['', [Validators.required]],
-            personTypeCode: [''],
             personTypeId: ['', [Validators.required]],
             fileId: [''],
             file: [''],
             fileExtension: [''],
-            candidateStatusCode: [''],
             candidateStatusId: ['', [Validators.required]]
         })
     })
@@ -355,16 +351,12 @@ export class CandidateUpdateComponent implements OnInit {
                         nik: res.candidateProfile.nik,
                         birthDate: res.candidateProfile.birthDate,
                         birthPlace: res.candidateProfile.birthPlace,
-                        maritalStatusCode: res.candidateProfile.maritalStatusCode,
                         maritalStatusId: res.candidateProfile.maritalStatusId,
-                        religionCode: res.candidateProfile.religionCode,
                         religionId: res.candidateProfile.religionId,
-                        personTypeCode: res.candidateProfile.personTypeCode,
                         personTypeId: res.candidateProfile.personTypeId,
                         fileId: res.candidateProfile.fileId,
                         file: '',
                         fileExtension: '',
-                        candidateStatusCode: res.candidateProfile.candidateStatusCode,
                         candidateStatusId: res.candidateProfile.candidateStatusId
                     }
                 })

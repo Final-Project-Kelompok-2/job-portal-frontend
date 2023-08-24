@@ -10,15 +10,11 @@ export interface CandidateProfileUpdateReqDto {
 	nik : string
 	birthDate : string
 	birthPlace : string
-	maritalStatusCode : string
 	maritalStatusId : string
-	religionCode : string 
 	religionId : string
-	personTypeCode : string 
 	personTypeId : string
 	fileId : string
 	file : string
 	fileExtension : string
-	candidateStatusCode : string
 	candidateStatusId : string
 }

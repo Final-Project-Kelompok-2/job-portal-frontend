@@ -4,7 +4,8 @@
       <app-button type="button" label="Back" class="mr-2" classBtn="p-button-secondary"
         link="/candidates/profile"></app-button>
     </div>
-  </div> <p-card header="Update Candidate Information">
+  </div> 
+  <p-card header="Update Candidate Information">
     <form [formGroup]="candidateUpdateInsertReqDto" (ngSubmit)="onUpdate()">
       <pre>{{ candidateUpdateInsertReqDto.value | json }}</pre>
       <div class="grid">
@@ -582,6 +583,7 @@
                     <tr>
                       <th>No.</th>
                       <th>Document Name</th>
+                      <th>Document Type</th>
                       <th></th>
                     </tr>
                   </ng-template>
@@ -589,6 +591,7 @@
                     <tr>
                       <td>{{ i + 1 }}</td>
                       <td>{{ document.docName }}.{{ document.fileExtension}}</td>
+                      <td>{{ document.fileTypeName }}</td>
                       <td>
                         <app-button typeBtn="button" (click)="showDeleteDocument(document.id)" iconBtn="pi pi-trash"
                           backgroundColor="danger"
@@ -683,7 +686,7 @@
       <div class="field col-12">
 
         <label htmlFor="cgpa">CGPA <span class="text-red-500"> *</span> </label>
-        <p-inputNumber inputId="cgpa" inputId="minmax" mode="decimal" [min]="0" [max]="4"
+        <p-inputNumber inputId="cgpa" inputId="cgpa" mode="decimal" [min]="0" [max]="4"
           formControlName="cgpa"></p-inputNumber>
 
       </div>

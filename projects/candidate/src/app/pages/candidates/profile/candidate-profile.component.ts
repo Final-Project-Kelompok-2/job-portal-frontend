@@ -67,16 +67,20 @@ export class CandidateProfileComponent implements OnInit {
       this.candidateId = profile.userId
     }
 
-    this.candidateUserProfile
-    this.candidateUserAddresses
-    this.candidateUserEducations
-
-
-
-
+    this.candidateUserProfile()
+    this.candidateUserAddresses()
+    this.candidateUserEducations()
+    this.candidateUserFamilies()
+    this.candidateUserDocuments()
+    this.candidateUserLanguages()
+    this.candidateUserProjects()
+    this.candidateUserReferences()
+    this.candidateUserSkills()
+    this.candidateUserTrainings()
+    this.candidateUserWorkings()
   }
 
-  get candidateUserProfile() {
+  candidateUserProfile() {
     return firstValueFrom(this.candidateService.getById(this.candidateId))
       .then((res) => {
         this.candidateUser = res
@@ -89,70 +93,70 @@ export class CandidateProfileComponent implements OnInit {
       })
   }
 
-  get candidateUserAddresses() {
+  candidateUserAddresses() {
     return firstValueFrom(this.candidateAddressService.getByCandidate(this.candidateId))
       .then((res) => {
         this.candidateAddresses = res
       })
   }
 
-  get candidateUserEducations() {
+  candidateUserEducations() {
     return firstValueFrom(this.candidateEducationService.getByCandidate(this.candidateId))
       .then((res) => {
         this.candidateEducations = res
       })
   }
 
-  get candidateUserFamilies() {
+  candidateUserFamilies() {
     return firstValueFrom(this.candidateFamilyService.getByCandidate(this.candidateId))
       .then((res) => {
         this.candidateFamilies = res
       })
   }
 
-  get candidateUserDocuments() {
+  candidateUserDocuments() {
     return firstValueFrom(this.candidateDocumentService.getByCandidate(this.candidateId))
       .then((res) => {
         this.candidateDocuments = res
       })
   }
 
-  get candidateUserLanguages() {
+  candidateUserLanguages() {
     return firstValueFrom(this.candidateLanguageService.getByCandidate(this.candidateId))
       .then((res) => {
         this.candidateLanguages = res
       })
   }
 
-  get candidateUserProjects() {
+  candidateUserProjects() {
     return firstValueFrom(this.candidateProjectExpService.getByCandidate(this.candidateId))
       .then((res) => {
         this.candidateProjects = res
       })
   }
 
-  get candidateUserReferences() {
+  candidateUserReferences() {
     return firstValueFrom(this.candidateReferenceService.getByCandidate(this.candidateId))
       .then((res) => {
         this.candidateReferences = res
       })
   }
 
-  get candidateUserSkills() {
+  candidateUserSkills() {
     return firstValueFrom(this.candidateSkillService.getByCandidate(this.candidateId))
       .then((res) => {
         this.candidateSkills = res
       })
   }
 
-  get candidateUserTrainings() {
+  candidateUserTrainings() {
     return firstValueFrom(this.candidateTrainingExpService.getByCandidate(this.candidateId))
       .then((res) => {
         this.candidateTrainings = res
       })
   }
 
-  get candidateUserWorkings() {
+  candidateUserWorkings() {
     return firstValueFrom(this.candidateWorkExpService.getByCandidate(this.candidateId))
       .then((res) => {
         this.candidateWorks = res
