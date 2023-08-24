@@ -48,6 +48,7 @@ interface Degree {
 })
 export class CandidateCreateComponent implements OnInit {
   loading = false
+  imgUrl!: string
   salaryValue: number = 0
   dialogAddress: boolean = false
   dialogEducation: boolean = false
@@ -106,10 +107,8 @@ export class CandidateCreateComponent implements OnInit {
     birthPlace: ['', Validators.required],
     maritalStatusId: ['', Validators.required],
     religionId: ['', Validators.required],
-    personTypeId: ['', Validators.required],
     file: ['', Validators.required],
     fileExtension: ['', Validators.required],
-    candidateStatusId: ['', Validators.required],
     candidateAddress: this.fb.array(this.addresses),
     candidateDocuments: this.fb.array(this.documents),
     candidateEducations: this.fb.array(this.educations),
@@ -206,6 +205,9 @@ export class CandidateCreateComponent implements OnInit {
   })
 
   ngOnInit(): void {
+
+    this.imgUrl = '../../../assets/emptyProfile.jpeg'
+
     firstValueFrom(this.religionService.getAll()).then((res) => {
       this.religions = res
     })
@@ -303,7 +305,6 @@ export class CandidateCreateComponent implements OnInit {
   onAddAddress() {
     if (this.addressInsertReqDto.valid) {
       const data = this.addressInsertReqDto.getRawValue()
-
       this.candidateAddress.push(this.fb.group(data))
       this.addressInsertReqDto.reset()
       this.dialogAddress = false
@@ -465,7 +466,6 @@ export class CandidateCreateComponent implements OnInit {
   onAddDocument() {
     if (this.documentInsertReqDto.valid) {
       const data = this.documentInsertReqDto.getRawValue()
-      data
       this.candidateDocuments.push(this.fb.group(data))
       this.documentInsertReqDto.reset()
       this.dialogDocument = false

@@ -140,16 +140,12 @@ export class CandidateUpdateComponent implements OnInit {
             nik: ['', [Validators.required]],
             birthDate: ['', [Validators.required]],
             birthPlace: ['', [Validators.required]],
-            maritalStatusCode: [''],
             maritalStatusId: ['', [Validators.required]],
-            religionCode: [''],
             religionId: ['', [Validators.required]],
-            personTypeCode: [''],
             personTypeId: ['', [Validators.required]],
             fileId: [''],
             file: [''],
             fileExtension: [''],
-            candidateStatusCode: [''],
             candidateStatusId: ['', [Validators.required]]
         })
     })
