@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from "@angular/core";
 import { ActivatedRoute, Params, Router } from "@angular/router";
 import { Observable, Subscription, firstValueFrom } from "rxjs";
 import { MenuItem, MessageService } from "primeng/api";
-import { FormArray, NonNullableFormBuilder, Validators } from "@angular/forms";
+import { FormArray, FormControl, NonNullableFormBuilder, Validators } from "@angular/forms";
 import { AssesmentService } from "../../../service/assesment.service";
 import { ApplicantResDto } from "../../../dto/applicant/applicant.res.dto";
 import { AssementResDto } from "../../../dto/assessment/assement.res.dto";
@@ -341,7 +341,7 @@ export class ApplicantDetailComponent implements OnInit {
     }
 
     mcuClick() {
-        this.mcuDataListReqDto.reset();
+        this.mcuDataListReqDto.clear();
         this.mcuReqDto.patchValue({
             applicantId: this.appId,
             applicantCode: this.applicant?.applicantCode,
@@ -371,7 +371,7 @@ export class ApplicantDetailComponent implements OnInit {
         })
     }
 
-   
+
 
 
     fileUpload(event: any) {
@@ -389,30 +389,24 @@ export class ApplicantDetailComponent implements OnInit {
             toBase64(file).then(result => {
                 this.mcuDataListReqDto.push(this.fb.control({
                     fileName: result.substring(result.indexOf(",") + 1, result.length),
-                    fileExtension: file.name.substring(file.name.indexOf(".") + 1, file.name.length)
+                    fileExtension: file.name.substring(file.name.indexOf(".") + 1, file.name.length),
+                    name : file.name
                 })
                 )
             })
         }
     }
 
-    fileRemove(event : any, index:number){
+    fileRemove(event: any) {
         let length = this.mcuDataListReqDto.length
-        console.log('panjang file = '+length)
-        const toBase64 = (file: File) => new Promise<string>((resolve, reject) => {
-            const reader = new FileReader();
-            reader.readAsDataURL(file);
-            reader.onload = () => {
-                if (typeof reader.result === "string") resolve(reader.result)
-            };
-            reader.onerror = error => reject(error);
-        });
         let file = event.file
-        // for (let file of event.files) {
-            toBase64(file).then(() => {
-                this.mcuDataListReqDto.removeAt(file[length+1])
-            })
-        // }
+        for(let i = 0 ; i < length ; i++){
+            if(file.name == this.mcuDataListReqDto.at(i)?.value.name){
+                this.mcuDataListReqDto.removeAt(i);
+
+            }
+        }
+
     }
 
     offeringClick() {
