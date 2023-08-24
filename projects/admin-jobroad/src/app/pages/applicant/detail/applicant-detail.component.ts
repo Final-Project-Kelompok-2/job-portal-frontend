@@ -403,10 +403,14 @@ export class ApplicantDetailComponent implements OnInit {
         for(let i = 0 ; i < length ; i++){
             if(file.name == this.mcuDataListReqDto.at(i)?.value.name){
                 this.mcuDataListReqDto.removeAt(i);
-
+                break;
             }
         }
 
+    }
+
+    fileCancel(){
+        this.mcuDataListReqDto.clear();
     }
 
     offeringClick() {
