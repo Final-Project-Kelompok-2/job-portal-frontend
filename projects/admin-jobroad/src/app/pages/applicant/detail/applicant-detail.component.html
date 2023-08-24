@@ -187,7 +187,7 @@
       <form [formGroup]="mcuReqDto" (ngSubmit)="submitMcu()" >
         <p-fileUpload mode="advanced" chooseLabel="Choose" styleClass="bg-green-700" chooseIcon="pi pi-upload"
           class="form-control mb-2" [multiple]="true" [showUploadButton]="true" type="file" id="picture"
-          (onSelect)="fileUpload($event)" (onRemove)="fileRemove($event)" required></p-fileUpload>
+          (onSelect)="fileUpload($event)" (onRemove)="fileRemove($event)" (onClear)="fileCancel()" required></p-fileUpload>
         <app-button backgroundColor="var(--PRIMARY)" [loading]="loading" typeBtn="submit" label="Add"
           iconBtn="pi pi-plus" class="mt-2"></app-button>
       </form>
