@@ -93,9 +93,7 @@
               <div class="col-4">Status</div>
               <div class="col-1">:</div>
               <div class="col-7">
-                <p-dropdown [options]="candidateStatus" optionLabel="statusName" optionValue="id" [showClear]="true"
-                  [required]="true" formControlName="candidateStatusId" placeholder="Choose Candidate Status"
-                  [style]="{'width':'100%'}"></p-dropdown>
+                {{ candidateUser?.candidateStatus }}
               </div>
             </div>
           </div>
