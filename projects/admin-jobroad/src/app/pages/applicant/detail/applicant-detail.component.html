@@ -184,10 +184,10 @@
       <pre>
         {{mcuReqDto.value | json}}
       </pre>
-      <form [formGroup]="mcuReqDto" (ngSubmit)="submitMcu()">
+      <form [formGroup]="mcuReqDto" (ngSubmit)="submitMcu()" >
         <p-fileUpload mode="advanced" chooseLabel="Choose" styleClass="bg-green-700" chooseIcon="pi pi-upload"
           class="form-control mb-2" [multiple]="true" [showUploadButton]="true" type="file" id="picture"
-          (onSelect)="fileUpload($event)" #index (onRemove)="fileRemove($event,index)" required></p-fileUpload>
+          (onSelect)="fileUpload($event)" #index (onRemove)="fileRemove($event,mcuDataListReqDto.length)" required></p-fileUpload>
         <app-button backgroundColor="var(--PRIMARY)" [loading]="loading" typeBtn="submit" label="Add"
           iconBtn="pi pi-plus" class="mt-2"></app-button>
       </form>

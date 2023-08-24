@@ -226,6 +226,10 @@ export class ApplicantDetailComponent implements OnInit {
         return this.activeIndex == 5;
     }
 
+    get mcuDataListReqDto() {
+        return this.mcuReqDto.get("mcuData") as FormArray
+    }
+
     reject() {
         this.applicantReqDto.patchValue({
             applicantId: this.appId,
@@ -337,6 +341,7 @@ export class ApplicantDetailComponent implements OnInit {
     }
 
     mcuClick() {
+        this.mcuDataListReqDto.reset();
         this.mcuReqDto.patchValue({
             applicantId: this.appId,
             applicantCode: this.applicant?.applicantCode,
@@ -366,9 +371,7 @@ export class ApplicantDetailComponent implements OnInit {
         })
     }
 
-    get mcuDataListReqDto() {
-        return this.mcuReqDto.get("mcuData") as FormArray
-    }
+   
 
 
     fileUpload(event: any) {
@@ -393,9 +396,9 @@ export class ApplicantDetailComponent implements OnInit {
         }
     }
 
-    fileRemove(event : any,index : any){
-        console.log('ini event' + JSON.stringify(event));
-        console.log('ini index ' + index );
+    fileRemove(event : any, index:number){
+        let length = this.mcuDataListReqDto.length
+        console.log('panjang file = '+length)
         const toBase64 = (file: File) => new Promise<string>((resolve, reject) => {
             const reader = new FileReader();
             reader.readAsDataURL(file);
@@ -407,7 +410,7 @@ export class ApplicantDetailComponent implements OnInit {
         let file = event.file
         // for (let file of event.files) {
             toBase64(file).then(() => {
-                this.mcuDataListReqDto.removeAt(file.indexOf)
+                this.mcuDataListReqDto.removeAt(file[length+1])
             })
         // }
     }
