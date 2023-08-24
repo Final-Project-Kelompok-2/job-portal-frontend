@@ -14,7 +14,8 @@ import { ProfileResDto } from "../../../dto/profile/profile.res.dto";
 export class UserProfileComponent implements OnInit {
   loading = false
   imageUrl = ''
-  user! : UserResDto;
+  user? : UserResDto;
+  profileId! : string;
   profileData! : ProfileResDto;
   updateProfileDto = this.fb.group({
     id : ['',Validators.required],
@@ -41,6 +42,7 @@ export class UserProfileComponent implements OnInit {
       }
       firstValueFrom(this.userService.getById(profile.userId)).then(result =>{
         this.user = result
+        this.profileId = this.user?.profileId
         this.getProfile();
       })
       // this.roleCode = profile?.roleCode
@@ -50,11 +52,11 @@ export class UserProfileComponent implements OnInit {
   }
 
   getProfile(){
-    firstValueFrom(this.userService.getProfile(this.user.profileId)).then(result =>{
+    firstValueFrom(this.userService.getProfile(this.profileId)).then(result =>{
       this.profileData = result;
       this.imageUrl = `http://localhost:8080/files/${this.profileData.photo}`
       this.updateProfileDto.patchValue({
-        id : this.user.profileId,
+        id : this.user?.profileId,
         fullName : this.profileData.fullName,
         address : this.profileData.address,
         phoneNumber : this.profileData.phoneNumber
