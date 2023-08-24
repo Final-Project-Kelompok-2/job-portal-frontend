@@ -90,7 +90,7 @@ export class ApplicantDetailComponent implements OnInit {
         applicantId: ['', Validators.required],
         applicantCode: ['', Validators.required],
         statusCode: ['', Validators.required],
-        mcuData: this.fb.array([McuResDto])
+        mcuData: this.fb.array([])
     })
 
     offeringReqDto = this.fb.group({
@@ -226,6 +226,10 @@ export class ApplicantDetailComponent implements OnInit {
         return this.activeIndex == 5;
     }
 
+    get mcuDataListReqDto() {
+        return this.mcuReqDto.get("mcuData") as FormArray
+    }
+
     reject() {
         this.applicantReqDto.patchValue({
             applicantId: this.appId,
@@ -337,6 +341,7 @@ export class ApplicantDetailComponent implements OnInit {
     }
 
     mcuClick() {
+        this.mcuDataListReqDto.reset();
         this.mcuReqDto.patchValue({
             applicantId: this.appId,
             applicantCode: this.applicant?.applicantCode,
@@ -366,13 +371,11 @@ export class ApplicantDetailComponent implements OnInit {
         })
     }
 
-    get mcuDataListReqDto() {
-        return this.mcuReqDto.get("mcuData") as FormArray
-    }
+   
 
 
     fileUpload(event: any) {
-        this.mcuDataListReqDto.clear();
+        // this.mcuDataListReqDto.clear();
         const toBase64 = (file: File) => new Promise<string>((resolve, reject) => {
             const reader = new FileReader();
             reader.readAsDataURL(file);
@@ -391,6 +394,25 @@ export class ApplicantDetailComponent implements OnInit {
                 )
             })
         }
+    }
+
+    fileRemove(event : any, index:number){
+        let length = this.mcuDataListReqDto.length
+        console.log('panjang file = '+length)
+        const toBase64 = (file: File) => new Promise<string>((resolve, reject) => {
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = () => {
+                if (typeof reader.result === "string") resolve(reader.result)
+            };
+            reader.onerror = error => reject(error);
+        });
+        let file = event.file
+        // for (let file of event.files) {
+            toBase64(file).then(() => {
+                this.mcuDataListReqDto.removeAt(file[length+1])
+            })
+        // }
     }
 
     offeringClick() {

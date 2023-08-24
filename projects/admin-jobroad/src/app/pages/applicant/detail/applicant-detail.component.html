@@ -181,10 +181,13 @@
     <!-- Modal Form Insert MCU  -->
     <p-dialog header="Upload Medical Check Up File" [responsive]="true" [breakpoints]="{ '960px': '75vw' }"
       [style]="{ width: '50vw' }" [modal]="true" [(visible)]="mcuForm">
-      <form [formGroup]="mcuReqDto" (ngSubmit)="submitMcu()">
-        <p-fileUpload mode="advanced" chooseLabel="Upload" styleClass="bg-green-700" chooseIcon="pi pi-upload"
-          class="form-control mb-2" [multiple]="true" [showUploadButton]="false" type="file" id="picture"
-          (onSelect)="fileUpload($event)" required></p-fileUpload>
+      <pre>
+        {{mcuReqDto.value | json}}
+      </pre>
+      <form [formGroup]="mcuReqDto" (ngSubmit)="submitMcu()" >
+        <p-fileUpload mode="advanced" chooseLabel="Choose" styleClass="bg-green-700" chooseIcon="pi pi-upload"
+          class="form-control mb-2" [multiple]="true" [showUploadButton]="true" type="file" id="picture"
+          (onSelect)="fileUpload($event)" #index (onRemove)="fileRemove($event,mcuDataListReqDto.length)" required></p-fileUpload>
         <app-button backgroundColor="var(--PRIMARY)" [loading]="loading" typeBtn="submit" label="Add"
           iconBtn="pi pi-plus" class="mt-2"></app-button>
       </form>
