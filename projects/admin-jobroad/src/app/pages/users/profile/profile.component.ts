@@ -66,10 +66,8 @@ export class UserProfileComponent implements OnInit {
   onSubmit(){
     const dataDto = this.updateProfileDto.getRawValue();
     console.log('submit');
-    this.userService.updateProfile(dataDto).subscribe(()=>{
+    firstValueFrom(this.userService.updateProfile(dataDto)).then(()=>{
       this.getProfile();
-     
-      
     })
   }
 

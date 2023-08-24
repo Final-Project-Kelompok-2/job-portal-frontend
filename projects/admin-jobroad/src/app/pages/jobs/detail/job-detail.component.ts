@@ -3,7 +3,7 @@ import { JobService } from "../../../service/job.service";
 import { JobResDto } from "../../../dto/job/job.res.dto";
 import { ApplicantService } from "../../../service/applicant.service";
 import { ApplicantResDto } from "../../../dto/applicant/applicant.res.dto";
-import { Subscription } from "rxjs";
+import { Subscription, firstValueFrom } from "rxjs";
 import { ActivatedRoute } from "@angular/router";
 import { Table } from "primeng/table";
 import { HiringStatusEnum } from "../../../constant/hiring-status.constant";
@@ -25,7 +25,7 @@ export class JobDetailComponent implements OnInit, OnDestroy {
     constructor(private jobService: JobService,
         private applicantService: ApplicantService, private activated: ActivatedRoute) { }
     ngOnInit(): void {
-        this.activated.params.subscribe(param => {
+        firstValueFrom(this.activated.params).then(param => {
             this.jobSubscription = this.jobService.getByDetail(param['id']).subscribe(result => {
                 this.job = result;
             });

@@ -139,7 +139,7 @@ export class ApplicantDetailComponent implements OnInit {
 
 
     ngOnInit(): void {
-        getParams(this.activated, 0).subscribe(params => {
+        firstValueFrom(getParams(this.activated, 0)).then(params => {
             this.jobId = params['jobId'];
             this.appId = params['applicantId'];
             this.assesmentReqDto.patchValue({
@@ -278,7 +278,7 @@ export class ApplicantDetailComponent implements OnInit {
     }
     assesmentNotesUpdate() {
         const data = this.assesmentNotesReqDto.getRawValue();
-        this.assesmentService.updateNotes(data).subscribe(() => {
+        firstValueFrom(this.assesmentService.updateNotes(data)).then(() => {
             this.assesmentNoteForm = false;
             this.getAssesmentData();
             this.assesmentNotesReqDto.reset();
@@ -304,7 +304,7 @@ export class ApplicantDetailComponent implements OnInit {
     }
     interviewNotesUpdate() {
         const data = this.reviewReqDto.getRawValue();
-        this.reviewService.updateNotes(data).subscribe(() => {
+        firstValueFrom(this.reviewService.updateNotes(data)).then(() => {
             this.interviewNoteForm = false;
             this.reviewReqDto.reset();
             this.getReviewData();

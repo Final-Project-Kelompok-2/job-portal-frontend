@@ -15,7 +15,7 @@ import { BenefitService } from "../../../service/benefit.service";
 import { QuestionService } from "../../../service/question.service";
 import { FileUpload } from "primeng/fileupload";
 import { RoleCodeEnum } from "../../../constant/user-role.constant";
-import { Subscription } from "rxjs";
+import { Subscription, firstValueFrom } from "rxjs";
 
 @Component({
   selector: 'job-create',

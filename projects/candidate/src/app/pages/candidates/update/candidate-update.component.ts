@@ -36,6 +36,7 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { FileUpload } from "primeng/fileupload";
 import { AuthService } from "../../../service/auth.service";
 import { CandidateStatusService } from "../../../service/candidate-status.service";
+import { firstValueFrom } from "rxjs";
 
 interface Salutation {
     value: string;
@@ -273,7 +274,7 @@ export class CandidateUpdateComponent implements OnInit {
             this.candidateId = profile.userId
         }
 
-        this.candidateUserProfile
+        this.candidateUserProfile()
         this.candidateUserAddresses
         this.candidateUserEducations
         this.candidateUserWorkings
@@ -285,23 +286,23 @@ export class CandidateUpdateComponent implements OnInit {
         this.candidateUserReferences
         this.candidateUserDocuments
 
-        this.religionService.getAll().subscribe((res) => {
+        firstValueFrom(this.religionService.getAll()).then((res) => {
             this.religions = res
         })
 
-        this.personTypeService.getAll().subscribe((res) => {
+        firstValueFrom(this.personTypeService.getAll()).then((res) => {
             this.types = res
         })
 
-        this.candidateStatusService.getAll().subscribe((res) => {
+        firstValueFrom(this.candidateStatusService.getAll()).then((res) => {
             this.candidateStatus = res
         })
 
-        this.maritalStatusService.getAll().subscribe((res) => {
+        firstValueFrom(this.maritalStatusService.getAll()).then((res) => {
             this.maritals = res
         })
 
-        this.fileTypeService.getAll().subscribe((res) => {
+        firstValueFrom(this.fileTypeService.getAll()).then((res) => {
             this.fileTypes = res
         })
 
@@ -327,9 +328,9 @@ export class CandidateUpdateComponent implements OnInit {
 
     }
 
-    get candidateUserProfile() {
-        return this.candidateService.getById(this.candidateId)
-            .subscribe((res) => {
+    candidateUserProfile() {
+        return firstValueFrom(this.candidateService.getById(this.candidateId)
+            ).then((res) => {
                 this.candidateUser = res
 
                 if (this.candidateUser?.candidateProfile?.fileId) {
@@ -417,71 +418,71 @@ export class CandidateUpdateComponent implements OnInit {
     }
 
     get candidateUserAddresses() {
-        return this.candidateAddressService.getByCandidate(this.candidateId)
-            .subscribe((res) => {
+        return firstValueFrom(this.candidateAddressService.getByCandidate(this.candidateId)
+            ).then((res) => {
                 this.candidateAddresses = res
             })
     }
 
     get candidateUserEducations() {
-        return this.candidateEducationService.getByCandidate(this.candidateId)
-            .subscribe((res) => {
+        return firstValueFrom(this.candidateEducationService.getByCandidate(this.candidateId)
+            ).then((res) => {
                 this.candidateEducations = res
             })
     }
 
     get candidateUserWorkings() {
-        return this.candidateWorkExpService.getByCandidate(this.candidateId)
-            .subscribe((res) => {
+        return firstValueFrom(this.candidateWorkExpService.getByCandidate(this.candidateId)
+            ).then((res) => {
                 this.candidateWorks = res
             })
     }
 
     get candidateUserTrainings() {
-        return this.candidateTrainingExpService.getByCandidate(this.candidateId)
-            .subscribe((res) => {
+        return firstValueFrom(this.candidateTrainingExpService.getByCandidate(this.candidateId)
+            ).then((res) => {
                 this.candidateTrainings = res
             })
     }
 
     get candidateUserProjects() {
-        return this.candidateProjectExpService.getByCandidate(this.candidateId)
-            .subscribe((res) => {
+        return firstValueFrom(this.candidateProjectExpService.getByCandidate(this.candidateId)
+            ).then((res) => {
                 this.candidateProjects = res
             })
     }
 
     get candidateUserSkills() {
-        return this.candidateSkillService.getByCandidate(this.candidateId)
-            .subscribe((res) => {
+        return firstValueFrom(this.candidateSkillService.getByCandidate(this.candidateId)
+            ).then((res) => {
                 this.candidateSkills = res
             })
     }
 
     get candidateUserLanguages() {
-        return this.candidateLanguageService.getByCandidate(this.candidateId)
-            .subscribe((res) => {
+        return firstValueFrom(this.candidateLanguageService.getByCandidate(this.candidateId)
+            ).then((res) => {
                 this.candidateLanguages = res
             })
     }
 
     get candidateUserFamilies() {
-        return this.candidateFamilyService.getByCandidate(this.candidateId)
-            .subscribe((res) => {
+        return firstValueFrom(this.candidateFamilyService.getByCandidate(this.candidateId)
+            ).then((res) => {
                 this.candidateFamilies = res
             })
     }
 
     get candidateUserReferences() {
-        return this.candidateReferenceService.getByCandidate(this.candidateId)
-            .subscribe((res) => {
+        return firstValueFrom(this.candidateReferenceService.getByCandidate(this.candidateId)
+            ).then((res) => {
                 this.candidateReferences = res
             })
     }
 
     get candidateUserDocuments() {
-        return this.candidateDocumentService.getByCandidate(this.candidateId)
-            .subscribe((res) => {
+        return firstValueFrom(this.candidateDocumentService.getByCandidate(this.candidateId)
+            ).then((res) => {
                 this.candidateDocuments = res
             })
     }
@@ -589,7 +590,7 @@ export class CandidateUpdateComponent implements OnInit {
     onAddAddress() {
         if (this.addressInsertReqDto.valid) {
             const data = this.addressInsertReqDto.getRawValue()
-            this.candidateAddressService.create(data).subscribe((res) => {
+            firstValueFrom(this.candidateAddressService.create(data)).then((res) => {
                 this.candidateUserAddresses
                 this.addressInsertReqDto.reset()
                 this.dialogAddress = false
@@ -600,7 +601,7 @@ export class CandidateUpdateComponent implements OnInit {
     onAddEducation() {
         if (this.educationInsertReqDto.valid) {
             const data = this.educationInsertReqDto.getRawValue()
-            this.candidateEducationService.create(data).subscribe((res) => {
+            firstValueFrom(this.candidateEducationService.create(data)).then((res) => {
                 this.candidateUserEducations
                 this.educationInsertReqDto.reset()
                 this.dialogEducation = false
@@ -611,7 +612,7 @@ export class CandidateUpdateComponent implements OnInit {
     onAddWorking() {
         if (this.workingInsertReqDto.valid) {
             const data = this.workingInsertReqDto.getRawValue()
-            this.candidateWorkExpService.create(data).subscribe((res) => {
+            firstValueFrom(this.candidateWorkExpService.create(data)).then((res) => {
                 this.candidateUserWorkings
                 this.workingInsertReqDto.reset()
                 this.dialogWorking = false
@@ -622,7 +623,7 @@ export class CandidateUpdateComponent implements OnInit {
     onAddTraining() {
         if (this.trainingInsertReqDto.valid) {
             const data = this.trainingInsertReqDto.getRawValue()
-            this.candidateTrainingExpService.create(data).subscribe((res) => {
+            firstValueFrom(this.candidateTrainingExpService.create(data)).then((res) => {
                 this.candidateUserTrainings
                 this.trainingInsertReqDto.reset()
                 this.dialogTraining = false
@@ -633,7 +634,7 @@ export class CandidateUpdateComponent implements OnInit {
     onAddProject() {
         if (this.projectInsertReqDto.valid) {
             const data = this.projectInsertReqDto.getRawValue()
-            this.candidateProjectExpService.create(data).subscribe((res) => {
+            firstValueFrom(this.candidateProjectExpService.create(data)).then((res) => {
                 this.candidateUserProjects
                 this.projectInsertReqDto.reset()
                 this.dialogProject = false
@@ -644,7 +645,7 @@ export class CandidateUpdateComponent implements OnInit {
     onAddSkill() {
         if (this.skillInsertReqDto.valid) {
             const data = this.skillInsertReqDto.getRawValue()
-            this.candidateSkillService.create(data).subscribe((res) => {
+            firstValueFrom(this.candidateSkillService.create(data)).then((res) => {
                 this.candidateUserSkills
                 this.skillInsertReqDto.reset()
                 this.dialogSkill = false
@@ -655,7 +656,7 @@ export class CandidateUpdateComponent implements OnInit {
     onAddLanguage() {
         if (this.languageInsertReqDto.valid) {
             const data = this.languageInsertReqDto.getRawValue()
-            this.candidateLanguageService.create(data).subscribe((res) => {
+            firstValueFrom(this.candidateLanguageService.create(data)).then((res) => {
                 this.candidateUserLanguages
                 this.languageInsertReqDto.reset()
                 this.dialogLanguage = false
@@ -666,7 +667,7 @@ export class CandidateUpdateComponent implements OnInit {
     onAddFamily() {
         if (this.familyInsertReqDto.valid) {
             const data = this.familyInsertReqDto.getRawValue()
-            this.candidateFamilyService.create(data).subscribe((res) => {
+            firstValueFrom(this.candidateFamilyService.create(data)).then((res) => {
                 this.candidateUserFamilies
                 this.familyInsertReqDto.reset()
                 this.dialogFamily = false
@@ -677,7 +678,7 @@ export class CandidateUpdateComponent implements OnInit {
     onAddReference() {
         if (this.referenceInsertReqDto.valid) {
             const data = this.referenceInsertReqDto.getRawValue()
-            this.candidateReferenceService.create(data).subscribe((res) => {
+            firstValueFrom(this.candidateReferenceService.create(data)).then((res) => {
                 this.candidateUserReferences
                 this.referenceInsertReqDto.reset()
                 this.dialogReference = false
@@ -688,7 +689,7 @@ export class CandidateUpdateComponent implements OnInit {
     onAddDocument() {
         if (this.documentInsertReqDto.valid) {
             const data = this.documentInsertReqDto.getRawValue()
-            this.candidateDocumentService.create(data).subscribe((res) => {
+            firstValueFrom(this.candidateDocumentService.create(data)).then((res) => {
                 this.candidateUserDocuments
                 this.documentInsertReqDto.reset()
                 this.dialogDocument = false
@@ -697,70 +698,70 @@ export class CandidateUpdateComponent implements OnInit {
     }
 
     onDeleteAddress() {
-        this.candidateAddressService.delete(this.addressId).subscribe((res) => {
+        firstValueFrom(this.candidateAddressService.delete(this.addressId)).then((res) => {
             this.candidateUserAddresses
             this.dialogDeleteAddress = false
         })
     }
 
     onDeleteTraining() {
-        this.candidateTrainingExpService.delete(this.trainingId).subscribe((res) => {
+        firstValueFrom(this.candidateTrainingExpService.delete(this.trainingId)).then((res) => {
             this.candidateUserTrainings
             this.dialogDeleteTraining = false
         })
     }
 
     onDeleteEducation() {
-        this.candidateEducationService.delete(this.educationId).subscribe((res) => {
+        firstValueFrom(this.candidateEducationService.delete(this.educationId)).then((res) => {
             this.candidateUserEducations
             this.dialogDeleteEducation = false
         })
     }
 
     onDeleteWorking() {
-        this.candidateWorkExpService.delete(this.workingId).subscribe((res) => {
+        firstValueFrom(this.candidateWorkExpService.delete(this.workingId)).then((res) => {
             this.candidateUserWorkings
             this.dialogDeleteWorking = false
         })
     }
 
     onDeleteProject() {
-        this.candidateProjectExpService.delete(this.projectId).subscribe((res) => {
+        firstValueFrom(this.candidateProjectExpService.delete(this.projectId)).then((res) => {
             this.candidateUserProjects
             this.dialogDeleteProject = false
         })
     }
 
     onDeleteSkill() {
-        this.candidateSkillService.delete(this.skillId).subscribe((res) => {
+        firstValueFrom(this.candidateSkillService.delete(this.skillId)).then((res) => {
             this.candidateUserSkills
             this.dialogDeleteSkill = false
         })
     }
 
     onDeleteLanguage() {
-        this.candidateLanguageService.delete(this.languageId).subscribe((res) => {
+        firstValueFrom(this.candidateLanguageService.delete(this.languageId)).then((res) => {
             this.candidateUserLanguages
             this.dialogDeleteLanguage = false
         })
     }
 
     onDeleteFamily() {
-        this.candidateFamilyService.delete(this.familyId).subscribe((res) => {
+        firstValueFrom(this.candidateFamilyService.delete(this.familyId)).then((res) => {
             this.candidateUserFamilies
             this.dialogDeleteFamily = false
         })
     }
 
     onDeleteReference() {
-        this.candidateReferenceService.delete(this.referenceId).subscribe((res) => {
+        firstValueFrom(this.candidateReferenceService.delete(this.referenceId)).then((res) => {
             this.candidateUserReferences
             this.dialogDeleteReference = false
         })
     }
 
     onDeleteDocument() {
-        this.candidateDocumentService.delete(this.documentId).subscribe((res) => {
+        firstValueFrom(this.candidateDocumentService.delete(this.documentId)).then((res) => {
             this.candidateUserDocuments
             this.dialogDeleteDocument = false
         })
@@ -769,7 +770,7 @@ export class CandidateUpdateComponent implements OnInit {
     onUpdate() {
         if (this.candidateUpdateInsertReqDto.valid) {
             const data = this.candidateUpdateInsertReqDto.getRawValue()
-            this.candidateService.update(data).subscribe((res) => {
+            firstValueFrom(this.candidateService.update(data)).then((res) => {
                 this.router.navigateByUrl(`/candidates/profile`)
             })
         }

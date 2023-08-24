@@ -12,6 +12,7 @@ import { CandidateUserResDto } from "../../dto/candidate-user/candidate-user.res
 import { BenefitService } from "../../service/benefit.service";
 import { QuestionService } from "../../service/question.service";
 import { CandidateUserService } from "../../service/candidate-user.service";
+import { firstValueFrom } from "rxjs";
 
 @Component({
   selector: 'dashboard',
@@ -55,42 +56,42 @@ export class DashboardComponent implements OnInit {
   }
 
   getCompanies() {
-    this.companyService.getAll().subscribe(result => {
+    firstValueFrom(this.companyService.getAll()).then(result => {
       this.companies = result
       this.companySize = this.companies.length
     })
   }
 
   getUsers() {
-    this.userService.getAllUser().subscribe(result => {
+    firstValueFrom(this.userService.getAllUser()).then(result => {
       this.users = result
       this.userSize = this.users.length
     })
   }
 
   getAllJobs() {
-    this.jobService.getAll().subscribe(result => {
+    firstValueFrom(this.jobService.getAll()).then(result => {
       this.jobs = result;
       this.jobSize = this.jobs.length
     })
   }
 
   getAllBenefits() {
-    this.benefitService.getAll().subscribe(result => {
+    firstValueFrom(this.benefitService.getAll()).then(result => {
       this.benefits = result;
       this.benefitSize = this.benefits.length
     })
   }
 
   getAllQuestions() {
-    this.questionService.getAll().subscribe(result => {
+    firstValueFrom(this.questionService.getAll()).then(result => {
       this.questions = result;
       this.questionSize = this.questions.length
     })
   }
 
   getAllCandidates() {
-    this.candidateService.getAll().subscribe(result => {
+    firstValueFrom(this.candidateService.getAll()).then(result => {
       this.candidates = result
       this.candidateSize = this.candidates.length
     })

@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core"
 import { Table } from "primeng/table";
 import { UserService } from "../../../service/user.service";
 import { UserResDto } from "../../../dto/user/user.res.dto";
+import { firstValueFrom } from "rxjs";
 
 
 @Component({
@@ -26,7 +27,7 @@ export class UserListComponent implements OnInit {
   }
 
   getUsers() {
-    this.userService.getAllUser().subscribe(result => {
+    firstValueFrom(this.userService.getAllUser()).then(result => {
       this.users = result
     })
   }

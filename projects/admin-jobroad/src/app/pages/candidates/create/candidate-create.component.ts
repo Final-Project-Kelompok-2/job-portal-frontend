@@ -23,6 +23,7 @@ import { CandidateUserService } from "../../../service/candidate-user.service";
 import { CandidateDocumentInsertReqDto } from "../../../dto/candidate-document/candidate-document-insert.req.dto";
 import { FileTypeService } from "../../../service/file-type.service";
 import { FileTypeResDto } from "../../../dto/file-type/file-type.res.dto";
+import { firstValueFrom } from "rxjs";
 
 interface Salutation {
   value: string;
@@ -205,23 +206,23 @@ export class CandidateCreateComponent implements OnInit {
   })
 
   ngOnInit(): void {
-    this.religionService.getAll().subscribe((res) => {
+    firstValueFrom(this.religionService.getAll()).then((res) => {
       this.religions = res
     })
 
-    this.personTypeService.getAll().subscribe((res) => {
+    firstValueFrom(this.personTypeService.getAll()).then((res) => {
       this.types = res
     })
 
-    this.candidateStatusService.getAll().subscribe((res) => {
+    firstValueFrom(this.candidateStatusService.getAll()).then((res) => {
       this.candidateStatus = res
     })
 
-    this.maritalStatusService.getAll().subscribe((res) => {
+    firstValueFrom(this.maritalStatusService.getAll()).then((res) => {
       this.maritals = res
     })
 
-    this.fileTypeService.getAll().subscribe((res) => {
+    firstValueFrom(this.fileTypeService.getAll()).then((res) => {
       this.fileTypes = res
     })
 
@@ -289,7 +290,7 @@ export class CandidateCreateComponent implements OnInit {
   onSubmit() {
     if (this.candidateMasterInsertReqDto.valid) {
       const data = this.candidateMasterInsertReqDto.getRawValue()
-      this.candidateService.register(data).subscribe((res) => {
+      firstValueFrom(this.candidateService.register(data)).then((res) => {
         this.router.navigateByUrl('/candidates')
       })
     }

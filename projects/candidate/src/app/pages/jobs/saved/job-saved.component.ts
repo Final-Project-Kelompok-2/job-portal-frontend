@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { SavedJobService } from "../../../service/saved-job.service";
 import { SavedJobResDto } from "../../../dto/saved-job/saved-job.res.dto";
 import { Router } from "@angular/router";
+import { firstValueFrom } from "rxjs";
 
 @Component({
   selector: 'job-saved',
@@ -25,7 +26,7 @@ export class JobSavedComponent implements OnInit {
   }
 
   getSavedJobs() {
-    this.savedJobService.getByPrincipal().subscribe(result => {
+    firstValueFrom(this.savedJobService.getByPrincipal()).then(result => {
       this.savedJobs = result
       this.savedJobsLength = this.savedJobs.length
     })
