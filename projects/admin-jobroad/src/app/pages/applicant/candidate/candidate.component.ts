@@ -2,7 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { CandidateUserResDto } from "../../../dto/candidate-user/candidate-user.res.dto";
 import { CandidateUserService } from "../../../service/candidate-user.service";
 import { ActivatedRoute, Params } from "@angular/router";
-import { Observable } from "rxjs";
+import { Observable, firstValueFrom } from "rxjs";
 import { CandidateAddressResDto } from "../../../dto/candidate-address/candidate-address.res.dto";
 import { CandidateEducationService } from "../../../service/candidate-education.service";
 import { CandidateEducationResDto } from "../../../dto/candidate-education/candidate-education.res.dto";
@@ -75,18 +75,18 @@ export class ApplicantCandidateDetailComponent implements OnInit {
 
     }
     ngOnInit(): void {
-        this.activated.params.subscribe(params => {
-            this.applicantService.getById(params['applicantId']).subscribe(result => {
+        firstValueFrom(this.activated.params).then(params => {
+            firstValueFrom(this.applicantService.getById(params['applicantId'])).then(result => {
                 console.log(result)
                 this.applicant = result
                 console.log(this.applicant)
                 this.getCandidateData();
             })
-          
+
         })
 
 
-        
+
 
     }
 
@@ -94,58 +94,58 @@ export class ApplicantCandidateDetailComponent implements OnInit {
         console.log("Applicant => ", this.applicant)
         this.candidateId = this.applicant.candidateId;
         console.log("Candidate Id => ", this.applicant?.candidateId)
-            this.candidateService.getCandidateUserById(this.candidateId)
-            .subscribe((res) => {
+        firstValueFrom(this.candidateService.getCandidateUserById(this.candidateId))
+            .then((res) => {
                 this.candidateUser = res
             })
 
-        this.candidateAddressService.getByCandidate(this.candidateId)
-            .subscribe((res) => {
+        firstValueFrom(this.candidateAddressService.getByCandidate(this.candidateId))
+            .then((res) => {
                 this.candidateAddresses = res
             })
 
-        this.candidateEducationService.getByCandidate(this.candidateId)
-            .subscribe((res) => {
+        firstValueFrom(this.candidateEducationService.getByCandidate(this.candidateId))
+            .then((res) => {
                 this.candidateEducations = res
             })
 
-        this.candidateFamilyService.getByCandidate(this.candidateId)
-            .subscribe((res) => {
+            firstValueFrom(this.candidateFamilyService.getByCandidate(this.candidateId))
+            .then((res) => {
                 this.candidateFamilies = res
             })
 
-        this.candidateLanguageService.getByCandidate(this.candidateId)
-            .subscribe((res) => {
+            firstValueFrom(this.candidateLanguageService.getByCandidate(this.candidateId))
+            .then((res) => {
                 this.candidateLanguages = res
             })
 
-        this.candidateProjectExpService.getByCandidate(this.candidateId)
-            .subscribe((res) => {
+            firstValueFrom(this.candidateProjectExpService.getByCandidate(this.candidateId))
+            .then((res) => {
                 this.candidateProjects = res
             })
 
-        this.candidateReferenceService.getByCandidate(this.candidateId)
-            .subscribe((res) => {
+            firstValueFrom(this.candidateReferenceService.getByCandidate(this.candidateId))
+            .then((res) => {
                 this.candidateReferences = res
             })
 
-        this.candidateSkillService.getByCandidate(this.candidateId)
-            .subscribe((res) => {
+            firstValueFrom( this.candidateSkillService.getByCandidate(this.candidateId))
+            .then((res) => {
                 this.candidateSkills = res
             })
 
-        this.candidateTrainingExpService.getByCandidate(this.candidateId)
-            .subscribe((res) => {
+            firstValueFrom(this.candidateTrainingExpService.getByCandidate(this.candidateId))
+            .then((res) => {
                 this.candidateTrainings = res
             })
 
-        this.candidateWorkExpService.getByCandidate(this.candidateId)
-            .subscribe((res) => {
+            firstValueFrom(this.candidateWorkExpService.getByCandidate(this.candidateId))
+            .then((res) => {
                 this.candidateWorks = res
-            })    
+            })
 
-        this.candidateDocumentService.getByCandidate(this.candidateId)
-            .subscribe((res) => {
+            firstValueFrom(this.candidateDocumentService.getByCandidate(this.candidateId))
+            .then((res) => {
                 this.candidateDocuments = res
             })
     }

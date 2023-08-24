@@ -3,6 +3,7 @@ import { JobService } from "../../../service/job.service";
 import { JobResDto } from "../../../dto/job/job.res.dto";
 import { AuthService } from "../../../service/auth.service";
 import { SavedJobService } from "../../../service/saved-job.service";
+import { firstValueFrom } from "rxjs";
 
 @Component({
     selector: "job-list",
@@ -31,7 +32,7 @@ export class JobListComponent implements OnInit {
     }
 
     getAllJob() {
-        this.jobService.getAll().subscribe(result => {
+        firstValueFrom(this.jobService.getAll()).then(result => {
             this.jobs = result
         })
     }
@@ -40,13 +41,13 @@ export class JobListComponent implements OnInit {
         const savedJobDto = {
             jobId
         }
-        this.savedJobService.insert(savedJobDto).subscribe(result => {
+        firstValueFrom(this.savedJobService.insert(savedJobDto)).then(result => {
             this.getAllJob()
         })
     }
 
     deleteSavedJob(jobId: string) {
-        this.savedJobService.delete(jobId).subscribe(result => {
+        firstValueFrom(this.savedJobService.delete(jobId)).then(result => {
             this.getAllJob()
         })
     }

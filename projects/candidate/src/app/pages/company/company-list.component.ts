@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { CompanyService } from "../../service/company.service";
 import { CompanyResDto } from "../../dto/company/company.res.dto";
+import { firstValueFrom } from "rxjs";
 
 @Component({
     selector: 'company-list',
@@ -20,7 +21,7 @@ export class CompanyListComponent implements OnInit {
     }
 
     getCompanies() {
-        this.companyService.getAll().subscribe(result => {
+        firstValueFrom(this.companyService.getAll()).then(result => {
             this.companies = result
         })
     }

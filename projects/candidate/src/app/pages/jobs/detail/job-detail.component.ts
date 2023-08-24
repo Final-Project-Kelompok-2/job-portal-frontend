@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { JobResDto } from "../../../dto/job/job.res.dto";
 import { JobService } from "../../../service/job.service";
 import { ApplicantService } from "../../../service/applicant.service";
+import { firstValueFrom } from "rxjs";
 
 @Component({
     selector: 'job-detail',
@@ -26,14 +27,14 @@ export class JobDetailComponent implements OnInit {
         const applicantDto = {
             jobId
         }
-        this.applicantService.create(applicantDto).subscribe(result => {
+        firstValueFrom(this.applicantService.create(applicantDto)).then(result => {
             this.router.navigateByUrl("/dashboard")
 
         })
     }
 
     ngOnInit(): void {
-        this.activated.params.subscribe(result => {
+        firstValueFrom(this.activated.params).then(result => {
             const id = result["id"]
             this.jobId = id
             this.getJobDetail(this.jobId)
@@ -41,7 +42,7 @@ export class JobDetailComponent implements OnInit {
     }
 
     getJobDetail(jobId: string) {
-        this.jobService.getDetail(jobId).subscribe(result => {
+        firstValueFrom(this.jobService.getDetail(jobId)).then(result => {
             this.job = result;
         })
     }

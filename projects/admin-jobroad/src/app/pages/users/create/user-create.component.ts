@@ -8,6 +8,7 @@ import { UserService } from "../../../service/user.service";
 import { RoleResDto } from "../../../dto/role/role.res.dto";
 import { PersonTypeService } from "../../../service/person-type.service";
 import { PersonTypeResDto } from "../../../dto/person-type/person-type.res.dto";
+import { firstValueFrom } from "rxjs";
 
 
 @Component({
@@ -39,7 +40,7 @@ export class UserCreateComponent implements OnInit, AfterViewChecked {
 
 
   getRoles() {
-    this.roleService.getAll().subscribe(result => {
+    firstValueFrom(this.roleService.getAll()).then(result => {
       this.roles = result
     })
   }
@@ -52,7 +53,7 @@ export class UserCreateComponent implements OnInit, AfterViewChecked {
     const data = this.userReqDto.getRawValue()
     if (this.userReqDto.valid) {
       this.loading = true
-      this.userService.create(data).subscribe(result => {
+      firstValueFrom(this.userService.create(data)).then(result => {
         this.loading = false
         console.log(result);
         this.router.navigateByUrl('users')

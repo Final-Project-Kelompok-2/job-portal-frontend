@@ -3,6 +3,7 @@ import { JobResDto } from "../../../dto/job/job.res.dto";
 import { JobService } from "../../../service/job.service";
 import { ApplicantService } from "../../../service/applicant.service";
 import { ApplicantResDto } from "../../../dto/applicant/applicant.res.dto";
+import { firstValueFrom } from "rxjs";
 
 @Component({
     selector: 'job-applied',
@@ -24,7 +25,7 @@ export class JobAppliedComponent implements OnInit {
 
 
     getAppliedJob() {
-        this.applicantService.getByPrincipal().subscribe(result => {
+        firstValueFrom(this.applicantService.getByPrincipal()).then(result => {
             this.appliedJob = result
         })
     }

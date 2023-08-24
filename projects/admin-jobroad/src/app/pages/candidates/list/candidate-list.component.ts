@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { Table } from "primeng/table";
 import { CandidateUserResDto } from "../../../dto/candidate-user/candidate-user.res.dto";
 import { CandidateUserService } from "../../../service/candidate-user.service";
+import { firstValueFrom } from "rxjs";
 
 @Component({
   selector: 'candidate-list',
@@ -20,7 +21,7 @@ export class CandidateListComponent implements OnInit {
   }
 
   getAllCandidates() {
-    this.candidateService.getAll().subscribe(result => {
+    firstValueFrom(this.candidateService.getAll()).then(result => {
       this.candidates = result
     })
   }

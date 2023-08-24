@@ -3,6 +3,7 @@ import { EmployeeService } from "../../service/employee.service";
 import { EmployeeResDto } from "../../dto/employee/employee.res.dto";
 import { NonNullableFormBuilder, Validators } from "@angular/forms";
 import { BlacklistService } from "../../service/blacklist.service";
+import { firstValueFrom } from "rxjs";
 
 @Component({
     selector: 'employees',
@@ -48,7 +49,7 @@ export class EmployeesComponent implements OnInit {
 
 
     getEmployees() {
-        this.employeeService.getAll().subscribe(result => {
+        firstValueFrom(this.employeeService.getAll()).then(result => {
             this.employees = result;
         })
     }
@@ -56,7 +57,7 @@ export class EmployeesComponent implements OnInit {
     onSubmit() {
         if (this.blacklistReqDto.valid) {
             const data = this.blacklistReqDto.getRawValue()
-            this.blacklistService.create(data).subscribe(() => {
+            firstValueFrom(this.blacklistService.create(data)).then(() => {
                 this.getEmployees()
             })
         }
