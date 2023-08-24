@@ -24,10 +24,11 @@ import { SidebarModule } from 'primeng/sidebar';
 import { ImageModule } from 'primeng/image';
 import { ChartModule } from 'primeng/chart';
 import { DataViewModule, DataViewLayoutOptions } from 'primeng/dataview';
+import { BadgeModule } from 'primeng/badge';
 
 @NgModule({
   imports: [
-    ReactiveFormsModule,FormsModule,
+    ReactiveFormsModule, FormsModule,
 
     InputTextModule,
     MenubarModule,
@@ -53,10 +54,11 @@ import { DataViewModule, DataViewLayoutOptions } from 'primeng/dataview';
     ToastModule,
     ImageModule,
     ChartModule,
-    DataViewModule
+    DataViewModule,
+    BadgeModule
   ],
   exports: [
-    FormsModule,ReactiveFormsModule,
+    FormsModule, ReactiveFormsModule,
 
     InputTextModule,
     SidebarModule,
@@ -82,7 +84,8 @@ import { DataViewModule, DataViewLayoutOptions } from 'primeng/dataview';
     ToastModule,
     ImageModule,
     ChartModule,
-    DataViewModule
+    DataViewModule,
+    BadgeModule
   ]
 })
 export class SharedModuleComponent {
