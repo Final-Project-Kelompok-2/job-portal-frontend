@@ -420,8 +420,6 @@ export class ApplicantDetailComponent implements OnInit {
             applicantCode: this.applicant?.applicantCode
         })
         this.hiringForm = !this.hiringForm;
-
-
     }
 
     hiringSubmit() {
