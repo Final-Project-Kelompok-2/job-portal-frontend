@@ -41,21 +41,36 @@ export class UserProfileComponent implements OnInit {
       }
       firstValueFrom(this.userService.getById(profile.userId)).then(result =>{
         this.user = result
-        firstValueFrom(this.userService.getProfile(this.user.profileId)).then(result =>{
-          this.profileData = result;
-          this.updateProfileDto.patchValue({
-            id : this.user.profileId,
-            fullName : this.profileData.fullName,
-            address : this.profileData.address,
-            phoneNumber : this.profileData.phoneNumber
-            
-          })
-        })
+        this.getProfile();
       })
       // this.roleCode = profile?.roleCode
       // this.profileName = profile.fullName
 
     }
+  }
+
+  getProfile(){
+    firstValueFrom(this.userService.getProfile(this.user.profileId)).then(result =>{
+      this.profileData = result;
+      this.imageUrl = `http://localhost:8080/files/${this.profileData.photo}`
+      this.updateProfileDto.patchValue({
+        id : this.user.profileId,
+        fullName : this.profileData.fullName,
+        address : this.profileData.address,
+        phoneNumber : this.profileData.phoneNumber
+        
+      })
+    })
+  }
+
+  onSubmit(){
+    const dataDto = this.updateProfileDto.getRawValue();
+    console.log('submit');
+    this.userService.updateProfile(dataDto).subscribe(()=>{
+      this.getProfile();
+     
+      
+    })
   }
 
   fileUpload(event: any,fileUpload : FileUpload) {
