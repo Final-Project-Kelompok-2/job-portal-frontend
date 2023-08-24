@@ -10,7 +10,7 @@
     <pre>
       {{updateProfileDto.value | json}}
     </pre>
-      <form [formGroup]="updateProfileDto">
+      <form [formGroup]="updateProfileDto" (ngSubmit)="onSubmit()">
         <div class="p-fluid p-formgrid grid">
           <div class="field col-12 md:col-6">
             <label htmlFor="fullName">Full Name <span class="text-red-500">*</span> </label>
