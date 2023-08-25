@@ -25,6 +25,7 @@ import { ImageModule } from 'primeng/image';
 import { ChartModule } from 'primeng/chart';
 import { DataViewModule, DataViewLayoutOptions } from 'primeng/dataview';
 import { BadgeModule } from 'primeng/badge';
+import { CalendarModule } from 'primeng/calendar';
 
 @NgModule({
   imports: [
@@ -55,7 +56,8 @@ import { BadgeModule } from 'primeng/badge';
     ImageModule,
     ChartModule,
     DataViewModule,
-    BadgeModule
+    BadgeModule,
+    CalendarModule
   ],
   exports: [
     FormsModule, ReactiveFormsModule,
@@ -85,7 +87,8 @@ import { BadgeModule } from 'primeng/badge';
     ImageModule,
     ChartModule,
     DataViewModule,
-    BadgeModule
+    BadgeModule,
+    CalendarModule
   ]
 })
 export class SharedModuleComponent {

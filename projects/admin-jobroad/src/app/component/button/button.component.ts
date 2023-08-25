@@ -5,7 +5,8 @@ import { SharedModuleComponent } from "../shared-module";
   selector: 'app-button',
   template: `
   <p-button icon="{{ iconBtn }}" label="{{ label }}" pRipple [routerLink]="link" [loading]="loading" (onClick)="clickBtn()" styleClass="p-button-sm {{classBtn}}" type="{{ typeBtn }}"
-  [style]="{'background-color' : backgroundColor, 'border':border}"></p-button>
+  [style]="{'background-color' : backgroundColor, 'border':border}"
+  [disabled]="isDisabled"></p-button>
   `,
   standalone: true,
   imports: [
@@ -21,6 +22,7 @@ export class ButtonComponent {
   @Input() typeBtn = ''
   @Input() backgroundColor = ''
   @Input() border = 'none'
+  @Input() isDisabled = false
 
   @Output() clickChange = new EventEmitter<void>()
 

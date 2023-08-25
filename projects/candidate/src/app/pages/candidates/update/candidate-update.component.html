@@ -4,7 +4,7 @@
       <app-button type="button" label="Back" class="mr-2" classBtn="p-button-secondary"
         link="/candidates/profile"></app-button>
     </div>
-  </div> 
+  </div>
   <p-card header="Update Candidate Information">
     <form [formGroup]="candidateUpdateInsertReqDto" (ngSubmit)="onUpdate()">
       <!-- <pre>{{ candidateUpdateInsertReqDto.value | json }}</pre> -->
@@ -18,7 +18,7 @@
                     <app-button backgroundColor="secondary" label="Cancel" class="mr-2" classBtn="p-button-secondary"
                       link="/candidates/profile"></app-button>
                     <app-button backgroundColor="var(--PRIMARY)" [loading]="loading" typeBtn="submit" label="Submit"
-                      class="mr-2" iconBtn="pi pi-save"></app-button>
+                      class="mr-2" iconBtn="pi pi-save" [isDisabled]="candidateUpdateInsertReqDto.invalid"></app-button>
                   </div>
                 </div>
               </div>
@@ -38,7 +38,7 @@
         <div class="col-12 md:col-5">
           <div>
             <div class="grid">
-              <div class="col-4">Email</div>
+              <label class="col-4">Email</label>
               <div class="col-1">:</div>
               <div class="col-7">
                 {{ candidateUser?.candidateUser?.userEmail }}
@@ -48,54 +48,60 @@
           <div formGroupName="profile">
             <div class="grid">
 
-              <div class="col-4">Salutation<span class="text-red-500"> *</span></div>
+              <label for="salute" class="col-4">Salutation<span class="text-red-500"> *</span></label>
               <div class="col-1">:</div>
               <div class="col-7">
-                <p-dropdown [options]="salutations" optionLabel="label" optionValue="value" [showClear]="true"
-                  [required]="true" formControlName="salutation" placeholder="Choose Salutation" autoWidth="false"
-                  [style]="{'width':'100%'}"></p-dropdown>
+                <p-dropdown inputId="salute" [options]="salutations" optionLabel="label" optionValue="value"
+                  [showClear]="true" [required]="true" formControlName="salutation" placeholder="Choose Salutation"
+                  autoWidth="false" [style]="{'width':'100%'}"></p-dropdown>
               </div>
-              <div class="col-4">Full Name<span class="text-red-500"> *</span></div>
+              <label for="fullName" class="col-4">Full Name<span class="text-red-500"> *</span></label>
               <div class="col-1">:</div>
               <div class="col-7">
                 <input pInputText id="fullName" required type="text" formControlName="fullname"
                   [style]="{'width':'100%'}" />
+                <span class="text-red-500 ml-2" *ngIf="
+                  candidateUpdateInsertReqDto.get('profile.fullname')!.invalid &&
+                  !candidateUpdateInsertReqDto.get('profile.fullname')!.value &&
+                  (candidateUpdateInsertReqDto.get('profile.fullname')!.dirty ||
+                    candidateUpdateInsertReqDto.get('profile.fullname')!.touched)
+                ">Input can't be empty</span>
               </div>
-              <div class="col-4">Gender<span class="text-red-500"> *</span></div>
+              <label for="gender" class="col-4">Gender<span class="text-red-500"> *</span></label>
               <div class="col-1">:</div>
               <div class="col-7">
-                <p-dropdown [options]="genders" optionLabel="label" optionValue="value" [showClear]="true"
-                  [required]="true" formControlName="gender" placeholder="Choose Gender"
+                <p-dropdown inputId="gender" [options]="genders" optionLabel="label" optionValue="value"
+                  [showClear]="true" [required]="true" formControlName="gender" placeholder="Choose Gender"
                   [style]="{'width':'100%'}"></p-dropdown>
               </div>
-              <div class="col-4">Birth Place<span class="text-red-500"> *</span></div>
+              <label for="birthPlace" class="col-4">Birth Place<span class="text-red-500"> *</span></label>
               <div class="col-1">:</div>
               <div class="col-7">
                 <input pInputText id="birthPlace" required type="text" formControlName="birthPlace"
                   [style]="{'width':'100%'}" />
               </div>
-              <div class="col-4">Birth Date<span class="text-red-500"> *</span></div>
+              <label for="birthDate" class="col-4">Birth Date<span class="text-red-500"> *</span></label>
               <div class="col-1">:</div>
               <div class="col-7">
                 <p-calendar inputId="birthDate" [required]="true" formControlName="birthDateTemp" [showIcon]="true"
                   dateFormat="dd/mm/yy" inputStyleClass="w-full" styleClass="w-full"
                   [defaultDate]="birthDateCandidate"></p-calendar>
               </div>
-              <div class="col-4">Marital Status<span class="text-red-500"> *</span></div>
+              <label for="marital" class="col-4">Marital Status<span class="text-red-500"> *</span></label>
               <div class="col-1">:</div>
               <div class="col-7">
                 <p-dropdown [options]="maritals" optionLabel="maritalName" optionValue="id" [showClear]="true"
                   [required]="true" formControlName="maritalStatusId" placeholder="Choose Marital"
                   [style]="{'width':'100%'}"></p-dropdown>
               </div>
-              <div class="col-4">Religion<span class="text-red-500"> *</span></div>
+              <label for="password1" class="col-4">Religion<span class="text-red-500"> *</span></label>
               <div class="col-1">:</div>
               <div class="col-7">
                 <p-dropdown [options]="religions" optionLabel="religionName" optionValue="id" [showClear]="true"
                   [required]="true" formControlName="religionId" placeholder="Choose Religion"
                   [style]="{'width':'100%'}"></p-dropdown>
               </div>
-              <div class="col-4">Status<span class="text-red-500"> *</span></div>
+              <label for="password1" class="col-4">Status<span class="text-red-500"> *</span></label>
               <div class="col-1">:</div>
               <div class="col-7">
                 {{ candidateUser?.candidateProfile?.candidateStatus }}
@@ -106,36 +112,68 @@
 
         <div class="col-12 md:col-5" formGroupName="profile">
           <div class="grid">
-            <div class="col-4">NIK<span class="text-red-500"> *</span></div>
+            <label for="nik" class="col-4">NIK<span class="text-red-500"> *</span></label>
             <div class="col-1">:</div>
             <div class="col-7">
               <input pInputText id="nik" required type="text" formControlName="nik" [style]="{'width':'100%'}" />
+              <span class="text-red-500 ml-2" *ngIf="
+              candidateUpdateInsertReqDto.get('profile.nik')!.invalid &&
+              !candidateUpdateInsertReqDto.get('profile.nik')!.value &&
+              (candidateUpdateInsertReqDto.get('profile.nik')!.dirty ||
+                candidateUpdateInsertReqDto.get('profile.nik')!.touched)
+            ">Input can't be empty</span>
             </div>
-            <div class="col-4">Phone Number<span class="text-red-500"> *</span></div>
+            <label for="phone" class="col-4">Phone Number<span class="text-red-500"> *</span></label>
             <div class="col-1">:</div>
             <div class="col-7">
-              <input pInputText id="phoneNumber" required type="text" formControlName="phoneNumber"
+              <input pInputText id="phone" required type="text" formControlName="phoneNumber"
                 [style]="{'width':'100%'}" />
+              <span class="text-red-500 ml-2" *ngIf="
+                candidateUpdateInsertReqDto.get('profile.phoneNumber')!.invalid &&
+                !candidateUpdateInsertReqDto.get('profile.phoneNumber')!.value &&
+                (candidateUpdateInsertReqDto.get('profile.phoneNumber')!.dirty ||
+                  candidateUpdateInsertReqDto.get('profile.phoneNumber')!.touched)
+              ">Input can't be empty</span>
             </div>
-            <div class="col-4">Mobile Number<span class="text-red-500"> *</span></div>
+            <label for="mobile" class="col-4">Mobile Number<span class="text-red-500"> *</span></label>
             <div class="col-1">:</div>
             <div class="col-7">
-              <input pInputText id="mobileNumber" required type="text" formControlName="mobileNumber"
+              <input pInputText id="mobile" required type="text" formControlName="mobileNumber"
                 [style]="{'width':'100%'}" />
+              <span class="text-red-500 ml-2" *ngIf="
+                candidateUpdateInsertReqDto.get('profile.mobileNumber')!.invalid &&
+                !candidateUpdateInsertReqDto.get('profile.mobileNumber')!.value &&
+                (candidateUpdateInsertReqDto.get('profile.mobileNumber')!.dirty ||
+                  candidateUpdateInsertReqDto.get('profile.mobileNumber')!.touched)
+              ">Input can't be empty</span>
             </div>
-            <div class="col-4">Experiences (years)<span class="text-red-500"> *</span></div>
+            <label for="experience" class="col-4">Experiences (years)<span class="text-red-500"> *</span></label>
             <div class="col-1">:</div>
             <div class="col-7">
-              <p-inputNumber inputId="exp" inputId="minmax" mode="decimal" [min]="0" [max]="120"
-                formControlName="experience" autoWidth="false" [style]="{'width':'100%'}"></p-inputNumber>
+              <p-inputNumber inputId="experience" inputId="minmax" mode="decimal" [min]="0" [max]="120"
+                formControlName="experience" autoWidth="false" inputStyleClass="w-full" class="w-full"
+                [style]="{'width':'100%'}"></p-inputNumber>
+              <span class="text-red-500 ml-2" *ngIf="
+                candidateUpdateInsertReqDto.get('profile.experience')!.invalid &&
+                !candidateUpdateInsertReqDto.get('profile.experience')!.value &&
+                (candidateUpdateInsertReqDto.get('profile.experience')!.dirty ||
+                  candidateUpdateInsertReqDto.get('profile.experience')!.touched)
+              ">Input can't be empty</span>
             </div>
-            <div class="col-4">Expected Salary<span class="text-red-500"> *</span></div>
+            <label for="expectedSalary" class="col-4">Expected Salary<span class="text-red-500"> *</span></label>
             <div class="col-1">:</div>
             <div class="col-7">
-              <p-inputNumber inputId="salary" mode="currency" currency="IDR" locale="jp-JP"
-                formControlName="expectedSalary" [style]="{'width':'100%'}"></p-inputNumber>
+              <p-inputNumber inputId="expectedSalary" mode="currency" currency="IDR" locale="id-ID"
+                formControlName="expectedSalary" inputStyleClass="w-full" class="w-full"
+                [style]="{'width':'100%'}"></p-inputNumber>
+              <span class="text-red-500 ml-2" *ngIf="
+                candidateUpdateInsertReqDto.get('profile.expectedSalary')!.invalid &&
+                !candidateUpdateInsertReqDto.get('profile.expectedSalary')!.value &&
+                (candidateUpdateInsertReqDto.get('profile.expectedSalary')!.dirty ||
+                  candidateUpdateInsertReqDto.get('profile.expectedSalary')!.touched)
+              ">Input can't be empty</span>
             </div>
-            <div class="col-4">Person Type<span class="text-red-500"> *</span></div>
+            <label for="password1" class="col-4">Person Type<span class="text-red-500"> *</span></label>
             <div class="col-1">:</div>
             <div class="col-7">
               {{ candidateUser?.candidateProfile?.personType }}
@@ -634,34 +672,65 @@
     <pre>{{ addressInsertReqDto.value | json }}</pre>
     <div class="p-fluid p-formgrid grid">
       <div class="field col-12">
-        <label htmlFor="salutation">Residence Type <span class="text-red-500"> *</span> </label>
-        <p-dropdown [options]="residenceType" optionLabel="label" optionValue="value" [showClear]="true"
-          [required]="true" formControlName="residenceType" placeholder="Choose Residence Type"></p-dropdown>
+        <label for="residence">Residence Type <span class="text-red-500"> *</span> </label>
+        <p-dropdown inputId="residence" [options]="residenceType" optionLabel="label" optionValue="value"
+          [showClear]="true" [required]="true" formControlName="residenceType"
+          placeholder="Choose Residence Type"></p-dropdown>
       </div>
       <div class="field col-12">
-        <label htmlFor="salutation">Address <span class="text-red-500"> *</span> </label>
+        <label for="address">Address <span class="text-red-500"> *</span> </label>
         <textarea pInputTextarea id="address" required rows="1" cols="50" formControlName="address"></textarea>
+        <span class="text-red-500 ml-2" *ngIf="
+        addressInsertReqDto.get('address')!.invalid &&
+        !addressInsertReqDto.get('address')!.value &&
+        (addressInsertReqDto.get('address')!.dirty ||
+          addressInsertReqDto.get('address')!.touched)
+      ">Input can't be empty</span>
       </div>
       <div class="field col-12">
-        <label htmlFor="country">Country <span class="text-red-500"> *</span> </label>
+        <label for="country">Country <span class="text-red-500"> *</span> </label>
         <input pInputText id="country" required type="text" formControlName="country" />
+        <span class="text-red-500 ml-2" *ngIf="
+            addressInsertReqDto.get('country')!.invalid &&
+            !addressInsertReqDto.get('country')!.value &&
+            (addressInsertReqDto.get('country')!.dirty ||
+              addressInsertReqDto.get('country')!.touched)
+          ">Input can't be empty</span>
       </div>
       <div class="field col-12">
-        <label htmlFor="province">Province <span class="text-red-500"> *</span> </label>
+        <label for="province">Province <span class="text-red-500"> *</span> </label>
         <input pInputText id="province" required type="text" formControlName="province" />
+        <span class="text-red-500 ml-2" *ngIf="
+            addressInsertReqDto.get('province')!.invalid &&
+            !addressInsertReqDto.get('province')!.value &&
+            (addressInsertReqDto.get('province')!.dirty ||
+              addressInsertReqDto.get('province')!.touched)
+          ">Input can't be empty</span>
       </div>
       <div class="field col-12">
-        <label htmlFor="city">City <span class="text-red-500"> *</span> </label>
+        <label for="city">City <span class="text-red-500"> *</span> </label>
         <input pInputText id="city" required type="text" formControlName="city" />
+        <span class="text-red-500 ml-2" *ngIf="
+            addressInsertReqDto.get('city')!.invalid &&
+            !addressInsertReqDto.get('city')!.value &&
+            (addressInsertReqDto.get('city')!.dirty ||
+              addressInsertReqDto.get('city')!.touched)
+          ">Input can't be empty</span>
       </div>
       <div class="field col-12">
-        <label htmlFor="postal">Postal Code <span class="text-red-500"> *</span> </label>
+        <label for="postal">Postal Code <span class="text-red-500"> *</span> </label>
         <input pInputText id="postal" required type="text" formControlName="postalCode" />
+        <span class="text-red-500 ml-2" *ngIf="
+            addressInsertReqDto.get('postalCode')!.invalid &&
+            !addressInsertReqDto.get('postalCode')!.value &&
+            (addressInsertReqDto.get('postalCode')!.dirty ||
+              addressInsertReqDto.get('postalCode')!.touched)
+          ">Input can't be empty</span>
       </div>
     </div>
     <div class="field col-12">
-      <app-button backgroundColor="var(--PRIMARY)" [loading]="loading" typeBtn="submit" label="Submit"
-        class=" mr-2"></app-button>
+      <app-button backgroundColor="var(--PRIMARY)" [loading]="loading" typeBtn="submit" label="Submit" class=" mr-2"
+        [isDisabled]="addressInsertReqDto.invalid"></app-button>
     </div>
   </form>
 </p-dialog>
@@ -673,40 +742,40 @@
   <form [formGroup]="educationInsertReqDto" (ngSubmit)="onAddEducation()">
     <div class="p-fluid p-formgrid grid">
       <div class="field col-12">
-        <label htmlFor="institution">Institution Name <span class="text-red-500"> *</span> </label>
+        <label for="institution">Institution Name <span class="text-red-500"> *</span> </label>
         <input pInputText id="institution" required type="text" formControlName="instituitionName" />
       </div>
       <div class="field col-12">
-        <label htmlFor="salutation">Degree<span class="text-red-500"> *</span> </label>
-        <p-dropdown [options]="degrees" optionLabel="label" optionValue="value" [showClear]="true" [required]="true"
-          formControlName="degreeName" placeholder="Choose Degree"></p-dropdown>
+        <label for="degree">Degree<span class="text-red-500"> *</span> </label>
+        <p-dropdown inputId="degree" [options]="degrees" optionLabel="label" optionValue="value" [showClear]="true"
+          [required]="true" formControlName="degreeName" placeholder="Choose Degree"></p-dropdown>
       </div>
       <div class="field col-12">
-        <label htmlFor="major">Major <span class="text-red-500"> *</span> </label>
+        <label for="major">Major <span class="text-red-500"> *</span> </label>
         <input pInputText id="major" required type="text" formControlName="majors" />
       </div>
       <div class="field col-12">
 
-        <label htmlFor="cgpa">CGPA <span class="text-red-500"> *</span> </label>
+        <label for="cgpa">CGPA <span class="text-red-500"> *</span> </label>
         <p-inputNumber inputId="cgpa" inputId="minmax" mode="decimal" [minFractionDigits]="2" [maxFractionDigits]="2"
           [min]="0" [max]="4" formControlName="cgpa"></p-inputNumber>
 
       </div>
       <div class="field col-12">
-        <label htmlFor="startyear">Start Year <span class="text-red-500"> *</span> </label>
+        <label for="startyear">Start Year <span class="text-red-500"> *</span> </label>
         <p-calendar inputId="startyear" dateFormat="dd/mm/yy" [required]="true" [inline]="true"
           formControlName="startYearTemp" [showIcon]="true"></p-calendar>
       </div>
       <div class="field col-12">
 
-        <label htmlFor="endyear">End Year <span class="text-red-500"> *</span> </label>
+        <label for="endyear">End Year <span class="text-red-500"> *</span> </label>
         <p-calendar inputId="endyear" dateFormat="dd/mm/yy" [required]="true" [inline]="true"
           formControlName="endYearTemp" [showIcon]="true"></p-calendar>
       </div>
     </div>
     <div class="field col-12">
-      <app-button backgroundColor="var(--PRIMARY)" [loading]="loading" typeBtn="submit" label="Submit"
-        class=" mr-2"></app-button>
+      <app-button backgroundColor="var(--PRIMARY)" [loading]="loading" typeBtn="submit" label="Submit" class=" mr-2"
+        [isDisabled]="educationInsertReqDto.invalid"></app-button>
     </div>
   </form>
 </p-dialog>
@@ -718,35 +787,59 @@
   <form [formGroup]="familyInsertReqDto" (ngSubmit)="onAddFamily()">
     <div class="p-fluid p-formgrid grid">
       <div class="field col-12">
-        <label htmlFor="fullname">Full Name<span class="text-red-500"> *</span> </label>
+        <label for="fullname">Full Name<span class="text-red-500"> *</span> </label>
         <input pInputText id="fullName" required type="text" formControlName="fullname" />
+        <span class="text-red-500 ml-2" *ngIf="
+            familyInsertReqDto.get('fullname')!.invalid &&
+            !familyInsertReqDto.get('fullname')!.value &&
+            (familyInsertReqDto.get('fullname')!.dirty ||
+              familyInsertReqDto.get('fullname')!.touched)
+          ">Input can't be empty</span>
       </div>
       <div class="field col-12">
-        <label htmlFor="relationship">Relationship <span class="text-red-500"> *</span> </label>
+        <label for="relationship">Relationship <span class="text-red-500"> *</span> </label>
         <input pInputText id="relationship" required type="text" formControlName="relationship" />
+        <span class="text-red-500 ml-2" *ngIf="
+            familyInsertReqDto.get('relationship')!.invalid &&
+            !familyInsertReqDto.get('relationship')!.value &&
+            (familyInsertReqDto.get('relationship')!.dirty ||
+              familyInsertReqDto.get('relationship')!.touched)
+          ">Input can't be empty</span>
       </div>
       <div class="field col-12">
-        <label htmlFor="degreeName">Degree <span class="text-red-500"> *</span> </label>
+        <label for="degreeName">Degree <span class="text-red-500"> *</span> </label>
         <p-dropdown [options]="degrees" optionLabel="label" optionValue="value" [showClear]="true" [required]="true"
           formControlName="degreeName" placeholder="Choose Degree"></p-dropdown>
       </div>
       <div class="field col-12">
-        <label htmlFor="occupation">Occupation <span class="text-red-500"> *</span> </label>
+        <label for="occupation">Occupation <span class="text-red-500"> *</span> </label>
         <input pInputText id="occupation" required type="text" formControlName="occupation" />
+        <span class="text-red-500 ml-2" *ngIf="
+            familyInsertReqDto.get('occupation')!.invalid &&
+            !familyInsertReqDto.get('occupation')!.value &&
+            (familyInsertReqDto.get('occupation')!.dirty ||
+              familyInsertReqDto.get('occupation')!.touched)
+          ">Input can't be empty</span>
       </div>
       <div class="field col-12">
-        <label htmlFor="birthPlace">Birth Place <span class="text-red-500"> *</span> </label>
+        <label for="birthPlace">Birth Place <span class="text-red-500"> *</span> </label>
         <input pInputText id="birthplace" required type="text" formControlName="birthPlace" />
+        <span class="text-red-500 ml-2" *ngIf="
+            familyInsertReqDto.get('birthPlace')!.invalid &&
+            !familyInsertReqDto.get('birthPlace')!.value &&
+            (familyInsertReqDto.get('birthPlace')!.dirty ||
+              familyInsertReqDto.get('birthPlace')!.touched)
+          ">Input can't be empty</span>
       </div>
       <div class="field col-12">
-        <label htmlFor="birthDate">Birth Date <span class="text-red-500"> *</span></label>
-        <p-calendar id="birthDate" formControlName="birthDateTemp" [showIcon]="true" [inline]="true"
-          dateFormat="dd/mm/yy"></p-calendar>
+        <label for="birthDateFamily">Birth Date <span class="text-red-500"> *</span></label>
+        <p-calendar inputId="birthDateFamily" [required]="true" formControlName="birthDateTemp" dateFormat="dd/mm/yy"
+          [inline]="true"></p-calendar>
       </div>
     </div>
     <div class="field col-12">
-      <app-button backgroundColor="var(--PRIMARY)" [loading]="loading" typeBtn="submit" label="Submit"
-        class=" mr-2"></app-button>
+      <app-button backgroundColor="var(--PRIMARY)" [loading]="loading" typeBtn="submit" label="Submit" class=" mr-2"
+        [isDisabled]="familyInsertReqDto.invalid"></app-button>
     </div>
   </form>
 </p-dialog>
@@ -758,13 +851,19 @@
   <form [formGroup]="skillInsertReqDto" (ngSubmit)="onAddSkill()">
     <div class="p-fluid p-formgrid grid">
       <div class="field col-12">
-        <label htmlFor="fullname">Skill Name<span class="text-red-500"> *</span> </label>
-        <input pInputText id="fullName" required type="text" formControlName="skillName" />
+        <label for="skillname">Skill Name<span class="text-red-500"> *</span> </label>
+        <input pInputText id="skillname" required type="text" formControlName="skillName" />
+        <span class="text-red-500 ml-2" *ngIf="
+        skillInsertReqDto.get('skillName')!.invalid &&
+        !skillInsertReqDto.get('skillName')!.value &&
+        (skillInsertReqDto.get('skillName')!.dirty ||
+          skillInsertReqDto.get('skillName')!.touched)
+      ">Input can't be empty</span>
       </div>
     </div>
     <div class="field col-12">
-      <app-button backgroundColor="var(--PRIMARY)" [loading]="loading" typeBtn="submit" label="Submit"
-        class=" mr-2"></app-button>
+      <app-button backgroundColor="var(--PRIMARY)" [loading]="loading" typeBtn="submit" label="Submit" class=" mr-2"
+        [isDisabled]="skillInsertReqDto.invalid"></app-button>
     </div>
   </form>
 </p-dialog>
@@ -776,28 +875,52 @@
   <form [formGroup]="languageInsertReqDto" (ngSubmit)="onAddLanguage()">
     <div class="p-fluid p-formgrid grid">
       <div class="field col-12">
-        <label htmlFor="language">Language <span class="text-red-500"> *</span> </label>
+        <label for="language">Language <span class="text-red-500"> *</span> </label>
         <input pInputText id="language" required type="text" formControlName="languageName" />
+        <span class="text-red-500 ml-2" *ngIf="
+        languageInsertReqDto.get('languageName')!.invalid &&
+        !languageInsertReqDto.get('languageName')!.value &&
+        (languageInsertReqDto.get('languageName')!.dirty ||
+          languageInsertReqDto.get('languageName')!.touched)
+      ">Input can't be empty</span>
       </div>
       <div class="field col-12">
-        <label htmlFor="writing">Writing Rate <span class="text-red-500"> *</span> </label>
+        <label for="writing">Writing Rate <span class="text-red-500"> *</span> </label>
         <p-inputNumber inputId="writing" mode="decimal" [min]="0" [max]="5"
           formControlName="writingRate"></p-inputNumber>
+        <span class="text-red-500 ml-2" *ngIf="
+          languageInsertReqDto.get('writingRate')!.invalid &&
+          !languageInsertReqDto.get('writingRate')!.value &&
+          (languageInsertReqDto.get('writingRate')!.dirty ||
+            languageInsertReqDto.get('writingRate')!.touched)
+        ">Input can't be empty</span>
       </div>
       <div class="field col-12">
-        <label htmlFor="speaking">Speaking Rate <span class="text-red-500"> *</span> </label>
+        <label for="speaking">Speaking Rate <span class="text-red-500"> *</span> </label>
         <p-inputNumber inputId="speaking" mode="decimal" [min]="0" [max]="5"
           formControlName="speakingRate"></p-inputNumber>
+        <span class="text-red-500 ml-2" *ngIf="
+          languageInsertReqDto.get('speakingRate')!.invalid &&
+          !languageInsertReqDto.get('speakingRate')!.value &&
+          (languageInsertReqDto.get('speakingRate')!.dirty ||
+            languageInsertReqDto.get('speakingRate')!.touched)
+        ">Input can't be empty</span>
       </div>
       <div class="field col-12">
-        <label htmlFor="listening">Listening Rate <span class="text-red-500"> *</span> </label>
+        <label for="listening">Listening Rate <span class="text-red-500"> *</span> </label>
         <p-inputNumber inputId="listening" mode="decimal" [min]="0" [max]="5"
           formControlName="listeningRate"></p-inputNumber>
+        <span class="text-red-500 ml-2" *ngIf="
+          languageInsertReqDto.get('listeningRate')!.invalid &&
+          !languageInsertReqDto.get('listeningRate')!.value &&
+          (languageInsertReqDto.get('listeningRate')!.dirty ||
+            languageInsertReqDto.get('listeningRate')!.touched)
+        ">Input can't be empty</span>
       </div>
     </div>
     <div class="field col-12">
-      <app-button backgroundColor="var(--PRIMARY)"  [loading]="loading" typeBtn="submit"
-        label="Submit" class=" mr-2"></app-button>
+      <app-button backgroundColor="var(--PRIMARY)" [loading]="loading" typeBtn="submit" label="Submit" class=" mr-2"
+        [isDisabled]="languageInsertReqDto.invalid"></app-button>
     </div>
   </form>
 </p-dialog>
@@ -809,38 +932,80 @@
   <form [formGroup]="referenceInsertReqDto" (ngSubmit)="onAddReference()">
     <div class="p-fluid p-formgrid grid">
       <div class="field col-12">
-        <label htmlFor="fullname">Fullname <span class="text-red-500"> *</span> </label>
+        <label for="fullname">Fullname <span class="text-red-500"> *</span> </label>
         <input pInputText id="fullname" required type="text" formControlName="fullname" />
+        <span class="text-red-500 ml-2" *ngIf="
+        referenceInsertReqDto.get('fullname')!.invalid &&
+        !referenceInsertReqDto.get('fullname')!.value &&
+        (referenceInsertReqDto.get('fullname')!.dirty ||
+          referenceInsertReqDto.get('fullname')!.touched)
+      ">Input can't be empty</span>
       </div>
       <div class="field col-12">
-        <label htmlFor="relationship">Relationship <span class="text-red-500"> *</span> </label>
+        <label for="relationship">Relationship <span class="text-red-500"> *</span> </label>
         <input pInputText id="relationship" required type="text" formControlName="relationship" />
+        <span class="text-red-500 ml-2" *ngIf="
+        referenceInsertReqDto.get('relationship')!.invalid &&
+        !referenceInsertReqDto.get('relationship')!.value &&
+        (referenceInsertReqDto.get('relationship')!.dirty ||
+          referenceInsertReqDto.get('relationship')!.touched)
+      ">Input can't be empty</span>
       </div>
       <div class="field col-12">
-        <label htmlFor="occupation">Ocupation <span class="text-red-500"> *</span> </label>
+        <label for="occupation">Ocupation <span class="text-red-500"> *</span> </label>
         <input pInputText id="occupation" required type="text" formControlName="occupation" />
+        <span class="text-red-500 ml-2" *ngIf="
+        referenceInsertReqDto.get('occupation')!.invalid &&
+        !referenceInsertReqDto.get('occupation')!.value &&
+        (referenceInsertReqDto.get('occupation')!.dirty ||
+          referenceInsertReqDto.get('occupation')!.touched)
+      ">Input can't be empty</span>
       </div>
       <div class="field col-12">
-        <label htmlFor="phone">Phone Number <span class="text-red-500"> *</span> </label>
+        <label for="phone">Phone Number <span class="text-red-500"> *</span> </label>
         <input pInputText id="phone" required type="text" formControlName="phoneNumber" />
+        <span class="text-red-500 ml-2" *ngIf="
+        referenceInsertReqDto.get('phoneNumber')!.invalid &&
+        !referenceInsertReqDto.get('phoneNumber')!.value &&
+        (referenceInsertReqDto.get('phoneNumber')!.dirty ||
+          referenceInsertReqDto.get('phoneNumber')!.touched)
+      ">Input can't be empty</span>
       </div>
       <div class="field col-12">
-        <label htmlFor="email">Email <span class="text-red-500"> *</span> </label>
+        <label for="email">Email <span class="text-red-500"> *</span> </label>
         <input pInputText id="email" required type="email" formControlName="email" />
+        <span class="text-red-500 ml-2" *ngIf="
+        referenceInsertReqDto.get('email')!.invalid &&
+        !referenceInsertReqDto.get('email')!.value &&
+        (referenceInsertReqDto.get('email')!.dirty ||
+          referenceInsertReqDto.get('email')!.touched)
+      ">Input can't be empty</span>
       </div>
       <div class="field col-12">
-        <label htmlFor="company">Company <span class="text-red-500"> *</span> </label>
+        <label for="company">Company <span class="text-red-500"> *</span> </label>
         <input pInputText id="company" required type="text" formControlName="company" />
+        <span class="text-red-500 ml-2" *ngIf="
+        referenceInsertReqDto.get('company')!.invalid &&
+        !referenceInsertReqDto.get('company')!.value &&
+        (referenceInsertReqDto.get('company')!.dirty ||
+          referenceInsertReqDto.get('company')!.touched)
+      ">Input can't be empty</span>
       </div>
       <div class="field col-12">
-        <label htmlFor="description">Description <span class="text-red-500"> *</span> </label>
+        <label for="description">Description <span class="text-red-500"> *</span> </label>
         <textarea pInputTextarea id="description" required rows="1" cols="50" formControlName="description"></textarea>
+        <span class="text-red-500 ml-2" *ngIf="
+        referenceInsertReqDto.get('description')!.invalid &&
+        !referenceInsertReqDto.get('description')!.value &&
+        (referenceInsertReqDto.get('description')!.dirty ||
+          referenceInsertReqDto.get('description')!.touched)
+      ">Input can't be empty</span>
       </div>
 
     </div>
     <div class="field col-12">
-      <app-button backgroundColor="var(--PRIMARY)"  [loading]="loading" typeBtn="submit"
-        label="Submit" class=" mr-2"></app-button>
+      <app-button backgroundColor="var(--PRIMARY)" [loading]="loading" typeBtn="submit" label="Submit" class=" mr-2"
+        [isDisabled]="referenceInsertReqDto.invalid"></app-button>
     </div>
   </form>
 </p-dialog>
@@ -852,46 +1017,82 @@
   <form [formGroup]="workingInsertReqDto" (ngSubmit)="onAddWorking()">
     <div class="p-fluid p-formgrid grid">
       <div class="field col-12">
-        <label htmlFor="position">Position Name <span class="text-red-500"> *</span> </label>
+        <label for="position">Position Name <span class="text-red-500"> *</span> </label>
         <input pInputText id="position" required type="text" formControlName="positionName" />
+        <span class="text-red-500 ml-2" *ngIf="
+        workingInsertReqDto.get('positionName')!.invalid &&
+        !workingInsertReqDto.get('positionName')!.value &&
+        (workingInsertReqDto.get('positionName')!.dirty ||
+          workingInsertReqDto.get('positionName')!.touched)
+      ">Input can't be empty</span>
       </div>
       <div class="field col-12">
-        <label htmlFor="company">Company <span class="text-red-500"> *</span> </label>
+        <label for="company">Company <span class="text-red-500"> *</span> </label>
         <input pInputText id="company" required type="text" formControlName="companyName" />
+        <span class="text-red-500 ml-2" *ngIf="
+        workingInsertReqDto.get('companyName')!.invalid &&
+        !workingInsertReqDto.get('companyName')!.value &&
+        (workingInsertReqDto.get('companyName')!.dirty ||
+          workingInsertReqDto.get('companyName')!.touched)
+      ">Input can't be empty</span>
       </div>
       <div class="field col-12">
-        <label htmlFor="address">Address <span class="text-red-500"> *</span> </label>
+        <label for="address">Address <span class="text-red-500"> *</span> </label>
         <textarea pInputTextarea id="address" required rows="1" cols="50" formControlName="address"></textarea>
+        <span class="text-red-500 ml-2" *ngIf="
+        workingInsertReqDto.get('address')!.invalid &&
+        !workingInsertReqDto.get('address')!.value &&
+        (workingInsertReqDto.get('address')!.dirty ||
+          workingInsertReqDto.get('address')!.touched)
+      ">Input can't be empty</span>
       </div>
       <div class="field col-12">
-        <label htmlFor="responsibility">Responsibility <span class="text-red-500"> *</span> </label>
+        <label for="responsibility">Responsibility <span class="text-red-500"> *</span> </label>
         <textarea pInputTextarea id="responsibility" required rows="1" cols="50"
           formControlName="responsibility"></textarea>
+        <span class="text-red-500 ml-2" *ngIf="
+          workingInsertReqDto.get('responsibility')!.invalid &&
+          !workingInsertReqDto.get('responsibility')!.value &&
+          (workingInsertReqDto.get('responsibility')!.dirty ||
+            workingInsertReqDto.get('responsibility')!.touched)
+        ">Input can't be empty</span>
       </div>
       <div class="field col-12">
-        <label htmlFor="reason">Reason Leave <span class="text-red-500"> *</span> </label>
+        <label for="reason">Reason Leave <span class="text-red-500"> *</span> </label>
         <textarea pInputTextarea id="reason" required rows="1" cols="50" formControlName="reasonLeave"></textarea>
+        <span class="text-red-500 ml-2" *ngIf="
+        workingInsertReqDto.get('reasonLeave')!.invalid &&
+        !workingInsertReqDto.get('reasonLeave')!.value &&
+        (workingInsertReqDto.get('reasonLeave')!.dirty ||
+          workingInsertReqDto.get('reasonLeave')!.touched)
+      ">Input can't be empty</span>
       </div>
       <div class="field col-12">
-        <label htmlFor="lastsalary">Last Salary <span class="text-red-500"> *</span> </label>
-        <p-inputNumber inputId="lastSalary" mode="currency" currency="IDR" locale="jp-JP"
+        <label for="lastsalary">Last Salary <span class="text-red-500"> *</span> </label>
+        <p-inputNumber inputId="lastSalary" mode="currency" currency="IDR" locale="id-ID"
           formControlName="lastSalary"></p-inputNumber>
+        <span class="text-red-500 ml-2" *ngIf="
+          workingInsertReqDto.get('lastSalary')!.invalid &&
+          !workingInsertReqDto.get('lastSalary')!.value &&
+          (workingInsertReqDto.get('lastSalary')!.dirty ||
+            workingInsertReqDto.get('lastSalary')!.touched)
+        ">Input can't be empty</span>
       </div>
       <div class="field col-12 md:col-6">
-        <label htmlFor="startDate">Start Date <span class="text-red-500"> *</span> </label>
+        <label for="startDate">Start Date <span class="text-red-500"> *</span> </label>
         <p-calendar inputId="startDate" dateFormat="dd/mm/yy" [required]="true" formControlName="startDateTemp"
           [inline]="true" [showIcon]="true"></p-calendar>
       </div>
       <div class="field col-12 md:col-6">
-        <label htmlFor="endDate">End Date <span class="text-red-500"> *</span> </label>
+        <label for="endDate">End Date <span class="text-red-500"> *</span> </label>
         <p-calendar inputId="endDate" dateFormat="dd/mm/yy" [required]="true" [inline]="true"
           formControlName="endDateTemp" [showIcon]="true"></p-calendar>
       </div>
 
     </div>
     <div class="field col-12">
-      <app-button backgroundColor="var(--PRIMARY)" [loading]="loading" typeBtn="submit"
-        label="Submit" class=" mr-2"></app-button>
+      <app-button backgroundColor="var(--PRIMARY)" [loading]="loading" typeBtn="submit" label="Submit" class=" mr-2"
+        [isDisabled]="workingInsertReqDto.invalid"></app-button>
     </div>
   </form>
 </p-dialog>
@@ -904,31 +1105,49 @@
   <form [formGroup]="projectInsertReqDto" (ngSubmit)="onAddProject()">
     <div class="p-fluid p-formgrid grid">
       <div class="field col-12">
-        <label htmlFor="projectName">Project Name <span class="text-red-500"> *</span> </label>
+        <label for="projectName">Project Name <span class="text-red-500"> *</span> </label>
         <input pInputText id="projectName" required type="text" formControlName="projectName" />
+        <span class="text-red-500 ml-2" *ngIf="
+        projectInsertReqDto.get('projectName')!.invalid &&
+        !projectInsertReqDto.get('projectName')!.value &&
+        (projectInsertReqDto.get('projectName')!.dirty ||
+          projectInsertReqDto.get('projectName')!.touched)
+      ">Input can't be empty</span>
       </div>
       <div class="field col-12">
-        <label htmlFor="projectURL">Project URL <span class="text-red-500"> *</span> </label>
+        <label for="projectURL">Project URL <span class="text-red-500"> *</span> </label>
         <input pInputText id="projectURL" required type="text" formControlName="projectUrl" />
+        <span class="text-red-500 ml-2" *ngIf="
+        projectInsertReqDto.get('projectUrl')!.invalid &&
+        !projectInsertReqDto.get('projectUrl')!.value &&
+        (projectInsertReqDto.get('projectUrl')!.dirty ||
+          projectInsertReqDto.get('projectUrl')!.touched)
+      ">Input can't be empty</span>
       </div>
       <div class="field col-12">
-        <label htmlFor="description">Description <span class="text-red-500"> *</span> </label>
+        <label for="description">Description <span class="text-red-500"> *</span> </label>
         <textarea pInputTextarea id="description" required rows="1" cols="50" formControlName="description"></textarea>
+        <span class="text-red-500 ml-2" *ngIf="
+        projectInsertReqDto.get('description')!.invalid &&
+        !projectInsertReqDto.get('description')!.value &&
+        (projectInsertReqDto.get('description')!.dirty ||
+          projectInsertReqDto.get('description')!.touched)
+      ">Input can't be empty</span>
       </div>
       <div class="field col-12 md:col-6">
-        <label htmlFor="startDate">Start Date <span class="text-red-500"> *</span> </label>
+        <label for="startDate">Start Date <span class="text-red-500"> *</span> </label>
         <p-calendar inputId="startDate" dateFormat="dd/mm/yy" [required]="true" formControlName="startDateTemp"
           [inline]="true" [showIcon]="true"></p-calendar>
       </div>
       <div class="field col-12 md:col-6">
-        <label htmlFor="endDate">End Date <span class="text-red-500"> *</span> </label>
+        <label for="endDate">End Date <span class="text-red-500"> *</span> </label>
         <p-calendar inputId="endDate" dateFormat="dd/mm/yy" [required]="true" [inline]="true"
           formControlName="endDateTemp" [showIcon]="true"></p-calendar>
       </div>
     </div>
     <div class="field col-12">
-      <app-button backgroundColor="var(--PRIMARY)"  [loading]="loading" typeBtn="submit"
-        label="Submit" class=" mr-2"></app-button>
+      <app-button backgroundColor="var(--PRIMARY)" [loading]="loading" typeBtn="submit" label="Submit" class=" mr-2"
+        [isDisabled]="projectInsertReqDto.invalid"></app-button>
     </div>
   </form>
 </p-dialog>
@@ -941,31 +1160,49 @@
     <pre>{{ trainingInsertReqDto.value | json }}</pre>
     <div class="p-fluid p-formgrid grid">
       <div class="field col-12">
-        <label htmlFor="organization">Organization Name <span class="text-red-500"> *</span> </label>
+        <label for="organization">Organization Name <span class="text-red-500"> *</span> </label>
         <input pInputText id="organization" required type="text" formControlName="organizationName" />
+        <span class="text-red-500 ml-2" *ngIf="
+        trainingInsertReqDto.get('organizationName')!.invalid &&
+        !trainingInsertReqDto.get('organizationName')!.value &&
+        (trainingInsertReqDto.get('organizationName')!.dirty ||
+          trainingInsertReqDto.get('organizationName')!.touched)
+      ">Input can't be empty</span>
       </div>
       <div class="field col-12">
-        <label htmlFor="training">Training Name <span class="text-red-500"> *</span> </label>
+        <label for="training">Training Name <span class="text-red-500"> *</span> </label>
         <input pInputText id="training" required type="text" formControlName="trainingName" />
+        <span class="text-red-500 ml-2" *ngIf="
+        trainingInsertReqDto.get('trainingName')!.invalid &&
+        !trainingInsertReqDto.get('trainingName')!.value &&
+        (trainingInsertReqDto.get('trainingName')!.dirty ||
+          trainingInsertReqDto.get('trainingName')!.touched)
+      ">Input can't be empty</span>
       </div>
       <div class="field col-12">
-        <label htmlFor="description">Description <span class="text-red-500"> *</span> </label>
+        <label for="description">Description <span class="text-red-500"> *</span> </label>
         <textarea pInputTextarea id="description" required rows="1" cols="50" formControlName="description"></textarea>
+        <span class="text-red-500 ml-2" *ngIf="
+        trainingInsertReqDto.get('description')!.invalid &&
+        !trainingInsertReqDto.get('description')!.value &&
+        (trainingInsertReqDto.get('description')!.dirty ||
+          trainingInsertReqDto.get('description')!.touched)
+      ">Input can't be empty</span>
       </div>
       <div class="field col-12 md:col-6">
-        <label htmlFor="startDate">Start Date <span class="text-red-500"> *</span> </label>
+        <label for="startDate">Start Date <span class="text-red-500"> *</span> </label>
         <p-calendar inputId="startDate" dateFormat="dd/mm/yy" [required]="true" formControlName="startDateTemp"
           [inline]="true" [showIcon]="true"></p-calendar>
       </div>
       <div class="field col-12 md:col-6">
-        <label htmlFor="endDate">End Date <span class="text-red-500"> *</span> </label>
+        <label for="endDate">End Date <span class="text-red-500"> *</span> </label>
         <p-calendar inputId="endDate" dateFormat="dd/mm/yy" [required]="true" [inline]="true"
           formControlName="endDateTemp" [showIcon]="true"></p-calendar>
       </div>
     </div>
     <div class="field col-12">
-      <app-button backgroundColor="var(--PRIMARY)"  [loading]="loading" typeBtn="submit"
-        label="Submit" class=" mr-2"></app-button>
+      <app-button backgroundColor="var(--PRIMARY)" [loading]="loading" typeBtn="submit" label="Submit" class=" mr-2"
+        [isDisabled]="trainingInsertReqDto.invalid"></app-button>
     </div>
   </form>
 </p-dialog>
@@ -978,25 +1215,32 @@
     <pre>{{ documentInsertReqDto.value | json }}</pre>
     <div class="p-fluid p-formgrid grid">
       <div class="field col-12">
-        <label htmlFor="docName">Document Name <span class="text-red-500"> *</span> </label>
+        <label for="docName">Document Name <span class="text-red-500"> *</span> </label>
         <input pInputText id="docName" required type="text" formControlName="docName" />
+        <span class="text-red-500 ml-2" *ngIf="
+        documentInsertReqDto.get('docName')!.invalid &&
+        !documentInsertReqDto.get('docName')!.value &&
+        (documentInsertReqDto.get('docName')!.dirty ||
+          documentInsertReqDto.get('docName')!.touched)
+      ">Input can't be empty</span>
       </div>
       <div class="field col-12">
-        <label htmlFor="fileTypeCode">File Type <span class="text-red-500"> *</span> </label>
-        <p-dropdown [options]="fileTypes" optionLabel="typeName" optionValue="typeCode" [showClear]="true"
-          [required]="true" formControlName="fileTypeCode" placeholder="Choose File Type"></p-dropdown>
+        <label for="fileTypeCode">File Type <span class="text-red-500"> *</span> </label>
+        <p-dropdown inputId="fileTypeCode" [options]="fileTypes" optionLabel="typeName" optionValue="typeCode"
+          [showClear]="true" [required]="true" formControlName="fileTypeCode"
+          placeholder="Choose File Type"></p-dropdown>
       </div>
 
       <div class="field col-12">
-        <label htmlFor="fileTypeCode">Upload Document<span class="text-red-500"> *</span> </label>
-        <p-fileUpload mode="basic" styleClass="bg-green-700" chooseLabel="Upload" chooseIcon="pi pi-upload"
+        <label for="upload">Upload Document<span class="text-red-500"> *</span> </label>
+        <p-fileUpload id="upload" mode="basic" styleClass="bg-green-700" chooseLabel="Upload" chooseIcon="pi pi-upload"
           class="form-control" (onSelect)="fileUploadDoc($event, doc)" #doc type="file" id="file"
           required></p-fileUpload>
       </div>
     </div>
     <div class="field col-12">
-      <app-button backgroundColor="var(--PRIMARY)" [loading]="loading" typeBtn="submit"
-        label="Submit" class=" mr-2"></app-button>
+      <app-button backgroundColor="var(--PRIMARY)" [loading]="loading" typeBtn="submit" label="Submit"
+        class=" mr-2"></app-button>
     </div>
   </form>
 </p-dialog>
