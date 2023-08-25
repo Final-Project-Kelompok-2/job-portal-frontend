@@ -34,7 +34,7 @@ export class QuestionComponent implements OnInit, AfterViewChecked {
         private route: Router,
         private authService: AuthService,) { }
     ngOnInit(): void {
-        this.checkToken();
+
         firstValueFrom(this.activated.params).then(params => {
             this.appId = params['id'];
             this.answerDto.patchValue({
@@ -48,15 +48,7 @@ export class QuestionComponent implements OnInit, AfterViewChecked {
 
     }
 
-    checkToken() {
-        const profile = this.authService.getProfile()
-        if (!profile) {
-           console.log('ERIL YANG SALAH')
-        } else {
-            console.log('BENAR')
 
-        }
-    }
     ngAfterViewChecked(): void {
         this.cd.detectChanges();
     }
@@ -79,6 +71,11 @@ export class QuestionComponent implements OnInit, AfterViewChecked {
                     })
                 )
             }
+        }).catch(() => {
+            console.log('ASDADAS')
+            localStorage.setItem('q','true');
+            localStorage.setItem('code',this.appId)
+            this.route.navigateByUrl('/login');
         })
     }
     selected(event: any, index: number) {
