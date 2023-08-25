@@ -36,7 +36,6 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { FileUpload } from "primeng/fileupload";
 import { AuthService } from "../../../service/auth.service";
 import { CandidateStatusService } from "../../../service/candidate-status.service";
-import { firstValueFrom } from "rxjs";
 
 interface Salutation {
   value: string;
@@ -294,16 +293,6 @@ export class CandidateUpdateComponent implements OnInit {
         const newBirthDate = convertUTCToLocalDate(res as any)
         this.familyInsertReqDto.get('birthDate')?.setValue(newBirthDate)
       }
-    addressInsertReqDto = this.fb.group({
-        addressCode: [''],
-        address: ['', [Validators.required]],
-        residenceType: ['', [Validators.required]],
-        country: ['', [Validators.required]],
-        province: ['', [Validators.required]],
-        city: ['', [Validators.required]],
-        postalCode: ['', [Validators.required]],
-        candidateId: ['', [Validators.required]],
-        email: ['', [Validators.required]]
     })
 
     this.educationInsertReqDto.get('startYearTemp')?.valueChanges.subscribe(res => {
@@ -437,105 +426,9 @@ export class CandidateUpdateComponent implements OnInit {
           this.imageUrl = `http://localhost:8081/files/${this.candidateUser?.candidateProfile?.fileId}`
         } else {
           this.imageUrl = '../../../assets/emptyProfile.jpeg'
-    onAddAddress() {
-        if (this.addressInsertReqDto.valid) {
-            const data = this.addressInsertReqDto.getRawValue()
-            firstValueFrom(this.candidateAddressService.create(data)).then((res) => {
-                this.candidateUserAddresses
-                this.addressInsertReqDto.reset()
-                this.dialogAddress = false
-            })
-        }
-    }
-
-    onAddEducation() {
-        if (this.educationInsertReqDto.valid) {
-            const data = this.educationInsertReqDto.getRawValue()
-            firstValueFrom(this.candidateEducationService.create(data)).then((res) => {
-                this.candidateUserEducations
-                this.educationInsertReqDto.reset()
-                this.dialogEducation = false
-            })
-        }
-    }
-
-    onAddWorking() {
-        if (this.workingInsertReqDto.valid) {
-            const data = this.workingInsertReqDto.getRawValue()
-            firstValueFrom(this.candidateWorkExpService.create(data)).then((res) => {
-                this.candidateUserWorkings
-                this.workingInsertReqDto.reset()
-                this.dialogWorking = false
-            })
-        }
-    }
-
-    onAddTraining() {
-        if (this.trainingInsertReqDto.valid) {
-            const data = this.trainingInsertReqDto.getRawValue()
-            firstValueFrom(this.candidateTrainingExpService.create(data)).then((res) => {
-                this.candidateUserTrainings
-                this.trainingInsertReqDto.reset()
-                this.dialogTraining = false
-            })
-        }
-    }
-
-    onAddProject() {
-        if (this.projectInsertReqDto.valid) {
-            const data = this.projectInsertReqDto.getRawValue()
-            firstValueFrom(this.candidateProjectExpService.create(data)).then((res) => {
-                this.candidateUserProjects
-                this.projectInsertReqDto.reset()
-                this.dialogProject = false
-            })
-        }
-    }
-
-    onAddSkill() {
-        if (this.skillInsertReqDto.valid) {
-            const data = this.skillInsertReqDto.getRawValue()
-            firstValueFrom(this.candidateSkillService.create(data)).then((res) => {
-                this.candidateUserSkills
-                this.skillInsertReqDto.reset()
-                this.dialogSkill = false
-            })
-        }
-    }
-
-    onAddLanguage() {
-        if (this.languageInsertReqDto.valid) {
-            const data = this.languageInsertReqDto.getRawValue()
-            firstValueFrom(this.candidateLanguageService.create(data)).then((res) => {
-                this.candidateUserLanguages
-                this.languageInsertReqDto.reset()
-                this.dialogLanguage = false
-            })
-        }
-    }
-
-    onAddFamily() {
-        if (this.familyInsertReqDto.valid) {
-            const data = this.familyInsertReqDto.getRawValue()
-            firstValueFrom(this.candidateFamilyService.create(data)).then((res) => {
-                this.candidateUserFamilies
-                this.familyInsertReqDto.reset()
-                this.dialogFamily = false
-            })
-        }
-    }
-
-    onAddReference() {
-        if (this.referenceInsertReqDto.valid) {
-            const data = this.referenceInsertReqDto.getRawValue()
-            firstValueFrom(this.candidateReferenceService.create(data)).then((res) => {
-                this.candidateUserReferences
-                this.referenceInsertReqDto.reset()
-                this.dialogReference = false
-            })
         }
 
-      this.candidateUpdateInsertReqDto.patchValue({
+        this.candidateUpdateInsertReqDto.patchValue({
           id: res.candidateUser.id,
           userEmail: res.candidateUser.userEmail,
           userPassword: res.candidateUser.userPassword,
@@ -569,98 +462,47 @@ export class CandidateUpdateComponent implements OnInit {
         this.addressInsertReqDto.patchValue({
           candidateId: res.candidateUser.id,
           email: res.candidateUser.userEmail
-    onAddDocument() {
-        if (this.documentInsertReqDto.valid) {
-            const data = this.documentInsertReqDto.getRawValue()
-            firstValueFrom(this.candidateDocumentService.create(data)).then((res) => {
-                this.candidateUserDocuments
-                this.documentInsertReqDto.reset()
-                this.dialogDocument = false
-            })
-        }
-    }
-
-    onDeleteAddress() {
-        firstValueFrom(this.candidateAddressService.delete(this.addressId)).then((res) => {
-            this.candidateUserAddresses
-            this.dialogDeleteAddress = false
         })
 
         this.educationInsertReqDto.patchValue({
           candidateId: res.candidateUser.id,
           email: res.candidateUser.userEmail
-    onDeleteTraining() {
-        firstValueFrom(this.candidateTrainingExpService.delete(this.trainingId)).then((res) => {
-            this.candidateUserTrainings
-            this.dialogDeleteTraining = false
         })
 
         this.workingInsertReqDto.patchValue({
           candidateId: res.candidateUser.id,
           email: res.candidateUser.userEmail
-    onDeleteEducation() {
-        firstValueFrom(this.candidateEducationService.delete(this.educationId)).then((res) => {
-            this.candidateUserEducations
-            this.dialogDeleteEducation = false
         })
 
         this.trainingInsertReqDto.patchValue({
           email: res.candidateUser.userEmail
-    onDeleteWorking() {
-        firstValueFrom(this.candidateWorkExpService.delete(this.workingId)).then((res) => {
-            this.candidateUserWorkings
-            this.dialogDeleteWorking = false
         })
 
         this.projectInsertReqDto.patchValue({
           candidateId: res.candidateUser.id,
           email: res.candidateUser.userEmail
-    onDeleteProject() {
-        firstValueFrom(this.candidateProjectExpService.delete(this.projectId)).then((res) => {
-            this.candidateUserProjects
-            this.dialogDeleteProject = false
         })
 
         this.skillInsertReqDto.patchValue({
           candidateId: res.candidateUser.id,
           email: res.candidateUser.userEmail
-    onDeleteSkill() {
-        firstValueFrom(this.candidateSkillService.delete(this.skillId)).then((res) => {
-            this.candidateUserSkills
-            this.dialogDeleteSkill = false
         })
 
         this.languageInsertReqDto.patchValue({
           email: res.candidateUser.userEmail
-    onDeleteLanguage() {
-        firstValueFrom(this.candidateLanguageService.delete(this.languageId)).then((res) => {
-            this.candidateUserLanguages
-            this.dialogDeleteLanguage = false
         })
 
         this.familyInsertReqDto.patchValue({
           email: res.candidateUser.userEmail
-    onDeleteFamily() {
-        firstValueFrom(this.candidateFamilyService.delete(this.familyId)).then((res) => {
-            this.candidateUserFamilies
-            this.dialogDeleteFamily = false
         })
 
         this.referenceInsertReqDto.patchValue({
           candidateEmail: res.candidateUser.userEmail
-    onDeleteReference() {
-        firstValueFrom(this.candidateReferenceService.delete(this.referenceId)).then((res) => {
-            this.candidateUserReferences
-            this.dialogDeleteReference = false
         })
 
         this.documentInsertReqDto.patchValue({
           candidateId: res.candidateUser.id,
           email: res.candidateUser.userEmail
-    onDeleteDocument() {
-        firstValueFrom(this.candidateDocumentService.delete(this.documentId)).then((res) => {
-            this.candidateUserDocuments
-            this.dialogDeleteDocument = false
         })
       })
   }
@@ -958,14 +800,6 @@ export class CandidateUpdateComponent implements OnInit {
       this.dialogDeleteTraining = false
     })
   }
-    onUpdate() {
-        if (this.candidateUpdateInsertReqDto.valid) {
-            const data = this.candidateUpdateInsertReqDto.getRawValue()
-            firstValueFrom(this.candidateService.update(data)).then((res) => {
-                this.router.navigateByUrl(`/candidates/profile`)
-            })
-        }
-    }
 
   onDeleteEducation() {
     this.candidateEducationService.delete(this.educationId).subscribe((res) => {
