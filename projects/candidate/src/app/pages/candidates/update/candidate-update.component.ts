@@ -36,7 +36,6 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { FileUpload } from "primeng/fileupload";
 import { AuthService } from "../../../service/auth.service";
 import { CandidateStatusService } from "../../../service/candidate-status.service";
-import { firstValueFrom } from "rxjs";
 
 interface Salutation {
   value: string;
@@ -130,7 +129,7 @@ export class CandidateUpdateComponent implements OnInit {
       mobileNumber: ['', [Validators.required]],
       nik: ['', [Validators.required]],
       birthDate: ['', [Validators.required]],
-      birthDateTemp: [new FormControl<Date | null>(null)],
+      birthDateTemp: new FormControl<Date | null>(null),
       birthPlace: ['', [Validators.required]],
       maritalStatusCode: [''],
       maritalStatusId: ['', [Validators.required]],
@@ -151,9 +150,9 @@ export class CandidateUpdateComponent implements OnInit {
     trainingName: ['', [Validators.required]],
     description: ['', [Validators.required]],
     startDate: ['', [Validators.required]],
-    startDateTemp: [new FormControl<Date | null>(null)],
+    startDateTemp: new FormControl<Date | null>(null),
     endDate: ['', [Validators.required]],
-    endDateTemp: [new FormControl<Date | null>(null)],
+    endDateTemp: new FormControl<Date | null>(null),
     email: ['', [Validators.required]]
   })
 
@@ -174,9 +173,9 @@ export class CandidateUpdateComponent implements OnInit {
     majors: ['', [Validators.required]],
     cgpa: [0, [Validators.required]],
     startYear: ['', [Validators.required]],
-    startYearTemp: [new FormControl<Date | null>(null)],
+    startYearTemp: new FormControl<Date | null>(null),
     endYear: ['', [Validators.required]],
-    endYearTemp: [new FormControl<Date | null>(null)],
+    endYearTemp: new FormControl<Date | null>(null),
     candidateId: ['', [Validators.required]],
     email: ['', [Validators.required]]
   })
@@ -189,9 +188,9 @@ export class CandidateUpdateComponent implements OnInit {
     reasonLeave: ['', [Validators.required]],
     lastSalary: [0, [Validators.required]],
     startDate: ['', [Validators.required]],
-    startDateTemp: [new FormControl<Date | null>(null)],
+    startDateTemp: new FormControl<Date | null>(null),
     endDate: ['', [Validators.required]],
-    endDateTemp: [new FormControl<Date | null>(null)],
+    endDateTemp: new FormControl<Date | null>(null),
     candidateId: ['', [Validators.required]],
     email: ['', [Validators.required]]
   })
@@ -201,9 +200,9 @@ export class CandidateUpdateComponent implements OnInit {
     projectUrl: ['', [Validators.required]],
     description: ['', [Validators.required]],
     startDate: ['', [Validators.required]],
-    startDateTemp: [new FormControl<Date | null>(null)],
+    startDateTemp: new FormControl<Date | null>(null),
     endDate: ['', [Validators.required]],
-    endDateTemp: [new FormControl<Date | null>(null)],
+    endDateTemp: new FormControl<Date | null>(null),
     candidateId: ['', [Validators.required]],
     email: ['', [Validators.required]]
   })
@@ -228,7 +227,7 @@ export class CandidateUpdateComponent implements OnInit {
     degreeName: ['', [Validators.required]],
     occupation: ['', [Validators.required]],
     birthDate: ['', [Validators.required]],
-    birthDateTemp: [new FormControl<Date | null>(null)],
+    birthDateTemp: new FormControl<Date | null>(null),
     birthPlace: ['', [Validators.required]],
     email: ['', [Validators.required]]
   })
@@ -283,9 +282,9 @@ export class CandidateUpdateComponent implements OnInit {
       this.candidateId = profile.userId
     }
 
-    this.candidateUpdateInsertReqDto.get('profile')?.get('birthDateTemp')?.valueChanges.subscribe(res => {
+    this.candidateUpdateInsertReqDto.get('profile.birthDateTemp')?.valueChanges.subscribe(res => {
       const newBirthDate = convertUTCToLocalDate(res as any)
-      this.candidateUpdateInsertReqDto.get('profile')?.get('birthDate')?.setValue(newBirthDate)
+      this.candidateUpdateInsertReqDto.get('profile.birthDate')?.setValue(newBirthDate)
     })
 
     this.familyInsertReqDto.get('birthDateTemp')?.valueChanges.subscribe(res => {
@@ -294,801 +293,636 @@ export class CandidateUpdateComponent implements OnInit {
         const newBirthDate = convertUTCToLocalDate(res as any)
         this.familyInsertReqDto.get('birthDate')?.setValue(newBirthDate)
       }
-      addressInsertReqDto = this.fb.group({
-        addressCode: [''],
-        address: ['', [Validators.required]],
-        residenceType: ['', [Validators.required]],
-        country: ['', [Validators.required]],
-        province: ['', [Validators.required]],
-        city: ['', [Validators.required]],
-        postalCode: ['', [Validators.required]],
-        candidateId: ['', [Validators.required]],
-        email: ['', [Validators.required]]
-      })
+    })
 
-      this.educationInsertReqDto.get('startYearTemp')?.valueChanges.subscribe(res => {
-        console.log(res);
-        const restemp = res as any
-        if (restemp instanceof Date) {
-          const newStartYear = convertUTCToLocalDate(restemp)
-          this.educationInsertReqDto.get('startYear')?.setValue(newStartYear)
+    this.educationInsertReqDto.get('startYearTemp')?.valueChanges.subscribe(res => {
+      console.log(res);
+      const restemp = res as any
+      if (restemp instanceof Date) {
+        const newStartYear = convertUTCToLocalDate(restemp)
+        this.educationInsertReqDto.get('startYear')?.setValue(newStartYear)
 
-        }
-      })
-      this.educationInsertReqDto.get('endYearTemp')?.valueChanges.subscribe(res => {
-        console.log(res);
-        const restemp = res as any
-        if (restemp instanceof Date) {
-          const newEndYear = convertUTCToLocalDate(restemp)
-          this.educationInsertReqDto.get('endYear')?.setValue(newEndYear)
+      }
+    })
+    this.educationInsertReqDto.get('endYearTemp')?.valueChanges.subscribe(res => {
+      console.log(res);
+      const restemp = res as any
+      if (restemp instanceof Date) {
+        const newEndYear = convertUTCToLocalDate(restemp)
+        this.educationInsertReqDto.get('endYear')?.setValue(newEndYear)
 
-        }
-      })
+      }
+    })
 
-      this.workingInsertReqDto.get('startDateTemp')?.valueChanges.subscribe(res => {
-        const restemp = res as any
-        if (restemp instanceof Date) {
-          const newStartDate = convertUTCToLocalDate(res as any)
-          this.workingInsertReqDto.get('startDate')?.setValue(newStartDate)
-        }
-      })
-      this.workingInsertReqDto.get('endDateTemp')?.valueChanges.subscribe(res => {
-        const restemp = res as any
-        if (restemp instanceof Date) {
-          const newEndDate = convertUTCToLocalDate(res as any)
-          this.workingInsertReqDto.get('endDate')?.setValue(newEndDate)
-        }
-      })
+    this.workingInsertReqDto.get('startDateTemp')?.valueChanges.subscribe(res => {
+      const restemp = res as any
+      if (restemp instanceof Date) {
+        const newStartDate = convertUTCToLocalDate(res as any)
+        this.workingInsertReqDto.get('startDate')?.setValue(newStartDate)
+      }
+    })
+    this.workingInsertReqDto.get('endDateTemp')?.valueChanges.subscribe(res => {
+      const restemp = res as any
+      if (restemp instanceof Date) {
+        const newEndDate = convertUTCToLocalDate(res as any)
+        this.workingInsertReqDto.get('endDate')?.setValue(newEndDate)
+      }
+    })
 
-      this.projectInsertReqDto.get('startDateTemp')?.valueChanges.subscribe(res => {
-        const restemp = res as any
-        if (restemp instanceof Date) {
-          const newStartDate = convertUTCToLocalDate(res as any)
-          this.projectInsertReqDto.get('startDate')?.setValue(newStartDate)
-        }
-      })
-      this.projectInsertReqDto.get('endDateTemp')?.valueChanges.subscribe(res => {
-        const restemp = res as any
-        if (restemp instanceof Date) {
-          const newEndDate = convertUTCToLocalDate(res as any)
-          this.projectInsertReqDto.get('endDate')?.setValue(newEndDate)
-        }
-      })
+    this.projectInsertReqDto.get('startDateTemp')?.valueChanges.subscribe(res => {
+      const restemp = res as any
+      if (restemp instanceof Date) {
+        const newStartDate = convertUTCToLocalDate(res as any)
+        this.projectInsertReqDto.get('startDate')?.setValue(newStartDate)
+      }
+    })
+    this.projectInsertReqDto.get('endDateTemp')?.valueChanges.subscribe(res => {
+      const restemp = res as any
+      if (restemp instanceof Date) {
+        const newEndDate = convertUTCToLocalDate(res as any)
+        this.projectInsertReqDto.get('endDate')?.setValue(newEndDate)
+      }
+    })
 
-      this.trainingInsertReqDto.get('startDateTemp')?.valueChanges.subscribe(res => {
-        const restemp = res as any
-        if (restemp instanceof Date) {
-          const newStartDate = convertUTCToLocalDate(res as any)
-          this.trainingInsertReqDto.get('startDate')?.setValue(newStartDate)
-        }
-      })
-      this.trainingInsertReqDto.get('endDateTemp')?.valueChanges.subscribe(res => {
-        const restemp = res as any
-        if (restemp instanceof Date) {
-          const newEndDate = convertUTCToLocalDate(res as any)
-          this.trainingInsertReqDto.get('endDate')?.setValue(newEndDate)
-        }
-      })
+    this.trainingInsertReqDto.get('startDateTemp')?.valueChanges.subscribe(res => {
+      const restemp = res as any
+      if (restemp instanceof Date) {
+        const newStartDate = convertUTCToLocalDate(res as any)
+        this.trainingInsertReqDto.get('startDate')?.setValue(newStartDate)
+      }
+    })
+    this.trainingInsertReqDto.get('endDateTemp')?.valueChanges.subscribe(res => {
+      const restemp = res as any
+      if (restemp instanceof Date) {
+        const newEndDate = convertUTCToLocalDate(res as any)
+        this.trainingInsertReqDto.get('endDate')?.setValue(newEndDate)
+      }
+    })
 
-      this.candidateUserProfile()
-      this.candidateUserAddresses()
-      this.candidateUserEducations()
-      this.candidateUserWorkings()
-      this.candidateUserTrainings()
-      this.candidateUserProjects()
-      this.candidateUserSkills()
-      this.candidateUserLanguages()
-      this.candidateUserFamilies()
-      this.candidateUserReferences()
-      this.candidateUserDocuments()
+    this.candidateUserProfile()
+    this.candidateUserAddresses()
+    this.candidateUserEducations()
+    this.candidateUserWorkings()
+    this.candidateUserTrainings()
+    this.candidateUserProjects()
+    this.candidateUserSkills()
+    this.candidateUserLanguages()
+    this.candidateUserFamilies()
+    this.candidateUserReferences()
+    this.candidateUserDocuments()
 
-      this.religionService.getAll().subscribe((res) => {
-        this.religions = res
-      })
+    this.religionService.getAll().subscribe((res) => {
+      this.religions = res
+    })
 
-      this.personTypeService.getAll().subscribe((res) => {
-        this.types = res
-      })
+    this.personTypeService.getAll().subscribe((res) => {
+      this.types = res
+    })
 
-      this.candidateStatusService.getAll().subscribe((res) => {
-        this.candidateStatus = res
-      })
+    this.candidateStatusService.getAll().subscribe((res) => {
+      this.candidateStatus = res
+    })
 
-      this.maritalStatusService.getAll().subscribe((res) => {
-        this.maritals = res
-      })
+    this.maritalStatusService.getAll().subscribe((res) => {
+      this.maritals = res
+    })
 
-      this.fileTypeService.getAll().subscribe((res) => {
-        this.fileTypes = res
-      })
+    this.fileTypeService.getAll().subscribe((res) => {
+      this.fileTypes = res
+    })
 
-      this.salutations = [
-        { value: 'Mr.', label: 'Mr.' },
-        { value: 'Mrs.', label: 'Mrs.' }
-      ];
+    this.salutations = [
+      { value: 'Mr.', label: 'Mr.' },
+      { value: 'Mrs.', label: 'Mrs.' }
+    ];
 
-      this.genders = [
-        { value: 'Male', label: 'Male' },
-        { value: 'Female', label: 'Female' }
-      ];
+    this.genders = [
+      { value: 'Male', label: 'Male' },
+      { value: 'Female', label: 'Female' }
+    ];
 
-      this.residenceType = [
-        { value: 'Home', label: 'Home' },
-        { value: 'Domicile', label: 'Domicile' }
-      ]
+    this.residenceType = [
+      { value: 'Home', label: 'Home' },
+      { value: 'Domicile', label: 'Domicile' }
+    ]
 
-      this.degrees = [
-        { value: 'Sarjana (S1)', label: 'Sarjana (S1)' },
-        { value: 'Magister (S2)', label: 'Magister (S2)' }
-      ]
+    this.degrees = [
+      { value: 'Sarjana (S1)', label: 'Sarjana (S1)' },
+      { value: 'Magister (S2)', label: 'Magister (S2)' }
+    ]
 
-    }
+  }
 
   candidateUserProfile() {
-      return this.candidateService.getById(this.candidateId)
-        .subscribe((res) => {
-          this.candidateUser = res
+    return this.candidateService.getById(this.candidateId)
+      .subscribe((res) => {
+        this.candidateUser = res
 
-          this.birthDateCandidate = new Date(res.candidateProfile.birthDate)
-          console.log(this.birthDateCandidate);
+        this.birthDateCandidate = new Date(res.candidateProfile.birthDate)
+        console.log(this.birthDateCandidate);
 
 
-          if (this.candidateUser?.candidateProfile?.fileId) {
-            this.imageUrl = `http://localhost:8081/files/${this.candidateUser?.candidateProfile?.fileId}`
-          } else {
-            this.imageUrl = '../../../assets/emptyProfile.jpeg'
-            onAddAddress() {
-              if (this.addressInsertReqDto.valid) {
-                const data = this.addressInsertReqDto.getRawValue()
-                firstValueFrom(this.candidateAddressService.create(data)).then((res) => {
-                  this.candidateUserAddresses
-                  this.addressInsertReqDto.reset()
-                  this.dialogAddress = false
-                })
-              }
-            }
+        if (this.candidateUser?.candidateProfile?.fileId) {
+          this.imageUrl = `http://localhost:8081/files/${this.candidateUser?.candidateProfile?.fileId}`
+        } else {
+          this.imageUrl = '../../../assets/emptyProfile.jpeg'
+        }
 
-            onAddEducation() {
-              if (this.educationInsertReqDto.valid) {
-                const data = this.educationInsertReqDto.getRawValue()
-                firstValueFrom(this.candidateEducationService.create(data)).then((res) => {
-                  this.candidateUserEducations
-                  this.educationInsertReqDto.reset()
-                  this.dialogEducation = false
-                })
-              }
-            }
+        this.candidateUpdateInsertReqDto.patchValue({
+          id: res.candidateUser.id,
+          userEmail: res.candidateUser.userEmail,
+          userPassword: res.candidateUser.userPassword,
+          profile: {
+            id: res.candidateProfile.id,
+            salutation: res.candidateProfile.salutation,
+            fullname: res.candidateProfile.fullname,
+            gender: res.candidateProfile.gender,
+            experience: res.candidateProfile.experience,
+            expectedSalary: Number(res.candidateProfile.expectedSalary),
+            phoneNumber: res.candidateProfile.phoneNumber,
+            mobileNumber: res.candidateProfile.mobileNumber,
+            nik: res.candidateProfile.nik,
+            birthDate: res.candidateProfile.birthDate,
+            birthDateTemp: new Date(res.candidateProfile.birthDate),
+            birthPlace: res.candidateProfile.birthPlace,
+            maritalStatusCode: res.candidateProfile.maritalStatusCode,
+            maritalStatusId: res.candidateProfile.maritalStatusId,
+            religionCode: res.candidateProfile.religionCode,
+            religionId: res.candidateProfile.religionId,
+            personTypeCode: res.candidateProfile.personTypeCode,
+            personTypeId: res.candidateProfile.personTypeId,
+            fileId: res.candidateProfile.fileId,
+            file: '',
+            fileExtension: '',
+            candidateStatusCode: res.candidateProfile.candidateStatusCode,
+            candidateStatusId: res.candidateProfile.candidateStatusId
+          }
+        })
 
-            onAddWorking() {
-              if (this.workingInsertReqDto.valid) {
-                const data = this.workingInsertReqDto.getRawValue()
-                firstValueFrom(this.candidateWorkExpService.create(data)).then((res) => {
-                  this.candidateUserWorkings
-                  this.workingInsertReqDto.reset()
-                  this.dialogWorking = false
-                })
-              }
-            }
+        this.addressInsertReqDto.patchValue({
+          candidateId: res.candidateUser.id,
+          email: res.candidateUser.userEmail
+        })
 
-            onAddTraining() {
-              if (this.trainingInsertReqDto.valid) {
-                const data = this.trainingInsertReqDto.getRawValue()
-                firstValueFrom(this.candidateTrainingExpService.create(data)).then((res) => {
-                  this.candidateUserTrainings
-                  this.trainingInsertReqDto.reset()
-                  this.dialogTraining = false
-                })
-              }
-            }
+        this.educationInsertReqDto.patchValue({
+          candidateId: res.candidateUser.id,
+          email: res.candidateUser.userEmail
+        })
 
-            onAddProject() {
-              if (this.projectInsertReqDto.valid) {
-                const data = this.projectInsertReqDto.getRawValue()
-                firstValueFrom(this.candidateProjectExpService.create(data)).then((res) => {
-                  this.candidateUserProjects
-                  this.projectInsertReqDto.reset()
-                  this.dialogProject = false
-                })
-              }
-            }
+        this.workingInsertReqDto.patchValue({
+          candidateId: res.candidateUser.id,
+          email: res.candidateUser.userEmail
+        })
 
-            onAddSkill() {
-              if (this.skillInsertReqDto.valid) {
-                const data = this.skillInsertReqDto.getRawValue()
-                firstValueFrom(this.candidateSkillService.create(data)).then((res) => {
-                  this.candidateUserSkills
-                  this.skillInsertReqDto.reset()
-                  this.dialogSkill = false
-                })
-              }
-            }
+        this.trainingInsertReqDto.patchValue({
+          email: res.candidateUser.userEmail
+        })
 
-            onAddLanguage() {
-              if (this.languageInsertReqDto.valid) {
-                const data = this.languageInsertReqDto.getRawValue()
-                firstValueFrom(this.candidateLanguageService.create(data)).then((res) => {
-                  this.candidateUserLanguages
-                  this.languageInsertReqDto.reset()
-                  this.dialogLanguage = false
-                })
-              }
-            }
+        this.projectInsertReqDto.patchValue({
+          candidateId: res.candidateUser.id,
+          email: res.candidateUser.userEmail
+        })
 
-            onAddFamily() {
-              if (this.familyInsertReqDto.valid) {
-                const data = this.familyInsertReqDto.getRawValue()
-                firstValueFrom(this.candidateFamilyService.create(data)).then((res) => {
-                  this.candidateUserFamilies
-                  this.familyInsertReqDto.reset()
-                  this.dialogFamily = false
-                })
-              }
-            }
+        this.skillInsertReqDto.patchValue({
+          candidateId: res.candidateUser.id,
+          email: res.candidateUser.userEmail
+        })
 
-            onAddReference() {
-              if (this.referenceInsertReqDto.valid) {
-                const data = this.referenceInsertReqDto.getRawValue()
-                firstValueFrom(this.candidateReferenceService.create(data)).then((res) => {
-                  this.candidateUserReferences
-                  this.referenceInsertReqDto.reset()
-                  this.dialogReference = false
-                })
-              }
+        this.languageInsertReqDto.patchValue({
+          email: res.candidateUser.userEmail
+        })
 
-              this.candidateUpdateInsertReqDto.patchValue({
-                id: res.candidateUser.id,
-                userEmail: res.candidateUser.userEmail,
-                userPassword: res.candidateUser.userPassword,
-                profile: {
-                  id: res.candidateProfile.id,
-                  salutation: res.candidateProfile.salutation,
-                  fullname: res.candidateProfile.fullname,
-                  gender: res.candidateProfile.gender,
-                  experience: res.candidateProfile.experience,
-                  expectedSalary: Number(res.candidateProfile.expectedSalary),
-                  phoneNumber: res.candidateProfile.phoneNumber,
-                  mobileNumber: res.candidateProfile.mobileNumber,
-                  nik: res.candidateProfile.nik,
-                  birthDate: res.candidateProfile.birthDate,
-                  birthDateTemp: new Date(res.candidateProfile.birthDate),
-                  birthPlace: res.candidateProfile.birthPlace,
-                  maritalStatusCode: res.candidateProfile.maritalStatusCode,
-                  maritalStatusId: res.candidateProfile.maritalStatusId,
-                  religionCode: res.candidateProfile.religionCode,
-                  religionId: res.candidateProfile.religionId,
-                  personTypeCode: res.candidateProfile.personTypeCode,
-                  personTypeId: res.candidateProfile.personTypeId,
-                  fileId: res.candidateProfile.fileId,
-                  file: '',
-                  fileExtension: '',
-                  candidateStatusCode: res.candidateProfile.candidateStatusCode,
-                  candidateStatusId: res.candidateProfile.candidateStatusId
-                }
-              })
+        this.familyInsertReqDto.patchValue({
+          email: res.candidateUser.userEmail
+        })
 
-              this.addressInsertReqDto.patchValue({
-                candidateId: res.candidateUser.id,
-                email: res.candidateUser.userEmail
-    onAddDocument() {
-                  if (this.documentInsertReqDto.valid) {
-                    const data = this.documentInsertReqDto.getRawValue()
-                    firstValueFrom(this.candidateDocumentService.create(data)).then((res) => {
-                      this.candidateUserDocuments
-                      this.documentInsertReqDto.reset()
-                      this.dialogDocument = false
-                    })
-                  }
-                }
+        this.referenceInsertReqDto.patchValue({
+          candidateEmail: res.candidateUser.userEmail
+        })
 
-    onDeleteAddress() {
-                  firstValueFrom(this.candidateAddressService.delete(this.addressId)).then((res) => {
-                    this.candidateUserAddresses
-                    this.dialogDeleteAddress = false
-                  })
-
-                  this.educationInsertReqDto.patchValue({
-                    candidateId: res.candidateUser.id,
-                    email: res.candidateUser.userEmail
-    onDeleteTraining() {
-                      firstValueFrom(this.candidateTrainingExpService.delete(this.trainingId)).then((res) => {
-                        this.candidateUserTrainings
-                        this.dialogDeleteTraining = false
-                      })
-
-                      this.workingInsertReqDto.patchValue({
-                        candidateId: res.candidateUser.id,
-                        email: res.candidateUser.userEmail
-    onDeleteEducation() {
-                          firstValueFrom(this.candidateEducationService.delete(this.educationId)).then((res) => {
-                            this.candidateUserEducations
-                            this.dialogDeleteEducation = false
-                          })
-
-                          this.trainingInsertReqDto.patchValue({
-                            email: res.candidateUser.userEmail
-    onDeleteWorking() {
-                              firstValueFrom(this.candidateWorkExpService.delete(this.workingId)).then((res) => {
-                                this.candidateUserWorkings
-                                this.dialogDeleteWorking = false
-                              })
-
-                              this.projectInsertReqDto.patchValue({
-                                candidateId: res.candidateUser.id,
-                                email: res.candidateUser.userEmail
-    onDeleteProject() {
-                                  firstValueFrom(this.candidateProjectExpService.delete(this.projectId)).then((res) => {
-                                    this.candidateUserProjects
-                                    this.dialogDeleteProject = false
-                                  })
-
-                                  this.skillInsertReqDto.patchValue({
-                                    candidateId: res.candidateUser.id,
-                                    email: res.candidateUser.userEmail
-    onDeleteSkill() {
-                                      firstValueFrom(this.candidateSkillService.delete(this.skillId)).then((res) => {
-                                        this.candidateUserSkills
-                                        this.dialogDeleteSkill = false
-                                      })
-
-                                      this.languageInsertReqDto.patchValue({
-                                        email: res.candidateUser.userEmail
-    onDeleteLanguage() {
-                                          firstValueFrom(this.candidateLanguageService.delete(this.languageId)).then((res) => {
-                                            this.candidateUserLanguages
-                                            this.dialogDeleteLanguage = false
-                                          })
-
-                                          this.familyInsertReqDto.patchValue({
-                                            email: res.candidateUser.userEmail
-    onDeleteFamily() {
-                                              firstValueFrom(this.candidateFamilyService.delete(this.familyId)).then((res) => {
-                                                this.candidateUserFamilies
-                                                this.dialogDeleteFamily = false
-                                              })
-
-                                              this.referenceInsertReqDto.patchValue({
-                                                candidateEmail: res.candidateUser.userEmail
-    onDeleteReference() {
-                                                  firstValueFrom(this.candidateReferenceService.delete(this.referenceId)).then((res) => {
-                                                    this.candidateUserReferences
-                                                    this.dialogDeleteReference = false
-                                                  })
-
-                                                  this.documentInsertReqDto.patchValue({
-                                                    candidateId: res.candidateUser.id,
-                                                    email: res.candidateUser.userEmail
-    onDeleteDocument() {
-                                                      firstValueFrom(this.candidateDocumentService.delete(this.documentId)).then((res) => {
-                                                        this.candidateUserDocuments
-                                                        this.dialogDeleteDocument = false
-                                                      })
-                                                    })
-                                                }
+        this.documentInsertReqDto.patchValue({
+          candidateId: res.candidateUser.id,
+          email: res.candidateUser.userEmail
+        })
+      })
+  }
 
   candidateUserAddresses() {
-                                                  return this.candidateAddressService.getByCandidate(this.candidateId)
-                                                    .subscribe((res) => {
-                                                      this.candidateAddresses = res
-                                                    })
-                                                }
+    return this.candidateAddressService.getByCandidate(this.candidateId)
+      .subscribe((res) => {
+        this.candidateAddresses = res
+      })
+  }
 
   candidateUserEducations() {
-                                                  return this.candidateEducationService.getByCandidate(this.candidateId)
-                                                    .subscribe((res) => {
-                                                      this.candidateEducations = res
-                                                    })
-                                                }
+    return this.candidateEducationService.getByCandidate(this.candidateId)
+      .subscribe((res) => {
+        this.candidateEducations = res
+      })
+  }
 
   candidateUserWorkings() {
-                                                  return this.candidateWorkExpService.getByCandidate(this.candidateId)
-                                                    .subscribe((res) => {
-                                                      this.candidateWorks = res
-                                                    })
-                                                }
+    return this.candidateWorkExpService.getByCandidate(this.candidateId)
+      .subscribe((res) => {
+        this.candidateWorks = res
+      })
+  }
 
   candidateUserTrainings() {
-                                                  return this.candidateTrainingExpService.getByCandidate(this.candidateId)
-                                                    .subscribe((res) => {
-                                                      this.candidateTrainings = res
-                                                    })
-                                                }
+    return this.candidateTrainingExpService.getByCandidate(this.candidateId)
+      .subscribe((res) => {
+        this.candidateTrainings = res
+      })
+  }
 
   candidateUserProjects() {
-                                                  return this.candidateProjectExpService.getByCandidate(this.candidateId)
-                                                    .subscribe((res) => {
-                                                      this.candidateProjects = res
-                                                    })
-                                                }
+    return this.candidateProjectExpService.getByCandidate(this.candidateId)
+      .subscribe((res) => {
+        this.candidateProjects = res
+      })
+  }
 
   candidateUserSkills() {
-                                                  return this.candidateSkillService.getByCandidate(this.candidateId)
-                                                    .subscribe((res) => {
-                                                      this.candidateSkills = res
-                                                    })
-                                                }
+    return this.candidateSkillService.getByCandidate(this.candidateId)
+      .subscribe((res) => {
+        this.candidateSkills = res
+      })
+  }
 
   candidateUserLanguages() {
-                                                  return this.candidateLanguageService.getByCandidate(this.candidateId)
-                                                    .subscribe((res) => {
-                                                      this.candidateLanguages = res
-                                                    })
-                                                }
+    return this.candidateLanguageService.getByCandidate(this.candidateId)
+      .subscribe((res) => {
+        this.candidateLanguages = res
+      })
+  }
 
   candidateUserFamilies() {
-                                                  return this.candidateFamilyService.getByCandidate(this.candidateId)
-                                                    .subscribe((res) => {
-                                                      this.candidateFamilies = res
-                                                    })
-                                                }
+    return this.candidateFamilyService.getByCandidate(this.candidateId)
+      .subscribe((res) => {
+        this.candidateFamilies = res
+      })
+  }
 
   candidateUserReferences() {
-                                                  return this.candidateReferenceService.getByCandidate(this.candidateId)
-                                                    .subscribe((res) => {
-                                                      this.candidateReferences = res
-                                                    })
-                                                }
+    return this.candidateReferenceService.getByCandidate(this.candidateId)
+      .subscribe((res) => {
+        this.candidateReferences = res
+      })
+  }
 
   candidateUserDocuments() {
-                                                  return this.candidateDocumentService.getByCandidate(this.candidateId)
-                                                    .subscribe((res) => {
-                                                      this.candidateDocuments = res
-                                                    })
-                                                }
+    return this.candidateDocumentService.getByCandidate(this.candidateId)
+      .subscribe((res) => {
+        this.candidateDocuments = res
+      })
+  }
 
   showAddAddress() {
-                                                  this.candidateUserProfile()
-                                                  this.dialogAddress = true;
-                                                }
+    this.candidateUserProfile()
+    this.dialogAddress = true;
+  }
 
   showDeleteAddress(id: string) {
-                                                  this.addressId = id
-                                                  this.dialogDeleteAddress = true;
-                                                }
+    this.addressId = id
+    this.dialogDeleteAddress = true;
+  }
 
   showAddEducation() {
-                                                  this.candidateUserProfile()
-                                                  this.dialogEducation = true;
-                                                }
+    this.candidateUserProfile()
+    this.dialogEducation = true;
+  }
 
   showDeleteEducation(id: string) {
-                                                  this.educationId = id
-                                                  this.dialogDeleteEducation = true
-                                                }
+    this.educationId = id
+    this.dialogDeleteEducation = true
+  }
 
   showAddFamily() {
-                                                  this.candidateUserProfile()
-                                                  this.dialogFamily = true;
-                                                }
+    this.candidateUserProfile()
+    this.dialogFamily = true;
+  }
 
   showDeleteFamily(id: string) {
-                                                  this.familyId = id
-                                                  this.dialogDeleteFamily = true
-                                                }
+    this.familyId = id
+    this.dialogDeleteFamily = true
+  }
 
   showAddSkill() {
-                                                  this.candidateUserProfile()
-                                                  this.dialogSkill = true;
-                                                }
+    this.candidateUserProfile()
+    this.dialogSkill = true;
+  }
 
   showDeleteSkill(id: string) {
-                                                  this.skillId = id
-                                                  this.dialogDeleteSkill = true
-                                                }
+    this.skillId = id
+    this.dialogDeleteSkill = true
+  }
 
   showAddLanguage() {
-                                                  this.candidateUserProfile()
-                                                  this.dialogLanguage = true;
-                                                }
+    this.candidateUserProfile()
+    this.dialogLanguage = true;
+  }
 
   showDeleteLanguage(id: string) {
-                                                  this.languageId = id
-                                                  this.dialogDeleteLanguage = true
-                                                }
+    this.languageId = id
+    this.dialogDeleteLanguage = true
+  }
 
   showAddReference() {
-                                                  this.candidateUserProfile()
-                                                  this.dialogReference = true;
-                                                }
+    this.candidateUserProfile()
+    this.dialogReference = true;
+  }
 
   showDeleteReference(id: string) {
-                                                  this.referenceId = id
-                                                  this.dialogDeleteReference = true
-                                                }
+    this.referenceId = id
+    this.dialogDeleteReference = true
+  }
 
   showAddWorking() {
-                                                  this.candidateUserProfile()
-                                                  this.dialogWorking = true;
-                                                }
+    this.candidateUserProfile()
+    this.dialogWorking = true;
+  }
 
   showDeleteWorking(id: string) {
-                                                  this.workingId = id
-                                                  this.dialogDeleteWorking = true
-                                                }
+    this.workingId = id
+    this.dialogDeleteWorking = true
+  }
 
   showAddTraining() {
-                                                  this.candidateUserProfile()
-                                                  this.dialogTraining = true;
-                                                }
+    this.candidateUserProfile()
+    this.dialogTraining = true;
+  }
 
   showDeleteTraining(id: string) {
-                                                  this.trainingId = id
-                                                  this.dialogDeleteTraining = true
-                                                }
+    this.trainingId = id
+    this.dialogDeleteTraining = true
+  }
 
   showAddProject() {
-                                                  this.candidateUserProfile()
-                                                  this.dialogProject = true;
-                                                }
+    this.candidateUserProfile()
+    this.dialogProject = true;
+  }
 
   showDeleteProject(id: string) {
-                                                  this.projectId = id
-                                                  this.dialogDeleteProject = true
-                                                }
+    this.projectId = id
+    this.dialogDeleteProject = true
+  }
 
   showAddDocuments() {
-                                                  this.candidateUserProfile()
-                                                  this.dialogDocument = true;
-                                                }
+    this.candidateUserProfile()
+    this.dialogDocument = true;
+  }
 
   showDeleteDocument(id: string) {
-                                                  this.documentId = id
-                                                  this.dialogDeleteDocument = true
-                                                }
+    this.documentId = id
+    this.dialogDeleteDocument = true
+  }
 
   onAddAddress() {
-                                                  if (this.addressInsertReqDto.valid) {
-                                                    const data = this.addressInsertReqDto.getRawValue()
-                                                    this.candidateAddressService.create(data).subscribe((res) => {
-                                                      this.candidateUserAddresses()
-                                                      this.addressInsertReqDto.reset()
-                                                      this.dialogAddress = false
-                                                    })
-                                                  }
-                                                }
+    if (this.addressInsertReqDto.valid) {
+      const data = this.addressInsertReqDto.getRawValue()
+      this.candidateAddressService.create(data).subscribe((res) => {
+        this.candidateUserAddresses()
+        this.addressInsertReqDto.reset()
+        this.dialogAddress = false
+      })
+    }
+  }
 
   onAddEducation() {
-                                                  if (this.educationInsertReqDto.valid) {
-                                                    const data = this.educationInsertReqDto.getRawValue()
-                                                    this.candidateEducationService.create(data).subscribe((res) => {
-                                                      this.educationInsertReqDto.reset()
-                                                      this.candidateUserEducations()
-                                                      this.dialogEducation = false
-                                                    })
-                                                  }
-                                                }
+    if (this.educationInsertReqDto.valid) {
+      const data = this.educationInsertReqDto.getRawValue()
+      this.candidateEducationService.create(data).subscribe((res) => {
+        this.educationInsertReqDto.reset()
+        this.candidateUserEducations()
+        this.dialogEducation = false
+      })
+    }
+  }
 
   onAddWorking() {
-                                                  if (this.workingInsertReqDto.valid) {
-                                                    const data = this.workingInsertReqDto.getRawValue()
-                                                    this.candidateWorkExpService.create(data).subscribe((res) => {
-                                                      this.candidateUserWorkings()
-                                                      this.workingInsertReqDto.reset()
-                                                      this.dialogWorking = false
-                                                    })
-                                                  }
-                                                }
+    if (this.workingInsertReqDto.valid) {
+      const data = this.workingInsertReqDto.getRawValue()
+      this.candidateWorkExpService.create(data).subscribe((res) => {
+        this.candidateUserWorkings()
+        this.workingInsertReqDto.reset()
+        this.dialogWorking = false
+      })
+    }
+  }
 
   onAddTraining() {
-                                                  if (this.trainingInsertReqDto.valid) {
-                                                    const data = this.trainingInsertReqDto.getRawValue()
-                                                    this.candidateTrainingExpService.create(data).subscribe((res) => {
-                                                      this.candidateUserTrainings()
-                                                      this.trainingInsertReqDto.reset()
-                                                      this.dialogTraining = false
-                                                    })
-                                                  }
-                                                }
+    if (this.trainingInsertReqDto.valid) {
+      const data = this.trainingInsertReqDto.getRawValue()
+      this.candidateTrainingExpService.create(data).subscribe((res) => {
+        this.candidateUserTrainings()
+        this.trainingInsertReqDto.reset()
+        this.dialogTraining = false
+      })
+    }
+  }
 
   onAddProject() {
-                                                  if (this.projectInsertReqDto.valid) {
-                                                    const data = this.projectInsertReqDto.getRawValue()
-                                                    this.candidateProjectExpService.create(data).subscribe((res) => {
-                                                      this.candidateUserProjects()
-                                                      this.projectInsertReqDto.reset()
-                                                      this.dialogProject = false
-                                                    })
-                                                  }
-                                                }
+    if (this.projectInsertReqDto.valid) {
+      const data = this.projectInsertReqDto.getRawValue()
+      this.candidateProjectExpService.create(data).subscribe((res) => {
+        this.candidateUserProjects()
+        this.projectInsertReqDto.reset()
+        this.dialogProject = false
+      })
+    }
+  }
 
   onAddSkill() {
-                                                  if (this.skillInsertReqDto.valid) {
-                                                    const data = this.skillInsertReqDto.getRawValue()
-                                                    this.candidateSkillService.create(data).subscribe((res) => {
-                                                      this.candidateUserSkills()
-                                                      this.skillInsertReqDto.reset()
-                                                      this.dialogSkill = false
-                                                    })
-                                                  }
-                                                }
+    if (this.skillInsertReqDto.valid) {
+      const data = this.skillInsertReqDto.getRawValue()
+      this.candidateSkillService.create(data).subscribe((res) => {
+        this.candidateUserSkills()
+        this.skillInsertReqDto.reset()
+        this.dialogSkill = false
+      })
+    }
+  }
 
   onAddLanguage() {
-                                                  if (this.languageInsertReqDto.valid) {
-                                                    const data = this.languageInsertReqDto.getRawValue()
-                                                    this.candidateLanguageService.create(data).subscribe((res) => {
-                                                      this.candidateUserLanguages()
-                                                      this.languageInsertReqDto.reset()
-                                                      this.dialogLanguage = false
-                                                    })
-                                                  }
-                                                }
+    if (this.languageInsertReqDto.valid) {
+      const data = this.languageInsertReqDto.getRawValue()
+      this.candidateLanguageService.create(data).subscribe((res) => {
+        this.candidateUserLanguages()
+        this.languageInsertReqDto.reset()
+        this.dialogLanguage = false
+      })
+    }
+  }
 
   onAddFamily() {
-                                                  if (this.familyInsertReqDto.valid) {
-                                                    const data = this.familyInsertReqDto.getRawValue()
-                                                    this.candidateFamilyService.create(data).subscribe((res) => {
-                                                      this.candidateUserFamilies()
-                                                      this.familyInsertReqDto.reset()
-                                                      this.dialogFamily = false
-                                                    })
-                                                  }
-                                                }
+    if (this.familyInsertReqDto.valid) {
+      const data = this.familyInsertReqDto.getRawValue()
+      this.candidateFamilyService.create(data).subscribe((res) => {
+        this.candidateUserFamilies()
+        this.familyInsertReqDto.reset()
+        this.dialogFamily = false
+      })
+    }
+  }
 
   onAddReference() {
-                                                  if (this.referenceInsertReqDto.valid) {
-                                                    const data = this.referenceInsertReqDto.getRawValue()
-                                                    this.candidateReferenceService.create(data).subscribe((res) => {
-                                                      this.candidateUserReferences()
-                                                      this.referenceInsertReqDto.reset()
-                                                      this.dialogReference = false
-                                                    })
-                                                  }
-                                                }
+    if (this.referenceInsertReqDto.valid) {
+      const data = this.referenceInsertReqDto.getRawValue()
+      this.candidateReferenceService.create(data).subscribe((res) => {
+        this.candidateUserReferences()
+        this.referenceInsertReqDto.reset()
+        this.dialogReference = false
+      })
+    }
+  }
 
   onAddDocument() {
-                                                  if (this.documentInsertReqDto.valid) {
-                                                    const data = this.documentInsertReqDto.getRawValue()
-                                                    this.candidateDocumentService.create(data).subscribe((res) => {
-                                                      this.candidateUserDocuments()
-                                                      this.documentInsertReqDto.reset()
-                                                      this.dialogDocument = false
-                                                    })
-                                                  }
-                                                }
+    if (this.documentInsertReqDto.valid) {
+      const data = this.documentInsertReqDto.getRawValue()
+      this.candidateDocumentService.create(data).subscribe((res) => {
+        this.candidateUserDocuments()
+        this.documentInsertReqDto.reset()
+        this.dialogDocument = false
+      })
+    }
+  }
 
   onDeleteAddress() {
-                                                  this.candidateAddressService.delete(this.addressId).subscribe((res) => {
-                                                    this.candidateUserAddresses()
-                                                    this.dialogDeleteAddress = false
-                                                  })
-                                                }
+    this.candidateAddressService.delete(this.addressId).subscribe((res) => {
+      this.candidateUserAddresses()
+      this.dialogDeleteAddress = false
+    })
+  }
 
   onDeleteTraining() {
-                                                  this.candidateTrainingExpService.delete(this.trainingId).subscribe((res) => {
-                                                    this.candidateUserTrainings()
-                                                    this.dialogDeleteTraining = false
-                                                  })
-                                                }
-    onUpdate() {
-                                                  if (this.candidateUpdateInsertReqDto.valid) {
-                                                    const data = this.candidateUpdateInsertReqDto.getRawValue()
-                                                    firstValueFrom(this.candidateService.update(data)).then((res) => {
-                                                      this.router.navigateByUrl(`/candidates/profile`)
-                                                    })
-                                                  }
-                                                }
+    this.candidateTrainingExpService.delete(this.trainingId).subscribe((res) => {
+      this.candidateUserTrainings()
+      this.dialogDeleteTraining = false
+    })
+  }
 
   onDeleteEducation() {
-                                                  this.candidateEducationService.delete(this.educationId).subscribe((res) => {
-                                                    this.candidateUserEducations()
-                                                    this.dialogDeleteEducation = false
-                                                  })
-                                                }
+    this.candidateEducationService.delete(this.educationId).subscribe((res) => {
+      this.candidateUserEducations()
+      this.dialogDeleteEducation = false
+    })
+  }
 
   onDeleteWorking() {
-                                                  this.candidateWorkExpService.delete(this.workingId).subscribe((res) => {
-                                                    this.candidateUserWorkings()
-                                                    this.dialogDeleteWorking = false
-                                                  })
-                                                }
+    this.candidateWorkExpService.delete(this.workingId).subscribe((res) => {
+      this.candidateUserWorkings()
+      this.dialogDeleteWorking = false
+    })
+  }
 
   onDeleteProject() {
-                                                  this.candidateProjectExpService.delete(this.projectId).subscribe((res) => {
-                                                    this.candidateUserProjects()
-                                                    this.dialogDeleteProject = false
-                                                  })
-                                                }
+    this.candidateProjectExpService.delete(this.projectId).subscribe((res) => {
+      this.candidateUserProjects()
+      this.dialogDeleteProject = false
+    })
+  }
 
   onDeleteSkill() {
-                                                  this.candidateSkillService.delete(this.skillId).subscribe((res) => {
-                                                    this.candidateUserSkills()
-                                                    this.dialogDeleteSkill = false
-                                                  })
-                                                }
+    this.candidateSkillService.delete(this.skillId).subscribe((res) => {
+      this.candidateUserSkills()
+      this.dialogDeleteSkill = false
+    })
+  }
 
   onDeleteLanguage() {
-                                                  this.candidateLanguageService.delete(this.languageId).subscribe((res) => {
-                                                    this.candidateUserLanguages()
-                                                    this.dialogDeleteLanguage = false
-                                                  })
-                                                }
+    this.candidateLanguageService.delete(this.languageId).subscribe((res) => {
+      this.candidateUserLanguages()
+      this.dialogDeleteLanguage = false
+    })
+  }
 
   onDeleteFamily() {
-                                                  this.candidateFamilyService.delete(this.familyId).subscribe((res) => {
-                                                    this.candidateUserFamilies()
-                                                    this.dialogDeleteFamily = false
-                                                  })
-                                                }
+    this.candidateFamilyService.delete(this.familyId).subscribe((res) => {
+      this.candidateUserFamilies()
+      this.dialogDeleteFamily = false
+    })
+  }
 
   onDeleteReference() {
-                                                  this.candidateReferenceService.delete(this.referenceId).subscribe((res) => {
-                                                    this.candidateUserReferences()
-                                                    this.dialogDeleteReference = false
-                                                  })
-                                                }
+    this.candidateReferenceService.delete(this.referenceId).subscribe((res) => {
+      this.candidateUserReferences()
+      this.dialogDeleteReference = false
+    })
+  }
 
   onDeleteDocument() {
-                                                  this.candidateDocumentService.delete(this.documentId).subscribe((res) => {
-                                                    this.candidateUserDocuments()
-                                                    this.dialogDeleteDocument = false
-                                                  })
-                                                }
+    this.candidateDocumentService.delete(this.documentId).subscribe((res) => {
+      this.candidateUserDocuments()
+      this.dialogDeleteDocument = false
+    })
+  }
 
   onUpdate() {
-                                                  if (this.candidateUpdateInsertReqDto.valid) {
-                                                    const data = this.candidateUpdateInsertReqDto.getRawValue()
-                                                    this.candidateService.update(data).subscribe((res) => {
-                                                      this.router.navigateByUrl(`/candidates/profile`)
-                                                    })
-                                                  }
-                                                }
+    if (this.candidateUpdateInsertReqDto.valid) {
+      const data = this.candidateUpdateInsertReqDto.getRawValue()
+      this.candidateService.update(data).subscribe((res) => {
+        this.router.navigateByUrl(`/candidates/profile`)
+      })
+    }
+  }
 
   get profile() {
-                                                  return this.candidateUpdateInsertReqDto.get('profile') as FormGroup
-                                                }
+    return this.candidateUpdateInsertReqDto.get('profile') as FormGroup
+  }
 
   fileUpload(event: any, fileUpload: FileUpload) {
-                                                  const toBase64 = (file: File) => new Promise<string>((resolve, reject) => {
-                                                    const reader = new FileReader();
-                                                    reader.readAsDataURL(file);
-                                                    reader.onload = () => {
-                                                      if (typeof reader.result === "string") resolve(reader.result)
-                                                    };
-                                                    reader.onerror = error => reject(error);
-                                                  });
+    const toBase64 = (file: File) => new Promise<string>((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        if (typeof reader.result === "string") resolve(reader.result)
+      };
+      reader.onerror = error => reject(error);
+    });
 
-                                                  for (let file of event.files) {
-                                                    toBase64(file).then(result => {
-                                                      const resultBase64 = result.substring(result.indexOf(",") + 1, result.length)
-                                                      const resultExtension = file.name.substring(file.name.indexOf(".") + 1, file.name.length)
+    for (let file of event.files) {
+      toBase64(file).then(result => {
+        const resultBase64 = result.substring(result.indexOf(",") + 1, result.length)
+        const resultExtension = file.name.substring(file.name.indexOf(".") + 1, file.name.length)
 
-                                                      this.profile.patchValue({
-                                                        file: resultBase64,
-                                                        fileExtension: resultExtension
-                                                      })
+        this.profile.patchValue({
+          file: resultBase64,
+          fileExtension: resultExtension
+        })
 
-                                                      fileUpload.clear()
-                                                    })
-                                                  }
-                                                }
+        fileUpload.clear()
+      })
+    }
+  }
 
   fileUploadDoc(event: any, fileUpload: FileUpload) {
-                                                  const toBase64 = (file: File) => new Promise<string>((resolve, reject) => {
-                                                    const reader = new FileReader();
-                                                    reader.readAsDataURL(file);
-                                                    reader.onload = () => {
-                                                      if (typeof reader.result === "string") resolve(reader.result)
-                                                    };
-                                                    reader.onerror = error => reject(error);
-                                                  });
+    const toBase64 = (file: File) => new Promise<string>((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        if (typeof reader.result === "string") resolve(reader.result)
+      };
+      reader.onerror = error => reject(error);
+    });
 
-                                                  for (let file of event.files) {
-                                                    toBase64(file).then(result => {
-                                                      const resultBase64 = result.substring(result.indexOf(",") + 1, result.length)
-                                                      const resultExtension = file.name.substring(file.name.indexOf(".") + 1, file.name.length)
+    for (let file of event.files) {
+      toBase64(file).then(result => {
+        const resultBase64 = result.substring(result.indexOf(",") + 1, result.length)
+        const resultExtension = file.name.substring(file.name.indexOf(".") + 1, file.name.length)
 
-                                                      this.documentInsertReqDto.patchValue({
-                                                        fileName: resultBase64,
-                                                        fileExtension: resultExtension
-                                                      })
+        this.documentInsertReqDto.patchValue({
+          fileName: resultBase64,
+          fileExtension: resultExtension
+        })
 
-                                                      fileUpload.clear()
-                                                    })
-                                                  }
-                                                }
-                                              }
+        fileUpload.clear()
+      })
+    }
+  }
+}
 
 const convertUTCToLocalDate = function (date: Date) {
-                                                const newDate = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate(), date.getHours(), date.getMinutes(), date.getSeconds()));
-                                                return newDate.toISOString().split('T')[0]
-                                              }
+  const newDate = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate(), date.getHours(), date.getMinutes(), date.getSeconds()));
+  return newDate.toISOString().split('T')[0]
+}
 

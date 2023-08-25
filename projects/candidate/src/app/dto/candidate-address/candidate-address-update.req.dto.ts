@@ -1,5 +1,5 @@
 export interface CandiateAddressUpdateReqDto {
-    id : string
+  id : string
 	address : string
 	residenceType : string
 	country : string

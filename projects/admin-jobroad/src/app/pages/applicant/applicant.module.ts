@@ -7,5 +7,5 @@ import { ApplicantRouting } from "./applicant.routing";
     ]
 })
 export class ApplicantModule {
-
+ 
 }
