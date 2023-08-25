@@ -11,4 +11,5 @@ export interface JobResDto {
 	employementTypeName: string;
 	fileId: string;
 	isBookmark: boolean;
+	companyPhotoId : string;
 }
