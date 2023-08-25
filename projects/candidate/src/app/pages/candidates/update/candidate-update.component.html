@@ -6,7 +6,7 @@
     </div>
   </div> <p-card header="Update Candidate Information">
     <form [formGroup]="candidateUpdateInsertReqDto" (ngSubmit)="onUpdate()">
-      <pre>{{ candidateUpdateInsertReqDto.value | json }}</pre>
+      <!-- <pre>{{ candidateUpdateInsertReqDto.value | json }}</pre> -->
       <div class="grid">
         <div class="col-12 md:col-10 md:col-offset-2">
           <div class="row align-items-center">
@@ -27,8 +27,7 @@
       </div>
       <div class="grid">
         <div class="col-12 md:col-2">
-          <p-image [src]="imageUrl" alt="Image" width="100%"
-            height="250px"></p-image>
+          <p-image [src]="imageUrl" alt="Image" width="100%" height="250px"></p-image>
           <p-fileUpload mode="basic" styleClass="bg-green-700" chooseLabel="Change Picture" chooseIcon="pi pi-upload"
             class="form-control" (onSelect)="fileUpload($event, file)" #file type="file" id="picture" required
             [style]="{'width':'100%'}"></p-fileUpload>
@@ -78,8 +77,9 @@
               <div class="col-4">Birth Date<span class="text-red-500"> *</span></div>
               <div class="col-1">:</div>
               <div class="col-7">
-                <input pInputText id="birthDate" required type="date" formControlName="birthDate"
-                  [style]="{'width':'100%'}" />
+                <p-calendar inputId="birthDate" [required]="true" formControlName="birthDateTemp" [showIcon]="true"
+                  dateFormat="dd/mm/yy" inputStyleClass="w-full" styleClass="w-full"
+                  [defaultDate]="birthDateCandidate"></p-calendar>
               </div>
               <div class="col-4">Marital Status<span class="text-red-500"> *</span></div>
               <div class="col-1">:</div>
@@ -152,7 +152,7 @@
               <h3 class="col-12">Addresses</h3>
             </div>
             <div class="flex align-items-center justify-content-center">
-              <app-button typeBtn="button" (click)="showAddAddress()" iconBtn="pi pi-plus-circle"
+              <app-button typeBtn="button" (clickChange)="showAddAddress()" iconBtn="pi pi-plus-circle"
                 backgroundColor="var(--PRIMARY)" label="ADD"></app-button>
             </div>
           </div>
@@ -178,7 +178,7 @@
                       </div>
                       <div class="flex sm:flex-column align-items-center sm:align-items-end gap-3 sm:gap-2">
                         <span class="text-l font-semibold"></span>
-                        <app-button typeBtn="button" (click)="showDeleteAddress(address.id)" iconBtn="pi pi-trash"
+                        <app-button typeBtn="button" (clickChange)="showDeleteAddress(address.id)" iconBtn="pi pi-trash"
                           backgroundColor="danger"
                           classBtn="md:align-self-end mb-2 p-button-rounded p-button-danger"></app-button>
                       </div>
@@ -197,7 +197,7 @@
               <h3 class="col-12">Educations</h3>
             </div>
             <div class="flex align-items-center justify-content-center">
-              <app-button typeBtn="button" (click)="showAddEducation()" iconBtn="pi pi-plus-circle"
+              <app-button typeBtn="button" (clickChange)="showAddEducation()" iconBtn="pi pi-plus-circle"
                 backgroundColor="var(--PRIMARY)" label="ADD"></app-button>
             </div>
           </div>
@@ -221,8 +221,8 @@
                       </div>
                       <div class="flex sm:flex-column align-items-center sm:align-items-end gap-3 sm:gap-2">
                         <span class="text-l font-semibold">{{ education.startYear }} - {{ education.endYear }}</span>
-                        <app-button typeBtn="button" (click)="showDeleteEducation(education.id)" iconBtn="pi pi-trash"
-                          backgroundColor="danger"
+                        <app-button typeBtn="button" (clickChange)="showDeleteEducation(education.id)"
+                          iconBtn="pi pi-trash" backgroundColor="danger"
                           classBtn="md:align-self-end mb-2 p-button-rounded p-button-danger"></app-button>
                       </div>
                     </div>
@@ -239,7 +239,7 @@
               <h3 class="col-12">Working Experiences</h3>
             </div>
             <div class="flex align-items-center justify-content-center">
-              <app-button typeBtn="button" (click)="showAddWorking()" iconBtn="pi pi-plus-circle"
+              <app-button typeBtn="button" (clickChange)="showAddWorking()" iconBtn="pi pi-plus-circle"
                 backgroundColor="var(--PRIMARY)" label="ADD"></app-button>
             </div>
           </div>
@@ -270,7 +270,7 @@
                       <div class="flex sm:flex-column align-items-center sm:align-items-end gap-3 sm:gap-2">
                         <span class="text-l font-semibold">{{ working.startDate }} - {{
                           working.endDate }}</span>
-                        <app-button typeBtn="button" (click)="showDeleteWorking(working.id)" iconBtn="pi pi-trash"
+                        <app-button typeBtn="button" (clickChange)="showDeleteWorking(working.id)" iconBtn="pi pi-trash"
                           backgroundColor="danger"
                           classBtn="md:align-self-end mb-2 p-button-rounded p-button-danger"></app-button>
                       </div>
@@ -288,7 +288,7 @@
               <h3 class="col-12">Training Experiences</h3>
             </div>
             <div class="flex align-items-center justify-content-center">
-              <app-button typeBtn="button" (click)="showAddTraining()" iconBtn="pi pi-plus-circle"
+              <app-button typeBtn="button" (clickChange)="showAddTraining()" iconBtn="pi pi-plus-circle"
                 backgroundColor="var(--PRIMARY)" label="ADD"></app-button>
             </div>
           </div>
@@ -314,8 +314,8 @@
                       <div class="flex sm:flex-column align-items-center sm:align-items-end gap-3 sm:gap-2">
                         <span class="text-l font-semibold">{{ training.startDate }} - {{
                           training.endDate }}</span>
-                        <app-button typeBtn="button" (click)="showDeleteTraining(training.id)" iconBtn="pi pi-trash"
-                          backgroundColor="danger"
+                        <app-button typeBtn="button" (clickChange)="showDeleteTraining(training.id)"
+                          iconBtn="pi pi-trash" backgroundColor="danger"
                           classBtn="md:align-self-end mb-2 p-button-rounded p-button-danger"></app-button>
                       </div>
                     </div>
@@ -332,7 +332,7 @@
               <h3 class="col-12">Project Experiences</h3>
             </div>
             <div class="flex align-items-center justify-content-center">
-              <app-button typeBtn="button" (click)="showAddProject()" iconBtn="pi pi-plus-circle"
+              <app-button typeBtn="button" (clickChange)="showAddProject()" iconBtn="pi pi-plus-circle"
                 backgroundColor="var(--PRIMARY)" label="ADD"></app-button>
             </div>
           </div>
@@ -358,7 +358,7 @@
                       <div class="flex sm:flex-column align-items-center sm:align-items-end gap-3 sm:gap-2">
                         <span class="text-l font-semibold">{{ project.startDate }} - {{
                           project.endDate }}</span>
-                        <app-button typeBtn="button" (click)="showDeleteProject(project.id)" iconBtn="pi pi-trash"
+                        <app-button typeBtn="button" (clickChange)="showDeleteProject(project.id)" iconBtn="pi pi-trash"
                           backgroundColor="danger"
                           classBtn="md:align-self-end mb-2 p-button-rounded p-button-danger"></app-button>
                       </div>
@@ -379,7 +379,7 @@
                     <h3 class="col-12">Skills</h3>
                   </div>
                   <div class="flex align-items-center justify-content-center">
-                    <app-button typeBtn="button" (click)="showAddSkill()" iconBtn="pi pi-plus-circle"
+                    <app-button typeBtn="button" (clickChange)="showAddSkill()" iconBtn="pi pi-plus-circle"
                       backgroundColor="var(--PRIMARY)" label="ADD"></app-button>
                   </div>
                 </div>
@@ -400,8 +400,8 @@
                               </div>
                             </div>
                             <div class="flex sm:flex-column align-items-center sm:align-items-end gap-3 sm:gap-2">
-                              <app-button typeBtn="button" (click)="showDeleteSkill(skill.id)" iconBtn="pi pi-trash"
-                                backgroundColor="danger"
+                              <app-button typeBtn="button" (clickChange)="showDeleteSkill(skill.id)"
+                                iconBtn="pi pi-trash" backgroundColor="danger"
                                 classBtn="md:align-self-end mb-2 p-button-rounded p-button-danger"></app-button>
                             </div>
                           </div>
@@ -418,7 +418,7 @@
                     <h3 class="col-12">Languages</h3>
                   </div>
                   <div class="flex align-items-center justify-content-center">
-                    <app-button typeBtn="button" (click)="showAddLanguage()" iconBtn="pi pi-plus-circle"
+                    <app-button typeBtn="button" (clickChange)="showAddLanguage()" iconBtn="pi pi-plus-circle"
                       backgroundColor="var(--PRIMARY)" label="ADD"></app-button>
                   </div>
                 </div>
@@ -448,7 +448,7 @@
                               </div>
                             </div>
                             <div class="flex sm:flex-column align-items-center sm:align-items-end">
-                              <app-button typeBtn="button" (click)="showDeleteLanguage(language.id)"
+                              <app-button typeBtn="button" (clickChange)="showDeleteLanguage(language.id)"
                                 iconBtn="pi pi-trash" backgroundColor="danger"
                                 classBtn="md:align-self-end mb-2 p-button-rounded p-button-danger"></app-button>
                             </div>
@@ -472,7 +472,7 @@
                     <h3 class="col-12">Family Member</h3>
                   </div>
                   <div class="flex align-items-center justify-content-center">
-                    <app-button typeBtn="button" (click)="showAddFamily()" iconBtn="pi pi-plus-circle"
+                    <app-button typeBtn="button" (clickChange)="showAddFamily()" iconBtn="pi pi-plus-circle"
                       backgroundColor="var(--PRIMARY)" label="ADD"></app-button>
                   </div>
                 </div>
@@ -500,7 +500,7 @@
                       <td>{{ family.occupation }}</td>
                       <td>{{ family.birthPlace }}, {{ family.birthDate }}</td>
                       <td>
-                        <app-button typeBtn="button" (click)="showDeleteFamily(family.id)" iconBtn="pi pi-trash"
+                        <app-button typeBtn="button" (clickChange)="showDeleteFamily(family.id)" iconBtn="pi pi-trash"
                           backgroundColor="danger"
                           classBtn="md:align-self-end mb-2 p-button-rounded p-button-danger"></app-button>
                       </td>
@@ -521,7 +521,7 @@
                     <h3 class="col-12">References</h3>
                   </div>
                   <div class="flex align-items-center justify-content-center">
-                    <app-button typeBtn="button" (click)="showAddReference()" iconBtn="pi pi-plus-circle"
+                    <app-button typeBtn="button" (clickChange)="showAddReference()" iconBtn="pi pi-plus-circle"
                       backgroundColor="var(--PRIMARY)" label="ADD"></app-button>
                   </div>
                 </div>
@@ -553,8 +553,8 @@
                       <td>{{ reference.description }}</td>
                       <td>{{ reference.email }}</td>
                       <td>
-                        <app-button typeBtn="button" (click)="showDeleteReference(reference.id)" iconBtn="pi pi-trash"
-                          backgroundColor="danger"
+                        <app-button typeBtn="button" (clickChange)="showDeleteReference(reference.id)"
+                          iconBtn="pi pi-trash" backgroundColor="danger"
                           classBtn="md:align-self-end mb-2 p-button-rounded p-button-danger"></app-button>
                       </td>
                     </tr>
@@ -574,7 +574,7 @@
                     <h3 class="col-12">Documents</h3>
                   </div>
                   <div class="flex align-items-center justify-content-center">
-                    <app-button typeBtn="button" (click)="showAddDocuments()" iconBtn="pi pi-plus-circle"
+                    <app-button typeBtn="button" (clickChange)="showAddDocuments()" iconBtn="pi pi-plus-circle"
                       backgroundColor="var(--PRIMARY)" label="ADD"></app-button>
                   </div>
                 </div>
@@ -594,8 +594,8 @@
                       <td>{{ i + 1 }}</td>
                       <td>{{ document.docName }}.{{ document.fileExtension}}</td>
                       <td>
-                        <app-button typeBtn="button" (click)="showDeleteDocument(document.id)" iconBtn="pi pi-trash"
-                          backgroundColor="danger"
+                        <app-button typeBtn="button" (clickChange)="showDeleteDocument(document.id)"
+                          iconBtn="pi pi-trash" backgroundColor="danger"
                           classBtn="md:align-self-end mb-2 p-button-rounded p-button-danger"></app-button>
                       </td>
                     </tr>
@@ -629,8 +629,9 @@
 </div>
 
 <!-- Dialog Add Address -->
-<p-dialog header="Add Address" [modal]="true" [(visible)]="dialogAddress" [style]="{width: '30vw'}">
-  <form [formGroup]="addressInsertReqDto">
+<p-dialog header="Add Address" [modal]="true" [(visible)]="dialogAddress" [breakpoints]="{ '960px': '95vw' }"
+  [style]="{ width: '50vw' }" [draggable]="false" [resizable]="false">
+  <form [formGroup]="addressInsertReqDto" (ngSubmit)="onAddAddress()">
     <pre>{{ addressInsertReqDto.value | json }}</pre>
     <div class="p-fluid p-formgrid grid">
       <div class="field col-12">
@@ -660,16 +661,17 @@
       </div>
     </div>
     <div class="field col-12">
-      <app-button backgroundColor="var(--PRIMARY)" (click)="onAddAddress()" [loading]="loading" typeBtn="submit"
-        label="Submit" class=" mr-2"></app-button>
+      <app-button backgroundColor="var(--PRIMARY)" [loading]="loading" typeBtn="submit" label="Submit"
+        class=" mr-2"></app-button>
     </div>
   </form>
 </p-dialog>
 
 <!-- Dialog Add Education -->
-<p-dialog header="Add Education" [modal]="true" [(visible)]="dialogEducation" [style]="{width: '30vw'}">
+<p-dialog header="Add Education" [modal]="true" [(visible)]="dialogEducation" [breakpoints]="{ '960px': '95vw' }"
+  [style]="{ width: '50vw' }" [draggable]="false" [resizable]="false">
   <pre>{{ educationInsertReqDto.value | json}}</pre>
-  <form [formGroup]="educationInsertReqDto">
+  <form [formGroup]="educationInsertReqDto" (ngSubmit)="onAddEducation()">
     <div class="p-fluid p-formgrid grid">
       <div class="field col-12">
         <label htmlFor="institution">Institution Name <span class="text-red-500"> *</span> </label>
@@ -687,31 +689,34 @@
       <div class="field col-12">
 
         <label htmlFor="cgpa">CGPA <span class="text-red-500"> *</span> </label>
-        <p-inputNumber inputId="cgpa" inputId="minmax" mode="decimal" [min]="0" [max]="4"
-          formControlName="cgpa"></p-inputNumber>
+        <p-inputNumber inputId="cgpa" inputId="minmax" mode="decimal" [minFractionDigits]="2" [maxFractionDigits]="2"
+          [min]="0" [max]="4" formControlName="cgpa"></p-inputNumber>
 
       </div>
       <div class="field col-12">
         <label htmlFor="startyear">Start Year <span class="text-red-500"> *</span> </label>
-        <input pInputText id="startyear" required type="date" formControlName="startYear" />
+        <p-calendar inputId="startyear" dateFormat="dd/mm/yy" [required]="true" [inline]="true"
+          formControlName="startYearTemp" [showIcon]="true"></p-calendar>
       </div>
       <div class="field col-12">
 
-        <label htmlFor="endyear">Start Year <span class="text-red-500"> *</span> </label>
-        <input pInputText id="endyear" required type="date" formControlName="endYear" />
+        <label htmlFor="endyear">End Year <span class="text-red-500"> *</span> </label>
+        <p-calendar inputId="endyear" dateFormat="dd/mm/yy" [required]="true" [inline]="true"
+          formControlName="endYearTemp" [showIcon]="true"></p-calendar>
       </div>
     </div>
     <div class="field col-12">
-      <app-button backgroundColor="var(--PRIMARY)" (click)="onAddEducation()" [loading]="loading" typeBtn="submit"
-        label="Submit" class=" mr-2"></app-button>
+      <app-button backgroundColor="var(--PRIMARY)" [loading]="loading" typeBtn="submit" label="Submit"
+        class=" mr-2"></app-button>
     </div>
   </form>
 </p-dialog>
 
 <!-- Dialog Add Family Member -->
-<p-dialog header="Add Family Member" [modal]="true" [(visible)]="dialogFamily" [style]="{width: '30vw'}">
+<p-dialog header="Add Family Member" [modal]="true" [(visible)]="dialogFamily" [breakpoints]="{ '960px': '95vw' }"
+  [style]="{ width: '50vw' }" [draggable]="false" [resizable]="false">
   <pre>{{ familyInsertReqDto.value | json }}</pre>
-  <form [formGroup]="familyInsertReqDto">
+  <form [formGroup]="familyInsertReqDto" (ngSubmit)="onAddFamily()">
     <div class="p-fluid p-formgrid grid">
       <div class="field col-12">
         <label htmlFor="fullname">Full Name<span class="text-red-500"> *</span> </label>
@@ -736,20 +741,22 @@
       </div>
       <div class="field col-12">
         <label htmlFor="birthDate">Birth Date <span class="text-red-500"> *</span></label>
-        <input pInputText id="birthDate" required type="date" formControlName="birthDate" />
+        <p-calendar id="birthDate" formControlName="birthDateTemp" [showIcon]="true" [inline]="true"
+          dateFormat="dd/mm/yy"></p-calendar>
       </div>
     </div>
     <div class="field col-12">
-      <app-button backgroundColor="var(--PRIMARY)" (click)="onAddFamily()" [loading]="loading" typeBtn="submit"
-        label="Submit" class=" mr-2"></app-button>
+      <app-button backgroundColor="var(--PRIMARY)" [loading]="loading" typeBtn="submit" label="Submit"
+        class=" mr-2"></app-button>
     </div>
   </form>
 </p-dialog>
 
 <!-- Dialog Add Skill -->
-<p-dialog header="Add Skill" [modal]="true" [(visible)]="dialogSkill" [style]="{width: '30vw'}">
+<p-dialog header="Add Skill" [modal]="true" [(visible)]="dialogSkill" [breakpoints]="{ '960px': '95vw' }"
+  [style]="{ width: '50vw' }" [draggable]="false" [resizable]="false">
   <pre>{{ skillInsertReqDto.value | json }}</pre>
-  <form [formGroup]="skillInsertReqDto">
+  <form [formGroup]="skillInsertReqDto" (ngSubmit)="onAddSkill()">
     <div class="p-fluid p-formgrid grid">
       <div class="field col-12">
         <label htmlFor="fullname">Skill Name<span class="text-red-500"> *</span> </label>
@@ -757,16 +764,17 @@
       </div>
     </div>
     <div class="field col-12">
-      <app-button backgroundColor="var(--PRIMARY)" (click)="onAddSkill()" [loading]="loading" typeBtn="submit"
-        label="Submit" class=" mr-2"></app-button>
+      <app-button backgroundColor="var(--PRIMARY)" [loading]="loading" typeBtn="submit" label="Submit"
+        class=" mr-2"></app-button>
     </div>
   </form>
 </p-dialog>
 
 <!-- Dialog Add Language -->
-<p-dialog header="Add Language" [modal]="true" [(visible)]="dialogLanguage" [style]="{width: '30vw'}">
+<p-dialog header="Add Language" [modal]="true" [(visible)]="dialogLanguage" [breakpoints]="{ '960px': '95vw' }"
+  [style]="{ width: '50vw' }" [draggable]="false" [resizable]="false">
   <pre>{{ languageInsertReqDto.value | json }}</pre>
-  <form [formGroup]="languageInsertReqDto">
+  <form [formGroup]="languageInsertReqDto" (ngSubmit)="onAddLanguage()">
     <div class="p-fluid p-formgrid grid">
       <div class="field col-12">
         <label htmlFor="language">Language <span class="text-red-500"> *</span> </label>
@@ -774,28 +782,32 @@
       </div>
       <div class="field col-12">
         <label htmlFor="writing">Writing Rate <span class="text-red-500"> *</span> </label>
-        <input pInputText id="writing" required type="number" formControlName="writingRate" />
+        <p-inputNumber inputId="writing" mode="decimal" [min]="0" [max]="5"
+          formControlName="writingRate"></p-inputNumber>
       </div>
       <div class="field col-12">
         <label htmlFor="speaking">Speaking Rate <span class="text-red-500"> *</span> </label>
-        <input pInputText id="speaking" required type="number" formControlName="speakingRate" />
+        <p-inputNumber inputId="speaking" mode="decimal" [min]="0" [max]="5"
+          formControlName="speakingRate"></p-inputNumber>
       </div>
       <div class="field col-12">
         <label htmlFor="listening">Listening Rate <span class="text-red-500"> *</span> </label>
-        <input pInputText id="listening" required type="number" formControlName="listeningRate" />
+        <p-inputNumber inputId="listening" mode="decimal" [min]="0" [max]="5"
+          formControlName="listeningRate"></p-inputNumber>
       </div>
     </div>
     <div class="field col-12">
-      <app-button backgroundColor="var(--PRIMARY)" (click)="onAddLanguage()" [loading]="loading" typeBtn="submit"
+      <app-button backgroundColor="var(--PRIMARY)"  [loading]="loading" typeBtn="submit"
         label="Submit" class=" mr-2"></app-button>
     </div>
   </form>
 </p-dialog>
 
 <!-- Dialog Add Reference -->
-<p-dialog header="Add Reference" [modal]="true" [(visible)]="dialogReference" [style]="{width: '30vw'}">
+<p-dialog header="Add Reference" [modal]="true" [(visible)]="dialogReference" [breakpoints]="{ '960px': '95vw' }"
+  [style]="{ width: '50vw' }" [draggable]="false" [resizable]="false">
   <pre>{{ referenceInsertReqDto.value | json }}</pre>
-  <form [formGroup]="referenceInsertReqDto">
+  <form [formGroup]="referenceInsertReqDto" (ngSubmit)="onAddReference()">
     <div class="p-fluid p-formgrid grid">
       <div class="field col-12">
         <label htmlFor="fullname">Fullname <span class="text-red-500"> *</span> </label>
@@ -828,16 +840,17 @@
 
     </div>
     <div class="field col-12">
-      <app-button backgroundColor="var(--PRIMARY)" (click)="onAddReference()" [loading]="loading" typeBtn="submit"
+      <app-button backgroundColor="var(--PRIMARY)"  [loading]="loading" typeBtn="submit"
         label="Submit" class=" mr-2"></app-button>
     </div>
   </form>
 </p-dialog>
 
 <!-- Dialog Add Working -->
-<p-dialog header="Add Working" [modal]="true" [(visible)]="dialogWorking" [style]="{width: '30vw'}">
+<p-dialog header="Add Working" [modal]="true" [(visible)]="dialogWorking" [breakpoints]="{ '960px': '95vw' }"
+  [style]="{ width: '50vw' }" [draggable]="false" [resizable]="false">
   <pre>{{ workingInsertReqDto.value | json }}</pre>
-  <form [formGroup]="workingInsertReqDto">
+  <form [formGroup]="workingInsertReqDto" (ngSubmit)="onAddWorking()">
     <div class="p-fluid p-formgrid grid">
       <div class="field col-12">
         <label htmlFor="position">Position Name <span class="text-red-500"> *</span> </label>
@@ -867,16 +880,18 @@
       </div>
       <div class="field col-12 md:col-6">
         <label htmlFor="startDate">Start Date <span class="text-red-500"> *</span> </label>
-        <input pInputText id="startDate" required type="date" formControlName="startDate" />
+        <p-calendar inputId="startDate" dateFormat="dd/mm/yy" [required]="true" formControlName="startDateTemp"
+          [inline]="true" [showIcon]="true"></p-calendar>
       </div>
       <div class="field col-12 md:col-6">
         <label htmlFor="endDate">End Date <span class="text-red-500"> *</span> </label>
-        <input pInputText id="endDate" required type="date" formControlName="endDate" />
+        <p-calendar inputId="endDate" dateFormat="dd/mm/yy" [required]="true" [inline]="true"
+          formControlName="endDateTemp" [showIcon]="true"></p-calendar>
       </div>
 
     </div>
     <div class="field col-12">
-      <app-button backgroundColor="var(--PRIMARY)" (click)="onAddWorking()" [loading]="loading" typeBtn="submit"
+      <app-button backgroundColor="var(--PRIMARY)" [loading]="loading" typeBtn="submit"
         label="Submit" class=" mr-2"></app-button>
     </div>
   </form>
@@ -884,9 +899,10 @@
 
 
 <!-- Dialog Add Project -->
-<p-dialog header="Add Project" [modal]="true" [(visible)]="dialogProject" [style]="{width: '30vw'}">
+<p-dialog header="Add Project" [breakpoints]="{ '960px': '95vw' }" [style]="{ width: '50vw' }" [draggable]="false"
+  [resizable]="false" [modal]="true" [(visible)]="dialogProject">
   <pre>{{ projectInsertReqDto.value | json }}</pre>
-  <form [formGroup]="projectInsertReqDto">
+  <form [formGroup]="projectInsertReqDto" (ngSubmit)="onAddProject()">
     <div class="p-fluid p-formgrid grid">
       <div class="field col-12">
         <label htmlFor="projectName">Project Name <span class="text-red-500"> *</span> </label>
@@ -902,15 +918,17 @@
       </div>
       <div class="field col-12 md:col-6">
         <label htmlFor="startDate">Start Date <span class="text-red-500"> *</span> </label>
-        <input pInputText id="startDate" required type="date" formControlName="startDate" />
+        <p-calendar inputId="startDate" dateFormat="dd/mm/yy" [required]="true" formControlName="startDateTemp"
+          [inline]="true" [showIcon]="true"></p-calendar>
       </div>
       <div class="field col-12 md:col-6">
         <label htmlFor="endDate">End Date <span class="text-red-500"> *</span> </label>
-        <input pInputText id="endDate" required type="date" formControlName="endDate" />
+        <p-calendar inputId="endDate" dateFormat="dd/mm/yy" [required]="true" [inline]="true"
+          formControlName="endDateTemp" [showIcon]="true"></p-calendar>
       </div>
     </div>
     <div class="field col-12">
-      <app-button backgroundColor="var(--PRIMARY)" (click)="onAddProject()" [loading]="loading" typeBtn="submit"
+      <app-button backgroundColor="var(--PRIMARY)"  [loading]="loading" typeBtn="submit"
         label="Submit" class=" mr-2"></app-button>
     </div>
   </form>
@@ -918,8 +936,9 @@
 
 
 <!-- Dialog Add Training -->
-<p-dialog header="Add Training" [modal]="true" [(visible)]="dialogTraining" [style]="{width: '30vw'}">
-  <form [formGroup]="trainingInsertReqDto">
+<p-dialog header="Add Training" [modal]="true" [(visible)]="dialogTraining" [breakpoints]="{ '960px': '95vw' }"
+  [style]="{ width: '50vw' }" [draggable]="false" [resizable]="false">
+  <form [formGroup]="trainingInsertReqDto" (ngSubmit)="onAddTraining()">
     <pre>{{ trainingInsertReqDto.value | json }}</pre>
     <div class="p-fluid p-formgrid grid">
       <div class="field col-12">
@@ -936,24 +955,27 @@
       </div>
       <div class="field col-12 md:col-6">
         <label htmlFor="startDate">Start Date <span class="text-red-500"> *</span> </label>
-        <input pInputText id="startDate" required type="date" formControlName="startDate" />
+        <p-calendar inputId="startDate" dateFormat="dd/mm/yy" [required]="true" formControlName="startDateTemp"
+          [inline]="true" [showIcon]="true"></p-calendar>
       </div>
       <div class="field col-12 md:col-6">
         <label htmlFor="endDate">End Date <span class="text-red-500"> *</span> </label>
-        <input pInputText id="endDate" required type="date" formControlName="endDate" />
+        <p-calendar inputId="endDate" dateFormat="dd/mm/yy" [required]="true" [inline]="true"
+          formControlName="endDateTemp" [showIcon]="true"></p-calendar>
       </div>
     </div>
     <div class="field col-12">
-      <app-button backgroundColor="var(--PRIMARY)" (click)="onAddTraining()" [loading]="loading" typeBtn="submit"
+      <app-button backgroundColor="var(--PRIMARY)"  [loading]="loading" typeBtn="submit"
         label="Submit" class=" mr-2"></app-button>
     </div>
   </form>
 </p-dialog>
 
 <!-- Dialog Add Documents -->
-<p-dialog header="Add Documents" [modal]="true" [(visible)]="dialogDocument" [style]="{width: '30vw'}">
+<p-dialog header="Add Documents" [modal]="true" [(visible)]="dialogDocument" [breakpoints]="{ '960px': '95vw' }"
+  [style]="{ width: '50vw' }" [draggable]="false" [resizable]="false">
 
-  <form [formGroup]="documentInsertReqDto">
+  <form [formGroup]="documentInsertReqDto" (ngSubmit)="onAddDocument()">
     <pre>{{ documentInsertReqDto.value | json }}</pre>
     <div class="p-fluid p-formgrid grid">
       <div class="field col-12">
@@ -974,121 +996,128 @@
       </div>
     </div>
     <div class="field col-12">
-      <app-button backgroundColor="var(--PRIMARY)" (click)="onAddDocument()" [loading]="loading" typeBtn="submit"
+      <app-button backgroundColor="var(--PRIMARY)" [loading]="loading" typeBtn="submit"
         label="Submit" class=" mr-2"></app-button>
     </div>
   </form>
 </p-dialog>
 
 <!-- Dialog Delete Address -->
-<p-dialog header="Deleting Address" [modal]="true" [(visible)]="dialogDeleteAddress" [style]="{width: '30vw'}">
+<p-dialog header="Deleting Address" [modal]="true" [(visible)]="dialogDeleteAddress" [breakpoints]="{ '960px': '95vw' }"
+  [style]="{ width: '50vw' }" [draggable]="false" [resizable]="false">
   <p>
     This action will delete the candidate address. Are you sure?
   </p>
   <app-button backgroundColor="secondary" [loading]="loading" label="No" class="mt-2 mr-2"
     classBtn="p-button-secondary"></app-button>
-  <app-button backgroundColor="danger" (click)="onDeleteAddress()" [loading]="loading" label="Yes" class="mt-2"
+  <app-button backgroundColor="danger" (clickChange)="onDeleteAddress()" [loading]="loading" label="Yes" class="mt-2"
     classBtn="p-button-danger"></app-button>
 </p-dialog>
 
 <!-- Dialog Delete Education -->
-<p-dialog header="Deleting Education" [modal]="true" [(visible)]="dialogDeleteEducation" [style]="{width: '30vw'}">
+<p-dialog header="Deleting Education" [modal]="true" [(visible)]="dialogDeleteEducation"
+  [breakpoints]="{ '960px': '95vw' }" [style]="{ width: '50vw' }" [draggable]="false" [resizable]="false">
   <p>
     This action will delete the candidate education. Are you sure?
   </p>
   <app-button backgroundColor="secondary" [loading]="loading" label="No" class="mt-2 mr-2"
     classBtn="p-button-secondary"></app-button>
-  <app-button backgroundColor="danger" (click)="onDeleteEducation()" [loading]="loading" label="Yes" class="mt-2"
+  <app-button backgroundColor="danger" (clickChange)="onDeleteEducation()" [loading]="loading" label="Yes" class="mt-2"
     classBtn="p-button-danger"></app-button>
 </p-dialog>
 
 <!-- Dialog Delete Working Experience -->
 <p-dialog header="Deleting Working Experience" [modal]="true" [(visible)]="dialogDeleteWorking"
-  [style]="{width: '30vw'}">
+  [breakpoints]="{ '960px': '95vw' }" [style]="{ width: '50vw' }" [draggable]="false" [resizable]="false">
   <p>
     This action will delete the candidate working experience. Are you sure?
   </p>
   <app-button backgroundColor="secondary" [loading]="loading" label="No" class="mt-2 mr-2"
     classBtn="p-button-secondary"></app-button>
-  <app-button backgroundColor="danger" (click)="onDeleteWorking()" [loading]="loading" label="Yes" class="mt-2"
+  <app-button backgroundColor="danger" (clickChange)="onDeleteWorking()" [loading]="loading" label="Yes" class="mt-2"
     classBtn="p-button-danger"></app-button>
 </p-dialog>
 
 <!-- Dialog Delete Training Experience -->
 <p-dialog header="Deleting Training Experience" [modal]="true" [(visible)]="dialogDeleteTraining"
-  [style]="{width: '30vw'}">
+  [breakpoints]="{ '960px': '95vw' }" [style]="{ width: '50vw' }" [draggable]="false" [resizable]="false">
   <p>
     This action will delete the candidate training experience. Are you sure?
   </p>
   <app-button backgroundColor="secondary" [loading]="loading" label="No" class="mt-2 mr-2"
     classBtn="p-button-secondary"></app-button>
-  <app-button backgroundColor="danger" (click)="onDeleteTraining()" [loading]="loading" label="Yes" class="mt-2"
+  <app-button backgroundColor="danger" (clickChange)="onDeleteTraining()" [loading]="loading" label="Yes" class="mt-2"
     classBtn="p-button-danger"></app-button>
 </p-dialog>
 
 <!-- Dialog Delete Project Experience -->
 <p-dialog header="Deleting Project Experience" [modal]="true" [(visible)]="dialogDeleteProject"
-  [style]="{width: '30vw'}">
+  [breakpoints]="{ '960px': '95vw' }" [style]="{ width: '50vw' }" [draggable]="false" [resizable]="false">
   <p>
     This action will delete the candidate project experience. Are you sure?
   </p>
   <app-button backgroundColor="secondary" [loading]="loading" label="No" class="mt-2 mr-2"
     classBtn="p-button-secondary"></app-button>
-  <app-button backgroundColor="danger" (click)="onDeleteProject()" [loading]="loading" label="Yes" class="mt-2"
+  <app-button backgroundColor="danger" (clickChange)="onDeleteProject()" [loading]="loading" label="Yes" class="mt-2"
     classBtn="p-button-danger"></app-button>
 </p-dialog>
 
 <!-- Dialog Delete Skill -->
-<p-dialog header="Deleting Skill" [modal]="true" [(visible)]="dialogDeleteSkill" [style]="{width: '30vw'}">
+<p-dialog header="Deleting Skill" [modal]="true" [(visible)]="dialogDeleteSkill" [breakpoints]="{ '960px': '95vw' }"
+  [style]="{ width: '50vw' }" [draggable]="false" [resizable]="false">
   <p>
     This action will delete the candidate skill. Are you sure?
   </p>
   <app-button backgroundColor="secondary" [loading]="loading" label="No" class="mt-2 mr-2"
     classBtn="p-button-secondary"></app-button>
-  <app-button backgroundColor="danger" (click)="onDeleteSkill()" [loading]="loading" label="Yes" class="mt-2"
+  <app-button backgroundColor="danger" (clickChange)="onDeleteSkill()" [loading]="loading" label="Yes" class="mt-2"
     classBtn="p-button-danger"></app-button>
 </p-dialog>
 
 <!-- Dialog Delete Language -->
-<p-dialog header="Deleting Skill" [modal]="true" [(visible)]="dialogDeleteLanguage" [style]="{width: '30vw'}">
+<p-dialog header="Deleting Skill" [modal]="true" [(visible)]="dialogDeleteLanguage" [breakpoints]="{ '960px': '95vw' }"
+  [style]="{ width: '50vw' }" [draggable]="false" [resizable]="false">
   <p>
     This action will delete the candidate language. Are you sure?
   </p>
   <app-button backgroundColor="secondary" [loading]="loading" label="No" class="mt-2 mr-2"
     classBtn="p-button-secondary"></app-button>
-  <app-button backgroundColor="danger" (click)="onDeleteLanguage()" [loading]="loading" label="Yes" class="mt-2"
+  <app-button backgroundColor="danger" (clickChange)="onDeleteLanguage()" [loading]="loading" label="Yes" class="mt-2"
     classBtn="p-button-danger"></app-button>
 </p-dialog>
 
 <!-- Dialog Delete Family -->
-<p-dialog header="Deleting Family" [modal]="true" [(visible)]="dialogDeleteFamily" [style]="{width: '30vw'}">
+<p-dialog header="Deleting Family" [modal]="true" [(visible)]="dialogDeleteFamily" [breakpoints]="{ '960px': '95vw' }"
+  [style]="{ width: '50vw' }" [draggable]="false" [resizable]="false">
   <p>
     This action will delete the candidate family. Are you sure?
   </p>
   <app-button backgroundColor="secondary" [loading]="loading" label="No" class="mt-2 mr-2"
     classBtn="p-button-secondary"></app-button>
-  <app-button backgroundColor="danger" (click)="onDeleteFamily()" [loading]="loading" label="Yes" class="mt-2"
+  <app-button backgroundColor="danger" (clickChange)="onDeleteFamily()" [loading]="loading" label="Yes" class="mt-2"
     classBtn="p-button-danger"></app-button>
 </p-dialog>
 
 <!-- Dialog Delete Reference -->
-<p-dialog header="Deleting Reference" [modal]="true" [(visible)]="dialogDeleteReference" [style]="{width: '30vw'}">
+<p-dialog header="Deleting Reference" [modal]="true" [(visible)]="dialogDeleteReference"
+  [breakpoints]="{ '960px': '95vw' }" [style]="{ width: '50vw' }" [draggable]="false" [resizable]="false">
   <p>
     This action will delete the candidate reference. Are you sure?
   </p>
   <app-button backgroundColor="secondary" [loading]="loading" label="No" class="mt-2 mr-2"
     classBtn="p-button-secondary"></app-button>
-  <app-button backgroundColor="danger" (click)="onDeleteReference()" [loading]="loading" label="Yes" class="mt-2"
+  <app-button backgroundColor="danger" (clickChange)="onDeleteReference()" [loading]="loading" label="Yes" class="mt-2"
     classBtn="p-button-danger"></app-button>
 </p-dialog>
 
 <!-- Dialog Delete Document -->
-<p-dialog header="Deleting Document" [modal]="true" [(visible)]="dialogDeleteDocument" [style]="{width: '30vw'}">
+<p-dialog header="Deleting Document" [modal]="true" [(visible)]="dialogDeleteDocument"
+  [breakpoints]="{ '960px': '95vw' }" [style]="{ width: '50vw' }" [draggable]="false" [resizable]="false">
   <p>
     This action will delete the candidate document. Are you sure?
   </p>
   <app-button backgroundColor="secondary" [loading]="loading" label="No" class="mt-2 mr-2"
     classBtn="p-button-secondary"></app-button>
-  <app-button backgroundColor="danger" (click)="onDeleteDocument()" [loading]="loading" label="Yes" class="mt-2"
+  <app-button backgroundColor="danger" (clickChange)="onDeleteDocument()" [loading]="loading" label="Yes" class="mt-2"
     classBtn="p-button-danger"></app-button>
 </p-dialog>
