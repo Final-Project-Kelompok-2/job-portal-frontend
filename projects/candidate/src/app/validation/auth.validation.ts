@@ -1,4 +1,4 @@
-import { inject } from "@angular/core";
+import { Injectable, inject } from "@angular/core";
 import { Route, Router, UrlSegment } from "@angular/router";
 import { AuthService } from "../service/auth.service";
 
@@ -23,6 +23,18 @@ export const authValidationNonlogin = (route: Route, segments: UrlSegment[]) => 
     const profile = auth.getProfile()
     if (!profile) {
         router.navigateByUrl(`/landing`)
+    }
+    return true
+}
+
+
+export const testValidation = () => {
+    const auth = inject(AuthService)
+    const router = inject(Router)
+
+    const profile = auth.getProfile()
+    if (!profile) {
+      return false
     }
     return true
 }
