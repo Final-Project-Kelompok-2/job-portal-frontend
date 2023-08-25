@@ -16,12 +16,12 @@
 <!-- </div> -->
 
   <p-card styleClass="mt-3" header="Job Detail">
+    <!-- <img class="banner" [src]="job?.companyPhotoId | url" alt="company-logo"> -->
     <div class="grid">
-      <img class="banner" [src]="job?.companyPhotoId | url" alt="company-logo">
       <div class="col-offset-1 col-11 md:col-offset-5 md:col-2">
         <img class="profile-picture" [src]="job?.fileId | url" alt="profile-picture">
       </div>
-      <div class="data col-12 md:col-6 ">
+      <div class="col-12 md:col-6">
         <h2 class="title">{{job?.jobName}}</h2>
         <h4><i class="pi pi-building"></i> {{job?.companyName}}</h4>
         <h4><i class="pi pi-inbox"></i> Job Description : </h4>
@@ -29,7 +29,7 @@
           {{job?.description}}
         </p>
       </div>
-      <div class="data col-12 md:col-6">
+      <div class="col-12 md:col-6">
         <div class="grid mt-2">
           <div class="col-5"><i class="pi pi-home"></i> Address</div>
           <div class="col-2">:</div>
