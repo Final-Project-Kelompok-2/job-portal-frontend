@@ -129,7 +129,7 @@ export class CandidateUpdateComponent implements OnInit {
       mobileNumber: ['', [Validators.required]],
       nik: ['', [Validators.required]],
       birthDate: ['', [Validators.required]],
-      birthDateTemp: [new FormControl<Date | null>(null)],
+      birthDateTemp: new FormControl<Date | null>(null),
       birthPlace: ['', [Validators.required]],
       maritalStatusCode: [''],
       maritalStatusId: ['', [Validators.required]],
@@ -150,9 +150,9 @@ export class CandidateUpdateComponent implements OnInit {
     trainingName: ['', [Validators.required]],
     description: ['', [Validators.required]],
     startDate: ['', [Validators.required]],
-    startDateTemp: [new FormControl<Date | null>(null)],
+    startDateTemp: new FormControl<Date | null>(null),
     endDate: ['', [Validators.required]],
-    endDateTemp: [new FormControl<Date | null>(null)],
+    endDateTemp: new FormControl<Date | null>(null),
     email: ['', [Validators.required]]
   })
 
@@ -173,9 +173,9 @@ export class CandidateUpdateComponent implements OnInit {
     majors: ['', [Validators.required]],
     cgpa: [0, [Validators.required]],
     startYear: ['', [Validators.required]],
-    startYearTemp: [new FormControl<Date | null>(null)],
+    startYearTemp: new FormControl<Date | null>(null),
     endYear: ['', [Validators.required]],
-    endYearTemp: [new FormControl<Date | null>(null)],
+    endYearTemp: new FormControl<Date | null>(null),
     candidateId: ['', [Validators.required]],
     email: ['', [Validators.required]]
   })
@@ -188,9 +188,9 @@ export class CandidateUpdateComponent implements OnInit {
     reasonLeave: ['', [Validators.required]],
     lastSalary: [0, [Validators.required]],
     startDate: ['', [Validators.required]],
-    startDateTemp: [new FormControl<Date | null>(null)],
+    startDateTemp: new FormControl<Date | null>(null),
     endDate: ['', [Validators.required]],
-    endDateTemp: [new FormControl<Date | null>(null)],
+    endDateTemp: new FormControl<Date | null>(null),
     candidateId: ['', [Validators.required]],
     email: ['', [Validators.required]]
   })
@@ -200,9 +200,9 @@ export class CandidateUpdateComponent implements OnInit {
     projectUrl: ['', [Validators.required]],
     description: ['', [Validators.required]],
     startDate: ['', [Validators.required]],
-    startDateTemp: [new FormControl<Date | null>(null)],
+    startDateTemp: new FormControl<Date | null>(null),
     endDate: ['', [Validators.required]],
-    endDateTemp: [new FormControl<Date | null>(null)],
+    endDateTemp: new FormControl<Date | null>(null),
     candidateId: ['', [Validators.required]],
     email: ['', [Validators.required]]
   })
@@ -227,7 +227,7 @@ export class CandidateUpdateComponent implements OnInit {
     degreeName: ['', [Validators.required]],
     occupation: ['', [Validators.required]],
     birthDate: ['', [Validators.required]],
-    birthDateTemp: [new FormControl<Date | null>(null)],
+    birthDateTemp: new FormControl<Date | null>(null),
     birthPlace: ['', [Validators.required]],
     email: ['', [Validators.required]]
   })
@@ -282,9 +282,9 @@ export class CandidateUpdateComponent implements OnInit {
       this.candidateId = profile.userId
     }
 
-    this.candidateUpdateInsertReqDto.get('profile')?.get('birthDateTemp')?.valueChanges.subscribe(res => {
+    this.candidateUpdateInsertReqDto.get('profile.birthDateTemp')?.valueChanges.subscribe(res => {
       const newBirthDate = convertUTCToLocalDate(res as any)
-      this.candidateUpdateInsertReqDto.get('profile')?.get('birthDate')?.setValue(newBirthDate)
+      this.candidateUpdateInsertReqDto.get('profile.birthDate')?.setValue(newBirthDate)
     })
 
     this.familyInsertReqDto.get('birthDateTemp')?.valueChanges.subscribe(res => {
