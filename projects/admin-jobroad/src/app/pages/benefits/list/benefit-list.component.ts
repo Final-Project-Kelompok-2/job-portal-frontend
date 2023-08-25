@@ -3,7 +3,7 @@ import { Table } from "primeng/table";
 import { BenefitResDto } from "../../../dto/benefit/benefit.res.dto";
 import { BenefitService } from "../../../service/benefit.service";
 import { NonNullableFormBuilder, Validators } from "@angular/forms";
-import { Subscription } from "rxjs";
+import { Subscription, firstValueFrom } from "rxjs";
 
 @Component({
   selector: 'benefit-list',
@@ -16,7 +16,7 @@ export class BenefitListComponent implements OnInit, OnDestroy {
   benefits!: BenefitResDto[];
   benefitSubscription!: Subscription;
   benefitReqDto = this.fb.group({
-    benefitName : [null, [Validators.required]]
+    benefitName: [null, [Validators.required]]
   })
   constructor(private benefitService: BenefitService, private fb: NonNullableFormBuilder) { }
   ngOnInit(): void {
@@ -39,18 +39,17 @@ export class BenefitListComponent implements OnInit, OnDestroy {
   insert() {
     const data = this.benefitReqDto.getRawValue();
     this.loading = true
-    this.benefitService.create(data).subscribe({
-      next: () => {
+    firstValueFrom(this.benefitService.create(data)).then(
+      () => {
         this.getBenefit();
         this.benefitReqDto.reset();
         this.visible = false;
         this.loading = false
-      },
-      error: () => {
-        console.log("error")
-        this.loading = false
-      }
-    })
+      }).catch(
+        () => {
+          console.log("error")
+          this.loading = false
+        })
   }
 
   ngOnDestroy(): void {

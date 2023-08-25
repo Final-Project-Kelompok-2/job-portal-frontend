@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from "@angular/core";
 import { ActivatedRoute, Params, Router } from "@angular/router";
 import { Observable, Subscription, firstValueFrom } from "rxjs";
 import { MenuItem, MessageService } from "primeng/api";
-import { FormArray, NonNullableFormBuilder, Validators } from "@angular/forms";
+import { FormArray, FormControl, NonNullableFormBuilder, Validators } from "@angular/forms";
 import { AssesmentService } from "../../../service/assesment.service";
 import { ApplicantResDto } from "../../../dto/applicant/applicant.res.dto";
 import { AssementResDto } from "../../../dto/assessment/assement.res.dto";
@@ -47,12 +47,7 @@ export class ApplicantDetailComponent implements OnInit {
     reviewData?: ReviewResDto;
     mcuDatas!: McuResDto[];
 
-    //Transaction Subscription
-    assesmentSubscription!: Subscription;
-    interviewSubscription!: Subscription;
-    reviewSubscription!: Subscription;
-    mcuSubscription!: Subscription;
-    offeringSubscription!: Subscription;
+
     assesmentForm = false;
     assesmentNoteForm = false;
     interviewForm = false;
@@ -95,7 +90,7 @@ export class ApplicantDetailComponent implements OnInit {
         applicantId: ['', Validators.required],
         applicantCode: ['', Validators.required],
         statusCode: ['', Validators.required],
-        mcuData: this.fb.array([McuResDto])
+        mcuData: this.fb.array([])
     })
 
     offeringReqDto = this.fb.group({
@@ -144,7 +139,7 @@ export class ApplicantDetailComponent implements OnInit {
 
 
     ngOnInit(): void {
-        getParams(this.activated, 0).subscribe(params => {
+        firstValueFrom(getParams(this.activated, 0)).then(params => {
             this.jobId = params['jobId'];
             this.appId = params['applicantId'];
             this.assesmentReqDto.patchValue({
@@ -231,6 +226,10 @@ export class ApplicantDetailComponent implements OnInit {
         return this.activeIndex == 5;
     }
 
+    get mcuDataListReqDto() {
+        return this.mcuReqDto.get("mcuData") as FormArray
+    }
+
     reject() {
         this.applicantReqDto.patchValue({
             applicantId: this.appId,
@@ -279,7 +278,7 @@ export class ApplicantDetailComponent implements OnInit {
     }
     assesmentNotesUpdate() {
         const data = this.assesmentNotesReqDto.getRawValue();
-        this.assesmentService.updateNotes(data).subscribe(() => {
+        firstValueFrom(this.assesmentService.updateNotes(data)).then(() => {
             this.assesmentNoteForm = false;
             this.getAssesmentData();
             this.assesmentNotesReqDto.reset();
@@ -305,7 +304,7 @@ export class ApplicantDetailComponent implements OnInit {
     }
     interviewNotesUpdate() {
         const data = this.reviewReqDto.getRawValue();
-        this.reviewService.updateNotes(data).subscribe(() => {
+        firstValueFrom(this.reviewService.updateNotes(data)).then(() => {
             this.interviewNoteForm = false;
             this.reviewReqDto.reset();
             this.getReviewData();
@@ -342,6 +341,7 @@ export class ApplicantDetailComponent implements OnInit {
     }
 
     mcuClick() {
+        this.mcuDataListReqDto.clear();
         this.mcuReqDto.patchValue({
             applicantId: this.appId,
             applicantCode: this.applicant?.applicantCode,
@@ -371,13 +371,11 @@ export class ApplicantDetailComponent implements OnInit {
         })
     }
 
-    get mcuDataListReqDto() {
-        return this.mcuReqDto.get("mcuData") as FormArray
-    }
+
 
 
     fileUpload(event: any) {
-        this.mcuDataListReqDto.clear();
+        // this.mcuDataListReqDto.clear();
         const toBase64 = (file: File) => new Promise<string>((resolve, reject) => {
             const reader = new FileReader();
             reader.readAsDataURL(file);
@@ -391,11 +389,28 @@ export class ApplicantDetailComponent implements OnInit {
             toBase64(file).then(result => {
                 this.mcuDataListReqDto.push(this.fb.control({
                     fileName: result.substring(result.indexOf(",") + 1, result.length),
-                    fileExtension: file.name.substring(file.name.indexOf(".") + 1, file.name.length)
+                    fileExtension: file.name.substring(file.name.indexOf(".") + 1, file.name.length),
+                    name : file.name
                 })
                 )
             })
         }
+    }
+
+    fileRemove(event: any) {
+        let length = this.mcuDataListReqDto.length
+        let file = event.file
+        for(let i = 0 ; i < length ; i++){
+            if(file.name == this.mcuDataListReqDto.at(i)?.value.name){
+                this.mcuDataListReqDto.removeAt(i);
+                break;
+            }
+        }
+
+    }
+
+    fileCancel(){
+        this.mcuDataListReqDto.clear();
     }
 
     offeringClick() {
@@ -422,10 +437,9 @@ export class ApplicantDetailComponent implements OnInit {
     accept() {
         this.hiringReqDto.patchValue({
             applicantId: this.appId,
+            applicantCode: this.applicant?.applicantCode
         })
         this.hiringForm = !this.hiringForm;
-
-
     }
 
     hiringSubmit() {
@@ -439,28 +453,9 @@ export class ApplicantDetailComponent implements OnInit {
         });
     }
 
-    ngOnDestroy(): void {
-        // this.applicantSubscription.unsubscribe();
-        // this.jobSubcription.unsubscribe();
-        // this.picSubscription.unsubscribe();
-        if (this.assesmentSubscription) {
-            this.assesmentSubscription.unsubscribe();
-        }
-        if (this.interviewSubscription) {
-            this.interviewSubscription.unsubscribe();
-        }
-        if (this.reviewSubscription) {
-            this.reviewSubscription.unsubscribe();
-        }
-        if (this.mcuSubscription) {
-            this.mcuSubscription.unsubscribe();
-        }
-        if (this.offeringSubscription) {
-            this.offeringSubscription.unsubscribe();
-        }
-    }
-
 }
+
+
 function getParams(activatedRoute: ActivatedRoute, parentLevel?: number): Observable<Params> {
     let route = activatedRoute
     if (parentLevel) {

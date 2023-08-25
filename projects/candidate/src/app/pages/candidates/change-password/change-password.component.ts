@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { NonNullableFormBuilder, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
 import { CandidateUserService } from "../../../service/candidate-user.service";
+import { firstValueFrom } from "rxjs";
 
 
 @Component({
@@ -31,10 +32,10 @@ export class ChangePasswordComponent implements OnInit {
   update() {
     const data = this.changePasswordDto.getRawValue()
     if (this.changePasswordDto.valid && data.newPassword === data.confirmPassword) {
-      this.candidateUserService.changePassword(data).subscribe(result => {
+      firstValueFrom(this.candidateUserService.changePassword(data)).then(result => {
         console.log(result)
-        localStorage.clear()
         this.router.navigateByUrl('/login')
+        localStorage.clear()
       })
     }
     else {

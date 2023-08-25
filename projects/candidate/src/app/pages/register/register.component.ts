@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { NonNullableFormBuilder, Validators } from "@angular/forms";
 import { CandidateUserService } from "../../service/candidate-user.service";
-import { Route, Router } from "@angular/router";
+import { Route, Router } from "@angular/router"
 
 @Component({
   selector: 'resgiter',

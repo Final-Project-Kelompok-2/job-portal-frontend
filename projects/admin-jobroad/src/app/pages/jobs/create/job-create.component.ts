@@ -15,92 +15,92 @@ import { BenefitService } from "../../../service/benefit.service";
 import { QuestionService } from "../../../service/question.service";
 import { FileUpload } from "primeng/fileupload";
 import { RoleCodeEnum } from "../../../constant/user-role.constant";
-import { Subscription } from "rxjs";
+import { Subscription, firstValueFrom } from "rxjs";
 
 @Component({
-  selector:'job-create',
-  templateUrl:'./job-create.component.html'
-}) 
-export class JobCreateComponent implements OnInit,OnDestroy{
+  selector: 'job-create',
+  templateUrl: './job-create.component.html'
+})
+export class JobCreateComponent implements OnInit, OnDestroy {
   loading = false
   jobReqDto = this.fb.group({
-    jobName : ['',Validators.required],
-    companyId : ['',Validators.required],
-    startDate : ['',Validators.required],
-    endDate : ['',Validators.required],
-    description : ['',Validators.required],
-    hrId : ['',Validators.required],
-    picId : ['',Validators.required],
-    expectedSalaryMin : [0],
-    expectedSalaryMax : [0],
-    employmentTypeId : ['',Validators.required],
-    benefits : this.fb.array([]),
-    questions : this.fb.array([]),
-    file : [''],
-    fileExtension : ['']
+    jobName: ['', Validators.required],
+    companyId: ['', Validators.required],
+    startDate: ['', Validators.required],
+    endDate: ['', Validators.required],
+    description: ['', Validators.required],
+    hrId: ['', Validators.required],
+    picId: ['', Validators.required],
+    expectedSalaryMin: [0],
+    expectedSalaryMax: [0],
+    employmentTypeId: ['', Validators.required],
+    benefits: this.fb.array([]),
+    questions: this.fb.array([]),
+    file: [''],
+    fileExtension: ['']
   });
-  hr! : UserResDto[];
-  hrSubscription! : Subscription;
-  pic! : UserResDto[];
-  picSubscription! : Subscription;
-  company! : CompanyResDto[];
-  companySubscription! : Subscription;
-  employmentType! : EmployementTypeResDto[];
-  employmentTypeSubscription! : Subscription;
-  benefit! : BenefitResDto[];
-  benefitSubscription! : Subscription;
-  question! : QuestionResDto[];
-  questionSubscription! : Subscription;
-  constructor(private jobService : JobService,private fb : NonNullableFormBuilder, 
-    private router : Router,private userService : UserService , private employmentTypeService : EmploymentTypeService,
-    private companyService : CompanyService,private benefitService : BenefitService,
-    private questionService : QuestionService){}
-    
+  hr!: UserResDto[];
+  hrSubscription!: Subscription;
+  pic!: UserResDto[];
+  picSubscription!: Subscription;
+  company!: CompanyResDto[];
+  companySubscription!: Subscription;
+  employmentType!: EmployementTypeResDto[];
+  employmentTypeSubscription!: Subscription;
+  benefit!: BenefitResDto[];
+  benefitSubscription!: Subscription;
+  question!: QuestionResDto[];
+  questionSubscription!: Subscription;
+  constructor(private jobService: JobService, private fb: NonNullableFormBuilder,
+    private router: Router, private userService: UserService, private employmentTypeService: EmploymentTypeService,
+    private companyService: CompanyService, private benefitService: BenefitService,
+    private questionService: QuestionService) { }
+
   ngOnInit(): void {
-    this.hrSubscription = this.userService.getByRole(RoleCodeEnum.ADMIN).subscribe(result =>{
+    this.hrSubscription = this.userService.getByRole(RoleCodeEnum.HR).subscribe(result => {
       this.hr = result;
     })
-    this.picSubscription = this.userService.getByRole(RoleCodeEnum.ADMIN).subscribe(result =>{
+    this.picSubscription = this.userService.getByRole(RoleCodeEnum.PIC).subscribe(result => {
       this.pic = result;
     })
-    this.employmentTypeSubscription = this.employmentTypeService.getAll().subscribe(result =>{
+    this.employmentTypeSubscription = this.employmentTypeService.getAll().subscribe(result => {
       this.employmentType = result;
     })
-    this.companySubscription = this.companyService.getAll().subscribe(result =>{
+    this.companySubscription = this.companyService.getAll().subscribe(result => {
       this.company = result;
     })
-    this.benefitSubscription = this.benefitService.getAll().subscribe(result =>{
+    this.benefitSubscription = this.benefitService.getAll().subscribe(result => {
       this.benefit = result;
     })
-    this.questionSubscription = this.questionService.getAll().subscribe(result =>{
+    this.questionSubscription = this.questionService.getAll().subscribe(result => {
       this.question = result;
     })
   }
 
-  get benefitsId(){
+  get benefitsId() {
     return this.jobReqDto.get(`benefits`) as FormArray;
   }
-  get questionsId(){
+  get questionsId() {
     return this.jobReqDto.get(`questions`) as FormArray;
   }
-  addBenefit(){
-    this.benefitsId.push(this.fb.group({benefitId : ['',Validators.required]}));
+  addBenefit() {
+    this.benefitsId.push(this.fb.group({ benefitId: ['', Validators.required] }));
   }
-  addQuestion(){
-    this.questionsId.push(this.fb.group({questionId : ['']}));
+  addQuestion() {
+    this.questionsId.push(this.fb.group({ questionId: [''] }));
   }
-  onSubmit(){
-    const data= this.jobReqDto.getRawValue();
+  onSubmit() {
+    const data = this.jobReqDto.getRawValue();
     this.jobService.create(data).subscribe();
     this.router.navigateByUrl('/jobs')
   }
-  removeBenefit( i : number){
+  removeBenefit(i: number) {
     this.benefitsId.removeAt(i);
   }
-  removeQuestion(q : number){
+  removeQuestion(q: number) {
     this.questionsId.removeAt(q);
   }
-  fileUpload(event: any,fileUpload : FileUpload) {
+  fileUpload(event: any, fileUpload: FileUpload) {
     const toBase64 = (file: File) => new Promise<string>((resolve, reject) => {
       const reader = new FileReader();
       reader.readAsDataURL(file);
@@ -110,7 +110,7 @@ export class JobCreateComponent implements OnInit,OnDestroy{
       reader.onerror = error => reject(error);
     });
 
- 
+
 
     for (let file of event.files) {
       toBase64(file).then(result => {
@@ -126,7 +126,7 @@ export class JobCreateComponent implements OnInit,OnDestroy{
     }
   }
   ngOnDestroy(): void {
-    this.hrSubscription.unsubscribe(); 
+    this.hrSubscription.unsubscribe();
     this.picSubscription.unsubscribe();
     this.employmentTypeSubscription.unsubscribe();
     this.companySubscription.unsubscribe();

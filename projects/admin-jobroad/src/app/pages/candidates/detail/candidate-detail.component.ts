@@ -2,7 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { CandidateUserResDto } from "../../../dto/candidate-user/candidate-user.res.dto";
 import { CandidateUserService } from "../../../service/candidate-user.service";
 import { ActivatedRoute, Params } from "@angular/router";
-import { Observable } from "rxjs";
+import { Observable, firstValueFrom } from "rxjs";
 import { CandidateAddressResDto } from "../../../dto/candidate-address/candidate-address.res.dto";
 import { CandidateEducationService } from "../../../service/candidate-education.service";
 import { CandidateEducationResDto } from "../../../dto/candidate-education/candidate-education.res.dto";
@@ -72,9 +72,9 @@ export class CandidateDetailComponent implements OnInit {
 
   }
   ngOnInit(): void {
-    getParams(this.route, 0).subscribe((res) => {
-      this.candidateService.getCandidateUserById(res['id'])
-        .subscribe((res) => {
+    firstValueFrom(getParams(this.route, 0)).then((res) => {
+      firstValueFrom(this.candidateService.getCandidateUserById(res['id']))
+        .then((res) => {
           this.candidateUser = res
 
           if (this.candidateUser?.fileId) {
@@ -85,55 +85,55 @@ export class CandidateDetailComponent implements OnInit {
 
         })
 
-      this.candidateAddressService.getByCandidate(res['id'])
-        .subscribe((res) => {
-          this.candidateAddresses = res
-        })
+      firstValueFrom(this.candidateAddressService.getByCandidate(res['id'])
+      ).then((res) => {
+        this.candidateAddresses = res
+      })
 
-      this.candidateEducationService.getByCandidate(res['id'])
-        .subscribe((res) => {
-          this.candidateEducations = res
-        })
+      firstValueFrom(this.candidateEducationService.getByCandidate(res['id'])
+      ).then((res) => {
+        this.candidateEducations = res
+      })
 
-      this.candidateFamilyService.getByCandidate(res['id'])
-        .subscribe((res) => {
-          this.candidateFamilies = res
-        })
+      firstValueFrom(this.candidateFamilyService.getByCandidate(res['id'])
+      ).then((res) => {
+        this.candidateFamilies = res
+      })
 
-      this.candidateLanguageService.getByCandidate(res['id'])
-        .subscribe((res) => {
-          this.candidateLanguages = res
-        })
+      firstValueFrom(this.candidateLanguageService.getByCandidate(res['id'])
+      ).then((res) => {
+        this.candidateLanguages = res
+      })
 
-      this.candidateProjectExpService.getByCandidate(res['id'])
-        .subscribe((res) => {
-          this.candidateProjects = res
-        })
+      firstValueFrom(this.candidateProjectExpService.getByCandidate(res['id'])
+      ).then((res) => {
+        this.candidateProjects = res
+      })
 
-      this.candidateReferenceService.getByCandidate(res['id'])
-        .subscribe((res) => {
-          this.candidateReferences = res
-        })
+      firstValueFrom(this.candidateReferenceService.getByCandidate(res['id'])
+      ).then((res) => {
+        this.candidateReferences = res
+      })
 
-      this.candidateSkillService.getByCandidate(res['id'])
-        .subscribe((res) => {
-          this.candidateSkills = res
-        })
+      firstValueFrom(this.candidateSkillService.getByCandidate(res['id'])
+      ).then((res) => {
+        this.candidateSkills = res
+      })
 
-      this.candidateTrainingExpService.getByCandidate(res['id'])
-        .subscribe((res) => {
-          this.candidateTrainings = res
-        })
+      firstValueFrom(this.candidateTrainingExpService.getByCandidate(res['id'])
+      ).then((res) => {
+        this.candidateTrainings = res
+      })
 
-      this.candidateWorkExpService.getByCandidate(res['id'])
-        .subscribe((res) => {
-          this.candidateWorks = res
-        })
+      firstValueFrom(this.candidateWorkExpService.getByCandidate(res['id'])
+      ).then((res) => {
+        this.candidateWorks = res
+      })
 
-      this.candidateDocumentService.getByCandidate(res['id'])
-        .subscribe((res) => {
-          this.candidateDocuments = res
-        })
+      firstValueFrom(this.candidateDocumentService.getByCandidate(res['id'])
+      ).then((res) => {
+        this.candidateDocuments = res
+      })
     })
 
   }

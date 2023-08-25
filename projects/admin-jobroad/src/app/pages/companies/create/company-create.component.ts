@@ -3,6 +3,7 @@ import { CompanyService } from "../../../service/company.service";
 import { NonNullableFormBuilder, Validators } from "@angular/forms";
 import { FileUpload } from "primeng/fileupload";
 import { Router } from "@angular/router";
+import { firstValueFrom } from "rxjs";
 
 @Component({
   selector: 'company-create',
@@ -23,8 +24,7 @@ export class CompanyCreateComponent {
 
     onSubmit(){
       const data = this.companyReqDto.getRawValue();
-      this.companyService.create(data).subscribe((result)=>{
-
+      firstValueFrom(this.companyService.create(data)).then((result)=>{
         this.router.navigateByUrl('/companies');
       });
     }

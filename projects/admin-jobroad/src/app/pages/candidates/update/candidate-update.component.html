@@ -38,8 +38,8 @@
             <div class="col-4">Email</div>
             <div class="col-1">:</div>
             <div class="col-7">
-              <input pInputText id="email" required type="email" formControlName="userEmail"
-                [style]="{'width':'100%'}" readonly="readonly" />
+              <input pInputText id="email" required type="email" formControlName="userEmail" [style]="{'width':'100%'}"
+                readonly="readonly" />
             </div>
           </div>
           <div formGroupName="profile">
@@ -93,9 +93,7 @@
               <div class="col-4">Status</div>
               <div class="col-1">:</div>
               <div class="col-7">
-                <p-dropdown [options]="candidateStatus" optionLabel="statusName" optionValue="id" [showClear]="true"
-                  [required]="true" formControlName="candidateStatusId" placeholder="Choose Candidate Status"
-                  [style]="{'width':'100%'}"></p-dropdown>
+                {{ candidateUser?.candidateStatus }}
               </div>
             </div>
           </div>
@@ -582,6 +580,7 @@
                     <tr>
                       <th>No.</th>
                       <th>Document Name</th>
+                      <th>Document Type</th>
                       <th></th>
                     </tr>
                   </ng-template>
@@ -589,6 +588,8 @@
                     <tr>
                       <td>{{ i + 1 }}</td>
                       <td>{{ document.docName }}.{{ document.fileExtension}}</td>
+                      <td>{{ document.fileTypeName }}</td>
+
                       <td>
                         <app-button typeBtn="button" (click)="showDeleteDocument(document.id)" iconBtn="pi pi-trash"
                           backgroundColor="danger"
@@ -681,11 +682,10 @@
         <input pInputText id="major" required type="text" formControlName="majors" />
       </div>
       <div class="field col-12">
-
         <label htmlFor="cgpa">CGPA <span class="text-red-500"> *</span> </label>
-        <p-inputNumber inputId="cgpa" inputId="minmax" mode="decimal" [min]="0" [max]="4"
-          formControlName="cgpa"></p-inputNumber>
-
+        <p-inputNumber inputId="cgpa" formControlName="cgpa" mode="decimal" [minFractionDigits]="1"
+          [maxFractionDigits]="4" minValue="0" maxValue="4">
+        </p-inputNumber>
       </div>
       <div class="field col-12">
         <label htmlFor="startyear">Start Year <span class="text-red-500"> *</span> </label>

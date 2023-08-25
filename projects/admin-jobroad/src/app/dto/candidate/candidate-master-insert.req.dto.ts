@@ -23,10 +23,8 @@ export interface CandidateMasterInsertReqDto {
     birthPlace : string
     maritalStatusId : string
     religionId : string
-    personTypeId : string
     file : string
     fileExtension : string
-    candidateStatusId : string
     candidateAddress : CandidateAddressInsertReqDto[]
     candidateDocuments : CandidateDocumentInsertReqDto[]
     candidateEducations : CandidateEducationInsertReqDto[]

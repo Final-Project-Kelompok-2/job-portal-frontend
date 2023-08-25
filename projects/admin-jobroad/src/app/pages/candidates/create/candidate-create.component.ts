@@ -23,6 +23,7 @@ import { CandidateUserService } from "../../../service/candidate-user.service";
 import { CandidateDocumentInsertReqDto } from "../../../dto/candidate-document/candidate-document-insert.req.dto";
 import { FileTypeService } from "../../../service/file-type.service";
 import { FileTypeResDto } from "../../../dto/file-type/file-type.res.dto";
+import { firstValueFrom } from "rxjs";
 
 interface Salutation {
   value: string;
@@ -47,6 +48,7 @@ interface Degree {
 })
 export class CandidateCreateComponent implements OnInit {
   loading = false
+  imgUrl!: string
   salaryValue: number = 0
   dialogAddress: boolean = false
   dialogEducation: boolean = false
@@ -105,10 +107,8 @@ export class CandidateCreateComponent implements OnInit {
     birthPlace: ['', Validators.required],
     maritalStatusId: ['', Validators.required],
     religionId: ['', Validators.required],
-    personTypeId: ['', Validators.required],
     file: ['', Validators.required],
     fileExtension: ['', Validators.required],
-    candidateStatusId: ['', Validators.required],
     candidateAddress: this.fb.array(this.addresses),
     candidateDocuments: this.fb.array(this.documents),
     candidateEducations: this.fb.array(this.educations),
@@ -205,23 +205,26 @@ export class CandidateCreateComponent implements OnInit {
   })
 
   ngOnInit(): void {
-    this.religionService.getAll().subscribe((res) => {
+
+    this.imgUrl = '../../../assets/emptyProfile.jpeg'
+
+    firstValueFrom(this.religionService.getAll()).then((res) => {
       this.religions = res
     })
 
-    this.personTypeService.getAll().subscribe((res) => {
+    firstValueFrom(this.personTypeService.getAll()).then((res) => {
       this.types = res
     })
 
-    this.candidateStatusService.getAll().subscribe((res) => {
+    firstValueFrom(this.candidateStatusService.getAll()).then((res) => {
       this.candidateStatus = res
     })
 
-    this.maritalStatusService.getAll().subscribe((res) => {
+    firstValueFrom(this.maritalStatusService.getAll()).then((res) => {
       this.maritals = res
     })
 
-    this.fileTypeService.getAll().subscribe((res) => {
+    firstValueFrom(this.fileTypeService.getAll()).then((res) => {
       this.fileTypes = res
     })
 
@@ -289,7 +292,7 @@ export class CandidateCreateComponent implements OnInit {
   onSubmit() {
     if (this.candidateMasterInsertReqDto.valid) {
       const data = this.candidateMasterInsertReqDto.getRawValue()
-      this.candidateService.register(data).subscribe((res) => {
+      firstValueFrom(this.candidateService.register(data)).then((res) => {
         this.router.navigateByUrl('/candidates')
       })
     }
@@ -302,7 +305,6 @@ export class CandidateCreateComponent implements OnInit {
   onAddAddress() {
     if (this.addressInsertReqDto.valid) {
       const data = this.addressInsertReqDto.getRawValue()
-
       this.candidateAddress.push(this.fb.group(data))
       this.addressInsertReqDto.reset()
       this.dialogAddress = false
@@ -464,7 +466,6 @@ export class CandidateCreateComponent implements OnInit {
   onAddDocument() {
     if (this.documentInsertReqDto.valid) {
       const data = this.documentInsertReqDto.getRawValue()
-      data
       this.candidateDocuments.push(this.fb.group(data))
       this.documentInsertReqDto.reset()
       this.dialogDocument = false

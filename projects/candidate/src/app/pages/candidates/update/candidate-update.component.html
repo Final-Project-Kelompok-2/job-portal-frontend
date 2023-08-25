@@ -4,7 +4,8 @@
       <app-button type="button" label="Back" class="mr-2" classBtn="p-button-secondary"
         link="/candidates/profile"></app-button>
     </div>
-  </div> <p-card header="Update Candidate Information">
+  </div> 
+  <p-card header="Update Candidate Information">
     <form [formGroup]="candidateUpdateInsertReqDto" (ngSubmit)="onUpdate()">
       <!-- <pre>{{ candidateUpdateInsertReqDto.value | json }}</pre> -->
       <div class="grid">
@@ -40,8 +41,7 @@
               <div class="col-4">Email</div>
               <div class="col-1">:</div>
               <div class="col-7">
-                <input pInputText id="email" required type="email" formControlName="userEmail"
-                  [style]="{'width':'100%'}" readonly="readonly" />
+                {{ candidateUser?.candidateUser?.userEmail }}
               </div>
             </div>
           </div>
@@ -98,9 +98,7 @@
               <div class="col-4">Status<span class="text-red-500"> *</span></div>
               <div class="col-1">:</div>
               <div class="col-7">
-                <p-dropdown [options]="candidateStatus" optionLabel="statusName" optionValue="id" [showClear]="true"
-                  [required]="true" formControlName="candidateStatusId" placeholder="Choose Candidate Status"
-                  [style]="{'width':'100%'}"></p-dropdown>
+                {{ candidateUser?.candidateProfile?.candidateStatus }}
               </div>
             </div>
           </div>
@@ -140,8 +138,7 @@
             <div class="col-4">Person Type<span class="text-red-500"> *</span></div>
             <div class="col-1">:</div>
             <div class="col-7">
-              <p-dropdown [options]="types" optionLabel="typeName" optionValue="id" [showClear]="true" [required]="true"
-                formControlName="personTypeId" placeholder="Person Type" [style]="{'width':'100%'}"></p-dropdown>
+              {{ candidateUser?.candidateProfile?.personType }}
             </div>
           </div>
         </div>
@@ -586,6 +583,7 @@
                     <tr>
                       <th>No.</th>
                       <th>Document Name</th>
+                      <th>Document Type</th>
                       <th></th>
                     </tr>
                   </ng-template>
@@ -593,6 +591,7 @@
                     <tr>
                       <td>{{ i + 1 }}</td>
                       <td>{{ document.docName }}.{{ document.fileExtension}}</td>
+                      <td>{{ document.fileTypeName }}</td>
                       <td>
                         <app-button typeBtn="button" (clickChange)="showDeleteDocument(document.id)"
                           iconBtn="pi pi-trash" backgroundColor="danger"
