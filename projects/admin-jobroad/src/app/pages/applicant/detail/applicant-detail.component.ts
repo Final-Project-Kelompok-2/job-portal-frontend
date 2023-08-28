@@ -157,7 +157,7 @@ export class ApplicantDetailComponent implements OnInit {
                     this.activeIndex = 0
                 } else if (this.applicant.statusCode == HiringStatusEnum.ASSESMENT) {
                     this.activeIndex = 1
-                } else if (this.applicant.statusCode == HiringStatusEnum.HIRED) {
+                } else if (this.applicant.statusCode == HiringStatusEnum.INTERVIEW_USER) {
                     this.activeIndex = 2
                 } else if (this.applicant.statusCode == HiringStatusEnum.MCU) {
                     this.activeIndex = 3
