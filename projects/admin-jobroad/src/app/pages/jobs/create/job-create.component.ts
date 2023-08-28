@@ -114,11 +114,11 @@ export class JobCreateComponent implements OnInit, OnDestroy {
   onSubmit() {
     const data = this.jobReqDto.getRawValue();
 
-    if(this.jobReqDto.valid){
-      this.jobService.create(data).subscribe( res => {
-        this.router.navigateByUrl('jobs')
-      });
-    }
+    firstValueFrom(this.jobService.create(data)).then(()=>{
+      this.router.navigateByUrl('/jobs')
+
+    });
+
   }
 
   removeBenefit(i: number) {
