@@ -42,7 +42,7 @@ const routes: Routes = [
   {
     component: BaseComponent,
     path: 'users',
-    data: [RoleCodeEnum.ADMIN],
+    data: [RoleCodeEnum.ADMIN,RoleCodeEnum.HR,RoleCodeEnum.PIC],
     canMatch: [authValidationNonLogin, roleValidation],
     loadChildren: () => import('./pages/users/user.module').then(u => UserModule),
   },

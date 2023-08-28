@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 import { MenuItem } from 'primeng/api';
 import { AuthService } from "../../service/auth.service";
+import { RoleCodeEnum } from "../../constant/user-role.constant";
 
 
 
@@ -82,41 +83,60 @@ export class NavbarComponent implements OnInit {
           {
             label: 'Users',
             icon: 'pi pi-users',
-            routerLink: '/users'
+            routerLink: '/users',
+            visible : this.isAdmin 
           },
           {
             label: 'Employees',
             icon: 'pi pi-id-card',
-            routerLink: '/employees'
+            routerLink: '/employees',
+            visible : this.isAdmin
           },
           {
             label: 'Candidates',
             icon: 'pi pi-user',
-            routerLink: '/candidates'
+            routerLink: '/candidates',
+            visible : this.isAdmin
           },
           {
             label: 'Companies',
             icon: 'pi pi-id-card',
-            routerLink: '/companies'
+            routerLink: '/companies',
+            visible : this.isAdmin
           },
           {
             label: 'Benefits',
             icon: 'pi pi-money-bill',
-            routerLink: '/benefits'
+            routerLink: '/benefits',
+            visible : this.isAdmin
           },
           {
             label: 'Jobs',
             icon: 'pi pi-briefcase',
             routerLink: '/jobs'
+            
           },
           {
             label: 'Questions',
             icon: 'pi pi-question-circle',
-            routerLink: '/questions'
+            routerLink: '/questions',
+            visible : this.isAdmin
           },
         ]
       },
     ];
+  }
+
+  get isAdmin(){
+    return this.roleCode == RoleCodeEnum.ADMIN
+  }
+
+  get isHr(){
+    return this.roleCode == RoleCodeEnum.HR
+  }
+
+  get isPic(){
+    return this.roleCode == RoleCodeEnum.PIC
   }
 }
 

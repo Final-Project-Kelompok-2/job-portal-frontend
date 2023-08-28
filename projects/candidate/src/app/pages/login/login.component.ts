@@ -12,9 +12,12 @@ import { ɵparseCookieValue } from "@angular/common";
 })
 export class LoginComponent {
 
-
+    testVal = Boolean(localStorage.getItem('q'))
+    appId = localStorage.getItem('code')
+    
+    
     loading = false;
-
+    
     constructor(private fb: NonNullableFormBuilder,
         private loginService: LoginService,
         private router: Router) {
@@ -36,8 +39,14 @@ export class LoginComponent {
                     this.loading = false
                     console.log(result)
                     localStorage.setItem('data', JSON.stringify(result))
-                    this.router.navigateByUrl('/dashboard')
-
+                    if(this.testVal){
+                        // localStorage.setItem('q','false')
+                        this.router.navigateByUrl(`/questions/${this.appId}`)
+                    }else{
+                        this.router.navigateByUrl('/dashboard')
+                    }
+                    console.log('testval =>  '+this.testVal);
+                    console.log('appid =>  ' + this.appId)
                 },
                 error: () => {
                     console.log("error")
