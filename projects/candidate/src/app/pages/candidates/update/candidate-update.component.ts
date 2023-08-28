@@ -413,6 +413,13 @@ export class CandidateUpdateComponent implements OnInit {
 
   }
 
+  checkForm(form : FormGroup){
+    if(form.invalid){
+      return form.markAllAsTouched()
+    }
+  }
+
+
   candidateUserProfile() {
     return this.candidateService.getById(this.candidateId)
       .subscribe((res) => {

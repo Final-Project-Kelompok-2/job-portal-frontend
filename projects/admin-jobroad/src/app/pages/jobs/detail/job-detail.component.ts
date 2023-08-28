@@ -9,39 +9,56 @@ import { Table } from "primeng/table";
 import { HiringStatusEnum } from "../../../constant/hiring-status.constant";
 
 @Component({
-    selector: 'job-detail',
-    templateUrl: './job-detail.component.html',
-    styleUrls: ['./job-detail.component.css']
+  selector: 'job-detail',
+  templateUrl: './job-detail.component.html',
+  styleUrls: ['./job-detail.component.css']
 })
 export class JobDetailComponent implements OnInit, OnDestroy {
-    job?: JobResDto;
-    applicant!: ApplicantResDto[];
-    jobSubscription!: Subscription
-    applicantSubscription!: Subscription;
-    loading = false;
-    jobId!: string;
-    reject = HiringStatusEnum.REJECT;
-    hired = HiringStatusEnum.HIRED;
-    constructor(private jobService: JobService,
-        private applicantService: ApplicantService, private activated: ActivatedRoute) { }
-    ngOnInit(): void {
-        firstValueFrom(this.activated.params).then(param => {
-            this.jobSubscription = this.jobService.getByDetail(param['id']).subscribe(result => {
-                this.job = result;
-            });
-            this.jobId = param['id'];
-            this.applicantSubscription = this.applicantService.getByJob(param['id']).subscribe(result => {
-                this.applicant = result;
-            });
-        })
+  imageUrlBanner! : string
+  imageUrlCompany! : string
+  job?: JobResDto;
+  applicant!: ApplicantResDto[];
+  jobSubscription!: Subscription
+  applicantSubscription!: Subscription;
+  loading = false;
+  jobId!: string;
+  reject = HiringStatusEnum.REJECT;
+  hired = HiringStatusEnum.HIRED;
+  constructor(private jobService: JobService,
+    private applicantService: ApplicantService, private activated: ActivatedRoute) { }
+  ngOnInit(): void {
+    firstValueFrom(this.activated.params).then(param => {
+      this.jobSubscription = this.jobService.getByDetail(param['id']).subscribe(result => {
+        this.job = result;
+        if (this.job?.fileId) {
+          this.imageUrlBanner = `http://localhost:8080/files/${this.job?.fileId}`
+        }
+        else {
+          this.imageUrlBanner = '../../../../assets/bannerJob.jpeg'
+        }
 
-    }
 
-    ngOnDestroy(): void {
-        this.jobSubscription.unsubscribe();
-        this.applicantSubscription.unsubscribe();
-    }
-    clear(table: Table) {
-        table.clear();
-    }
+        if (this.job?.companyPhotoId) {
+          this.imageUrlCompany = `http://localhost:8080/files/${this.job?.companyPhotoId}`
+
+        }
+        else {
+          this.imageUrlCompany = '../../../../assets/companyLogo.png'
+        }
+      });
+      this.jobId = param['id'];
+      this.applicantSubscription = this.applicantService.getByJob(param['id']).subscribe(result => {
+        this.applicant = result;
+      });
+    })
+
+  }
+
+  ngOnDestroy(): void {
+    this.jobSubscription.unsubscribe();
+    this.applicantSubscription.unsubscribe();
+  }
+  clear(table: Table) {
+    table.clear();
+  }
 }

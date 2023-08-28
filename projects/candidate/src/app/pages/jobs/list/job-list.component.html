@@ -91,18 +91,22 @@
     <span style="font-size: 1.25rem; font-weight: bold;">
       Top Salary Jobs
     </span>
-    <div class="small-card-scroll">
-      <p-card class="m-2 cursor-pointer card-hover">
-        Job 1
-      </p-card>
-      <p-card class=" m-2">
-        Job 1
-      </p-card>
-      <p-card class="m-2">
-        Job 1
-      </p-card>
-      <p-card class="m-2">
-        Job 1
+    <div>
+      <p-card *ngFor="let j of jobsTopSalary" class="card-hover" styleClass="card-hover mr-4 mb-2 mt-2">
+        <div class=" grid grid-nogutter cursor-pointer" routerLink="/jobs/{{j.id}}/detail">
+          <div class="col-12 md:col-2 text-center">
+            <p-image [src]="j.fileId | url" imageClass="w-full" alt="Image">
+              <ng-template pTemplate="indicator">
+                <i class="pi pi-check"></i>
+              </ng-template>
+            </p-image>
+          </div>
+          <div class="col-12 md:col-10 pl-2 p-0">
+              <span class="mt-0" style="font-size: 1.2rem; font-weight: bold;"> {{j.jobName}}</span>
+              <p style="font-size: 1rem;;" class="mt-0"> {{j.companyName}}</p>
+              <i class="pi pi-money-bill"></i> IDR {{j.expectedSalaryMin}} - IDR {{ j.expectedSalaryMax }}
+          </div>
+        </div>
       </p-card>
     </div>
   </div>

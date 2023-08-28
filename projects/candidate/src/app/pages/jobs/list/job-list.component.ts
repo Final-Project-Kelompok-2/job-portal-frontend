@@ -22,6 +22,7 @@ export class JobListComponent implements OnInit {
     loading = true
 
     jobs?: JobResDto[]
+    jobsTopSalary?: JobResDto[]
 
     constructor(private jobService: JobService,
         private authService: AuthService,
@@ -31,11 +32,18 @@ export class JobListComponent implements OnInit {
 
     ngOnInit() {
         this.getAllJob()
+        this.getTopSalaryJob()
     }
 
     getAllJob() {
         firstValueFrom(this.jobService.getAll()).then(result => {
             this.jobs = result
+        })
+    }
+
+    getTopSalaryJob() {
+        firstValueFrom(this.jobService.getTopSalary()).then(result => {
+            this.jobsTopSalary = result
         })
     }
 

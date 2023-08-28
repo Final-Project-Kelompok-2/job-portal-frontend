@@ -1,6 +1,6 @@
 import { HttpClient, HttpErrorResponse, HttpResponse } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { Observable } from "rxjs";
+import { Observable, ObservableInputTuple, firstValueFrom, forkJoin } from "rxjs";
 import { tap } from "rxjs/operators";
 import { AuthService } from "./auth.service";
 
@@ -42,6 +42,10 @@ export class BaseService {
 
     }
 
+    getWithoutPipe<T>(url:string, withToken = true):Observable<T>{
+      return this.http.get<T>(url, (withToken ? this.header : undefined))
+    }
+
     patch<T>(url: string, body: any, withToken = true): Observable<T> {
         return this.http.patch<T>(url, body, (withToken ? this.header : undefined))
             .pipe(response(this.messageService, this.router));
@@ -55,6 +59,12 @@ export class BaseService {
 
 
     }
+
+    all<T extends unknown[]>(data : [...ObservableInputTuple<T>]) : Promise<T>  {
+      return firstValueFrom(
+          forkJoin(data).pipe(response(this.messageService, this.router))
+      )
+  }
 }
 export function response<T>(messageService: MessageService, router: Router) {
     return tap<T>({

@@ -1,6 +1,6 @@
 import { HttpClient, HttpErrorResponse, HttpResponse } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { Observable } from "rxjs";
+import { Observable, ObservableInputTuple, firstValueFrom, forkJoin } from "rxjs";
 import { catchError, tap } from "rxjs/operators";
 import { AuthService } from "./auth.service";
 
@@ -53,13 +53,19 @@ export class BaseService {
 
 
     }
+
+    all<T extends unknown[]>(data : [...ObservableInputTuple<T>]) : Promise<T>  {
+      return firstValueFrom(
+          forkJoin(data).pipe(response(this.messageService, this.router))
+      )
+  }
 }
 export function response<T>(messageService: MessageService, router: Router) {
     return tap<T>({
         next : (data) => {
             // console.log(data)
             if(data && (data as any).message){
-                
+
                 messageService.add({ severity: 'success', summary: 'Success', detail: (data as any).message });
 
             };

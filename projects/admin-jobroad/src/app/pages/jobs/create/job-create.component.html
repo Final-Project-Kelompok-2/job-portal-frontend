@@ -8,46 +8,100 @@
         <div class="field col-12 md:col-6">
           <label htmlFor="name">Job Name <span class="text-red-500">*</span> </label>
           <input pInputText id="name" required type="text" formControlName="jobName" />
+          <span class="text-red-500 ml-2" *ngIf="
+          jobReqDto.get('jobName')!.invalid &&
+          !jobReqDto.get('jobName')!.value &&
+          (jobReqDto.get('jobName')!.dirty ||
+            jobReqDto.get('jobName')!.touched)
+        ">Input can't be empty</span>
         </div>
         <div class="field col-12 md:col-6">
           <label htmlFor="company">Company<span class="text-red-500">*</span></label>
           <p-dropdown optionLabel="companyName" [options]="company" optionValue="id" formControlName="companyId"
             placeholder="Choose Company" [showClear]="true" [required]="true"></p-dropdown>
+          <span class="text-red-500 ml-2" *ngIf="
+            jobReqDto.get('companyId')!.invalid &&
+            !jobReqDto.get('companyId')!.value &&
+            (jobReqDto.get('companyId')!.dirty ||
+              jobReqDto.get('companyId')!.touched)
+          ">Must be Selected</span>
         </div>
         <div class="field col-12 md:col-6">
           <label htmlFor="start">Start Date<span class="text-red-500">*</span></label>
-          <input pInputText id="start" required type="date" formControlName="startDate" />
+          <p-calendar inputId="start" [required]="true" formControlName="startDateTemp" [showIcon]="true"
+            dateFormat="dd/mm/yy" inputStyleClass="w-full" styleClass="w-full"
+            ></p-calendar>
         </div>
         <div class="field col-12 md:col-6">
           <label htmlFor="end">End Date<span class="text-red-500">*</span></label>
-          <input pInputText id="end" required type="date" formControlName="endDate" />
+          <p-calendar inputId="end" [required]="true" formControlName="endDateTemp" [showIcon]="true"
+            dateFormat="dd/mm/yy" inputStyleClass="w-full" styleClass="w-full"></p-calendar>
+
         </div>
         <div class="field col-12">
           <label htmlFor="desc">Description<span class="text-red-500">*</span></label>
           <textarea pInputTextarea id="desc" required rows="4" cols="50" formControlName="description"></textarea>
+          <span class="text-red-500 ml-2" *ngIf="
+          jobReqDto.get('description')!.invalid &&
+          !jobReqDto.get('description')!.value &&
+          (jobReqDto.get('description')!.dirty ||
+            jobReqDto.get('description')!.touched)
+        ">Input can't be empty</span>
         </div>
         <div class="field col-12 md:col-6">
           <label htmlFor="min">Minimal Salary<span class="text-red-500">*</span></label>
-          <p-inputNumber inputId="min" mode="currency" currency="IDR" locale="jp-JP"
+          <p-inputNumber inputId="min" mode="currency" currency="IDR" locale="id-ID"
             formControlName="expectedSalaryMin"></p-inputNumber>
+          <span class="text-red-500 ml-2" *ngIf="
+            jobReqDto.get('expectedSalaryMin')!.invalid &&
+            !jobReqDto.get('expectedSalaryMin')!.value &&
+            (jobReqDto.get('expectedSalaryMin')!.dirty ||
+              jobReqDto.get('expectedSalaryMin')!.touched)
+          ">Input can't be empty</span>
         </div>
         <div class="field col-12 md:col-6">
           <label htmlFor="max">Maximal Salary<span class="text-red-500">*</span></label>
-          <p-inputNumber inputId="max" mode="currency" currency="IDR" locale="jp-JP"
+          <p-inputNumber inputId="max" mode="currency" currency="IDR" locale="id-ID"
             formControlName="expectedSalaryMax"></p-inputNumber>
+          <span class="text-red-500 ml-2" *ngIf="
+            jobReqDto.get('expectedSalaryMax')!.invalid &&
+            !jobReqDto.get('expectedSalaryMax')!.value &&
+            (jobReqDto.get('expectedSalaryMax')!.dirty ||
+              jobReqDto.get('expectedSalaryMax')!.touched)
+          ">Input can't be empty</span>
         </div>
         <div class="field col-12 md:col-4">
           <label htmlFor="hr">HR Person in Contact<span class="text-red-500">*</span></label>
-          <p-dropdown optionLabel="fullName" [options]="hr" optionValue="id" [showClear]="true" placeholder="Choose HR" [required]="true" formControlName="hrId"></p-dropdown>
+          <p-dropdown optionLabel="fullName" [options]="hr" optionValue="id" [showClear]="true" placeholder="Choose HR"
+            [required]="true" formControlName="hrId"></p-dropdown>
+          <span class="text-red-500 ml-2" *ngIf="
+          jobReqDto.get('hrId')!.invalid &&
+          !jobReqDto.get('hrId')!.value &&
+          (jobReqDto.get('hrId')!.dirty ||
+            jobReqDto.get('hrId')!.touched)
+        ">Must be selected</span>
         </div>
         <div class="field col-12 md:col-4">
           <label htmlFor="pic">PIC Person in Contact<span class="text-red-500">*</span></label>
-          <p-dropdown optionLabel="fullName" [options]="pic" optionValue="id" [showClear]="true" placeholder="Choose Pic" [required]="true" formControlName="picId"></p-dropdown>
+          <p-dropdown optionLabel="fullName" [options]="pic" optionValue="id" [showClear]="true"
+            placeholder="Choose Pic" [required]="true" formControlName="picId"></p-dropdown>
+          <span class="text-red-500 ml-2" *ngIf="
+          jobReqDto.get('picId')!.invalid &&
+          !jobReqDto.get('picId')!.value &&
+          (jobReqDto.get('picId')!.dirty ||
+            jobReqDto.get('picId')!.touched)
+        ">Must be selected</span>
         </div>
         <div class="field col-12 md:col-4">
           <label htmlFor="type">Employment Type<span class="text-red-500">*</span></label>
           <p-dropdown optionLabel="employmentTypeName" [options]="employmentType" optionValue="id" [showClear]="true"
             placeholder="Choose Employment Type" [required]="true" formControlName="employmentTypeId"></p-dropdown>
+          <span class="text-red-500 ml-2" *ngIf="
+            jobReqDto.get('employmentTypeId')!.invalid &&
+            !jobReqDto.get('employmentTypeId')!.value &&
+            (jobReqDto.get('employmentTypeId')!.dirty ||
+              jobReqDto.get('employmentTypeId')!.touched)
+          ">Must be selected</span>
         </div>
         <div class="col-12 ">
           <label for="picture" class="form-label">Job Picture</label>
@@ -66,11 +120,13 @@
           <p-card class="col-12" *ngFor="let b of benefitsId.controls; let i = index" formArrayName="benefits">
             <div class="grid align-items-center" [formGroupName]="i">
               <div class="col-8">
-                <p-dropdown [options]="benefit" optionValue="id" placeholder="Choose Benefits"
-                  optionLabel="benefitName" formControlName="benefitId"></p-dropdown>
+                <p-dropdown [options]="benefit" optionValue="id" placeholder="Choose Benefits" optionLabel="benefitName"
+                  formControlName="benefitId"></p-dropdown>
+
               </div>
               <div class="col-4">
-                <app-button iconBtn="pi pi-minus-circle" label="Delete Option" classBtn="p-button-danger" (clickChange)="removeBenefit(i)"></app-button>
+                <app-button iconBtn="pi pi-minus-circle" label="Delete Option" classBtn="p-button-danger"
+                  (clickChange)="removeBenefit(i)"></app-button>
               </div>
             </div>
           </p-card>
@@ -86,7 +142,8 @@
                   optionLabel="questionDetail" formControlName="questionId"></p-dropdown>
               </div>
               <div class="col-4">
-                <app-button iconBtn="pi pi-minus-circle" label="Delete Option" classBtn="p-button-danger" (clickChange)="removeQuestion(j)"></app-button>
+                <app-button iconBtn="pi pi-minus-circle" label="Delete Option" classBtn="p-button-danger"
+                  (clickChange)="removeQuestion(j)"></app-button>
               </div>
             </div>
           </p-card>
@@ -95,7 +152,7 @@
 
       <div class="col-12 md:col-9 mb-5 mt-6">
         <app-button backgroundColor="var(--PRIMARY)" [loading]="loading" typeBtn="submit" label="Add"
-          iconBtn="pi pi-plus" class=" mr-2"></app-button>
+          iconBtn="pi pi-plus" class=" mr-2" (clickChange)="checkForm(jobReqDto)"></app-button>
         <app-button link="/jobs" label="Back" classBtn="p-button-secondary"></app-button>
       </div>
     </form>
