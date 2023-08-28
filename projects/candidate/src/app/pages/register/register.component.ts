@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { FormGroup, NonNullableFormBuilder, Validators } from "@angular/forms";
 import { CandidateUserService } from "../../service/candidate-user.service";
 import { Route, Router } from "@angular/router"
+import { firstValueFrom } from "rxjs";
 
 @Component({
   selector: 'resgiter',
@@ -22,7 +23,7 @@ export class RegisterComponent {
     userPassword: ['', [Validators.required]],
     userConfirmPassword: ['', [Validators.required]],
     profile: this.fb.group({
-      fullname: ['', [Validators.required]],
+      fullname: [null, [Validators.required]],
       salutation: '',
       gender: '',
       experience: '',

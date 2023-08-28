@@ -4,6 +4,8 @@ import { JobResDto } from "../../../dto/job/job.res.dto";
 import { JobService } from "../../../service/job.service";
 import { ApplicantService } from "../../../service/applicant.service";
 import { firstValueFrom } from "rxjs";
+import { CandidateUserService } from "../../../service/candidate-user.service";
+import { CandidateCheckDataResDto } from "../../../dto/candidate/candidate-check-data.res.dto";
 
 @Component({
   selector: 'job-detail',
@@ -16,23 +18,15 @@ export class JobDetailComponent implements OnInit {
   job?: JobResDto
   jobId!: string
   visible: boolean = false;
+    isValid!: CandidateCheckDataResDto
+    askToProfile: boolean = false
 
-  constructor(private activated: ActivatedRoute,
-    private jobService: JobService,
-    private applicantService: ApplicantService,
-    private router: Router) {
 
-  }
-
-  apply(jobId: string) {
-    const applicantDto = {
-      jobId
-    }
-    firstValueFrom(this.applicantService.create(applicantDto)).then(result => {
-      this.router.navigateByUrl("/dashboard")
-
-    })
-  }
+    constructor(private activated: ActivatedRoute,
+        private jobService: JobService,
+        private applicantService: ApplicantService,
+        private router: Router,
+        private candidateService: CandidateUserService) {}
 
   ngOnInit(): void {
     firstValueFrom(this.activated.params).then(result => {
@@ -40,6 +34,28 @@ export class JobDetailComponent implements OnInit {
       this.jobId = id
       this.getJobDetail(this.jobId)
     })
+    
+    apply(jobId: string) {
+        // this.visible = true
+        const applicantDto = {
+            jobId
+        }
+
+        firstValueFrom(this.candidateService.checkData()).then(result => {
+            this.isValid = result
+
+            if (this.isValid.valid) {
+                firstValueFrom(this.applicantService.create(applicantDto)).then(result => {
+                    this.router.navigateByUrl("/dashboard")
+                })
+            }
+            else {
+                this.askToProfile = !this.askToProfile
+            }
+        })
+
+
+    }
 
   }
 
