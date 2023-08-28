@@ -5,23 +5,23 @@
         <div class="col-12 md:col-3 pr-1">
           <div class="p-input-icon-left w-full">
             <i class="pi pi-search"></i>
-            <input type="text" pInputText placeholder="Job Title" class="w-full" />
+            <input type="text" [(ngModel)]="title" pInputText placeholder="Job Title" class="w-full" />
           </div>
         </div>
         <div class="col-12 md:col-3 pr-1">
           <div class="p-input-icon-left w-full">
             <i class="pi pi-building"></i>
-            <input type="text" pInputText placeholder="Location" class="w-full" />
+            <input type="text" [(ngModel)]="location" pInputText placeholder="Location" class="w-full" />
           </div>
         </div>
         <div class="col-12 md:col-3 pr-1">
           <div class="p-input-icon-left w-full">
             <i class="pi pi-money-bill"></i>
-            <input type="text" pInputText placeholder="Minimum Salary" class="w-full" />
+            <input type="text" [(ngModel)]="salary" pInputText placeholder="Minimum Salary" class="w-full" />
           </div>
         </div>
         <div class="col-12 md:col-3 flex align-item-center">
-          <app-button label="Search"  backgroundColor="var(--PRIMARY)" iconBtn="pi pi-search"></app-button>
+          <app-button label="Search" (click)="search()"  backgroundColor="var(--PRIMARY)" iconBtn="pi pi-search"></app-button>
         </div>
       </div>
     </div>

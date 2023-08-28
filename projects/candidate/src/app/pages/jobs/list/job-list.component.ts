@@ -13,7 +13,9 @@ import { firstValueFrom } from "rxjs";
 
 export class JobListComponent implements OnInit {
 
-
+    title! : string;
+    location! : string;
+    salary! : number;
 
     result = 'Loved'
 
@@ -49,6 +51,17 @@ export class JobListComponent implements OnInit {
     deleteSavedJob(jobId: string) {
         firstValueFrom(this.savedJobService.delete(jobId)).then(result => {
             this.getAllJob()
+        })
+    }
+
+    search(){
+        console.log('title    ',this.title);
+        console.log('lokasi   ',this.location);
+        console.log('salary   ',this.salary);
+        
+        
+        firstValueFrom(this.jobService.filter(this.title,this.location,this.salary)).then(result =>{
+            this.jobs = result;
         })
     }
 
