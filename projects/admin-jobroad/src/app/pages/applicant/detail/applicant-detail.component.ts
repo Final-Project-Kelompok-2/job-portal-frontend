@@ -22,6 +22,8 @@ import { McuResDto } from "../../../dto/mcu/mcu.res.dto";
 import { HiringStatusEnum } from "../../../constant/hiring-status.constant";
 import { employmentTypeEnum } from "../../../constant/employment-type.constant";
 import { BenefitService } from "../../../service/benefit.service";
+import { AuthService } from "../../../service/auth.service";
+import { RoleCodeEnum } from "../../../constant/user-role.constant";
 
 @Component({
     selector: 'applicant-detail',
@@ -122,7 +124,8 @@ export class ApplicantDetailComponent implements OnInit {
         private mcuService: McuService,
         private offeringService: OfferingService,
         private hiredService: HiredService,
-        private reviewService: ReviewService
+        private reviewService: ReviewService,
+        private authService : AuthService
     ) { }
 
     onActiveIndexChange(event: number) {
@@ -163,10 +166,6 @@ export class ApplicantDetailComponent implements OnInit {
                 } else {
                     this.activeIndex = 0
                 }
-                this.interviewReqDto.patchValue({
-                    // applicantCode: this.applicant.applicantCode,
-                    // statusCode: this.applicant.statusCode
-                })
             })
             firstValueFrom(this.jobService.getByDetail(this.jobId)).then(result => {
                 this.job = result;
@@ -184,6 +183,7 @@ export class ApplicantDetailComponent implements OnInit {
             {
                 label: 'Assesment',
                 command: (event: any) => this.messageService.add({ severity: 'info', summary: 'Second Step', detail: event.item.label })
+                
 
             },
             {
@@ -200,6 +200,18 @@ export class ApplicantDetailComponent implements OnInit {
             }
         ]
 
+    }
+
+    get isHr(){
+        return this.authService.getProfile()?.roleCode == RoleCodeEnum.HR
+    }
+
+    get isPic(){
+        return this.authService.getProfile()?.roleCode == RoleCodeEnum.PIC
+    }
+
+    get isAdmin(){
+        return this.authService.getProfile()?.roleCode == RoleCodeEnum.ADMIN
     }
 
     get isApplied() {

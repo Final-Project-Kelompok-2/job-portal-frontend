@@ -72,7 +72,6 @@ export class QuestionComponent implements OnInit, AfterViewChecked {
                 )
             }
         }).catch(() => {
-            console.log('ASDADAS')
             localStorage.setItem('q','true');
             localStorage.setItem('code',this.appId)
             this.route.navigateByUrl('/login');
