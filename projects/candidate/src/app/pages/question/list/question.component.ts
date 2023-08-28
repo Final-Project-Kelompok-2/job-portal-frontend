@@ -44,19 +44,18 @@ export class QuestionComponent implements OnInit, AfterViewChecked {
 
         })
 
-
-
     }
 
     checkToken() {
         const profile = this.authService.getProfile()
         if (!profile) {
-           console.log('ERIL YANG SALAH')
+            console.log('ERIL YANG SALAH')
         } else {
             console.log('BENAR')
 
         }
     }
+
     ngAfterViewChecked(): void {
         this.cd.detectChanges();
     }
