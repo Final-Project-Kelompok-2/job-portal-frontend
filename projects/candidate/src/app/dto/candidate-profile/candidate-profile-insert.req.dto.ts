@@ -1,5 +1,5 @@
 export interface CandidateProfileInsertReqDto {
-	fullname : string
+	fullname : string | null
   salutation : string
 	gender : string
 	experience : string

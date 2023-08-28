@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { NonNullableFormBuilder, Validators } from "@angular/forms";
 import { CandidateUserService } from "../../service/candidate-user.service";
 import { Route, Router } from "@angular/router"
+import { firstValueFrom } from "rxjs";
 
 @Component({
   selector: 'resgiter',
@@ -17,10 +18,10 @@ export class RegisterComponent {
   }
 
   registerReqDto = this.fb.group({
-    userEmail: ['', [Validators.required]],
-    userPassword: ['', [Validators.required]],
+    userEmail: [null, [Validators.required]],
+    userPassword: [null, [Validators.required]],
     profile: this.fb.group({
-      fullname: ['', [Validators.required]],
+      fullname: [null, [Validators.required]],
       salutation: '',
       gender: '',
       experience: '',
@@ -42,7 +43,7 @@ export class RegisterComponent {
 
   register() {
     const data = this.registerReqDto.getRawValue()
-    this.candidateUserService.register(data).subscribe()
+    firstValueFrom(this.candidateUserService.register(data)).then()
     this.router.navigateByUrl('/login')
   }
 
