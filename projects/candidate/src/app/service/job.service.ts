@@ -26,4 +26,8 @@ export class JobService {
     getDetail(jobId: string): Observable<JobResDto> {
         return this.base.get<JobResDto>(`${BASE_URL}/jobs/detail?jobId=${jobId}`)
     }
+
+    getTopSalary() : Observable<JobResDto[]> {
+        return this.base.get<JobResDto[]>(`${BASE_URL}/jobs/topsalary`)
+    }
 }
