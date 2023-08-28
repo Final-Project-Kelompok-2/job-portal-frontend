@@ -9,6 +9,7 @@ import { CandidateMasterInsertReqDto } from "../dto/candidate/candidate-master-i
 import { InsertResDto } from "../dto/insert.res.dto";
 import { UpdateResDto } from "../dto/update.res.dto";
 import { CandidateUserUpdateReqDto } from "../dto/candidate-user/candidate-user-update.req.dto";
+import { CandidateCheckDataResDto } from "../dto/candidate/candidate-check-data.res.dto";
 
 
 @Injectable({
@@ -30,6 +31,10 @@ export class CandidateUserService {
 
     update(data: CandidateUserUpdateReqDto): Observable<UpdateResDto> {
         return this.base.patch<UpdateResDto>(`${BASE_URL}/candidate-user/`, data)
+    }
+
+    checkData(): Observable<CandidateCheckDataResDto> {
+        return this.base.get<CandidateCheckDataResDto>(`${BASE_URL}/candidate-user/checks`)
     }
 
 }
