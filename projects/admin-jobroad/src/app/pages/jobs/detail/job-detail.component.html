@@ -1,64 +1,58 @@
-<!-- <div class="header"> -->
-<!-- header-->
-<!-- <div class="columns the-header is-marginless">
-        <div class="column header-text is-6 is-offset-3 is-12-mobile">
-            <p class="title">{{job?.jobName}}</p>
-            <br>
-            <p class="subtitle has-text-black">
-                {{job?.description}}
-            </p>
-        </div>
-    </div> -->
-<!-- header ends -->
-<!-- test -->
+<p-card styleClass="mt-3" header="Job Detail">
+  <div class="grid ">
+    <img class="banner" [src]="imageUrlBanner" alt="company-logo">
+    <div class="col-12">
+      <ng-container *ngIf="job?.fileId">
+        <p-image class="profile-picture" [src]="imageUrlCompany" alt="Image" width="250">
+          <ng-template pTemplate="indicator">
+            <i class="pi pi-check"></i>
+          </ng-template>
+        </p-image>
+      </ng-container>
+    </div>
+  </div>
 
-<!-- test -->
-<!-- </div> -->
-
-  <p-card styleClass="mt-3" header="Job Detail">
-    <!-- <img class="banner" [src]="job?.companyPhotoId | url" alt="company-logo"> -->
-    <div class="grid">
-      <div class="col-offset-1 col-11 md:col-offset-5 md:col-2">
-        <img class="profile-picture" [src]="job?.fileId | url" alt="profile-picture">
-      </div>
-      <div class="col-12 md:col-6">
-        <h2 class="title">{{job?.jobName}}</h2>
-        <h4><i class="pi pi-building"></i> {{job?.companyName}}</h4>
-        <h4><i class="pi pi-inbox"></i> Job Description : </h4>
-        <p class="subtitle has-text-black">
-          {{job?.description}}
-        </p>
-      </div>
-      <div class="col-12 md:col-6">
-        <div class="grid mt-2">
-          <div class="col-5"><i class="pi pi-home"></i> Address</div>
-          <div class="col-2">:</div>
-          <div class="col-5">{{job?.address}}</div>
-          <div class="col-5"><i class="pi pi-clock"></i> Open</div>
-          <div class="col-2">:</div>
-          <div class="col-5">{{job?.startDate}}</div>
-          <div class="col-5"><i class="pi pi-clock"></i> Close</div>
-          <div class="col-2">:</div>
-          <div class="col-5">{{job?.endDate}}</div>
-          <div class="col-5"><i class="pi pi-briefcase"></i> Job Type</div>
-          <div class="col-2">:</div>
-          <div class="col-5">{{job?.employementTypeName}}</div>
-          <div class="col-5"><i class="pi pi-money-bill"></i> Salary Range</div>
-          <div class="col-2">:</div>
-          <div class="col-5">Rp. {{job?.expectedSalaryMin}} - Rp. {{job?.expectedSalaryMax}}</div>
-        </div>
-      </div>
+  <div class="grid">
+    <div class="col-12 md:col-6">
+      <h2 class="title">{{job?.jobName}}</h2>
+      <h4><i class="pi pi-building"></i> {{job?.companyName}}</h4>
+      <h4><i class="pi pi-inbox"></i> Job Description : </h4>
+      <p class="subtitle has-text-black">
+        {{job?.description}}
+      </p>
     </div>
 
-  </p-card>
 
-
-
-
-
-  <div class=" mt-3 col-12 md:col-3 buttons">
-    <app-button type="button" label="Back" class="mr-2" classBtn="p-button-secondary" link="/jobs"></app-button>
+    <div class="col-12 md:col-6">
+      <div class="grid mt-2">
+        <div class="col-5"><i class="pi pi-home"></i> Address</div>
+        <div class="col-2">:</div>
+        <div class="col-5">{{job?.address}}</div>
+        <div class="col-5"><i class="pi pi-clock"></i> Open</div>
+        <div class="col-2">:</div>
+        <div class="col-5">{{job?.startDate}}</div>
+        <div class="col-5"><i class="pi pi-clock"></i> Close</div>
+        <div class="col-2">:</div>
+        <div class="col-5">{{job?.endDate}}</div>
+        <div class="col-5"><i class="pi pi-briefcase"></i> Job Type</div>
+        <div class="col-2">:</div>
+        <div class="col-5">{{job?.employementTypeName}}</div>
+        <div class="col-5"><i class="pi pi-money-bill"></i> Salary Range</div>
+        <div class="col-2">:</div>
+        <div class="col-5">Rp. {{job?.expectedSalaryMin}} - Rp. {{job?.expectedSalaryMax}}</div>
+      </div>
+    </div>
   </div>
+
+</p-card>
+
+
+
+
+
+<div class=" mt-3 col-12 md:col-3 buttons">
+  <app-button type="button" label="Back" class="mr-2" classBtn="p-button-secondary" link="/jobs"></app-button>
+</div>
 <div class="col-12 md:col-9 title">
   <h2>Applicant List</h2>
 </div>
@@ -96,7 +90,8 @@
       </tr>
     </ng-template>
     <ng-template pTemplate="body" let-a let-i="rowIndex">
-      <tr *ngIf="a.statusCode != reject && a.statusCode != hired" routerLink="/applicant/{{jobId}}/{{a.id}}" class="cursor-pointer">
+      <tr *ngIf="a.statusCode != reject && a.statusCode != hired" routerLink="/applicant/{{jobId}}/{{a.id}}"
+        class="cursor-pointer">
         <td>{{ i+1 }}</td>
         <td>{{a.applicantCode}}</td>
         <td>{{a.appliedDate}}</td>

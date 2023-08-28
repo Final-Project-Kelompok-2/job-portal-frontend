@@ -67,7 +67,6 @@ function getParams(activatedRoute: ActivatedRoute, parentLevel?: number): Observ
 @Component({
   selector: 'candidate-update',
   templateUrl: './candidate-update.component.html',
-  styleUrls: ['./candidate-update.component.css']
 })
 export class CandidateUpdateComponent implements OnInit {
   birthDateCandidate!: Date
@@ -418,6 +417,13 @@ export class CandidateUpdateComponent implements OnInit {
       { value: 'Magister (S2)', label: 'Magister (S2)' }
     ]
   }
+
+  checkForm(form : FormGroup){
+    if(form.invalid){
+      return form.markAllAsTouched()
+    }
+  }
+
 
   candidateUserProfile() {
     return firstValueFrom(this.candidateService.getCandidateUserById(this.candidateId))
