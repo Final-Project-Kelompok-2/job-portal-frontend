@@ -44,8 +44,6 @@ export class QuestionComponent implements OnInit, AfterViewChecked {
 
         })
 
-
-
     }
 
 
