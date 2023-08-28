@@ -4,6 +4,7 @@ import { QuestionAnswersInsertReqDto } from "../dto/question-answer/question-ans
 import { Observable } from "rxjs";
 import { InsertResDto } from "../dto/insert.res.dto";
 import { BASE_URL } from "../constant/api.constant";
+import { QuestionAnswerResDto } from "../dto/question-answer/question-answer.res.dto";
 
 @Injectable({
     providedIn : 'root'
@@ -13,5 +14,9 @@ export class AnswerService{
 
     create(data : QuestionAnswersInsertReqDto) : Observable<InsertResDto>{
         return this.base.post<InsertResDto>(`${BASE_URL}/question-answers`,data);
+    }
+
+    getByApplicant(id : string) : Observable<QuestionAnswerResDto[]>{
+        return this.base.get<QuestionAnswerResDto[]>(`${BASE_URL}/question-answers?id=${id}`);
     }
 }

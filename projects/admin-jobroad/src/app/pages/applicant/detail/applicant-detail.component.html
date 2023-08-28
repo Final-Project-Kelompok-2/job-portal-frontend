@@ -8,29 +8,29 @@
   <div class="col-12 md:col-5 buttons">
     <app-button type="button" label="Back" class="mr-2" classBtn="p-button-secondary" link="/jobs/detail/{{jobId}}">
     </app-button>
-    <app-button *ngIf="isApplied && isHr || isAdmin" type="button" label="Assesment" (click)="assesmentClick()" class="mr-2"
+    <app-button *ngIf="isApplied && (isHr || isAdmin)" type="button" label="Assesment" (click)="assesmentClick()" class="mr-2"
       classBtn="p-button-primary"></app-button>
 
     <app-button *ngIf="isAssesment && isHr" type="button" label="Update Notes" (click)="assesmentNoteClick()" class="mr-2"
       classBtn="p-button-secondary mt-2"></app-button>
-    <app-button *ngIf="isAssesment && isHr || isAdmin" type="button" label="Interview" (click)="interviewClick()" class="mr-2"
+    <app-button *ngIf="isAssesment && (isHr || isAdmin)" type="button" label="Interview" (click)="interviewClick()" class="mr-2"
       classBtn="p-button-primary mt-2"></app-button>
 
 
     <app-button *ngIf="isInterview && isPic" type="button" label="Update Notes" (click)="interviewNoteClick()" class="mr-2"
       classBtn="p-button-secondary mt-2"></app-button>
-    <app-button *ngIf="isInterview && isHr || isAdmin" type="button" label="Medical CheckUp" (click)="mcuClick()" class="mr-2"
+    <app-button *ngIf="isInterview && (isHr || isAdmin)" type="button" label="Medical CheckUp" (click)="mcuClick()" class="mr-2"
       classBtn="p-button-primary mt-2"></app-button>
 
-    <app-button *ngIf="isMcu && isHr || isAdmin" type="button" label="Offering Letter" (click)="offeringClick()" class="mr-2"
+    <app-button *ngIf="isMcu && (isHr || isAdmin)" type="button" label="Offering Letter" (click)="offeringClick()" class="mr-2"
       classBtn="p-button-primary mt-2"></app-button>
 
-    <app-button *ngIf="isOffering && isHr || isAdmin" backgroundColor="var(--PRIMARY)" [loading]="loading" typeBtn="submit" label="Accept"
+    <app-button *ngIf="isOffering && (isHr || isAdmin)" backgroundColor="var(--PRIMARY)" [loading]="loading" typeBtn="submit" label="Accept"
       iconBtn="pi pi-user-plus" class="mt-2" (click)="accept()"></app-button>
 
   </div>
   <div class="col-12 md:col-1 md:col-offset-6 buttons">
-    <app-button type="button" *ngIf=" isHr || isAdmin" (click)="reject()" label="Reject" class="mr-2" classBtn="p-button-danger"></app-button>
+    <app-button type="button" *ngIf=" (isHr || isAdmin)" (click)="reject()" label="Reject" class="mr-2" classBtn="p-button-danger"></app-button>
   </div>
   <candidate-detail class="col-12" *ngIf="isApplied"></candidate-detail>
   <div class="col-12 " *ngIf="isApplied">
