@@ -5,6 +5,7 @@
         link="/candidates/profile"></app-button>
     </div>
   </div>
+  <!-- Candidate Info -->
   <p-card header="Update Candidate Information">
     <form [formGroup]="candidateUpdateInsertReqDto" (ngSubmit)="onUpdate()">
       <!-- <pre>{{ candidateUpdateInsertReqDto.value | json }}</pre> -->
@@ -18,7 +19,8 @@
                     <app-button backgroundColor="secondary" label="Cancel" class="mr-2" classBtn="p-button-secondary"
                       link="/candidates/profile"></app-button>
                     <app-button backgroundColor="var(--PRIMARY)" [loading]="loading" typeBtn="submit" label="Submit"
-                      class="mr-2" iconBtn="pi pi-save" [isDisabled]="candidateUpdateInsertReqDto.invalid"></app-button>
+                      class="mr-2" iconBtn="pi pi-save"
+                      (clickChange)="checkForm(candidateUpdateInsertReqDto)"></app-button>
                   </div>
                 </div>
               </div>
@@ -54,6 +56,12 @@
                 <p-dropdown inputId="salute" [options]="salutations" optionLabel="label" optionValue="value"
                   [showClear]="true" [required]="true" formControlName="salutation" placeholder="Choose Salutation"
                   autoWidth="false" [style]="{'width':'100%'}"></p-dropdown>
+                  <span class="text-red-500 ml-2" *ngIf="
+                  candidateUpdateInsertReqDto.get('profile.salutation')!.invalid &&
+                  !candidateUpdateInsertReqDto.get('profile.salutation')!.value &&
+                  (candidateUpdateInsertReqDto.get('profile.salutation')!.dirty ||
+                    candidateUpdateInsertReqDto.get('profile.salutation')!.touched)
+                ">Must be selected</span>
               </div>
               <label for="fullName" class="col-4">Full Name<span class="text-red-500"> *</span></label>
               <div class="col-1">:</div>
@@ -73,12 +81,24 @@
                 <p-dropdown inputId="gender" [options]="genders" optionLabel="label" optionValue="value"
                   [showClear]="true" [required]="true" formControlName="gender" placeholder="Choose Gender"
                   [style]="{'width':'100%'}"></p-dropdown>
+                  <span class="text-red-500 ml-2" *ngIf="
+                  candidateUpdateInsertReqDto.get('profile.gender')!.invalid &&
+                  !candidateUpdateInsertReqDto.get('profile.gender')!.value &&
+                  (candidateUpdateInsertReqDto.get('profile.gender')!.dirty ||
+                    candidateUpdateInsertReqDto.get('profile.gender')!.touched)
+                ">Must be selected</span>
               </div>
               <label for="birthPlace" class="col-4">Birth Place<span class="text-red-500"> *</span></label>
               <div class="col-1">:</div>
               <div class="col-7">
                 <input pInputText id="birthPlace" required type="text" formControlName="birthPlace"
                   [style]="{'width':'100%'}" />
+                <span class="text-red-500 ml-2" *ngIf="
+                  candidateUpdateInsertReqDto.get('profile.birthPlace')!.invalid &&
+                  !candidateUpdateInsertReqDto.get('profile.birthPlace')!.value &&
+                  (candidateUpdateInsertReqDto.get('profile.birthPlace')!.dirty ||
+                    candidateUpdateInsertReqDto.get('profile.birthPlace')!.touched)
+                ">Input can't be empty</span>
               </div>
               <label for="birthDate" class="col-4">Birth Date<span class="text-red-500"> *</span></label>
               <div class="col-1">:</div>
@@ -86,6 +106,12 @@
                 <p-calendar inputId="birthDate" [required]="true" formControlName="birthDateTemp" [showIcon]="true"
                   dateFormat="dd/mm/yy" inputStyleClass="w-full" styleClass="w-full"
                   [defaultDate]="birthDateCandidate"></p-calendar>
+                  <span class="text-red-500 ml-2" *ngIf="
+                  candidateUpdateInsertReqDto.get('profile.birthDateTemp')!.invalid &&
+                  !candidateUpdateInsertReqDto.get('profile.birthDateTemp')!.value &&
+                  (candidateUpdateInsertReqDto.get('profile.birthDateTemp')!.dirty ||
+                    candidateUpdateInsertReqDto.get('profile.birthDateTemp')!.touched)
+                ">Input can't be empty</span>
               </div>
               <label for="marital" class="col-4">Marital Status<span class="text-red-500"> *</span></label>
               <div class="col-1">:</div>
@@ -93,6 +119,12 @@
                 <p-dropdown [options]="maritals" optionLabel="maritalName" optionValue="id" [showClear]="true"
                   [required]="true" formControlName="maritalStatusId" placeholder="Choose Marital"
                   [style]="{'width':'100%'}"></p-dropdown>
+                  <span class="text-red-500 ml-2" *ngIf="
+                  candidateUpdateInsertReqDto.get('profile.maritalStatusId')!.invalid &&
+                  !candidateUpdateInsertReqDto.get('profile.maritalStatusId')!.value &&
+                  (candidateUpdateInsertReqDto.get('profile.maritalStatusId')!.dirty ||
+                    candidateUpdateInsertReqDto.get('profile.maritalStatusId')!.touched)
+                ">Must be selected</span>
               </div>
               <label for="password1" class="col-4">Religion<span class="text-red-500"> *</span></label>
               <div class="col-1">:</div>
@@ -100,6 +132,12 @@
                 <p-dropdown [options]="religions" optionLabel="religionName" optionValue="id" [showClear]="true"
                   [required]="true" formControlName="religionId" placeholder="Choose Religion"
                   [style]="{'width':'100%'}"></p-dropdown>
+                  <span class="text-red-500 ml-2" *ngIf="
+                  candidateUpdateInsertReqDto.get('profile.religionId')!.invalid &&
+                  !candidateUpdateInsertReqDto.get('profile.religionId')!.value &&
+                  (candidateUpdateInsertReqDto.get('profile.religionId')!.dirty ||
+                    candidateUpdateInsertReqDto.get('profile.religionId')!.touched)
+                ">Must be selected</span>
               </div>
               <label for="password1" class="col-4">Status<span class="text-red-500"> *</span></label>
               <div class="col-1">:</div>
@@ -676,6 +714,12 @@
         <p-dropdown inputId="residence" [options]="residenceType" optionLabel="label" optionValue="value"
           [showClear]="true" [required]="true" formControlName="residenceType"
           placeholder="Choose Residence Type"></p-dropdown>
+        <span class="text-red-500 ml-2" *ngIf="
+            addressInsertReqDto.get('residenceType')!.invalid &&
+            !addressInsertReqDto.get('residenceType')!.value &&
+            (addressInsertReqDto.get('residenceType')!.dirty ||
+              addressInsertReqDto.get('residenceType')!.touched)
+          ">Must be selected</span>
       </div>
       <div class="field col-12">
         <label for="address">Address <span class="text-red-500"> *</span> </label>
@@ -730,7 +774,7 @@
     </div>
     <div class="field col-12">
       <app-button backgroundColor="var(--PRIMARY)" [loading]="loading" typeBtn="submit" label="Submit" class=" mr-2"
-        [isDisabled]="addressInsertReqDto.invalid"></app-button>
+        (clickChange)="checkForm(addressInsertReqDto)"></app-button>
     </div>
   </form>
 </p-dialog>
@@ -744,22 +788,45 @@
       <div class="field col-12">
         <label for="institution">Institution Name <span class="text-red-500"> *</span> </label>
         <input pInputText id="institution" required type="text" formControlName="instituitionName" />
+        <span class="text-red-500 ml-2" *ngIf="
+        educationInsertReqDto.get('instituitionName')!.invalid &&
+        !educationInsertReqDto.get('instituitionName')!.value &&
+        (educationInsertReqDto.get('instituitionName')!.dirty ||
+          educationInsertReqDto.get('instituitionName')!.touched)
+      ">Input can't be empty</span>
       </div>
       <div class="field col-12">
         <label for="degree">Degree<span class="text-red-500"> *</span> </label>
         <p-dropdown inputId="degree" [options]="degrees" optionLabel="label" optionValue="value" [showClear]="true"
           [required]="true" formControlName="degreeName" placeholder="Choose Degree"></p-dropdown>
+          <span class="text-red-500 ml-2" *ngIf="
+          educationInsertReqDto.get('degreeName')!.invalid &&
+          !educationInsertReqDto.get('degreeName')!.value &&
+          (educationInsertReqDto.get('degreeName')!.dirty ||
+            educationInsertReqDto.get('degreeName')!.touched)
+        ">Must be selected</span>
       </div>
       <div class="field col-12">
         <label for="major">Major <span class="text-red-500"> *</span> </label>
         <input pInputText id="major" required type="text" formControlName="majors" />
+        <span class="text-red-500 ml-2" *ngIf="
+        educationInsertReqDto.get('majors')!.invalid &&
+        !educationInsertReqDto.get('majors')!.value &&
+        (educationInsertReqDto.get('majors')!.dirty ||
+          educationInsertReqDto.get('majors')!.touched)
+      ">Input can't be empty</span>
       </div>
       <div class="field col-12">
 
         <label for="cgpa">CGPA <span class="text-red-500"> *</span> </label>
         <p-inputNumber inputId="cgpa" inputId="minmax" mode="decimal" [minFractionDigits]="2" [maxFractionDigits]="2"
           [min]="0" [max]="4" formControlName="cgpa"></p-inputNumber>
-
+          <span class="text-red-500 ml-2" *ngIf="
+          educationInsertReqDto.get('cgpa')!.invalid &&
+          !educationInsertReqDto.get('cgpa')!.value &&
+          (educationInsertReqDto.get('cgpa')!.dirty ||
+            educationInsertReqDto.get('cgpa')!.touched)
+        ">Input can't be empty</span>
       </div>
       <div class="field col-12">
         <label for="startyear">Start Year <span class="text-red-500"> *</span> </label>
@@ -775,7 +842,7 @@
     </div>
     <div class="field col-12">
       <app-button backgroundColor="var(--PRIMARY)" [loading]="loading" typeBtn="submit" label="Submit" class=" mr-2"
-        [isDisabled]="educationInsertReqDto.invalid"></app-button>
+      (clickChange)="checkForm(educationInsertReqDto)"></app-button>
     </div>
   </form>
 </p-dialog>
@@ -839,7 +906,7 @@
     </div>
     <div class="field col-12">
       <app-button backgroundColor="var(--PRIMARY)" [loading]="loading" typeBtn="submit" label="Submit" class=" mr-2"
-        [isDisabled]="familyInsertReqDto.invalid"></app-button>
+      (clickChange)="checkForm(familyInsertReqDto)"[isDisabled]="familyInsertReqDto.invalid"></app-button>
     </div>
   </form>
 </p-dialog>
@@ -863,7 +930,7 @@
     </div>
     <div class="field col-12">
       <app-button backgroundColor="var(--PRIMARY)" [loading]="loading" typeBtn="submit" label="Submit" class=" mr-2"
-        [isDisabled]="skillInsertReqDto.invalid"></app-button>
+      (clickChange)="checkForm(skillInsertReqDto)"></app-button>
     </div>
   </form>
 </p-dialog>
@@ -920,7 +987,7 @@
     </div>
     <div class="field col-12">
       <app-button backgroundColor="var(--PRIMARY)" [loading]="loading" typeBtn="submit" label="Submit" class=" mr-2"
-        [isDisabled]="languageInsertReqDto.invalid"></app-button>
+      (clickChange)="checkForm(languageInsertReqDto)"></app-button>
     </div>
   </form>
 </p-dialog>
@@ -1005,7 +1072,7 @@
     </div>
     <div class="field col-12">
       <app-button backgroundColor="var(--PRIMARY)" [loading]="loading" typeBtn="submit" label="Submit" class=" mr-2"
-        [isDisabled]="referenceInsertReqDto.invalid"></app-button>
+      (clickChange)="checkForm(referenceInsertReqDto)"></app-button>
     </div>
   </form>
 </p-dialog>
@@ -1092,7 +1159,7 @@
     </div>
     <div class="field col-12">
       <app-button backgroundColor="var(--PRIMARY)" [loading]="loading" typeBtn="submit" label="Submit" class=" mr-2"
-        [isDisabled]="workingInsertReqDto.invalid"></app-button>
+      (clickChange)="checkForm(workingInsertReqDto)"></app-button>
     </div>
   </form>
 </p-dialog>
@@ -1147,7 +1214,7 @@
     </div>
     <div class="field col-12">
       <app-button backgroundColor="var(--PRIMARY)" [loading]="loading" typeBtn="submit" label="Submit" class=" mr-2"
-        [isDisabled]="projectInsertReqDto.invalid"></app-button>
+      (clickChange)="checkForm(projectInsertReqDto)"></app-button>
     </div>
   </form>
 </p-dialog>
@@ -1202,7 +1269,7 @@
     </div>
     <div class="field col-12">
       <app-button backgroundColor="var(--PRIMARY)" [loading]="loading" typeBtn="submit" label="Submit" class=" mr-2"
-        [isDisabled]="trainingInsertReqDto.invalid"></app-button>
+      (clickChange)="checkForm(trainingInsertReqDto)"></app-button>
     </div>
   </form>
 </p-dialog>

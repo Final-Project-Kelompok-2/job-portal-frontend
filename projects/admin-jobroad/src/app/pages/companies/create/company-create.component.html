@@ -8,18 +8,42 @@
         <div class="field col-12 md:col-12">
           <label htmlFor="companyName">Company Name <span class="text-red-500">*</span> </label>
           <input pInputText id="companyName" required type="text" formControlName="companyName" />
+          <span class="text-red-500 ml-2" *ngIf="
+          companyReqDto.get('companyName')!.invalid &&
+          !companyReqDto.get('companyName')!.value &&
+          (companyReqDto.get('companyName')!.dirty ||
+            companyReqDto.get('companyName')!.touched)
+        ">Input can't be empty</span>
         </div>
         <div class="field col-12">
           <label htmlFor="address">Address<span class="text-red-500">*</span></label>
           <textarea pInputTextarea  id="address" required rows="4" cols="50" formControlName="address"></textarea>
+          <span class="text-red-500 ml-2" *ngIf="
+          companyReqDto.get('address')!.invalid &&
+          !companyReqDto.get('address')!.value &&
+          (companyReqDto.get('address')!.dirty ||
+            companyReqDto.get('address')!.touched)
+        ">Input can't be empty</span>
         </div>
         <div class="field col-12 md:col-6">
           <label htmlFor="url">Company Url<span class="text-red-500">*</span></label>
           <input pInputText id="url" required type="text" formControlName="companyUrl"/>
+          <span class="text-red-500 ml-2" *ngIf="
+          companyReqDto.get('companyUrl')!.invalid &&
+          !companyReqDto.get('companyUrl')!.value &&
+          (companyReqDto.get('companyUrl')!.dirty ||
+            companyReqDto.get('companyUrl')!.touched)
+        ">Input can't be empty</span>
         </div>
         <div class="field col-12 md:col-6">
           <label htmlFor="phoneNumber">Company Phone Number<span class="text-red-500">*</span></label>
           <input pInputText id="phoneNumber" required type="text" formControlName="companyPhone"/>
+          <span class="text-red-500 ml-2" *ngIf="
+          companyReqDto.get('companyPhone')!.invalid &&
+          !companyReqDto.get('companyPhone')!.value &&
+          (companyReqDto.get('companyPhone')!.dirty ||
+            companyReqDto.get('companyPhone')!.touched)
+        ">Input can't be empty</span>
         </div>
         <div class="col-12 ">
           <label for="picture" class="form-label">Company Picture</label>
@@ -32,8 +56,8 @@
       </div>
 
       <div class="col-12 md:col-9 mb-5 mt-6">
-        <app-button [loading]="loading" backgroundColor="var(--PRIMARY)" iconBtn="pi pi-plus" typeBtn="submit" label="Add" class=" mr-2"></app-button>
-        <app-button link="/companies" label="Back"  classBtn="p-button-secondary"></app-button>
+        <app-button [loading]="loading" backgroundColor="var(--PRIMARY)" (clickChange)="checkForm(companyReqDto)" iconBtn="pi pi-plus" typeBtn="submit" label="Add" class=" mr-2"></app-button>
+        <app-button link="/companies" label="Back"   classBtn="p-button-secondary"></app-button>
       </div>
     </form>
   </p-card>

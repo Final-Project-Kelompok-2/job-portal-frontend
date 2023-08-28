@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { NonNullableFormBuilder, Validators } from "@angular/forms";
+import { FormGroup, NonNullableFormBuilder, Validators } from "@angular/forms";
 import { CandidateUserService } from "../../service/candidate-user.service";
 import { Route, Router } from "@angular/router"
 
@@ -10,15 +10,17 @@ import { Route, Router } from "@angular/router"
 })
 export class RegisterComponent {
   loading = false
+  checkPassword = false
 
   constructor(private candidateUserService: CandidateUserService, private fb: NonNullableFormBuilder,
-    private router:Router) {
+    private router: Router) {
 
   }
 
   registerReqDto = this.fb.group({
     userEmail: ['', [Validators.required]],
     userPassword: ['', [Validators.required]],
+    userConfirmPassword: ['', [Validators.required]],
     profile: this.fb.group({
       fullname: ['', [Validators.required]],
       salutation: '',
@@ -39,11 +41,23 @@ export class RegisterComponent {
     })
   })
 
+  checkForm(form: FormGroup) {
+    if (form.invalid) {
+      return form.markAllAsTouched()
+    }
+  }
 
   register() {
     const data = this.registerReqDto.getRawValue()
-    this.candidateUserService.register(data).subscribe()
-    this.router.navigateByUrl('/login')
+    if (this.registerReqDto.valid) {
+      if (data.userPassword == data.userConfirmPassword) {
+        this.candidateUserService.register(data).subscribe()
+        this.router.navigateByUrl('/login')
+      }
+      else{
+        this.checkPassword = true
+      }
+    }
   }
 
 }

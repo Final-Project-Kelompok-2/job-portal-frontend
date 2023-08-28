@@ -1,6 +1,6 @@
 import { Component } from "@angular/core";
 import { CompanyService } from "../../../service/company.service";
-import { NonNullableFormBuilder, Validators } from "@angular/forms";
+import { FormGroup, NonNullableFormBuilder, Validators } from "@angular/forms";
 import { FileUpload } from "primeng/fileupload";
 import { Router } from "@angular/router";
 import { firstValueFrom } from "rxjs";
@@ -24,9 +24,17 @@ export class CompanyCreateComponent {
 
     onSubmit(){
       const data = this.companyReqDto.getRawValue();
-      firstValueFrom(this.companyService.create(data)).then((result)=>{
-        this.router.navigateByUrl('/companies');
-      });
+      if(this.companyReqDto.valid){
+        firstValueFrom(this.companyService.create(data)).then((result)=>{
+          this.router.navigateByUrl('/companies');
+        });
+      }
+    }
+
+    checkForm(form: FormGroup) {
+      if (form.invalid) {
+        return form.markAllAsTouched()
+      }
     }
 
     fileUpload(event: any,fileUpload : FileUpload) {

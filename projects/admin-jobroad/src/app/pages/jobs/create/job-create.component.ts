@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import { JobService } from "../../../service/job.service";
-import { FormArray, NonNullableFormBuilder, Validators } from "@angular/forms";
+import { FormArray, FormControl, FormGroup, NonNullableFormBuilder, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
 import { UserService } from "../../../service/user.service";
 import { EmploymentTypeService } from "../../../service/employment-type.service";
@@ -27,7 +27,9 @@ export class JobCreateComponent implements OnInit, OnDestroy {
     jobName: ['', Validators.required],
     companyId: ['', Validators.required],
     startDate: ['', Validators.required],
+    startDateTemp:  new FormControl<Date | null>(null),
     endDate: ['', Validators.required],
+    endDateTemp:  new FormControl<Date | null>(null),
     description: ['', Validators.required],
     hrId: ['', Validators.required],
     picId: ['', Validators.required],
@@ -57,6 +59,18 @@ export class JobCreateComponent implements OnInit, OnDestroy {
     private questionService: QuestionService) { }
 
   ngOnInit(): void {
+
+    this.jobReqDto.get('startDateTemp')?.valueChanges.subscribe(res => {
+      const newStartDate = convertUTCToLocalDate(res as any)
+      this.jobReqDto.get('startDate')?.setValue(newStartDate)
+    })
+
+    this.jobReqDto.get('endDateTemp')?.valueChanges.subscribe(res => {
+      const newEndDate = convertUTCToLocalDate(res as any)
+      this.jobReqDto.get('endDate')?.setValue(newEndDate)
+    })
+
+
     this.hrSubscription = this.userService.getByRole(RoleCodeEnum.HR).subscribe(result => {
       this.hr = result;
     })
@@ -75,6 +89,14 @@ export class JobCreateComponent implements OnInit, OnDestroy {
     this.questionSubscription = this.questionService.getAll().subscribe(result => {
       this.question = result;
     })
+
+
+  }
+
+  checkForm(form: FormGroup) {
+    if (form.invalid) {
+      return form.markAllAsTouched()
+    }
   }
 
   get benefitsId() {
@@ -91,9 +113,14 @@ export class JobCreateComponent implements OnInit, OnDestroy {
   }
   onSubmit() {
     const data = this.jobReqDto.getRawValue();
-    this.jobService.create(data).subscribe();
-    this.router.navigateByUrl('/jobs')
+
+    if(this.jobReqDto.valid){
+      this.jobService.create(data).subscribe( res => {
+        this.router.navigateByUrl('jobs')
+      });
+    }
   }
+
   removeBenefit(i: number) {
     this.benefitsId.removeAt(i);
   }
@@ -134,3 +161,9 @@ export class JobCreateComponent implements OnInit, OnDestroy {
     this.questionSubscription.unsubscribe();
   }
 }
+
+const convertUTCToLocalDate = function (date: Date) {
+  const newDate = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate(), date.getHours(), date.getMinutes(), date.getSeconds()));
+  return newDate.toISOString().split('T')[0]
+}
+
