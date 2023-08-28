@@ -8,7 +8,7 @@
         <div class="col-12 md:col-3 buttons">
           <app-button type="button" label="Back" class="mr-2" classBtn="p-button-secondary" link="/dashboard">
           </app-button>
-          <app-button type="button" backgroundColor="var(--PRIMARY)" iconBtn="pi pi-fw pi-plus" label="Add new job"
+          <app-button type="button" *ngIf="!isPic" backgroundColor="var(--PRIMARY)" iconBtn="pi pi-fw pi-plus" label="Add new job"
             classBtn="p-button-primary" link="/jobs/new"></app-button>
         </div>
 

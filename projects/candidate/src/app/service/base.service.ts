@@ -72,7 +72,7 @@ export function response<T>(messageService: MessageService, router: Router) {
                     messageService.add({ severity: 'error', summary: 'Error', detail: err.error.message });
                     console.log(err.error);
 
-                    if (err.status == 401 && err.error.message == 'Token Expired') {
+                    if (err.status == 401 && err.error.message == 'token expired') {
                         localStorage.clear();
                         console.log('xxxxx');
                         router.navigateByUrl('/login');
