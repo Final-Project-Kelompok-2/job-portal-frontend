@@ -9,6 +9,7 @@ import { QuestionAnswerInsertReqDto } from "../../../dto/question-answer/questio
 import { AnswerService } from "../../../service/question-answer.service";
 import { AuthService } from "../../../service/auth.service";
 import { testValidation } from "../../../validation/auth.validation";
+import { QuestionAnswerResDto } from "../../../dto/question-answer/question-answer.res.dto";
 
 @Component({
     selector: 'question',
@@ -20,6 +21,7 @@ export class QuestionComponent implements OnInit, AfterViewChecked {
     relogin!: Boolean
     question!: QuestionResDto[];
     answer: QuestionAnswerInsertReqDto[] = [];
+    candidateAnswer!: QuestionAnswerResDto[];
     options!: [];
     answerDto = this.fb.group({
         applicantId: ['', Validators.required],
@@ -56,24 +58,33 @@ export class QuestionComponent implements OnInit, AfterViewChecked {
     }
 
     getQuestion() {
-        firstValueFrom(this.questionService.getByApplicant(this.appId)).then(result => {
-            this.question = result;
-            console.log('Question = ', this.question.length)
+        firstValueFrom(this.answerService.getByApplicant(this.appId)).then(result => {
+            console.log('result => ' + JSON.stringify(result))
+            this.candidateAnswer = result;
+            if (this.candidateAnswer[0].id != null) {
+                this.route.navigateByUrl('/landing');
 
-            for (let i = 0; i < this.question.length; i++) {
-                // for(let i = 0 ; i < this.question[i].options.length ; i++){
-                this.dataDto.push(
-                    this.fb.group({
-                        optionId: ['', [Validators.required]],
-                        [`questionOptionId${this.dataDto.length}`]: []
-                    })
-                )
-            }
-        }).catch(() => {
-            localStorage.setItem('q','true');
-            localStorage.setItem('code',this.appId)
-            this.route.navigateByUrl('/login');
+            } 
+        }).catch(()=>{
+            firstValueFrom(this.questionService.getByApplicant(this.appId)).then(result => {
+                this.question = result;
+                console.log('Question = ', this.question.length)
+
+                for (let i = 0; i < this.question.length; i++) {
+                    this.dataDto.push(
+                        this.fb.group({
+                            optionId: ['', [Validators.required]],
+                            [`questionOptionId${this.dataDto.length}`]: []
+                        })
+                    )
+                }
+            }).catch(() => {
+                localStorage.setItem('q', 'true');
+                localStorage.setItem('code', this.appId)
+                this.route.navigateByUrl('/login');
+            })
         })
+
     }
     selected(event: any, index: number) {
         this.dataDto.at(index).patchValue({
