@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from "@angular/core";
 import { ActivatedRoute, Params, Router } from "@angular/router";
 import { Observable, Subscription, firstValueFrom } from "rxjs";
 import { MenuItem, MessageService } from "primeng/api";
-import { FormArray, FormControl, NonNullableFormBuilder, Validators } from "@angular/forms";
+import { FormArray, FormControl, FormGroup, NonNullableFormBuilder, Validators } from "@angular/forms";
 import { AssesmentService } from "../../../service/assesment.service";
 import { ApplicantResDto } from "../../../dto/applicant/applicant.res.dto";
 import { AssementResDto } from "../../../dto/assessment/assement.res.dto";
@@ -69,7 +69,8 @@ export class ApplicantDetailComponent implements OnInit {
     assesmentReqDto = this.fb.group({
         applicantId: ['', Validators.required],
         assesmentLocation: ['', Validators.required],
-        assesmentDate: ['', Validators.required]
+        assesmentDate: ['', Validators.required],
+        assesmentDateTemp: new FormControl<Date | null>(null)
     })
     assesmentNotesReqDto = this.fb.group({
         applicantId: ['', Validators.required],
@@ -81,6 +82,7 @@ export class ApplicantDetailComponent implements OnInit {
         applicantCode: [null],
         statusCode: [null],
         interviewDate: [null, Validators.required],
+        interviewDateTemp: new FormControl<Date | null>(null),
         interviewLocation: [null, Validators.required]
     })
     reviewReqDto = this.fb.group({
@@ -109,6 +111,7 @@ export class ApplicantDetailComponent implements OnInit {
         statusId: [''],
         statusCode: [''],
         startDate: ['', Validators.required],
+        startDateTemp: new FormControl<Date | null>(null),
         endDate: [null]
     })
 
@@ -184,7 +187,7 @@ export class ApplicantDetailComponent implements OnInit {
             {
                 label: 'Assesment',
                 command: (event: any) => this.messageService.add({ severity: 'info', summary: 'Second Step', detail: event.item.label })
-                
+
 
             },
             {
@@ -201,7 +204,7 @@ export class ApplicantDetailComponent implements OnInit {
             }
         ]
 
-        
+
     }
 
     get isHr(){
@@ -341,6 +344,13 @@ export class ApplicantDetailComponent implements OnInit {
 
 
     }
+
+    checkForm(form:FormGroup){
+      if(form.invalid){
+        form.markAllAsTouched()
+      }
+    }
+
     getReviewData() {
         firstValueFrom(this.reviewService.getByApplicant(this.appId)).then(result => {
             this.reviewData = result;
