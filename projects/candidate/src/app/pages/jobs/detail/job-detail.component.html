@@ -40,7 +40,7 @@
       </div>
 
       <div class="col-12">
-        <app-button (clickChange)="apply(jobId)" backgroundColor="var(--PRIMARY)" label="Apply Job"></app-button>
+        <app-button (clickChange)="apply(jobId)" [isDisabled]="applied" backgroundColor="var(--PRIMARY)" [label]="label"></app-button>
       </div>
     </p-card>
   </div>
