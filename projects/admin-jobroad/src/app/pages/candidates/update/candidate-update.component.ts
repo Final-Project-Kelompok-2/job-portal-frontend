@@ -424,7 +424,58 @@ export class CandidateUpdateComponent implements OnInit {
     }
   }
 
+  candidateProfileInfo() {
+    return this.candidateService.getCandidateUserById(this.candidateId)
+      .subscribe((res) => {
 
+        this.addressInsertReqDto.patchValue({
+          candidateId: res.id,
+          email: res.userEmail
+        })
+
+        this.educationInsertReqDto.patchValue({
+          candidateId: res.id,
+          email: res.userEmail
+        })
+
+        this.workingInsertReqDto.patchValue({
+          candidateId: res.id,
+          email: res.userEmail
+        })
+
+        this.trainingInsertReqDto.patchValue({
+          email: res.userEmail
+        })
+
+        this.projectInsertReqDto.patchValue({
+          candidateId: res.id,
+          email: res.userEmail
+        })
+
+        this.skillInsertReqDto.patchValue({
+          candidateId: res.id,
+          email: res.userEmail
+        })
+
+        this.languageInsertReqDto.patchValue({
+          email: res.userEmail
+        })
+
+        this.familyInsertReqDto.patchValue({
+          email: res.userEmail
+        })
+
+        this.referenceInsertReqDto.patchValue({
+          email: res.userEmail
+        })
+
+        this.documentInsertReqDto.patchValue({
+          candidateId: res.id,
+          email: res.userEmail
+        })
+      })
+  }
+  
   candidateUserProfile() {
     return firstValueFrom(this.candidateService.getCandidateUserById(this.candidateId))
       .then((res) => {
