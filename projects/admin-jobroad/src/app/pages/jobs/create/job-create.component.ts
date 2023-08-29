@@ -38,8 +38,8 @@ export class JobCreateComponent implements OnInit, OnDestroy {
     employmentTypeId: ['', Validators.required],
     benefits: this.fb.array([]),
     questions: this.fb.array([]),
-    file: [''],
-    fileExtension: ['']
+    file: ['',Validators.required],
+    fileExtension: ['',Validators.required]
   });
   hr!: UserResDto[];
   hrSubscription!: Subscription;
@@ -114,10 +114,12 @@ export class JobCreateComponent implements OnInit, OnDestroy {
   onSubmit() {
     const data = this.jobReqDto.getRawValue();
 
-    firstValueFrom(this.jobService.create(data)).then(()=>{
-      this.router.navigateByUrl('/jobs')
+    if(this.jobReqDto.valid){
+      firstValueFrom(this.jobService.create(data)).then(()=>{
+        this.router.navigateByUrl('/jobs')
+      });
 
-    });
+    }
 
   }
 
