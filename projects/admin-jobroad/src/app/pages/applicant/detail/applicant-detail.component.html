@@ -50,15 +50,29 @@
           </div>
           <div class="col-12 md:col-8">
             <input pInputText id="location" formControlName="assesmentLocation" type="text" required />
+            <span class="text-red-500 ml-2" *ngIf="
+            assesmentReqDto.get('assesmentLocation')!.invalid &&
+            !assesmentReqDto.get('assesmentLocation')!.value &&
+            (assesmentReqDto.get('assesmentLocation')!.dirty ||
+              assesmentReqDto.get('assesmentLocation')!.touched)
+          ">Input can't be empty</span>
           </div>
           <div class="col-12 md:col-4">
             <label for="date">Date <span class="text-red-500">*</span></label>
           </div>
           <div class="col-12 md:col-8">
             <input pInputText id="date" required type="datetime-local" formControlName="assesmentDate" />
+            <p-calendar inputId="date" [required]="true" formControlName="assesmentDateTemp" [showIcon]="true"
+            dateFormat="dd/mm/yy" inputStyleClass="w-full" styleClass="w-full"></p-calendar>
+          <span class="text-red-500 ml-2" *ngIf="
+            assesmentReqDto.get('assesmentDateTemp')!.invalid &&
+            !assesmentReqDto.get('assesmentDateTemp')!.value &&
+            (assesmentReqDto.get('assesmentDateTemp')!.dirty ||
+              assesmentReqDto.get('assesmentDateTemp')!.touched)
+          ">Input can't be empty</span>
           </div>
           <app-button backgroundColor="var(--PRIMARY)" [loading]="loading" typeBtn="submit" label="Add"
-            iconBtn="pi pi-plus" class=" mr-2"></app-button>
+            iconBtn="pi pi-plus" class=" mr-2" (clickChange)="checkForm(assesmentReqDto)"></app-button>
         </div>
       </form>
       <!-- </p-card> -->
@@ -101,10 +115,15 @@
           </div>
           <div class="col-12">
             <textarea pInputTextarea id="notes" class="col-12" rows="10" formControlName="notes"></textarea>
+            <span class="text-red-500 ml-2" *ngIf="
+            assesmentNotesReqDto.get('notes')!.invalid &&
+            !assesmentNotesReqDto.get('notes')!.value &&
+            (assesmentNotesReqDto.get('notes')!.dirty ||
+              assesmentNotesReqDto.get('notes')!.touched)
+          ">Input can't be empty</span>
           </div>
         </div>
-        <app-button backgroundColor="var(--PRIMARY)" typeBtn="submit" label="Add" iconBtn="pi pi-plus"
-          class=" mr-2"></app-button>
+        <app-button backgroundColor="var(--PRIMARY)" (clickChange)="checkForm(assesmentNotesReqDto)" typeBtn="submit" label="Add" iconBtn="pi pi-plus" class=" mr-2"></app-button>
       </form>
     </p-dialog>
   </div>
@@ -120,15 +139,28 @@
           </div>
           <div class="col-12 md:col-8">
             <input pInputText id="location" formControlName="interviewLocation" type="text" required />
+            <span class="text-red-500 ml-2" *ngIf="
+            interviewReqDto.get('interviewLocation')!.invalid &&
+            !interviewReqDto.get('interviewLocation')!.value &&
+            (interviewReqDto.get('interviewLocation')!.dirty ||
+              interviewReqDto.get('interviewLocation')!.touched)
+          ">Input can't be empty</span>
           </div>
           <div class="col-12 md:col-4">
             <label for="date">Date <span class="text-red-500">*</span></label>
           </div>
           <div class="col-12 md:col-8">
-            <input pInputText id="date" required type="datetime-local" formControlName="interviewDate" />
+            <p-calendar inputId="date" [required]="true" formControlName="interviewDateTemp" [showIcon]="true"
+            dateFormat="dd/mm/yy" inputStyleClass="w-full" styleClass="w-full"></p-calendar>
+            <span class="text-red-500 ml-2" *ngIf="
+            interviewReqDto.get('interviewDate')!.invalid &&
+            !interviewReqDto.get('interviewDate')!.value &&
+            (interviewReqDto.get('interviewDate')!.dirty ||
+              interviewReqDto.get('interviewDate')!.touched)
+          ">Input can't be empty</span>
           </div>
           <app-button backgroundColor="var(--PRIMARY)" [loading]="loading" typeBtn="submit" label="Add"
-            iconBtn="pi pi-plus" class=" mr-2"></app-button>
+            iconBtn="pi pi-plus" (clickChange)="checkForm(interviewReqDto)" class=" mr-2"></app-button>
         </div>
       </form>
     </p-dialog>
@@ -175,10 +207,16 @@
           </div>
           <div class="col-12">
             <textarea pInputTextarea id="notes" class="col-12" rows="10" formControlName="notes"></textarea>
+            <span class="text-red-500 ml-2" *ngIf="
+            reviewReqDto.get('notes')!.invalid &&
+            !reviewReqDto.get('notes')!.value &&
+            (reviewReqDto.get('notes')!.dirty ||
+              reviewReqDto.get('notes')!.touched)
+          ">Input can't be empty</span>
           </div>
         </div>
         <app-button backgroundColor="var(--PRIMARY)" [loading]="loading" typeBtn="submit" label="Add"
-          iconBtn="pi pi-plus" class=" mr-2"></app-button>
+          iconBtn="pi pi-plus" class=" mr-2" (clickChange)="checkForm(reviewReqDto)"></app-button>
       </form>
     </p-dialog>
 
@@ -239,7 +277,7 @@
             <label htmlFor="salary">Salary<span class="text-red-500">*</span></label>
           </div>
           <div class="col-12 md:col-8">
-            <p-inputNumber id="salary" inputId="max" mode="currency" currency="IDR" locale="jp-JP"
+            <p-inputNumber id="salary" inputId="max" mode="currency" currency="IDR" locale="id-ID"
               formControlName="salary"></p-inputNumber>
           </div>
           <app-button backgroundColor="var(--PRIMARY)" [loading]="loading" typeBtn="submit" label="Add"
