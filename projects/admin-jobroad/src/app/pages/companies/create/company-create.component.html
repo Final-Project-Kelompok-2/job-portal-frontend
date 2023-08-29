@@ -46,11 +46,17 @@
         ">Input can't be empty</span>
         </div>
         <div class="col-12 ">
-          <label for="picture" class="form-label">Company Picture</label>
+          <label for="picture" class="form-label">Company Picture <span class="text-red-500">*</span></label>
         </div>
         <div class="col-12 ">
           <div class="mb-3">
             <p-fileUpload mode="basic" styleClass="bg-green-700" chooseLabel="Upload" chooseIcon="pi pi-upload" class="form-control" #file type="file" id="picture" required (onSelect)="fileUpload($event,file)"></p-fileUpload>
+            <span class="text-red-500 ml-2" *ngIf="
+            companyReqDto.get('fileName')!.invalid &&
+            !companyReqDto.get('fileName')!.value &&
+            (companyReqDto.get('fileName')!.dirty ||
+              companyReqDto.get('fileName')!.touched)
+          ">Must upload a picture</span>
           </div>
         </div>
       </div>

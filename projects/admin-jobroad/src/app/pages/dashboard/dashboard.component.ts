@@ -47,14 +47,7 @@ export class DashboardComponent implements OnInit {
 
     if (profile) {
       this.fullName = profile.fullName
-      // this.salutation = profile
     }
-    // this.getCompanies()
-    // this.getUsers()
-    // this.getAllBenefits()
-    // this.getAllJobs()
-    // this.getAllQuestions()
-    // this.getAllCandidates()
 
     this.base.all([
       this.companyService.getAll(),
@@ -79,46 +72,5 @@ export class DashboardComponent implements OnInit {
     })
   }
 
-  // getCompanies() {
-  //   firstValueFrom(this.companyService.getAll()).then(result => {
-  //     this.companies = result
-  //     this.companySize = this.companies.length
-  //   })
-  // }
-
-  // getUsers() {
-  //   firstValueFrom(this.userService.getAllUser()).then(result => {
-  //     this.users = result
-  //     this.userSize = this.users.length
-  //   })
-  // }
-
-  // getAllJobs() {
-  //   firstValueFrom(this.jobService.getAll()).then(result => {
-  //     this.jobs = result;
-  //     this.jobSize = this.jobs.length
-  //   })
-  // }
-
-  // getAllBenefits() {
-  //   firstValueFrom(this.benefitService.getAll()).then(result => {
-  //     this.benefits = result;
-  //     this.benefitSize = this.benefits.length
-  //   })
-  // }
-
-  // getAllQuestions() {
-  //   firstValueFrom(this.questionService.getAll()).then(result => {
-  //     this.questions = result;
-  //     this.questionSize = this.questions.length
-  //   })
-  // }
-
-  // getAllCandidates() {
-  //   firstValueFrom(this.candidateService.getAll()).then(result => {
-  //     this.candidates = result
-  //     this.candidateSize = this.candidates.length
-  //   })
-  // }
 
 }

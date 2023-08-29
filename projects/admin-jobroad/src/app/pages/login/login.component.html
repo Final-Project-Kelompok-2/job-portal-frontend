@@ -9,14 +9,26 @@
     <div>
       <form [formGroup]="userLoginReqDto" (ngSubmit)="onLogin()">
         <label for="email1" class="block text-900 font-medium mb-2">Email</label>
-        <input id="email1" formControlName="userEmail" type="text" pInputText class="w-full mb-3">
+        <input id="email1" formControlName="userEmail" type="text" pInputText class="w-full ">
+        <span class="text-red-500 ml-2" *ngIf="
+        userLoginReqDto.get('userEmail')!.invalid &&
+        !userLoginReqDto.get('userEmail')!.value &&
+        (userLoginReqDto.get('userEmail')!.dirty ||
+          userLoginReqDto.get('userEmail')!.touched)
+      ">Input can't be empty</span>
 
-        <label for="password1" class="block text-900 font-medium mb-2">Password</label>
+        <label for="password1" class="block text-900 font-medium mb-2 mt-3">Password</label>
         <p-password formControlName="userPassword" inputStyleClass="w-full" styleClass="w-full" [feedback]="false"
           [toggleMask]="true"></p-password>
+        <span class="text-red-500 ml-2" *ngIf="
+          userLoginReqDto.get('userPassword')!.invalid &&
+          !userLoginReqDto.get('userPassword')!.value &&
+          (userLoginReqDto.get('userPassword')!.dirty ||
+            userLoginReqDto.get('userPassword')!.touched)
+        ">Input can't be empty</span>
 
-        <app-button [loading]="loading" backgroundColor="var(--PRIMARY)" type="submit" classBtn="mt-5 w-full"
-          label="Log in"></app-button>
+        <app-button [loading]="loading" (clickChange)="checkForm(userLoginReqDto)" backgroundColor="var(--PRIMARY)"
+          type="submit" classBtn="mt-5 w-full" label="Log in"></app-button>
       </form>
     </div>
   </div>

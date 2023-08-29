@@ -111,6 +111,12 @@
             <p-fileUpload mode="basic" chooseLabel="Upload" styleClass="bg-green-700" chooseIcon="pi pi-upload"
               class="form-control" #file type="file" id="picture" (onSelect)="fileUpload($event,file)"
               required></p-fileUpload>
+              <span class="text-red-500 ml-2" *ngIf="
+              jobReqDto.get('file')!.invalid &&
+              !jobReqDto.get('file')!.value &&
+              (jobReqDto.get('file')!.dirty ||
+                jobReqDto.get('file')!.touched)
+            ">Must upload a picture</span>
           </div>
         </div>
         <div class="col-6 gap-3 ">

@@ -5,7 +5,8 @@ import { firstValueFrom } from "rxjs";
 
 @Component({
     selector: 'company-list',
-    templateUrl: './company-list.component.html'
+    templateUrl: './company-list.component.html',
+    styleUrls:['./company-list.component.css']
 })
 export class CompanyListComponent implements OnInit {
 
@@ -19,12 +20,18 @@ export class CompanyListComponent implements OnInit {
     ngOnInit() {
         this.getCompanies()
 
-        
+
     }
 
     getCompanies() {
         firstValueFrom(this.companyService.getAll()).then(result => {
             this.companies = result
+
+            // if (this.companies) {
+            //   this.imageUrl = `http://localhost:8080/files/${this.candidateUser?.fileId}`
+            // } else {
+            //   this.imageUrl = '../../../assets/emptyProfile.jpeg'
+            // }
         })
     }
 

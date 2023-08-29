@@ -3,11 +3,11 @@
     <h1>Companies</h1>
   </div>
 
-  <div class="col-12 ">
-    <div class="card flex justify-content-center flex-wrap gap-2" *ngFor="let c of companies">
-      <p-card class="mb-3" header="{{c.companyName}}" [style]="{ width: '240px' }">
+  <div class="col-12 flex justify-content-center flex-wrap gap-2 mb-5">
+    <div class="card " *ngFor="let c of companies">
+      <p-card class="mb-3" header="{{c.companyName}}" [style]="{ width: '290px' }">
         <ng-template pTemplate="header">
-          <img alt="Card" [src]="c.photoId|url" />
+          <img alt="Card" [src]="c.photoId|url" style="width: 290px; height: 290px;" />
         </ng-template>
         <ng-template pTemplate="subtitle">
           <i class="pi pi-building"></i> {{ c.address }} <br>
