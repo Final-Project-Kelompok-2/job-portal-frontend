@@ -419,52 +419,9 @@ export class CandidateUpdateComponent implements OnInit {
     }
   }
 
-
-  candidateUserProfile() {
+  candidateProfileInfo() {
     return this.candidateService.getById(this.candidateId)
       .subscribe((res) => {
-        this.candidateUser = res
-
-        this.birthDateCandidate = new Date(res.candidateProfile.birthDate)
-        console.log(this.birthDateCandidate);
-
-
-        if (this.candidateUser?.candidateProfile?.fileId) {
-          this.imageUrl = `http://localhost:8081/files/${this.candidateUser?.candidateProfile?.fileId}`
-        } else {
-          this.imageUrl = '../../../assets/emptyProfile.jpeg'
-        }
-
-        this.candidateUpdateInsertReqDto.patchValue({
-          id: res.candidateUser.id,
-          userEmail: res.candidateUser.userEmail,
-          userPassword: res.candidateUser.userPassword,
-          profile: {
-            id: res.candidateProfile.id,
-            salutation: res.candidateProfile.salutation,
-            fullname: res.candidateProfile.fullname,
-            gender: res.candidateProfile.gender,
-            experience: res.candidateProfile.experience,
-            expectedSalary: Number(res.candidateProfile.expectedSalary),
-            phoneNumber: res.candidateProfile.phoneNumber,
-            mobileNumber: res.candidateProfile.mobileNumber,
-            nik: res.candidateProfile.nik,
-            birthDate: res.candidateProfile.birthDate,
-            birthDateTemp: new Date(res.candidateProfile.birthDate),
-            birthPlace: res.candidateProfile.birthPlace,
-            maritalStatusCode: res.candidateProfile.maritalStatusCode,
-            maritalStatusId: res.candidateProfile.maritalStatusId,
-            religionCode: res.candidateProfile.religionCode,
-            religionId: res.candidateProfile.religionId,
-            personTypeCode: res.candidateProfile.personTypeCode,
-            personTypeId: res.candidateProfile.personTypeId,
-            fileId: res.candidateProfile.fileId,
-            file: '',
-            fileExtension: '',
-            candidateStatusCode: res.candidateProfile.candidateStatusCode,
-            candidateStatusId: res.candidateProfile.candidateStatusId
-          }
-        })
 
         this.addressInsertReqDto.patchValue({
           candidateId: res.candidateUser.id,
@@ -510,6 +467,54 @@ export class CandidateUpdateComponent implements OnInit {
         this.documentInsertReqDto.patchValue({
           candidateId: res.candidateUser.id,
           email: res.candidateUser.userEmail
+        })
+      })
+  }
+
+  candidateUserProfile() {
+    return this.candidateService.getById(this.candidateId)
+      .subscribe((res) => {
+        this.candidateUser = res
+
+        this.birthDateCandidate = new Date(res.candidateProfile.birthDate)
+        console.log(this.birthDateCandidate);
+
+
+        if (this.candidateUser?.candidateProfile?.fileId) {
+          this.imageUrl = `http://localhost:8081/files/${this.candidateUser?.candidateProfile?.fileId}`
+        } else {
+          this.imageUrl = '../../../assets/emptyProfile.jpeg'
+        }
+
+        this.candidateUpdateInsertReqDto.patchValue({
+          id: res.candidateUser.id,
+          userEmail: res.candidateUser.userEmail,
+          userPassword: res.candidateUser.userPassword,
+          profile: {
+            id: res.candidateProfile.id,
+            salutation: res.candidateProfile.salutation,
+            fullname: res.candidateProfile.fullname,
+            gender: res.candidateProfile.gender,
+            experience: res.candidateProfile.experience,
+            expectedSalary: Number(res.candidateProfile.expectedSalary),
+            phoneNumber: res.candidateProfile.phoneNumber,
+            mobileNumber: res.candidateProfile.mobileNumber,
+            nik: res.candidateProfile.nik,
+            birthDate: res.candidateProfile.birthDate,
+            birthDateTemp: new Date(res.candidateProfile.birthDate),
+            birthPlace: res.candidateProfile.birthPlace,
+            maritalStatusCode: res.candidateProfile.maritalStatusCode,
+            maritalStatusId: res.candidateProfile.maritalStatusId,
+            religionCode: res.candidateProfile.religionCode,
+            religionId: res.candidateProfile.religionId,
+            personTypeCode: res.candidateProfile.personTypeCode,
+            personTypeId: res.candidateProfile.personTypeId,
+            fileId: res.candidateProfile.fileId,
+            file: '',
+            fileExtension: '',
+            candidateStatusCode: res.candidateProfile.candidateStatusCode,
+            candidateStatusId: res.candidateProfile.candidateStatusId
+          }
         })
       })
   }
@@ -585,7 +590,7 @@ export class CandidateUpdateComponent implements OnInit {
   }
 
   showAddAddress() {
-    this.candidateUserProfile()
+    this.candidateProfileInfo()
     this.dialogAddress = true;
   }
 
@@ -595,7 +600,7 @@ export class CandidateUpdateComponent implements OnInit {
   }
 
   showAddEducation() {
-    this.candidateUserProfile()
+    this.candidateProfileInfo()
     this.dialogEducation = true;
   }
 
@@ -605,7 +610,7 @@ export class CandidateUpdateComponent implements OnInit {
   }
 
   showAddFamily() {
-    this.candidateUserProfile()
+    this.candidateProfileInfo()
     this.dialogFamily = true;
   }
 
@@ -615,7 +620,7 @@ export class CandidateUpdateComponent implements OnInit {
   }
 
   showAddSkill() {
-    this.candidateUserProfile()
+    this.candidateProfileInfo()
     this.dialogSkill = true;
   }
 
@@ -625,7 +630,7 @@ export class CandidateUpdateComponent implements OnInit {
   }
 
   showAddLanguage() {
-    this.candidateUserProfile()
+    this.candidateProfileInfo()
     this.dialogLanguage = true;
   }
 
@@ -635,7 +640,7 @@ export class CandidateUpdateComponent implements OnInit {
   }
 
   showAddReference() {
-    this.candidateUserProfile()
+    this.candidateProfileInfo()
     this.dialogReference = true;
   }
 
@@ -645,7 +650,7 @@ export class CandidateUpdateComponent implements OnInit {
   }
 
   showAddWorking() {
-    this.candidateUserProfile()
+    this.candidateProfileInfo()
     this.dialogWorking = true;
   }
 
@@ -665,7 +670,7 @@ export class CandidateUpdateComponent implements OnInit {
   }
 
   showAddProject() {
-    this.candidateUserProfile()
+    this.candidateProfileInfo()
     this.dialogProject = true;
   }
 
@@ -675,7 +680,7 @@ export class CandidateUpdateComponent implements OnInit {
   }
 
   showAddDocuments() {
-    this.candidateUserProfile()
+    this.candidateProfileInfo()
     this.dialogDocument = true;
   }
 
@@ -688,8 +693,8 @@ export class CandidateUpdateComponent implements OnInit {
     if (this.addressInsertReqDto.valid) {
       const data = this.addressInsertReqDto.getRawValue()
       this.candidateAddressService.create(data).subscribe((res) => {
-        this.candidateUserAddresses()
         this.addressInsertReqDto.reset()
+        this.candidateUserAddresses()
         this.dialogAddress = false
       })
     }
@@ -710,8 +715,8 @@ export class CandidateUpdateComponent implements OnInit {
     if (this.workingInsertReqDto.valid) {
       const data = this.workingInsertReqDto.getRawValue()
       this.candidateWorkExpService.create(data).subscribe((res) => {
-        this.candidateUserWorkings()
         this.workingInsertReqDto.reset()
+        this.candidateUserWorkings()
         this.dialogWorking = false
       })
     }
@@ -721,8 +726,8 @@ export class CandidateUpdateComponent implements OnInit {
     if (this.trainingInsertReqDto.valid) {
       const data = this.trainingInsertReqDto.getRawValue()
       this.candidateTrainingExpService.create(data).subscribe((res) => {
-        this.candidateUserTrainings()
         this.trainingInsertReqDto.reset()
+        this.candidateUserTrainings()
         this.dialogTraining = false
       })
     }
@@ -732,8 +737,8 @@ export class CandidateUpdateComponent implements OnInit {
     if (this.projectInsertReqDto.valid) {
       const data = this.projectInsertReqDto.getRawValue()
       this.candidateProjectExpService.create(data).subscribe((res) => {
-        this.candidateUserProjects()
         this.projectInsertReqDto.reset()
+        this.candidateUserProjects()
         this.dialogProject = false
       })
     }
@@ -743,8 +748,8 @@ export class CandidateUpdateComponent implements OnInit {
     if (this.skillInsertReqDto.valid) {
       const data = this.skillInsertReqDto.getRawValue()
       this.candidateSkillService.create(data).subscribe((res) => {
-        this.candidateUserSkills()
         this.skillInsertReqDto.reset()
+        this.candidateUserSkills()
         this.dialogSkill = false
       })
     }
@@ -754,8 +759,8 @@ export class CandidateUpdateComponent implements OnInit {
     if (this.languageInsertReqDto.valid) {
       const data = this.languageInsertReqDto.getRawValue()
       this.candidateLanguageService.create(data).subscribe((res) => {
-        this.candidateUserLanguages()
         this.languageInsertReqDto.reset()
+        this.candidateUserLanguages()
         this.dialogLanguage = false
       })
     }
@@ -765,8 +770,8 @@ export class CandidateUpdateComponent implements OnInit {
     if (this.familyInsertReqDto.valid) {
       const data = this.familyInsertReqDto.getRawValue()
       this.candidateFamilyService.create(data).subscribe((res) => {
-        this.candidateUserFamilies()
         this.familyInsertReqDto.reset()
+        this.candidateUserFamilies()
         this.dialogFamily = false
       })
     }
@@ -776,8 +781,8 @@ export class CandidateUpdateComponent implements OnInit {
     if (this.referenceInsertReqDto.valid) {
       const data = this.referenceInsertReqDto.getRawValue()
       this.candidateReferenceService.create(data).subscribe((res) => {
-        this.candidateUserReferences()
         this.referenceInsertReqDto.reset()
+        this.candidateUserReferences()
         this.dialogReference = false
       })
     }
@@ -787,8 +792,8 @@ export class CandidateUpdateComponent implements OnInit {
     if (this.documentInsertReqDto.valid) {
       const data = this.documentInsertReqDto.getRawValue()
       this.candidateDocumentService.create(data).subscribe((res) => {
-        this.candidateUserDocuments()
         this.documentInsertReqDto.reset()
+        this.candidateUserDocuments()
         this.dialogDocument = false
       })
     }
