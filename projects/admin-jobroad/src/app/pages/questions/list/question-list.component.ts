@@ -6,23 +6,24 @@ import { firstValueFrom } from "rxjs";
 import { FormArray, NonNullableFormBuilder, Validators } from "@angular/forms";
 import { QuestionOptionService } from "../../../service/question-option.service";
 import { QuestionOptionResDto } from "../../../dto/question-option/question-option.res.dto";
+import { BaseService } from "../../../service/base.service";
 
 
 @Component({
-    selector: 'question-list',
+  selector: 'question-list',
   templateUrl: './question-list.component.html',
   styleUrls: ['./question-list.component.css']
 })
-export class QuestionListComponent implements OnInit,AfterViewChecked {
+export class QuestionListComponent implements OnInit, AfterViewChecked {
   loading = false
   updateForm = false;
   questions!: QuestionResDto[];
-  question! : QuestionResDto;
-  questionOptions!: QuestionOptionResDto [];
+  question!: QuestionResDto;
+  questionOptions!: QuestionOptionResDto[];
 
   questionUpdateReqDto = this.fb.group({
-    id : ['',Validators.required],
-    questionCode : ['',Validators.required],
+    id: ['', Validators.required],
+    questionCode: ['', Validators.required],
     questionDetail: ['', Validators.required],
     options: this.fb.array([])
   })
@@ -39,12 +40,20 @@ export class QuestionListComponent implements OnInit,AfterViewChecked {
   ]
 
   constructor(private questionService: QuestionService, private fb: NonNullableFormBuilder,
-    private questionOptionService: QuestionOptionService, private cd : ChangeDetectorRef) { }
+    private questionOptionService: QuestionOptionService, private cd: ChangeDetectorRef,
+    private base: BaseService) { }
 
   ngOnInit(): void {
-    this.getQuestion();
+    // this.getQuestion();
+
+    this.base.all([this.questionService.getAll()])
+      .then(result => {
+        this.questions = result[0]
+
+      })
   }
-  getQuestion(){
+
+  getQuestion() {
     firstValueFrom(this.questionService.getAll()).then(result => {
       this.questions = result;
     })
@@ -65,37 +74,37 @@ export class QuestionListComponent implements OnInit,AfterViewChecked {
 
   chooseQuestion(id: string) {
     console.log(id);
-    
-    firstValueFrom(this.questionService.getById(id)).then(result =>{
-      this.question = result ;
+
+    firstValueFrom(this.questionService.getById(id)).then(result => {
+      this.question = result;
       this.questionUpdateReqDto.patchValue({
-        id : this.question.id,
-        questionCode : this.question.questionCode,
-        questionDetail : this.question.questionDetail
+        id: this.question.id,
+        questionCode: this.question.questionCode,
+        questionDetail: this.question.questionDetail
       })
     })
     firstValueFrom(this.questionOptionService.getByQuestion(id)).then(result => {
       this.questionOptions = result;
       this.add();
     })
-    
+
   }
 
-  add(){
+  add() {
     this.optionForm.clear();
-    for(let i = 0 ; i < this.questionOptions.length ; i++){
+    for (let i = 0; i < this.questionOptions.length; i++) {
       this.optionForm.push(this.fb.group(this.questionOptions[i]))
-    }   
+    }
   }
 
-  updateSubmit(){
+  updateSubmit() {
     const data = this.questionUpdateReqDto.getRawValue();
     this.loading = true;
-    firstValueFrom(this.questionService.update(data)).then(()=>{
+    firstValueFrom(this.questionService.update(data)).then(() => {
       this.updateForm = false;
       this.loading = false;
       this.getQuestion();
-    }).catch(()=>{
+    }).catch(() => {
       this.loading = false
     })
   }
@@ -105,5 +114,5 @@ export class QuestionListComponent implements OnInit,AfterViewChecked {
   clear(table: Table) {
     table.clear()
   }
- 
+
 }

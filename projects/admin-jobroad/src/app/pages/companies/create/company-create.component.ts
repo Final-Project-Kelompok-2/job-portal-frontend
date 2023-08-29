@@ -16,8 +16,8 @@ export class CompanyCreateComponent {
 	  address: ['',Validators.required],
 	  companyUrl: ['',Validators.required],
 	  companyPhone: ['',Validators.required],
-	  fileName: [''],
-	  fileExtension: ['']
+	  fileName: ['',Validators.required],
+	  fileExtension: ['',Validators.required]
   })
   constructor(private companyService: CompanyService,
     private fb: NonNullableFormBuilder,private router : Router) { }

@@ -1,5 +1,5 @@
 import { Component } from "@angular/core";
-import { FormControl, NonNullableFormBuilder, Validators } from "@angular/forms";
+import { FormControl, FormGroup, NonNullableFormBuilder, Validators } from "@angular/forms";
 // import { AuthService } from "../../service/auth.service";
 // import { LoginService } from "@service/login.service";
 import { Title } from "@angular/platform-browser";
@@ -29,12 +29,18 @@ export class LoginComponent {
 
 
   constructor(
-    private router: Router, 
-    private Fb: NonNullableFormBuilder, 
-    private title: Title, 
+    private router: Router,
+    private Fb: NonNullableFormBuilder,
+    private title: Title,
     private loginService : LoginService) {
     this.title.setTitle('Login')
 
+  }
+
+  checkForm(form:FormGroup){
+    if(form.invalid){
+      form.markAllAsTouched()
+    }
   }
 
   onLogin() {

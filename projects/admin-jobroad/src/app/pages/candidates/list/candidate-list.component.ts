@@ -3,6 +3,7 @@ import { Table } from "primeng/table";
 import { CandidateUserResDto } from "../../../dto/candidate-user/candidate-user.res.dto";
 import { CandidateUserService } from "../../../service/candidate-user.service";
 import { firstValueFrom } from "rxjs";
+import { BaseService } from "../../../service/base.service";
 
 @Component({
   selector: 'candidate-list',
@@ -13,11 +14,17 @@ export class CandidateListComponent implements OnInit {
   loading = false
   candidates!: CandidateUserResDto[]
 
-  constructor(private candidateService: CandidateUserService) {
+  constructor(private candidateService: CandidateUserService, private base: BaseService) {
 
   }
   ngOnInit(): void {
-    this.getAllCandidates()
+
+    this.base.all([this.candidateService.getAll()])
+      .then(result => {
+        this.candidates = result[0]
+
+      })
+
   }
 
   getAllCandidates() {

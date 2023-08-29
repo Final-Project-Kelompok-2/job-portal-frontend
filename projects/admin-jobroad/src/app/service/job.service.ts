@@ -21,11 +21,11 @@ export class JobService{
     }
 
     getByPrincipal() : Observable<JobResDto[]>{
-        return this.base.get<JobResDto[]>(`${BASE_URL}/jobs/person`);
+        return this.base.getWithoutPipe<JobResDto[]>(`${BASE_URL}/jobs/person`);
     }
 
     getByPic() : Observable<JobResDto[]>{
-        return this.base.get<JobResDto[]>(`${BASE_URL}/jobs/pic`);
+        return this.base.getWithoutPipe<JobResDto[]>(`${BASE_URL}/jobs/pic`);
     }
 
     getByCompany(code : string) : Observable<JobResDto[]>{

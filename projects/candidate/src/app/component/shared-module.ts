@@ -24,11 +24,12 @@ import { SidebarModule } from 'primeng/sidebar';
 import { ImageModule } from 'primeng/image';
 import { ChartModule } from 'primeng/chart';
 import { ToggleButtonModule } from 'primeng/togglebutton';
-import { DataViewModule, DataViewLayoutOptions } from 'primeng/dataview';
+import { DataViewModule } from 'primeng/dataview';
 import { TagModule } from 'primeng/tag';
 import { CarouselModule } from 'primeng/carousel';
 import { CalendarModule } from 'primeng/calendar';
 import { BadgeModule } from 'primeng/badge';
+import { ScrollTopModule } from 'primeng/scrolltop';
 
 @NgModule({
   imports: [
@@ -63,9 +64,12 @@ import { BadgeModule } from 'primeng/badge';
     ToggleButtonModule,
     CalendarModule,
     BadgeModule
+    ScrollTopModule
   ],
   exports: [
-    FormsModule, ReactiveFormsModule,
+    FormsModule, 
+    ReactiveFormsModule,
+    ScrollTopModule,
     InputTextModule,
     CarouselModule,
     SidebarModule,

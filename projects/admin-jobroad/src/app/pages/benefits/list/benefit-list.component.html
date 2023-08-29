@@ -67,10 +67,16 @@
       <div class="form-floating col-12">
         <label htmlFor="name">Benefit Name<span class="text-red-500">*</span></label>
         <input pInputText id="name" required type="text" formControlName="benefitName" />
+        <span class="text-red-500 ml-2" *ngIf="
+        benefitReqDto.get('benefitName')!.invalid &&
+        !benefitReqDto.get('benefitName')!.value &&
+        (benefitReqDto.get('benefitName')!.dirty ||
+          benefitReqDto.get('benefitName')!.touched)
+      ">Input can't be empty</span>
       </div>
     </div>
     <app-button backgroundColor="var(--PRIMARY)" iconBtn="pi pi-plus" typeBtn="submit" label="Add"
-      classBtn="p-button-primary">
+      classBtn="p-button-primary" (clickChange)="checkForm(benefitReqDto)">
     </app-button>
   </form>
   <ng-template pTemplate="footer">

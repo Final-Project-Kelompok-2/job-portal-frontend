@@ -51,12 +51,12 @@ export class DashboardComponent implements OnInit {
   }
 
 
-  showDialog() {
-    this.visible = true;
-  }
+  // showDialog() {
+  //   this.visible = true;
+  // }
 
-  goToProfile(){
-    this.router.navigateByUrl('/candidates/profile/update')
-  }
+  // goToProfile(){
+  //   this.router.navigateByUrl('/candidates/profile/update')
+  // }
 
 }

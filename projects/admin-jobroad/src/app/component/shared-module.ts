@@ -23,9 +23,10 @@ import { ToastModule } from 'primeng/toast';
 import { SidebarModule } from 'primeng/sidebar';
 import { ImageModule } from 'primeng/image';
 import { ChartModule } from 'primeng/chart';
-import { DataViewModule, DataViewLayoutOptions } from 'primeng/dataview';
+import { DataViewModule } from 'primeng/dataview';
 import { BadgeModule } from 'primeng/badge';
 import { CalendarModule } from 'primeng/calendar';
+import { ScrollTopModule } from 'primeng/scrolltop';
 
 @NgModule({
   imports: [
@@ -57,11 +58,13 @@ import { CalendarModule } from 'primeng/calendar';
     ChartModule,
     DataViewModule,
     BadgeModule,
-    CalendarModule
+    CalendarModule,
+    ScrollTopModule
   ],
   exports: [
-    FormsModule, ReactiveFormsModule,
-
+    FormsModule, 
+    ReactiveFormsModule,
+    ScrollTopModule,
     InputTextModule,
     SidebarModule,
     MenuModule,

@@ -2,15 +2,16 @@ import { Component, OnDestroy, OnInit } from "@angular/core";
 import { Table } from "primeng/table";
 import { BenefitResDto } from "../../../dto/benefit/benefit.res.dto";
 import { BenefitService } from "../../../service/benefit.service";
-import { NonNullableFormBuilder, Validators } from "@angular/forms";
+import { FormGroup, NonNullableFormBuilder, Validators } from "@angular/forms";
 import { Subscription, firstValueFrom } from "rxjs";
+import { BaseService } from "../../../service/base.service";
 
 @Component({
   selector: 'benefit-list',
   templateUrl: './benefit-list.component.html',
   styleUrls: ['./benefit-list.component.css']
 })
-export class BenefitListComponent implements OnInit, OnDestroy {
+export class BenefitListComponent implements OnInit {
   loading = false
   visible: boolean = false;
   benefits!: BenefitResDto[];
@@ -18,16 +19,24 @@ export class BenefitListComponent implements OnInit, OnDestroy {
   benefitReqDto = this.fb.group({
     benefitName: [null, [Validators.required]]
   })
-  constructor(private benefitService: BenefitService, private fb: NonNullableFormBuilder) { }
+  constructor(private benefitService: BenefitService, private fb: NonNullableFormBuilder,
+    private base : BaseService) { }
   ngOnInit(): void {
-    this.getBenefit();
-  }
 
-  getBenefit() {
-    this.benefitSubscription = this.benefitService.getAll().subscribe(result => {
-      this.benefits = result;
+    this.base.all([
+      this.benefitService.getAll()
+    ]).then(result => {
+      this.benefits = result[0]
     })
   }
+
+  checkForm(form : FormGroup){
+    if(form.invalid){
+      form.markAllAsTouched()
+    }
+  }
+
+
   showDialog() {
     this.visible = true;
   }
@@ -38,10 +47,17 @@ export class BenefitListComponent implements OnInit, OnDestroy {
 
   insert() {
     const data = this.benefitReqDto.getRawValue();
+
     this.loading = true
     firstValueFrom(this.benefitService.create(data)).then(
       () => {
-        this.getBenefit();
+
+        this.base.all([
+          this.benefitService.getAll()
+        ]).then(result => {
+          this.benefits = result[0]
+        })
+
         this.benefitReqDto.reset();
         this.visible = false;
         this.loading = false
@@ -52,7 +68,4 @@ export class BenefitListComponent implements OnInit, OnDestroy {
         })
   }
 
-  ngOnDestroy(): void {
-    this.benefitSubscription.unsubscribe();
-  }
 }

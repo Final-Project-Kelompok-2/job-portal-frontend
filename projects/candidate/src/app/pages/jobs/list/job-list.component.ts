@@ -4,74 +4,89 @@ import { JobResDto } from "../../../dto/job/job.res.dto";
 import { AuthService } from "../../../service/auth.service";
 import { SavedJobService } from "../../../service/saved-job.service";
 import { firstValueFrom } from "rxjs";
+import { BaseService } from "../../../service/base.service";
 
 @Component({
-    selector: "job-list",
-    templateUrl: "./job-list.component.html",
-    styleUrls: ['./job-list.component.css']
+  selector: "job-list",
+  templateUrl: "./job-list.component.html",
+  styleUrls: ['./job-list.component.css']
 })
 
 export class JobListComponent implements OnInit {
 
-    title! : string;
-    location! : string;
-    salary! : number;
+  title!: string;
+  location!: string;
+  salary!: number;
 
-    result = 'Loved'
+  result = 'Loved'
 
-    loading = true
+  loading = true
 
-    jobs?: JobResDto[]
-    jobsTopSalary?: JobResDto[]
+  jobs?: JobResDto[]
+  jobsTopSalary?: JobResDto[]
 
-    constructor(private jobService: JobService,
-        private authService: AuthService,
-        private savedJobService: SavedJobService) {
+  constructor(private jobService: JobService,
+    private authService: AuthService,
+    private savedJobService: SavedJobService,
+    private base: BaseService) {
 
+  }
+
+  ngOnInit() {
+    this.base.all([
+      this.jobService.getAll(),
+      this.jobService.getTopSalary()
+    ]).then(result => {
+      this.jobs = result[0]
+      this.jobsTopSalary = result[1]
+    })
+  }
+
+  getAllJob() {
+    firstValueFrom(this.jobService.getAll()).then(result => {
+      this.jobs = result
+    })
+  }
+
+  getTopSalaryJob() {
+    firstValueFrom(this.jobService.getTopSalary()).then(result => {
+      this.jobsTopSalary = result
+    })
+  }
+
+  updateSavedJob(jobId: string) {
+    const savedJobDto = {
+      jobId
     }
+    firstValueFrom(this.savedJobService.insert(savedJobDto)).then(result => {
+      this.base.all([
+        this.jobService.getAll()
+      ]).then(result => {
+        this.jobs = result[0]
+      })
+    })
+  }
 
-    ngOnInit() {
-        this.getAllJob()
-        this.getTopSalaryJob()
-    }
+  deleteSavedJob(jobId: string) {
+    firstValueFrom(this.savedJobService.delete(jobId)).then(result => {
+      this.base.all([
+        this.jobService.getAll()
+      ]).then(result => {
+        this.jobs = result[0]
+      })
+    })
+  }
 
-    getAllJob() {
-        firstValueFrom(this.jobService.getAll()).then(result => {
-            this.jobs = result
-        })
-    }
+  search() {
+    console.log('title    ', this.title);
+    console.log('lokasi   ', this.location);
+    console.log('salary   ', this.salary);
 
-    getTopSalaryJob() {
-        firstValueFrom(this.jobService.getTopSalary()).then(result => {
-            this.jobsTopSalary = result
-        })
-    }
 
-    updateSavedJob(jobId: string) {
-        const savedJobDto = {
-            jobId
-        }
-        firstValueFrom(this.savedJobService.insert(savedJobDto)).then(result => {
-            this.getAllJob()
-        })
-    }
-
-    deleteSavedJob(jobId: string) {
-        firstValueFrom(this.savedJobService.delete(jobId)).then(result => {
-            this.getAllJob()
-        })
-    }
-
-    search(){
-        console.log('title    ',this.title);
-        console.log('lokasi   ',this.location);
-        console.log('salary   ',this.salary);
-        
-        
-        firstValueFrom(this.jobService.filter(this.title,this.location,this.salary)).then(result =>{
-            this.jobs = result;
-        })
-    }
+    firstValueFrom(this.jobService.filter(this.title, this.location, this.salary)).then(result => {
+      this.jobs = result;
+    })
+  }
 
 
 }

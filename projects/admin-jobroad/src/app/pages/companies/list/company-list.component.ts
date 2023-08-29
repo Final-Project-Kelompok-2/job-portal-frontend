@@ -10,32 +10,19 @@ import { BaseService } from "../../../service/base.service";
   templateUrl: './company-list.component.html',
   styleUrls: ['./company-list.component.css']
 })
-export class CompanyListComponent implements OnInit,OnDestroy{
+export class CompanyListComponent implements OnInit{
   companies! : CompanyResDto[];
   companySubscription! : Subscription;
   constructor(private companyService : CompanyService, private base:BaseService){}
 
   ngOnInit(): void {
-    this.getCompany();
-
     this.base.all([
-      
-    ])
-  }
-
-  getCompany() {
-   this.companySubscription = this.companyService.getAll().subscribe(result => {
-      this.companies = result;
+      this.companyService.getAll()
+    ]).then(result => {
+      this.companies = result[0]
     })
   }
 
-
   loading = false
 
-  clear(table: Table) {
-    table.clear();
-  }
-  ngOnDestroy(): void {
-    this.companySubscription.unsubscribe();
-  }
 }

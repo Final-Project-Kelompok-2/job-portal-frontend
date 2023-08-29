@@ -2,7 +2,7 @@
   <div class="flex justify-content-between flex-wrap card-container mb-3">
     <div class="flex align-items-center justify-content-center">
       <app-button type="button" label="Back" class="mr-2" classBtn="p-button-secondary"
-        link="/candidates/profile"></app-button>
+      link="/candidates/detail/{{candidateId}}"></app-button>
     </div>
   </div>
   <!-- Candidate Info -->
@@ -17,7 +17,7 @@
                 <div class="flex justify-content-end flex-wrap card-container">
                   <div class="flex align-items-right justify-content-center">
                     <app-button backgroundColor="secondary" label="Cancel" class="mr-2" classBtn="p-button-secondary"
-                      link="/candidates/profile"></app-button>
+                      link="/candidates/detail/{{candidateId}}"></app-button>
                     <app-button backgroundColor="var(--PRIMARY)" [loading]="loading" typeBtn="submit" label="Submit"
                       class="mr-2" iconBtn="pi pi-save"
                       (clickChange)="checkForm(candidateUpdateInsertReqDto)"></app-button>
@@ -676,23 +676,6 @@
                     </tr>
                   </ng-template>
                 </p-table>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-12 md:col-8 md:col-offset-2">
-          <div class="row align-items-center">
-            <div class="grid">
-              <div class="col-12 md:col-12">
-                <div class="flex justify-content-end flex-wrap card-container">
-                  <div class="flex align-items-right justify-content-center">
-                    <app-button backgroundColor="secondary" label="Cancel" class="mr-2" classBtn="p-button-secondary"
-                      link="/candidates/profile"></app-button>
-                    <app-button backgroundColor="var(--PRIMARY)" [loading]="loading" typeBtn="submit" label="Submit"
-                      class=" mr-2"></app-button>
-                  </div>
-                </div>
               </div>
             </div>
           </div>
@@ -1431,3 +1414,5 @@
   <app-button backgroundColor="danger" (clickChange)="onDeleteDocument()" [loading]="loading" label="Yes" class="mt-2"
     classBtn="p-button-danger"></app-button>
 </p-dialog>
+
+<p-scrollTop icon="pi pi-arrow-up"></p-scrollTop>
