@@ -10,7 +10,7 @@ import { ɵparseCookieValue } from "@angular/common";
     templateUrl: "./login.component.html",
     styleUrls: ['./login.component.css']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent  {
 
     testVal = localStorage.getItem('q')
     appId = localStorage.getItem('code')
@@ -24,10 +24,7 @@ export class LoginComponent implements OnInit {
 
     }
 
-    ngOnInit(): void {
-        this.testVal = localStorage.getItem('q')
-        this.appId = localStorage.getItem('code')
-    }
+
 
     loginReqDto = this.fb.group({
         userEmail: ['', [Validators.required]],
@@ -35,6 +32,8 @@ export class LoginComponent implements OnInit {
     })
 
     onLogin() {
+        this.testVal = localStorage.getItem('q')
+        this.appId = localStorage.getItem('code')
         if (this.loginReqDto.valid) {
             const data = this.loginReqDto.getRawValue()
             this.loginService.login(data).subscribe({
@@ -46,7 +45,8 @@ export class LoginComponent implements OnInit {
                     console.log(result)
                     localStorage.setItem('data', JSON.stringify(result))
                     if (this.testVal != null) {
-                        if (this.testVal) {
+                        if (this.testVal == 'true') {
+                            console.log('testval ==  '+this.testVal);
                             // localStorage.setItem('q','false')
                             this.router.navigateByUrl(`/questions/${this.appId}`)
                         } else {
