@@ -18,38 +18,53 @@ export class JobAppliedComponent implements OnInit {
 
 
     appliedJob!: ApplicantResDto[]
-    assignedQuestion! : AssignedJobQuestionResDto[];
+    assignedQuestion!: AssignedJobQuestionResDto[];
     constructor(private applicantService: ApplicantService,
-        private assignedQuestionService : AssignedQuestionService,
-        private router : Router) {
+        private assignedQuestionService: AssignedQuestionService,
+        private router: Router) {
 
     }
 
     ngOnInit(): void {
         this.getAppliedJob();
-        
+
     }
 
 
     getAppliedJob() {
         firstValueFrom(this.applicantService.getByPrincipal()).then(result => {
             this.appliedJob = result
-            
+
         })
     }
 
-    getQuestion(jobId : string,appId : string){
+    getQuestion(jobId: string, appId: string) {
         console.log('question')
-        firstValueFrom(this.assignedQuestionService.getByJob(jobId)).then(result =>{
-            if(result.length != 0 ){
-                console.log('result => ',result);
+        firstValueFrom(this.assignedQuestionService.getByJob(jobId)).then(result => {
+            if (result.length != 0) {
+                console.log('result => ', result);
                 this.assignedQuestion = result
                 this.router.navigateByUrl(`/questions/${appId}`)
-            }else{
+            } else {
                 console.log('Kosong');
             }
         })
     }
 
+
+    checker(statusName: string) {
+        if (statusName == "APPLIED") {
+            return "info";
+        }
+        else if (statusName == "HIRED") {
+            return "success"
+        }
+        else if (statusName == "REJECT") {
+            return "danger"
+        }
+        else {
+            return "warning"
+        }
+    }
 
 }

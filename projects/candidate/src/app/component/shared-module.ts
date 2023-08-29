@@ -28,6 +28,7 @@ import { DataViewModule } from 'primeng/dataview';
 import { TagModule } from 'primeng/tag';
 import { CarouselModule } from 'primeng/carousel';
 import { CalendarModule } from 'primeng/calendar';
+import { BadgeModule } from 'primeng/badge';
 import { ScrollTopModule } from 'primeng/scrolltop';
 
 @NgModule({
@@ -62,6 +63,7 @@ import { ScrollTopModule } from 'primeng/scrolltop';
     DataViewModule,
     ToggleButtonModule,
     CalendarModule,
+    BadgeModule
     ScrollTopModule
   ],
   exports: [
@@ -96,7 +98,8 @@ import { ScrollTopModule } from 'primeng/scrolltop';
     ChartModule,
     DataViewModule,
     ToggleButtonModule,
-    CalendarModule
+    CalendarModule,
+    BadgeModule
   ]
 })
 export class SharedModuleComponent {
