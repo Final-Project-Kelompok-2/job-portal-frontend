@@ -63,7 +63,7 @@ import { ScrollTopModule } from 'primeng/scrolltop';
     DataViewModule,
     ToggleButtonModule,
     CalendarModule,
-    BadgeModule
+    BadgeModule,
     ScrollTopModule
   ],
   exports: [
