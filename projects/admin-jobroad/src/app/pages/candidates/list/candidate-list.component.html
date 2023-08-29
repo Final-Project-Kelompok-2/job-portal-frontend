@@ -56,7 +56,9 @@
                 <td>{{ c.nik }}</td>
                 <td>{{ c.fullname }}</td>
                 <td>{{ c.userEmail }}</td>
-                <td>{{ c.experience }} Years</td>
+                <td *ngIf=" c.experience>0">{{ c.experience }} Years</td>
+                <td *ngIf="c.experience == 0 ||c.experience == null">-</td>
+                <!-- <td *ngIf=""> </td> -->
                 <td>
                   <p-badge [value]="c.candidateStatus" size="large" [severity]="checker(c.candidateStatus)"></p-badge>
 
