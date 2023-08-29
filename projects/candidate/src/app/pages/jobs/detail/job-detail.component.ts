@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { AfterViewChecked, ChangeDetectorRef, Component, OnInit } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 import { JobResDto } from "../../../dto/job/job.res.dto";
 import { JobService } from "../../../service/job.service";
@@ -6,6 +6,7 @@ import { ApplicantService } from "../../../service/applicant.service";
 import { firstValueFrom } from "rxjs";
 import { CandidateUserService } from "../../../service/candidate-user.service";
 import { CandidateCheckDataResDto } from "../../../dto/candidate/candidate-check-data.res.dto";
+import { ApplicantResDto } from "../../../dto/applicant/applicant.res.dto";
 
 @Component({
     selector: 'job-detail',
@@ -20,21 +21,26 @@ export class JobDetailComponent implements OnInit {
     visible: boolean = false;
     isValid!: CandidateCheckDataResDto
     askToProfile: boolean = false
-
-
+    appliedJob!: ApplicantResDto[];
+    applied = true;
+    label = "Apply Job";
     constructor(private activated: ActivatedRoute,
         private jobService: JobService,
         private applicantService: ApplicantService,
         private router: Router,
-        private candidateService: CandidateUserService) { }
+        private candidateService: CandidateUserService
+    ) { }
 
     ngOnInit(): void {
         firstValueFrom(this.activated.params).then(result => {
             const id = result["id"]
             this.jobId = id
             this.getJobDetail(this.jobId)
+            
+
         })
     }
+
 
     apply(jobId: string) {
         // this.visible = true
@@ -58,6 +64,31 @@ export class JobDetailComponent implements OnInit {
 
     }
 
+    getAppliedJob() {
+        firstValueFrom(this.applicantService.getByPrincipal()).then(result => {
+            this.appliedJob = result
+            this.isApplied();
+
+        })
+    }
+
+    isApplied() {
+        if (this.appliedJob) {
+            console.log('Applie job == ' + JSON.stringify(this.appliedJob))
+            for (let i = 0; i < this.appliedJob.length; i++) {
+                if (this.appliedJob[i].jobName == this.job?.jobName) {
+                    this.applied = true
+                    this.label = "Applied"
+                    break;
+                } else {
+                    this.applied = false
+                }
+            }
+        } else {
+            this.applied = false
+        }
+    }
+
     getJobDetail(jobId: string) {
         firstValueFrom(this.jobService.getDetail(jobId)).then(result => {
             this.job = result;
@@ -77,6 +108,7 @@ export class JobDetailComponent implements OnInit {
             else {
                 this.imageUrlCompany = '../../../../assets/companyLogo.png'
             }
+            this.getAppliedJob();
         })
     }
 
