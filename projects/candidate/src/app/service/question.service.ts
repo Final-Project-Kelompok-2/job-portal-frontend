@@ -10,9 +10,9 @@ import { BASE_URL } from "../constant/api.constant";
 export class QuestionService {
     constructor(private base: BaseService) { }
 
-    getByApplicant(id : string) : Observable<QuestionResDto[]> {
-        console.log('id',id)
-        return this.base.get<QuestionResDto[]>(`${BASE_URL}/questions?applicantId=${id}`)
+    getByApplicant(code : string) : Observable<QuestionResDto[]> {
+        
+        return this.base.get<QuestionResDto[]>(`${BASE_URL}/questions?code=${code}`)
     }
 
 

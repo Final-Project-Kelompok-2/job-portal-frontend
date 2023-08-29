@@ -11,7 +11,7 @@ import { QuestionComponent } from "./list/question.component";
 
 const routes = [
     {
-        path : ':id',
+        path : ':code',
         component : QuestionComponent
     }
 ]

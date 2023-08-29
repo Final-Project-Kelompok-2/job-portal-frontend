@@ -16,7 +16,7 @@ export class AnswerService{
         return this.base.post<InsertResDto>(`${BASE_URL}/question-answers`,data);
     }
 
-    getByApplicant(id : string) : Observable<QuestionAnswerResDto[]>{
-        return this.base.get<QuestionAnswerResDto[]>(`${BASE_URL}/question-answers?id=${id}`);
+    getByApplicant(code: string) : Observable<QuestionAnswerResDto[]>{
+        return this.base.get<QuestionAnswerResDto[]>(`${BASE_URL}/question-answers?code=${code}`);
     }
 }

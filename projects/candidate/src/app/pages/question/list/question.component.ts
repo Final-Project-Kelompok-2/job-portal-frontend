@@ -16,7 +16,7 @@ import { QuestionAnswerResDto } from "../../../dto/question-answer/question-answ
     templateUrl: './question.component.html'
 })
 export class QuestionComponent implements OnInit, AfterViewChecked {
-    appId!: string;
+    appCode!: string;
     index!: number;
     relogin!: Boolean
     question!: QuestionResDto[];
@@ -24,7 +24,7 @@ export class QuestionComponent implements OnInit, AfterViewChecked {
     candidateAnswer!: QuestionAnswerResDto[];
     options!: [];
     answerDto = this.fb.group({
-        applicantId: ['', Validators.required],
+        applicantCode: ['', Validators.required],
         answers: this.fb.array(this.answer)
     })
     constructor(
@@ -38,9 +38,9 @@ export class QuestionComponent implements OnInit, AfterViewChecked {
     ngOnInit(): void {
 
         firstValueFrom(this.activated.params).then(params => {
-            this.appId = params['id'];
+            this.appCode = params['code'];
             this.answerDto.patchValue({
-                applicantId: params['id']
+                applicantCode: params['code']
             })
             this.getQuestion();
 
@@ -58,15 +58,14 @@ export class QuestionComponent implements OnInit, AfterViewChecked {
     }
 
     getQuestion() {
-        firstValueFrom(this.answerService.getByApplicant(this.appId)).then(result => {
-            console.log('result => ' + JSON.stringify(result))
+        firstValueFrom(this.answerService.getByApplicant(this.appCode)).then(result => {
             this.candidateAnswer = result;
             if (this.candidateAnswer[0].id != null) {
                 this.route.navigateByUrl('/landing');
 
             } 
         }).catch(()=>{
-            firstValueFrom(this.questionService.getByApplicant(this.appId)).then(result => {
+            firstValueFrom(this.questionService.getByApplicant(this.appCode)).then(result => {
                 this.question = result;
                 console.log('Question = ', this.question.length)
 
@@ -80,7 +79,7 @@ export class QuestionComponent implements OnInit, AfterViewChecked {
                 }
             }).catch(() => {
                 localStorage.setItem('q', 'true');
-                localStorage.setItem('code', this.appId)
+                localStorage.setItem('code', this.appCode)
                 this.route.navigateByUrl('/login');
             })
         })
