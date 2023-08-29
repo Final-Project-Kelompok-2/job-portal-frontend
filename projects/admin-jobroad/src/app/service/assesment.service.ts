@@ -14,19 +14,19 @@ import { UpdateResDto } from "../dto/update.res.dto";
 })
 export class AssesmentService{
     constructor(private base : BaseService){}
-  
+
 
     create(data : AssesmentInsertReqDto) : Observable<InsertResDto>{
         return this.base.post<InsertResDto>(`${BASE_URL}/assesments`,data);
     }
 
     getByApplicant(id : string) : Observable<AssementResDto>{
-        return this.base.get<AssementResDto>(`${BASE_URL}/assesments?applicantId=${id}`)
+        return this.base.getWithoutPipe<AssementResDto>(`${BASE_URL}/assesments?applicantId=${id}`)
     }
 
     updateNotes(data : AssesmentUpdateNotesReqDto) : Observable<UpdateResDto>{
         return this.base.patch<UpdateResDto>(`${BASE_URL}/assesments`,data);
     }
 
-   
+
 }
