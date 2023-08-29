@@ -6,37 +6,40 @@
     </p-card>
   </div>
   <div class="col-12 md:col-5 buttons">
-    <app-button iconBtn="pi pi-angle-left" type="button" label="Job Detail" class="mr-2" classBtn="p-button-secondary" link="/jobs/detail/{{jobId}}">
+    <app-button iconBtn="pi pi-angle-left" type="button" label="Job Detail" class="mr-2" classBtn="p-button-secondary"
+      link="/jobs/detail/{{jobId}}">
     </app-button>
-    <app-button *ngIf="isApplied && (isHr || isAdmin)" type="button" label="Assesment" (click)="assesmentClick()" class="mr-2"
-      classBtn="p-button-primary"></app-button>
+    <app-button *ngIf="isApplied && (isHr || isAdmin)" type="button" label="Assesment" (click)="assesmentClick()"
+      class="mr-2" classBtn="p-button-primary"></app-button>
 
-    <app-button *ngIf="isAssesment && isHr" type="button" label="Update Notes" (click)="assesmentNoteClick()" class="mr-2"
-      classBtn="p-button-secondary mt-2"></app-button>
-    <app-button *ngIf="isAssesment && (isHr || isAdmin)" type="button" label="Interview" (click)="interviewClick()" class="mr-2"
-      classBtn="p-button-primary mt-2"></app-button>
+    <app-button *ngIf="isAssesment && isHr" type="button" label="Update Notes" (click)="assesmentNoteClick()"
+      class="mr-2" classBtn="p-button-secondary mt-2"></app-button>
+    <app-button *ngIf="isAssesment && (isHr || isAdmin)" type="button" label="Interview" (click)="interviewClick()"
+      class="mr-2" classBtn="p-button-primary mt-2"></app-button>
 
 
-    <app-button *ngIf="isInterview && isPic" type="button" label="Update Notes" (click)="interviewNoteClick()" class="mr-2"
-      classBtn="p-button-secondary mt-2"></app-button>
-    <app-button *ngIf="isInterview && (isHr || isAdmin)" type="button" label="Medical CheckUp" (click)="mcuClick()" class="mr-2"
-      classBtn="p-button-primary mt-2"></app-button>
+    <app-button *ngIf="isInterview && isPic" type="button" label="Update Notes" (click)="interviewNoteClick()"
+      class="mr-2" classBtn="p-button-secondary mt-2"></app-button>
+    <app-button *ngIf="isInterview && (isHr || isAdmin)" type="button" label="Medical CheckUp" (click)="mcuClick()"
+      class="mr-2" classBtn="p-button-primary mt-2"></app-button>
 
-    <app-button *ngIf="isMcu && (isHr || isAdmin)" type="button" label="Offering Letter" (click)="offeringClick()" class="mr-2"
-      classBtn="p-button-primary mt-2"></app-button>
+    <app-button *ngIf="isMcu && (isHr || isAdmin)" type="button" label="Offering Letter" (click)="offeringClick()"
+      class="mr-2" classBtn="p-button-primary mt-2"></app-button>
 
-    <app-button *ngIf="isOffering && (isHr || isAdmin)" backgroundColor="var(--PRIMARY)" [loading]="loading" typeBtn="submit" label="Accept"
-      iconBtn="pi pi-user-plus" class="mt-2" (click)="accept()"></app-button>
+    <app-button *ngIf="isOffering && (isHr || isAdmin)" backgroundColor="var(--PRIMARY)" [loading]="loading"
+      typeBtn="submit" label="Accept" iconBtn="pi pi-user-plus" class="mt-2" (click)="accept()"></app-button>
 
   </div>
-  <div class="col-12 md:col-1 md:col-offset-6 buttons">
-    <app-button type="button" *ngIf=" (isHr || isAdmin)" (click)="reject()" label="Reject" class="mr-2" classBtn="p-button-danger"></app-button>
+  <div class="col-12 md:col-1 md:col-offset-5 buttons">
+    <app-button type="button" *ngIf=" (isHr || isAdmin)" (click)="reject()" label="Reject" class="mr-2"
+      classBtn="p-button-danger"></app-button>
   </div>
   <candidate-detail class="col-12" *ngIf="isApplied"></candidate-detail>
   <div class="col-12 " *ngIf="isApplied">
 
     <!-- Modal Form Insert Assesment -->
-    <p-dialog header="Assesment Form" [breakpoints]="{ '960px': '75vw' }" [style]="{ width: '50vw' }" [responsive]="true" [modal]="true" [(visible)]="assesmentForm">
+    <p-dialog header="Assesment Form" [breakpoints]="{ '960px': '75vw' }" [style]="{ width: '50vw' }"
+      [responsive]="true" [modal]="true" [(visible)]="assesmentForm">
       <pre>
                 {{assesmentReqDto.value | json}}
             </pre>
@@ -100,7 +103,8 @@
             <textarea pInputTextarea id="notes" class="col-12" rows="10" formControlName="notes"></textarea>
           </div>
         </div>
-        <app-button backgroundColor="var(--PRIMARY)" typeBtn="submit" label="Add" iconBtn="pi pi-plus" class=" mr-2"></app-button>
+        <app-button backgroundColor="var(--PRIMARY)" typeBtn="submit" label="Add" iconBtn="pi pi-plus"
+          class=" mr-2"></app-button>
       </form>
     </p-dialog>
   </div>
@@ -184,10 +188,11 @@
       <pre>
         {{mcuReqDto.value | json}}
       </pre>
-      <form [formGroup]="mcuReqDto" (ngSubmit)="submitMcu()" >
+      <form [formGroup]="mcuReqDto" (ngSubmit)="submitMcu()">
         <p-fileUpload mode="advanced" chooseLabel="Choose" styleClass="bg-green-700" chooseIcon="pi pi-upload"
           class="form-control mb-2" [multiple]="true" [showUploadButton]="true" type="file" id="picture"
-          (onSelect)="fileUpload($event)" (onRemove)="fileRemove($event)" (onClear)="fileCancel()" required></p-fileUpload>
+          (onSelect)="fileUpload($event)" (onRemove)="fileRemove($event)" (onClear)="fileCancel()"
+          required></p-fileUpload>
         <app-button backgroundColor="var(--PRIMARY)" [loading]="loading" typeBtn="submit" label="Add"
           iconBtn="pi pi-plus" class="mt-2"></app-button>
       </form>
@@ -244,41 +249,41 @@
     </p-dialog>
   </div>
 
-  <div class="offering-letter " *ngIf="isOffering">
+  <div class="offering-letter col-12 flex justify-content-center "*ngIf="isOffering">
 
-
-    <h3>Waiting for candidate to accept the offer ....</h3>
-
-        <p-dialog [breakpoints]="{ '960px': '75vw' }" [style]="{ width: '50vw' }" [modal]="true"
-            [(visible)]="hiringForm" header="Hiring Form">
-            <pre>
+   
+        <h3>Waiting for candidate to accept the offer ....</h3>
+     
+    <p-dialog [breakpoints]="{ '960px': '75vw' }" [style]="{ width: '50vw' }" [modal]="true" [(visible)]="hiringForm"
+      header="Hiring Form">
+      <pre>
                 {{hiringReqDto.value | json}}
             </pre>
-            <form [formGroup]="hiringReqDto" (ngSubmit)="hiringSubmit()">
-                <div class="start">
-                        <div class="grid mt-3">
-                        <div class="col-12 md:col-4">
-                            <label for="start-date">Start Date<span class="text-red-500">*</span></label>
-                        </div>
-                        <div class="col-12 md:col-8">
-                            <input pInputText id="start-date" required type="datetime-local" formControlName="startDate" />
-                        </div>
-                    </div>
-                    <div class="end-date" *ngIf="job?.employementTypeName == intern || job?.employementTypeName == contract">
-                        <div class="grid">
-                        <div class="col-12 md:col-4">
-                            <label for="end-date">End Date</label>
-                        </div>
-                        <div class="col-12 md:col-8">
-                            <input pInputText id="end-date" type="datetime-local" formControlName="endDate" />
-                        </div>
-                    </div>
-                    </div>
-                </div>
-                <app-button backgroundColor="var(--PRIMARY)" [loading]="loading" typeBtn="submit" label="Add"
-                    iconBtn="pi pi-plus" class="mt-2"></app-button>
-            </form>
-        </p-dialog>
+      <form [formGroup]="hiringReqDto" (ngSubmit)="hiringSubmit()">
+        <div class="start">
+          <div class="grid mt-3">
+            <div class="col-12 md:col-4">
+              <label for="start-date">Start Date<span class="text-red-500">*</span></label>
+            </div>
+            <div class="col-12 md:col-8">
+              <input pInputText id="start-date" required type="datetime-local" formControlName="startDate" />
+            </div>
+          </div>
+          <div class="end-date" *ngIf="job?.employementTypeName == intern || job?.employementTypeName == contract">
+            <div class="grid">
+              <div class="col-12 md:col-4">
+                <label for="end-date">End Date</label>
+              </div>
+              <div class="col-12 md:col-8">
+                <input pInputText id="end-date" type="datetime-local" formControlName="endDate" />
+              </div>
+            </div>
+          </div>
+        </div>
+        <app-button backgroundColor="var(--PRIMARY)" [loading]="loading" typeBtn="submit" label="Add"
+          iconBtn="pi pi-plus" class="mt-2"></app-button>
+      </form>
+    </p-dialog>
 
   </div>
 </div>
