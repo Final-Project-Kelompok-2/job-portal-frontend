@@ -12,15 +12,15 @@ import { InsertResDto } from "../dto/insert.res.dto";
 })
 export class BenefitService{
     constructor(private base : BaseService){}
-  
+
 
     create(data : BenefitInsertReqDto) : Observable<InsertResDto>{
         return this.base.post<InsertResDto>(`${BASE_URL}/benefits`,data);
     }
 
     getAll() : Observable<BenefitResDto[]>{
-        return this.base.get<BenefitResDto[]>(`${BASE_URL}/benefits`);
+        return this.base.getWithoutPipe<BenefitResDto[]>(`${BASE_URL}/benefits`);
     }
 
-   
+
 }

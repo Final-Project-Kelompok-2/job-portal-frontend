@@ -3,6 +3,7 @@ import { Table } from "primeng/table";
 import { CompanyService } from "../../../service/company.service";
 import { CompanyResDto } from "../../../dto/company/company.res.dto";
 import { Subscription } from "rxjs";
+import { BaseService } from "../../../service/base.service";
 
 @Component({
   selector: 'company-list',
@@ -12,9 +13,14 @@ import { Subscription } from "rxjs";
 export class CompanyListComponent implements OnInit,OnDestroy{
   companies! : CompanyResDto[];
   companySubscription! : Subscription;
-  constructor(private companyService : CompanyService){}
+  constructor(private companyService : CompanyService, private base:BaseService){}
+
   ngOnInit(): void {
     this.getCompany();
+
+    this.base.all([
+      
+    ])
   }
 
   getCompany() {

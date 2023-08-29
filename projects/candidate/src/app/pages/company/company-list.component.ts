@@ -10,7 +10,7 @@ import { firstValueFrom } from "rxjs";
 export class CompanyListComponent implements OnInit {
 
     companies!: CompanyResDto[]
-
+    imageUrl!:string
 
     constructor(private companyService: CompanyService) {
 
@@ -18,6 +18,8 @@ export class CompanyListComponent implements OnInit {
 
     ngOnInit() {
         this.getCompanies()
+
+        
     }
 
     getCompanies() {

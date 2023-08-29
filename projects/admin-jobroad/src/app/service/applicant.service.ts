@@ -15,12 +15,11 @@ import { ApplicantUpdateReqDto } from "../dto/applicant/applicant-update.req.dto
 export class ApplicantService {
     constructor(private base: BaseService) { }
     getByJob(jobId: string): Observable<ApplicantResDto[]> {
-        return this.base.get<ApplicantResDto[]>(`${BASE_URL}/applicants?jobId=${jobId}`);
-
+        return this.base.getWithoutPipe<ApplicantResDto[]>(`${BASE_URL}/applicants?jobId=${jobId}`);
     }
 
     getById(id : string) : Observable<ApplicantResDto>{
-        return this.base.get<ApplicantResDto>(`${BASE_URL}/applicants/filter?id=${id}`);
+        return this.base.getWithoutPipe<ApplicantResDto>(`${BASE_URL}/applicants/filter?id=${id}`);
     }
 
     create(data : ApplicantInsertReqDto) : Observable<InsertResDto>{

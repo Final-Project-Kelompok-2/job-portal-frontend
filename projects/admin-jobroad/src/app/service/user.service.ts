@@ -17,7 +17,7 @@ export class UserService {
     constructor(private base: BaseService) { }
 
     getAllUser(): Observable<UserResDto[]> {
-        return this.base.get<UserResDto[]>(`${BASE_URL}/users`);
+        return this.base.getWithoutPipe<UserResDto[]>(`${BASE_URL}/users`);
     }
 
     getByRole(roleCode: string): Observable<UserResDto[]> {

@@ -13,7 +13,7 @@ export class JobService{
     constructor(private base : BaseService){}
 
     getAll() : Observable<JobResDto[]>{
-        return this.base.get<JobResDto[]>(`${BASE_URL}/jobs`);
+        return this.base.getWithoutPipe<JobResDto[]>(`${BASE_URL}/jobs`);
     }
 
     create(data : JobInsertReqDto) : Observable<InsertResDto>{
