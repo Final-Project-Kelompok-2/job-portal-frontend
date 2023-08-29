@@ -32,7 +32,7 @@ export class BaseService {
     }
     post<T>(url: string, body: any, withToken = true): Observable<T> {
         return this.http.post<T>(url, body, (withToken ? this.header : undefined))
-            .pipe(response(this.messageService, this.router),catchError(err=> {throw new Error('error bro')}) );
+            .pipe(response(this.messageService, this.router), catchError(err => { throw new Error('error bro') }));
     }
 
     get<T>(url: string, withToken = true): Observable<T> {
@@ -54,17 +54,19 @@ export class BaseService {
 
     }
 
-    all<T extends unknown[]>(data : [...ObservableInputTuple<T>]) : Promise<T>  {
-      return firstValueFrom(
-          forkJoin(data).pipe(response(this.messageService, this.router))
-      )
-  }
+    all<T extends unknown[]>(data: [...ObservableInputTuple<T>]): Promise<T> {
+        return firstValueFrom(
+            forkJoin(data).pipe(response(this.messageService, this.router))
+        )
+    }
+
+
 }
 export function response<T>(messageService: MessageService, router: Router) {
     return tap<T>({
-        next : (data) => {
+        next: (data) => {
             // console.log(data)
-            if(data && (data as any).message){
+            if (data && (data as any).message) {
 
                 messageService.add({ severity: 'success', summary: 'Success', detail: (data as any).message });
 

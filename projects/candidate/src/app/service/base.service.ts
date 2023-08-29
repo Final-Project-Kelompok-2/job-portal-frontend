@@ -42,8 +42,10 @@ export class BaseService {
 
     }
 
-    getWithoutPipe<T>(url:string, withToken = true):Observable<T>{
-      return this.http.get<T>(url, (withToken ? this.header : undefined))
+
+
+    getWithoutPipe<T>(url: string, withToken = true): Observable<T> {
+        return this.http.get<T>(url, (withToken ? this.header : undefined))
     }
 
     patch<T>(url: string, body: any, withToken = true): Observable<T> {
@@ -60,11 +62,12 @@ export class BaseService {
 
     }
 
-    all<T extends unknown[]>(data : [...ObservableInputTuple<T>]) : Promise<T>  {
-      return firstValueFrom(
-          forkJoin(data).pipe(response(this.messageService, this.router))
-      )
-  }
+    all<T extends unknown[]>(data: [...ObservableInputTuple<T>]): Promise<T> {
+        return firstValueFrom(
+            forkJoin(data).pipe(response(this.messageService, this.router))
+        )
+    }
+
 }
 export function response<T>(messageService: MessageService, router: Router) {
     return tap<T>({
