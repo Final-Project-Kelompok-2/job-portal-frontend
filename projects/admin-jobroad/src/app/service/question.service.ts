@@ -14,9 +14,9 @@ import { UpdateResDto } from "../dto/update.res.dto";
 })
 export class QuestionService{
     constructor(private base : BaseService){}
-    
+
     getAll() : Observable<QuestionResDto[]>{
-        return this.base.get<QuestionResDto[]>(`${BASE_URL}/questions`);
+        return this.base.getWithoutPipe<QuestionResDto[]>(`${BASE_URL}/questions`);
     }
 
     create(data : QuestionsInsertReqDto) : Observable<InsertResDto>{

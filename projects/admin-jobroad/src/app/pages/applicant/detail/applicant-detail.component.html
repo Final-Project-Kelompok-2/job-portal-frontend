@@ -6,7 +6,7 @@
     </p-card>
   </div>
   <div class="col-12 md:col-5 buttons">
-    <app-button type="button" label="Back" class="mr-2" classBtn="p-button-secondary" link="/jobs/detail/{{jobId}}">
+    <app-button iconBtn="pi pi-angle-left" type="button" label="Job Detail" class="mr-2" classBtn="p-button-secondary" link="/jobs/detail/{{jobId}}">
     </app-button>
     <app-button *ngIf="isApplied && (isHr || isAdmin)" type="button" label="Assesment" (click)="assesmentClick()" class="mr-2"
       classBtn="p-button-primary"></app-button>
@@ -264,13 +264,13 @@
                             <input pInputText id="start-date" required type="datetime-local" formControlName="startDate" />
                         </div>
                     </div>
-                    <div class="end-date" *ngIf="job?.jobName == intern || job?.jobName == contract">
+                    <div class="end-date" *ngIf="job?.employementTypeName == intern || job?.employementTypeName == contract">
                         <div class="grid">
                         <div class="col-12 md:col-4">
                             <label for="end-date">End Date</label>
                         </div>
                         <div class="col-12 md:col-8">
-                            <input pInputText id="end-date" type="date" formControlName="endDate" />
+                            <input pInputText id="end-date" type="datetime-local" formControlName="endDate" />
                         </div>
                     </div>
                     </div>

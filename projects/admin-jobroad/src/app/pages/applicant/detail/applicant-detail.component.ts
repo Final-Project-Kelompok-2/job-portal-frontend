@@ -169,6 +169,7 @@ export class ApplicantDetailComponent implements OnInit {
             })
             firstValueFrom(this.jobService.getByDetail(this.jobId)).then(result => {
                 this.job = result;
+                console.log('job name =>  ',this.job.employementTypeName);
                 firstValueFrom(this.userService.getById(this.job.picId)).then(result => {
                     this.pic = result;
                 })
@@ -200,6 +201,7 @@ export class ApplicantDetailComponent implements OnInit {
             }
         ]
 
+        
     }
 
     get isHr(){
@@ -254,7 +256,7 @@ export class ApplicantDetailComponent implements OnInit {
         this.loading = true
         firstValueFrom(this.applicantService.update(data)).then(() => {
             this.loading = false
-            this.router.navigateByUrl(`/jobs/detail/${this.jobId}`);
+            // this.router.navigateByUrl(`/jobs/detail/${this.jobId}`);
         }).catch(() => {
             this.loading = false;
         })
@@ -465,6 +467,11 @@ export class ApplicantDetailComponent implements OnInit {
         });
     }
 
+}
+
+const convertUTCToLocalDate = function (date: Date) {
+  const newDate = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate(), date.getHours(), date.getMinutes(), date.getSeconds()));
+  return newDate.toISOString().split('T')[0]
 }
 
 

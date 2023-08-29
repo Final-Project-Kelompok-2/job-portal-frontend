@@ -13,6 +13,7 @@ import { BenefitService } from "../../service/benefit.service";
 import { QuestionService } from "../../service/question.service";
 import { CandidateUserService } from "../../service/candidate-user.service";
 import { firstValueFrom } from "rxjs";
+import { BaseService } from "../../service/base.service";
 
 @Component({
   selector: 'dashboard',
@@ -36,7 +37,8 @@ export class DashboardComponent implements OnInit {
   users!: UserResDto[]
   userSize = 0
 
-  constructor(private authService: AuthService, private companyService: CompanyService, private userService: UserService, private jobService: JobService, private benefitService: BenefitService, private questionService: QuestionService, private candidateService: CandidateUserService) {
+  constructor(private authService: AuthService, private companyService: CompanyService, private userService: UserService, private jobService: JobService, private benefitService: BenefitService, private questionService: QuestionService, private candidateService: CandidateUserService,
+    private base: BaseService) {
 
   }
 
@@ -47,54 +49,76 @@ export class DashboardComponent implements OnInit {
       this.fullName = profile.fullName
       // this.salutation = profile
     }
-    this.getCompanies()
-    this.getUsers()
-    this.getAllBenefits()
-    this.getAllJobs()
-    this.getAllQuestions()
-    this.getAllCandidates()
-  }
+    // this.getCompanies()
+    // this.getUsers()
+    // this.getAllBenefits()
+    // this.getAllJobs()
+    // this.getAllQuestions()
+    // this.getAllCandidates()
 
-  getCompanies() {
-    firstValueFrom(this.companyService.getAll()).then(result => {
-      this.companies = result
+    this.base.all([
+      this.companyService.getAll(),
+      this.userService.getAllUser(),
+      this.jobService.getAll(),
+      this.benefitService.getAll(),
+      this.questionService.getAll(),
+      this.candidateService.getAll()
+    ]).then(res => {
+      this.companies = res[0]
       this.companySize = this.companies.length
-    })
-  }
-
-  getUsers() {
-    firstValueFrom(this.userService.getAllUser()).then(result => {
-      this.users = result
+      this.users = res[1]
       this.userSize = this.users.length
-    })
-  }
-
-  getAllJobs() {
-    firstValueFrom(this.jobService.getAll()).then(result => {
-      this.jobs = result;
+      this.jobs = res[2]
       this.jobSize = this.jobs.length
-    })
-  }
-
-  getAllBenefits() {
-    firstValueFrom(this.benefitService.getAll()).then(result => {
-      this.benefits = result;
+      this.benefits = res[3]
       this.benefitSize = this.benefits.length
-    })
-  }
-
-  getAllQuestions() {
-    firstValueFrom(this.questionService.getAll()).then(result => {
-      this.questions = result;
+      this.questions = res[4]
       this.questionSize = this.questions.length
-    })
-  }
-
-  getAllCandidates() {
-    firstValueFrom(this.candidateService.getAll()).then(result => {
-      this.candidates = result
+      this.candidates = res[5]
       this.candidateSize = this.candidates.length
     })
   }
+
+  // getCompanies() {
+  //   firstValueFrom(this.companyService.getAll()).then(result => {
+  //     this.companies = result
+  //     this.companySize = this.companies.length
+  //   })
+  // }
+
+  // getUsers() {
+  //   firstValueFrom(this.userService.getAllUser()).then(result => {
+  //     this.users = result
+  //     this.userSize = this.users.length
+  //   })
+  // }
+
+  // getAllJobs() {
+  //   firstValueFrom(this.jobService.getAll()).then(result => {
+  //     this.jobs = result;
+  //     this.jobSize = this.jobs.length
+  //   })
+  // }
+
+  // getAllBenefits() {
+  //   firstValueFrom(this.benefitService.getAll()).then(result => {
+  //     this.benefits = result;
+  //     this.benefitSize = this.benefits.length
+  //   })
+  // }
+
+  // getAllQuestions() {
+  //   firstValueFrom(this.questionService.getAll()).then(result => {
+  //     this.questions = result;
+  //     this.questionSize = this.questions.length
+  //   })
+  // }
+
+  // getAllCandidates() {
+  //   firstValueFrom(this.candidateService.getAll()).then(result => {
+  //     this.candidates = result
+  //     this.candidateSize = this.candidates.length
+  //   })
+  // }
 
 }
