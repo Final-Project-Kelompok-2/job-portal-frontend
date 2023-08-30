@@ -132,6 +132,7 @@
     <!-- Modal Form Insert Interview -->
     <p-dialog header="Interview Form" [breakpoints]="{ '960px': '75vw' }" [style]="{ width: '50vw' }" [modal]="true"
       [(visible)]="interviewForm">
+      <pre>{{ interviewReqDto.value | json }}</pre>
       <form [formGroup]="interviewReqDto" (ngSubmit)="interviewSubmit()">
         <div class="p-formgrid grid assesment align-items-center">
           <div class="col-12 md:col-4">
@@ -150,13 +151,13 @@
             <label for="date">Date <span class="text-red-500">*</span></label>
           </div>
           <div class="col-12 md:col-8">
-            <p-calendar [inline]="true" inputId="date" [required]="true" formControlName="interviewDateTemp" [showIcon]="true"
+            <p-calendar [inline]="true" inputId="date" [required]="true" [showTime]="true" [showSeconds]="true" formControlName="interviewDateTemp" [showIcon]="true"
             dateFormat="dd/mm/yy" inputStyleClass="w-full" styleClass="w-full"></p-calendar>
             <span class="text-red-500 ml-2" *ngIf="
-            interviewReqDto.get('interviewDate')!.invalid &&
-            !interviewReqDto.get('interviewDate')!.value &&
-            (interviewReqDto.get('interviewDate')!.dirty ||
-              interviewReqDto.get('interviewDate')!.touched)
+            interviewReqDto.get('interviewDateTemp')!.invalid &&
+            !interviewReqDto.get('interviewDateTemp')!.value &&
+            (interviewReqDto.get('interviewDateTemp')!.dirty ||
+              interviewReqDto.get('interviewDateTemp')!.touched)
           ">Input can't be empty</span>
           </div>
           <app-button backgroundColor="var(--PRIMARY)" [loading]="loading" typeBtn="submit" label="Add"

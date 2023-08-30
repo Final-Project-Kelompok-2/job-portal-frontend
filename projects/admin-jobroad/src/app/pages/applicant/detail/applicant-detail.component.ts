@@ -82,7 +82,7 @@ export class ApplicantDetailComponent implements OnInit {
         applicantId: [null, Validators.required],
         applicantCode: [null],
         statusCode: [null],
-        interviewDate: [null, Validators.required],
+        interviewDate: ['', Validators.required],
         interviewDateTemp: new FormControl<Date | null>(null),
         interviewLocation: [null, Validators.required]
     })
@@ -154,8 +154,16 @@ export class ApplicantDetailComponent implements OnInit {
       this.assesmentReqDto.get('assesmentDateTemp')?.valueChanges.subscribe(res => {
         const restemp = res as any
         if (restemp instanceof Date) {
-          const newDate = convertUTCToLocalDate(res as any)
+          const newDate = convertUTCToLocalDateTimeISO(res as any)
           this.assesmentReqDto.get('assesmentDate')?.setValue(newDate)
+        }
+      })
+
+      this.interviewReqDto.get('interviewDateTemp')?.valueChanges.subscribe(res => {
+        const restemp = res as any
+        if (restemp instanceof Date) {
+          const newDate = convertUTCToLocalDateTimeISO(res as any)
+          this.interviewReqDto.get('interviewDate')?.setValue(newDate)
         }
       })
 
@@ -501,6 +509,11 @@ export class ApplicantDetailComponent implements OnInit {
 const convertUTCToLocalDate = function (date: Date) {
     const newDate = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate(), date.getHours(), date.getMinutes(), date.getSeconds()));
     return newDate.toISOString().split('T')[0]
+}
+
+const convertUTCToLocalDateTimeISO = function (date: any) {
+  const newDate = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate(), date.getHours(), date.getMinutes(), date.getSeconds()));
+  return newDate.toISOString()
 }
 
 
