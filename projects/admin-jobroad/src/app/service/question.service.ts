@@ -24,7 +24,7 @@ export class QuestionService{
     }
 
     getById(id : string) : Observable<QuestionResDto>{
-        return this.base.get<QuestionResDto>(`${BASE_URL}/questions/filter?id=${id}`);
+        return this.base.getWithoutPipe<QuestionResDto>(`${BASE_URL}/questions/filter?id=${id}`);
     }
 
     update(data : QuestionUpdateReqDto) : Observable<UpdateResDto>{

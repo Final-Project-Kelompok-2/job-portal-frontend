@@ -10,6 +10,6 @@ import { BASE_URL } from "../constant/api.constant";
 export class EmploymentTypeService{
     constructor(private base : BaseService){}
     getAll() : Observable<EmployementTypeResDto[]>{
-        return this.base.get<EmployementTypeResDto[]>(`${BASE_URL}/employment-types`);
+        return this.base.getWithoutPipe<EmployementTypeResDto[]>(`${BASE_URL}/employment-types`);
     }
 }

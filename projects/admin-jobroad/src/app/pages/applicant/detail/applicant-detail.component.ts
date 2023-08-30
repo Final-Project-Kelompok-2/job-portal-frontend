@@ -149,6 +149,10 @@ export class ApplicantDetailComponent implements OnInit {
 
 
     ngOnInit(): void {
+
+
+        
+
         firstValueFrom(getParams(this.activated, 0)).then(params => {
             this.jobId = params['jobId'];
             this.appId = params['applicantId'];

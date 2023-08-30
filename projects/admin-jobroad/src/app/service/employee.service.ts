@@ -11,6 +11,6 @@ export class EmployeeService{
     constructor(private base : BaseService){}
 
     getAll() : Observable<EmployeeResDto[]>{
-        return this.base.get<EmployeeResDto[]>(`${BASE_URL}/employees`)
+        return this.base.getWithoutPipe<EmployeeResDto[]>(`${BASE_URL}/employees`)
     }
 }

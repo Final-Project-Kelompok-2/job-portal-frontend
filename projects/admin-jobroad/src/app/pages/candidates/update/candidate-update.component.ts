@@ -36,6 +36,7 @@ import { FileTypeService } from "../../../service/file-type.service";
 import { FileUpload } from "primeng/fileupload";
 import { Observable, firstValueFrom } from "rxjs";
 import { CandidateProfileUpdateReqDto } from "../../../dto/candidate-profile/candidate-profile-update.req.dto";
+import { BaseService } from "../../../service/base.service";
 import { Title } from "@angular/platform-browser";
 
 interface Salutation {
@@ -279,6 +280,7 @@ export class CandidateUpdateComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private fb: NonNullableFormBuilder,
+    private base:BaseService
     private title: Title
   ) {
     this.title.setTitle("Update Candidate")
@@ -366,6 +368,95 @@ export class CandidateUpdateComponent implements OnInit {
 
     firstValueFrom(getParams(this.route, 0)).then((res) => {
       this.candidateId = res['id']
+
+      this.base.all([
+        this.candidateService.getCandidateUserById(this.candidateId)
+      ]).then(res => {
+        this.candidateUser = res[0]
+
+        if (this.candidateUser?.fileId) {
+          this.imageUrl = `http://localhost:8080/files/${this.candidateUser?.fileId}`
+        } else {
+          this.imageUrl = '../../../assets/emptyProfile.jpeg'
+        }
+
+        this.candidateUpdateInsertReqDto.patchValue({
+          id: res[0].id,
+          userEmail: res[0].userEmail,
+          profile: {
+            id: res[0].id,
+            salutation: res[0].salutation,
+            fullname: res[0].fullname,
+            gender: res[0].gender,
+            experience: res[0].experience,
+            expectedSalary: Number(res[0].expectedSalary),
+            phoneNumber: res[0].phoneNumber,
+            mobileNumber: res[0].mobileNumber,
+            nik: res[0].nik,
+            birthDate: res[0].birthDate,
+            birthDateTemp: new Date(res[0].birthDate),
+            birthPlace: res[0].birthPlace,
+            maritalStatusId: res[0].maritalStatusId,
+            religionId: res[0].religionId,
+            personTypeId: res[0].personTypeId,
+            fileId: res[0].fileId,
+            file: '',
+            fileExtension: '',
+            candidateStatusId: res[0].candidateStatusId
+          }
+        })
+
+        this.addressInsertReqDto.patchValue({
+          candidateId: res[0].id,
+          email: res[0].userEmail
+        })
+
+        this.educationInsertReqDto.patchValue({
+          candidateId: res[0].id,
+          email: res[0].userEmail
+        })
+
+        this.workingInsertReqDto.patchValue({
+          candidateId: res[0].id,
+          email: res[0].userEmail
+        })
+
+        this.trainingInsertReqDto.patchValue({
+          email: res[0].userEmail
+        })
+
+        this.projectInsertReqDto.patchValue({
+          candidateId: res[0].id,
+          email: res[0].userEmail
+        })
+
+        this.skillInsertReqDto.patchValue({
+          candidateId: res[0].id,
+          email: res[0].userEmail
+        })
+
+        this.languageInsertReqDto.patchValue({
+          email: res[0].userEmail
+        })
+
+        this.familyInsertReqDto.patchValue({
+          email: res[0].userEmail
+        })
+
+        this.referenceInsertReqDto.patchValue({
+          candidateEmail: res[0].userEmail
+        })
+
+        this.documentInsertReqDto.patchValue({
+          candidateId: res[0].id,
+          email: res[0].userEmail
+        })
+
+
+
+
+      })
+
       this.candidateUserProfile()
       this.candidateUserAddresses()
       this.candidateUserEducations()
@@ -377,6 +468,8 @@ export class CandidateUpdateComponent implements OnInit {
       this.candidateUserFamilies()
       this.candidateUserReferences()
       this.candidateUserDocuments()
+
+
     })
 
     firstValueFrom(this.religionService.getAll()).then((res) => {

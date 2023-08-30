@@ -17,6 +17,6 @@ export class McuService{
     }
 
     getByApplicant(id : string) : Observable<McuResDto[]>{
-        return this.base.get<McuResDto[]>(`${BASE_URL}/mcus?applicantId=${id}`);
+        return this.base.getWithoutPipe<McuResDto[]>(`${BASE_URL}/mcus?applicantId=${id}`);
     }
 }

@@ -12,12 +12,12 @@ import { QuestionOptionUpdateReqDto } from "../dto/question-option/question-opti
 export class QuestionOptionService{
     constructor(private base : BaseService){}
     getByQuestion(id : string) : Observable<QuestionOptionResDto[]> {
-        return this.base.get<QuestionOptionResDto[]>(`${BASE_URL}/options?id=${id}`);
+        return this.base.getWithoutPipe<QuestionOptionResDto[]>(`${BASE_URL}/options?id=${id}`);
     }
     updateOption(data : QuestionOptionUpdateReqDto) : Observable<UpdateResDto>{
         return this.base.patch<UpdateResDto>(`${BASE_URL}/options`,data);
     }
     getById(id : string)  : Observable<QuestionOptionResDto> {
-        return this.base.get<QuestionOptionResDto>(`${BASE_URL}/options/detail?id=${id}`);
+        return this.base.getWithoutPipe<QuestionOptionResDto>(`${BASE_URL}/options/detail?id=${id}`);
     }
 }

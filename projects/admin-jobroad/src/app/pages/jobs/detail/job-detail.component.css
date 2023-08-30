@@ -16,15 +16,28 @@ bottom: 0;
 left: 0;
 right: 0;
 }
-.profile-picture{
 
+.profile-picture{
 position: absolute;
-top: 50%;
+top: 55%;
 left: 50%;
 transform: translate(-50%, -50%);
 border: 5px double #756d6d;
-
+/* width: 250px; */
 }
+
+@media (max-width: 600px) {
+  .profile-picture{
+    position: absolute;
+    top: 42%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: 5px double #756d6d;
+    /* width: 250px; */
+    }
+}
+
+
 .banner{
 position: relative;
 width: 100%;

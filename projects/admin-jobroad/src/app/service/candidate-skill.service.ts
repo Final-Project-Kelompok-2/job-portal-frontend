@@ -16,7 +16,7 @@ import { DeleteResDto } from "../dto/delete.res.dto";
 export class CandidateSkillService{
     constructor(private base : BaseService){}
     getByCandidate(id : string) : Observable<CandidateSkillResDto[]>{
-        return this.base.get<CandidateSkillResDto[]>(`${BASE_URL}/candidate-skills?id=${id}`);
+        return this.base.getWithoutPipe<CandidateSkillResDto[]>(`${BASE_URL}/candidate-skills?id=${id}`);
 
     }
 
