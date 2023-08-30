@@ -3,6 +3,8 @@ import { JobService } from "../../service/job.service";
 import { JobResDto } from "../../dto/job/job.res.dto";
 import { AuthService } from "../../service/auth.service";
 import { Router } from "@angular/router";
+import { Title } from "@angular/platform-browser";
+
 
 @Component({
   selector: "dashboard",
@@ -13,7 +15,14 @@ export class DashboardComponent implements OnInit {
   name = ''
   responsiveOptions: any[] | undefined;
 
-  constructor(private jobService: JobService, private auth: AuthService, private router:Router) { }
+  constructor(private jobService: JobService,
+    private auth: AuthService,
+    private router: Router,
+    private title: Title
+  ) {
+    this.title.setTitle("Dashboard")
+
+  }
 
   visible: boolean = false;
   isLogin: boolean = false
@@ -27,7 +36,7 @@ export class DashboardComponent implements OnInit {
       this.name = profile.fullName
     }
 
-    if(!profile?.nik){
+    if (!profile?.nik) {
       this.visible = true
     }
 

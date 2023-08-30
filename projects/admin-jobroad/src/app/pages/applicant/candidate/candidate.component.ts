@@ -25,6 +25,7 @@ import { CandidateTrainingResDto } from "../../../dto/candidate-training/candida
 import { CandidateWorkResDto } from "../../../dto/candidate-work/candidate-work.res.dto";
 import { ApplicantResDto } from "../../../dto/applicant/applicant.res.dto";
 import { ApplicantService } from "../../../service/applicant.service";
+import { Title } from "@angular/platform-browser";
 
 function getParams(activatedRoute: ActivatedRoute, parentLevel?: number): Observable<Params> {
     let route = activatedRoute
@@ -70,9 +71,10 @@ export class ApplicantCandidateDetailComponent implements OnInit {
         private candidateTrainingExpService: CandidateTrainingExpService,
         private candidateWorkExpService: CandidateWorkExpService,
         private applicantService: ApplicantService,
-        private activated: ActivatedRoute
+        private activated: ActivatedRoute,
+        private title: Title
     ) {
-
+        this.title.setTitle("Application Detail")
     }
     ngOnInit(): void {
         firstValueFrom(this.activated.params).then(params => {
@@ -84,10 +86,6 @@ export class ApplicantCandidateDetailComponent implements OnInit {
             })
 
         })
-
-
-
-
     }
 
     getCandidateData() {
@@ -109,42 +107,42 @@ export class ApplicantCandidateDetailComponent implements OnInit {
                 this.candidateEducations = res
             })
 
-            firstValueFrom(this.candidateFamilyService.getByCandidate(this.candidateId))
+        firstValueFrom(this.candidateFamilyService.getByCandidate(this.candidateId))
             .then((res) => {
                 this.candidateFamilies = res
             })
 
-            firstValueFrom(this.candidateLanguageService.getByCandidate(this.candidateId))
+        firstValueFrom(this.candidateLanguageService.getByCandidate(this.candidateId))
             .then((res) => {
                 this.candidateLanguages = res
             })
 
-            firstValueFrom(this.candidateProjectExpService.getByCandidate(this.candidateId))
+        firstValueFrom(this.candidateProjectExpService.getByCandidate(this.candidateId))
             .then((res) => {
                 this.candidateProjects = res
             })
 
-            firstValueFrom(this.candidateReferenceService.getByCandidate(this.candidateId))
+        firstValueFrom(this.candidateReferenceService.getByCandidate(this.candidateId))
             .then((res) => {
                 this.candidateReferences = res
             })
 
-            firstValueFrom( this.candidateSkillService.getByCandidate(this.candidateId))
+        firstValueFrom(this.candidateSkillService.getByCandidate(this.candidateId))
             .then((res) => {
                 this.candidateSkills = res
             })
 
-            firstValueFrom(this.candidateTrainingExpService.getByCandidate(this.candidateId))
+        firstValueFrom(this.candidateTrainingExpService.getByCandidate(this.candidateId))
             .then((res) => {
                 this.candidateTrainings = res
             })
 
-            firstValueFrom(this.candidateWorkExpService.getByCandidate(this.candidateId))
+        firstValueFrom(this.candidateWorkExpService.getByCandidate(this.candidateId))
             .then((res) => {
                 this.candidateWorks = res
             })
 
-            firstValueFrom(this.candidateDocumentService.getByCandidate(this.candidateId))
+        firstValueFrom(this.candidateDocumentService.getByCandidate(this.candidateId))
             .then((res) => {
                 this.candidateDocuments = res
             })

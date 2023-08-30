@@ -3,6 +3,7 @@ import { NonNullableFormBuilder, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
 import { CandidateUserService } from "../../../service/candidate-user.service";
 import { firstValueFrom } from "rxjs";
+import { Title } from "@angular/platform-browser";
 
 
 @Component({
@@ -20,9 +21,10 @@ export class ChangePasswordComponent implements OnInit {
   })
 
   constructor(private fb: NonNullableFormBuilder, private router: Router,
-    private candidateUserService: CandidateUserService
+    private candidateUserService: CandidateUserService,
+    private title: Title
   ) {
-
+    this.title.setTitle("Change Password")
   }
 
   ngOnInit(): void {

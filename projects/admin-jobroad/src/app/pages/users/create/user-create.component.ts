@@ -9,6 +9,7 @@ import { RoleResDto } from "../../../dto/role/role.res.dto";
 import { PersonTypeService } from "../../../service/person-type.service";
 import { PersonTypeResDto } from "../../../dto/person-type/person-type.res.dto";
 import { firstValueFrom } from "rxjs";
+import { Title } from "@angular/platform-browser";
 
 
 @Component({
@@ -30,8 +31,14 @@ export class UserCreateComponent implements OnInit, AfterViewChecked {
     extensionName: ['']
   })
 
-  constructor(private router: Router, private roleService: RoleService, private fb: NonNullableFormBuilder, private userService: UserService, private cd: ChangeDetectorRef, private typeService: PersonTypeService) {
-
+  constructor(private router: Router,
+    private roleService: RoleService,
+    private fb: NonNullableFormBuilder,
+    private userService: UserService,
+    private cd: ChangeDetectorRef,
+    private typeService: PersonTypeService,
+    private title: Title) {
+    this.title.setTitle("Create New User")
   }
 
   ngOnInit(): void {

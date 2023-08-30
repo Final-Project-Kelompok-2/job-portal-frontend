@@ -25,6 +25,7 @@ import { CandidateTrainingResDto } from "../../../dto/candidate-training/candida
 import { CandidateWorkResDto } from "../../../dto/candidate-work/candidate-work.res.dto";
 import { BaseService } from "../../../service/base.service";
 import { BASE_URL } from "../../../constant/api.constant";
+import { Title } from "@angular/platform-browser";
 
 function getParams(activatedRoute: ActivatedRoute, parentLevel?: number): Observable<Params> {
   let route = activatedRoute
@@ -71,8 +72,9 @@ export class CandidateDetailComponent implements OnInit {
     private candidateWorkExpService: CandidateWorkExpService,
     private route: ActivatedRoute, private base:BaseService,
     private router:Router
+    private title: Title
   ) {
-
+    this.title.setTitle("Candidate Detail")
   }
 
   ngOnInit(): void {

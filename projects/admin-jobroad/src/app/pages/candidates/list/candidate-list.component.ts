@@ -4,6 +4,7 @@ import { CandidateUserResDto } from "../../../dto/candidate-user/candidate-user.
 import { CandidateUserService } from "../../../service/candidate-user.service";
 import { firstValueFrom } from "rxjs";
 import { BaseService } from "../../../service/base.service";
+import { Title } from "@angular/platform-browser";
 
 @Component({
   selector: 'candidate-list',
@@ -14,8 +15,10 @@ export class CandidateListComponent implements OnInit {
   loading = false
   candidates!: CandidateUserResDto[]
 
-  constructor(private candidateService: CandidateUserService, private base: BaseService) {
-
+  constructor(private candidateService: CandidateUserService,
+    private base: BaseService,
+    private title: Title) {
+    this.title.setTitle("Candidate List")
   }
   ngOnInit(): void {
 

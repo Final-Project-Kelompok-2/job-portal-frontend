@@ -37,6 +37,7 @@ import { FileUpload } from "primeng/fileupload";
 import { Observable, firstValueFrom } from "rxjs";
 import { CandidateProfileUpdateReqDto } from "../../../dto/candidate-profile/candidate-profile-update.req.dto";
 import { BaseService } from "../../../service/base.service";
+import { Title } from "@angular/platform-browser";
 
 interface Salutation {
   value: string;
@@ -280,8 +281,9 @@ export class CandidateUpdateComponent implements OnInit {
     private route: ActivatedRoute,
     private fb: NonNullableFormBuilder,
     private base:BaseService
+    private title: Title
   ) {
-
+    this.title.setTitle("Update Candidate")
   }
 
   ngOnInit(): void {
@@ -511,8 +513,8 @@ export class CandidateUpdateComponent implements OnInit {
     ]
   }
 
-  checkForm(form : FormGroup){
-    if(form.invalid){
+  checkForm(form: FormGroup) {
+    if (form.invalid) {
       return form.markAllAsTouched()
     }
   }
@@ -605,52 +607,6 @@ export class CandidateUpdateComponent implements OnInit {
             candidateStatusId: res.candidateStatusId
           }
         })
-
-        this.addressInsertReqDto.patchValue({
-          candidateId: res.id,
-          email: res.userEmail
-        })
-
-        this.educationInsertReqDto.patchValue({
-          candidateId: res.id,
-          email: res.userEmail
-        })
-
-        this.workingInsertReqDto.patchValue({
-          candidateId: res.id,
-          email: res.userEmail
-        })
-
-        this.trainingInsertReqDto.patchValue({
-          email: res.userEmail
-        })
-
-        this.projectInsertReqDto.patchValue({
-          candidateId: res.id,
-          email: res.userEmail
-        })
-
-        this.skillInsertReqDto.patchValue({
-          candidateId: res.id,
-          email: res.userEmail
-        })
-
-        this.languageInsertReqDto.patchValue({
-          email: res.userEmail
-        })
-
-        this.familyInsertReqDto.patchValue({
-          email: res.userEmail
-        })
-
-        this.referenceInsertReqDto.patchValue({
-          candidateEmail: res.userEmail
-        })
-
-        this.documentInsertReqDto.patchValue({
-          candidateId: res.id,
-          email: res.userEmail
-        })
       })
   }
 
@@ -725,6 +681,7 @@ export class CandidateUpdateComponent implements OnInit {
   }
 
   showAddAddress() {
+    this.candidateProfileInfo()
     this.dialogAddress = true;
   }
 
@@ -734,6 +691,7 @@ export class CandidateUpdateComponent implements OnInit {
   }
 
   showAddEducation() {
+    this.candidateProfileInfo()
     this.dialogEducation = true;
   }
 
@@ -743,6 +701,7 @@ export class CandidateUpdateComponent implements OnInit {
   }
 
   showAddFamily() {
+    this.candidateProfileInfo()
     this.dialogFamily = true;
   }
 
@@ -752,6 +711,7 @@ export class CandidateUpdateComponent implements OnInit {
   }
 
   showAddSkill() {
+    this.candidateProfileInfo()
     this.dialogSkill = true;
   }
 
@@ -761,6 +721,7 @@ export class CandidateUpdateComponent implements OnInit {
   }
 
   showAddLanguage() {
+    this.candidateProfileInfo()
     this.dialogLanguage = true;
   }
 
@@ -770,6 +731,7 @@ export class CandidateUpdateComponent implements OnInit {
   }
 
   showAddReference() {
+    this.candidateProfileInfo()
     this.dialogReference = true;
   }
 
@@ -779,6 +741,7 @@ export class CandidateUpdateComponent implements OnInit {
   }
 
   showAddWorking() {
+    this.candidateProfileInfo()
     this.dialogWorking = true;
   }
 
@@ -788,6 +751,7 @@ export class CandidateUpdateComponent implements OnInit {
   }
 
   showAddTraining() {
+    this.candidateProfileInfo()
     this.dialogTraining = true;
   }
 
@@ -797,6 +761,7 @@ export class CandidateUpdateComponent implements OnInit {
   }
 
   showAddProject() {
+    this.candidateProfileInfo()
     this.dialogProject = true;
   }
 
@@ -806,6 +771,7 @@ export class CandidateUpdateComponent implements OnInit {
   }
 
   showAddDocuments() {
+    this.candidateProfileInfo()
     this.dialogDocument = true;
   }
 

@@ -5,6 +5,7 @@ import { BenefitService } from "../../../service/benefit.service";
 import { FormGroup, NonNullableFormBuilder, Validators } from "@angular/forms";
 import { Subscription, firstValueFrom } from "rxjs";
 import { BaseService } from "../../../service/base.service";
+import { Title } from "@angular/platform-browser";
 
 @Component({
   selector: 'benefit-list',
@@ -20,7 +21,10 @@ export class BenefitListComponent implements OnInit {
     benefitName: [null, [Validators.required]]
   })
   constructor(private benefitService: BenefitService, private fb: NonNullableFormBuilder,
-    private base : BaseService) { }
+    private base: BaseService, private title: Title) {
+    this.title.setTitle("Benefit List")
+  }
+
   ngOnInit(): void {
 
     this.base.all([
@@ -30,8 +34,8 @@ export class BenefitListComponent implements OnInit {
     })
   }
 
-  checkForm(form : FormGroup){
-    if(form.invalid){
+  checkForm(form: FormGroup) {
+    if (form.invalid) {
       form.markAllAsTouched()
     }
   }

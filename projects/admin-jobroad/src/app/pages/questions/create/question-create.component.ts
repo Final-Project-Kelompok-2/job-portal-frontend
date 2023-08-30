@@ -5,6 +5,7 @@ import { QuestionInsertReqDto } from "../../../dto/question/question-insert.req.
 import { QuestionOptionInsertReqDto } from "../../../dto/question-option/question-option-insert.req.dto";
 import { QuestionService } from "../../../service/question.service";
 import { firstValueFrom } from "rxjs";
+import { Title } from "@angular/platform-browser";
 
 @Component({
   selector: 'question-create',
@@ -33,14 +34,15 @@ export class QuestionCreateComponent implements OnInit {
       newQuestions: this.fb.array(this.questionInsertDto)
     }
   )
-  
+
   constructor(private fb: NonNullableFormBuilder,
     // private questionTypeService: QuestionTypeService,
     // private topicService: QuestionTopicService,
     // private packageService: QuestionPackageService,
     private questionService: QuestionService,
-    private router: Router) {
-
+    private router: Router,
+    private title: Title) {
+    this.title.setTitle("Create New Question")
   }
 
   ngOnInit(): void {

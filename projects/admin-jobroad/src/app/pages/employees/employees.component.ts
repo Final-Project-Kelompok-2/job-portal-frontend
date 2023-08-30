@@ -5,6 +5,7 @@ import { NonNullableFormBuilder, Validators } from "@angular/forms";
 import { BlacklistService } from "../../service/blacklist.service";
 import { firstValueFrom } from "rxjs";
 import { BaseService } from "../../service/base.service";
+import { Title } from "@angular/platform-browser";
 
 @Component({
   selector: 'employees',
@@ -26,7 +27,9 @@ export class EmployeesComponent implements OnInit {
   constructor(private employeeService: EmployeeService,
     private fb: NonNullableFormBuilder,
     private blacklistService: BlacklistService,
-    private base: BaseService) {
+    private base: BaseService,
+    private title: Title) {
+    this.title.setTitle("Employee List")
   }
 
   showDialog(candidateEmail: string) {

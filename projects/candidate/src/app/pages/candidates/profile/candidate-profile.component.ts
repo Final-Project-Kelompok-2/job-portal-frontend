@@ -23,6 +23,7 @@ import { CandidateSkillService } from "../../../service/candidate-skill.service"
 import { CandidateTrainingExpService } from "../../../service/candidate-training-exp.service";
 import { CandidateWorkExpService } from "../../../service/candidate-work-exp.service";
 import { firstValueFrom } from "rxjs";
+import { Title } from "@angular/platform-browser";
 
 @Component({
   selector: 'candidate-profile',
@@ -58,7 +59,10 @@ export class CandidateProfileComponent implements OnInit {
     private candidateSkillService: CandidateSkillService,
     private candidateTrainingExpService: CandidateTrainingExpService,
     private candidateWorkExpService: CandidateWorkExpService,
-  ) { }
+    private title: Title
+  ) {
+    this.title.setTitle("Profile")
+  }
 
   ngOnInit(): void {
     const profile = this.authService.getProfile()

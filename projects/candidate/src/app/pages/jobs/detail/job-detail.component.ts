@@ -7,6 +7,7 @@ import { firstValueFrom } from "rxjs";
 import { CandidateUserService } from "../../../service/candidate-user.service";
 import { CandidateCheckDataResDto } from "../../../dto/candidate/candidate-check-data.res.dto";
 import { ApplicantResDto } from "../../../dto/applicant/applicant.res.dto";
+import { Title } from "@angular/platform-browser";
 
 @Component({
     selector: 'job-detail',
@@ -22,21 +23,24 @@ export class JobDetailComponent implements OnInit {
     isValid!: CandidateCheckDataResDto
     askToProfile: boolean = false
     appliedJob!: ApplicantResDto[];
-    applied = true;
+    applied = false;
     label = "Apply Job";
     constructor(private activated: ActivatedRoute,
         private jobService: JobService,
         private applicantService: ApplicantService,
         private router: Router,
-        private candidateService: CandidateUserService
-    ) { }
+        private candidateService: CandidateUserService,
+        private title: Title
+    ) {
+        this.title.setTitle("Job Detail")
+    }
 
     ngOnInit(): void {
         firstValueFrom(this.activated.params).then(result => {
             const id = result["id"]
             this.jobId = id
             this.getJobDetail(this.jobId)
-            
+
 
         })
     }

@@ -8,6 +8,7 @@ import { ActivatedRoute } from "@angular/router";
 import { Table } from "primeng/table";
 import { HiringStatusEnum } from "../../../constant/hiring-status.constant";
 import { BaseService } from "../../../service/base.service";
+import { Title } from "@angular/platform-browser";
 
 @Component({
   selector: 'job-detail',
@@ -15,8 +16,8 @@ import { BaseService } from "../../../service/base.service";
   styleUrls: ['./job-detail.component.css']
 })
 export class JobDetailComponent implements OnInit, OnDestroy {
-  imageUrlBanner! : string
-  imageUrlCompany! : string
+  imageUrlBanner!: string
+  imageUrlCompany!: string
   job?: JobResDto;
   applicant!: ApplicantResDto[];
   jobSubscription!: Subscription
@@ -30,6 +31,12 @@ export class JobDetailComponent implements OnInit, OnDestroy {
     private applicantService: ApplicantService
     , private activated: ActivatedRoute,
     private base:BaseService) { }
+    private title: Title) {
+
+    this.title.setTitle("Job Detail")
+  }
+
+
 
   ngOnInit(): void {
     
