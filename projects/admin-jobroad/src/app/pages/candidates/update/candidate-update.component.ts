@@ -370,7 +370,8 @@ export class CandidateUpdateComponent implements OnInit {
       this.candidateId = res['id']
 
       this.base.all([
-        this.candidateService.getCandidateUserById(this.candidateId)
+        this.candidateService.getCandidateUserById(this.candidateId),
+        this.candidateAddressService.getByCandidate(this.candidateId)
       ]).then(res => {
         this.candidateUser = res[0]
 
@@ -457,7 +458,7 @@ export class CandidateUpdateComponent implements OnInit {
 
       })
 
-      this.candidateUserProfile()
+      // this.candidateUserProfile()
       this.candidateUserAddresses()
       this.candidateUserEducations()
       this.candidateUserWorkings()
@@ -519,96 +520,96 @@ export class CandidateUpdateComponent implements OnInit {
     }
   }
 
-  candidateProfileInfo() {
-    return this.candidateService.getCandidateUserById(this.candidateId)
-      .subscribe((res) => {
+  // candidateProfileInfo() {
+  //   return this.candidateService.getCandidateUserById(this.candidateId)
+  //     .subscribe((res) => {
 
-        this.addressInsertReqDto.patchValue({
-          candidateId: res.id,
-          email: res.userEmail
-        })
+  //       this.addressInsertReqDto.patchValue({
+  //         candidateId: res.id,
+  //         email: res.userEmail
+  //       })
 
-        this.educationInsertReqDto.patchValue({
-          candidateId: res.id,
-          email: res.userEmail
-        })
+  //       this.educationInsertReqDto.patchValue({
+  //         candidateId: res.id,
+  //         email: res.userEmail
+  //       })
 
-        this.workingInsertReqDto.patchValue({
-          candidateId: res.id,
-          email: res.userEmail
-        })
+  //       this.workingInsertReqDto.patchValue({
+  //         candidateId: res.id,
+  //         email: res.userEmail
+  //       })
 
-        this.trainingInsertReqDto.patchValue({
-          email: res.userEmail
-        })
+  //       this.trainingInsertReqDto.patchValue({
+  //         email: res.userEmail
+  //       })
 
-        this.projectInsertReqDto.patchValue({
-          candidateId: res.id,
-          email: res.userEmail
-        })
+  //       this.projectInsertReqDto.patchValue({
+  //         candidateId: res.id,
+  //         email: res.userEmail
+  //       })
 
-        this.skillInsertReqDto.patchValue({
-          candidateId: res.id,
-          email: res.userEmail
-        })
+  //       this.skillInsertReqDto.patchValue({
+  //         candidateId: res.id,
+  //         email: res.userEmail
+  //       })
 
-        this.languageInsertReqDto.patchValue({
-          email: res.userEmail
-        })
+  //       this.languageInsertReqDto.patchValue({
+  //         email: res.userEmail
+  //       })
 
-        this.familyInsertReqDto.patchValue({
-          email: res.userEmail
-        })
+  //       this.familyInsertReqDto.patchValue({
+  //         email: res.userEmail
+  //       })
 
-        this.referenceInsertReqDto.patchValue({
-          email: res.userEmail
-        })
+  //       this.referenceInsertReqDto.patchValue({
+  //         email: res.userEmail
+  //       })
 
-        this.documentInsertReqDto.patchValue({
-          candidateId: res.id,
-          email: res.userEmail
-        })
-      })
-  }
+  //       this.documentInsertReqDto.patchValue({
+  //         candidateId: res.id,
+  //         email: res.userEmail
+  //       })
+  //     })
+  // }
 
-  candidateUserProfile() {
-    return firstValueFrom(this.candidateService.getCandidateUserById(this.candidateId))
-      .then((res) => {
-        this.candidateUser = res
+  // candidateUserProfile() {
+  //   return firstValueFrom(this.candidateService.getCandidateUserById(this.candidateId))
+  //     .then((res) => {
+  //       this.candidateUser = res
 
-        if (this.candidateUser?.fileId) {
-          this.imageUrl = `http://localhost:8080/files/${this.candidateUser?.fileId}`
-        } else {
-          this.imageUrl = '../../../assets/emptyProfile.jpeg'
-        }
+  //       if (this.candidateUser?.fileId) {
+  //         this.imageUrl = `http://localhost:8080/files/${this.candidateUser?.fileId}`
+  //       } else {
+  //         this.imageUrl = '../../../assets/emptyProfile.jpeg'
+  //       }
 
-        this.candidateUpdateInsertReqDto.patchValue({
-          id: res.id,
-          userEmail: res.userEmail,
-          profile: {
-            id: res.id,
-            salutation: res.salutation,
-            fullname: res.fullname,
-            gender: res.gender,
-            experience: res.experience,
-            expectedSalary: Number(res.expectedSalary),
-            phoneNumber: res.phoneNumber,
-            mobileNumber: res.mobileNumber,
-            nik: res.nik,
-            birthDate: res.birthDate,
-            birthDateTemp: new Date(res.birthDate),
-            birthPlace: res.birthPlace,
-            maritalStatusId: res.maritalStatusId,
-            religionId: res.religionId,
-            personTypeId: res.personTypeId,
-            fileId: res.fileId,
-            file: '',
-            fileExtension: '',
-            candidateStatusId: res.candidateStatusId
-          }
-        })
-      })
-  }
+  //       this.candidateUpdateInsertReqDto.patchValue({
+  //         id: res.id,
+  //         userEmail: res.userEmail,
+  //         profile: {
+  //           id: res.id,
+  //           salutation: res.salutation,
+  //           fullname: res.fullname,
+  //           gender: res.gender,
+  //           experience: res.experience,
+  //           expectedSalary: Number(res.expectedSalary),
+  //           phoneNumber: res.phoneNumber,
+  //           mobileNumber: res.mobileNumber,
+  //           nik: res.nik,
+  //           birthDate: res.birthDate,
+  //           birthDateTemp: new Date(res.birthDate),
+  //           birthPlace: res.birthPlace,
+  //           maritalStatusId: res.maritalStatusId,
+  //           religionId: res.religionId,
+  //           personTypeId: res.personTypeId,
+  //           fileId: res.fileId,
+  //           file: '',
+  //           fileExtension: '',
+  //           candidateStatusId: res.candidateStatusId
+  //         }
+  //       })
+  //     })
+  // }
 
   candidateUserAddresses() {
     return firstValueFrom(this.candidateAddressService.getByCandidate(this.candidateId))
@@ -681,7 +682,56 @@ export class CandidateUpdateComponent implements OnInit {
   }
 
   showAddAddress() {
-    this.candidateProfileInfo()
+    this.base.all([
+      this.candidateService.getCandidateUserById(this.candidateId)
+    ]).then(res => {
+      this.addressInsertReqDto.patchValue({
+        candidateId: res[0].id,
+        email: res[0].userEmail
+      })
+
+      this.educationInsertReqDto.patchValue({
+        candidateId: res[0].id,
+        email: res[0].userEmail
+      })
+
+      this.workingInsertReqDto.patchValue({
+        candidateId: res[0].id,
+        email: res[0].userEmail
+      })
+
+      this.trainingInsertReqDto.patchValue({
+        email: res[0].userEmail
+      })
+
+      this.projectInsertReqDto.patchValue({
+        candidateId: res[0].id,
+        email: res[0].userEmail
+      })
+
+      this.skillInsertReqDto.patchValue({
+        candidateId: res[0].id,
+        email: res[0].userEmail
+      })
+
+      this.languageInsertReqDto.patchValue({
+        email: res[0].userEmail
+      })
+
+      this.familyInsertReqDto.patchValue({
+        email: res[0].userEmail
+      })
+
+      this.referenceInsertReqDto.patchValue({
+        email: res[0].userEmail
+      })
+
+      this.documentInsertReqDto.patchValue({
+        candidateId: res[0].id,
+        email: res[0].userEmail
+      })
+    })
+
     this.dialogAddress = true;
   }
 
@@ -691,7 +741,55 @@ export class CandidateUpdateComponent implements OnInit {
   }
 
   showAddEducation() {
-    this.candidateProfileInfo()
+    this.base.all([
+      this.candidateService.getCandidateUserById(this.candidateId)
+    ]).then(res => {
+      this.addressInsertReqDto.patchValue({
+        candidateId: res[0].id,
+        email: res[0].userEmail
+      })
+
+      this.educationInsertReqDto.patchValue({
+        candidateId: res[0].id,
+        email: res[0].userEmail
+      })
+
+      this.workingInsertReqDto.patchValue({
+        candidateId: res[0].id,
+        email: res[0].userEmail
+      })
+
+      this.trainingInsertReqDto.patchValue({
+        email: res[0].userEmail
+      })
+
+      this.projectInsertReqDto.patchValue({
+        candidateId: res[0].id,
+        email: res[0].userEmail
+      })
+
+      this.skillInsertReqDto.patchValue({
+        candidateId: res[0].id,
+        email: res[0].userEmail
+      })
+
+      this.languageInsertReqDto.patchValue({
+        email: res[0].userEmail
+      })
+
+      this.familyInsertReqDto.patchValue({
+        email: res[0].userEmail
+      })
+
+      this.referenceInsertReqDto.patchValue({
+        email: res[0].userEmail
+      })
+
+      this.documentInsertReqDto.patchValue({
+        candidateId: res[0].id,
+        email: res[0].userEmail
+      })
+    })
     this.dialogEducation = true;
   }
 
@@ -701,7 +799,55 @@ export class CandidateUpdateComponent implements OnInit {
   }
 
   showAddFamily() {
-    this.candidateProfileInfo()
+    this.base.all([
+      this.candidateService.getCandidateUserById(this.candidateId)
+    ]).then(res => {
+      this.addressInsertReqDto.patchValue({
+        candidateId: res[0].id,
+        email: res[0].userEmail
+      })
+
+      this.educationInsertReqDto.patchValue({
+        candidateId: res[0].id,
+        email: res[0].userEmail
+      })
+
+      this.workingInsertReqDto.patchValue({
+        candidateId: res[0].id,
+        email: res[0].userEmail
+      })
+
+      this.trainingInsertReqDto.patchValue({
+        email: res[0].userEmail
+      })
+
+      this.projectInsertReqDto.patchValue({
+        candidateId: res[0].id,
+        email: res[0].userEmail
+      })
+
+      this.skillInsertReqDto.patchValue({
+        candidateId: res[0].id,
+        email: res[0].userEmail
+      })
+
+      this.languageInsertReqDto.patchValue({
+        email: res[0].userEmail
+      })
+
+      this.familyInsertReqDto.patchValue({
+        email: res[0].userEmail
+      })
+
+      this.referenceInsertReqDto.patchValue({
+        email: res[0].userEmail
+      })
+
+      this.documentInsertReqDto.patchValue({
+        candidateId: res[0].id,
+        email: res[0].userEmail
+      })
+    })
     this.dialogFamily = true;
   }
 
@@ -711,7 +857,55 @@ export class CandidateUpdateComponent implements OnInit {
   }
 
   showAddSkill() {
-    this.candidateProfileInfo()
+    this.base.all([
+      this.candidateService.getCandidateUserById(this.candidateId)
+    ]).then(res => {
+      this.addressInsertReqDto.patchValue({
+        candidateId: res[0].id,
+        email: res[0].userEmail
+      })
+
+      this.educationInsertReqDto.patchValue({
+        candidateId: res[0].id,
+        email: res[0].userEmail
+      })
+
+      this.workingInsertReqDto.patchValue({
+        candidateId: res[0].id,
+        email: res[0].userEmail
+      })
+
+      this.trainingInsertReqDto.patchValue({
+        email: res[0].userEmail
+      })
+
+      this.projectInsertReqDto.patchValue({
+        candidateId: res[0].id,
+        email: res[0].userEmail
+      })
+
+      this.skillInsertReqDto.patchValue({
+        candidateId: res[0].id,
+        email: res[0].userEmail
+      })
+
+      this.languageInsertReqDto.patchValue({
+        email: res[0].userEmail
+      })
+
+      this.familyInsertReqDto.patchValue({
+        email: res[0].userEmail
+      })
+
+      this.referenceInsertReqDto.patchValue({
+        email: res[0].userEmail
+      })
+
+      this.documentInsertReqDto.patchValue({
+        candidateId: res[0].id,
+        email: res[0].userEmail
+      })
+    })
     this.dialogSkill = true;
   }
 
@@ -721,7 +915,55 @@ export class CandidateUpdateComponent implements OnInit {
   }
 
   showAddLanguage() {
-    this.candidateProfileInfo()
+    this.base.all([
+      this.candidateService.getCandidateUserById(this.candidateId)
+    ]).then(res => {
+      this.addressInsertReqDto.patchValue({
+        candidateId: res[0].id,
+        email: res[0].userEmail
+      })
+
+      this.educationInsertReqDto.patchValue({
+        candidateId: res[0].id,
+        email: res[0].userEmail
+      })
+
+      this.workingInsertReqDto.patchValue({
+        candidateId: res[0].id,
+        email: res[0].userEmail
+      })
+
+      this.trainingInsertReqDto.patchValue({
+        email: res[0].userEmail
+      })
+
+      this.projectInsertReqDto.patchValue({
+        candidateId: res[0].id,
+        email: res[0].userEmail
+      })
+
+      this.skillInsertReqDto.patchValue({
+        candidateId: res[0].id,
+        email: res[0].userEmail
+      })
+
+      this.languageInsertReqDto.patchValue({
+        email: res[0].userEmail
+      })
+
+      this.familyInsertReqDto.patchValue({
+        email: res[0].userEmail
+      })
+
+      this.referenceInsertReqDto.patchValue({
+        email: res[0].userEmail
+      })
+
+      this.documentInsertReqDto.patchValue({
+        candidateId: res[0].id,
+        email: res[0].userEmail
+      })
+    })
     this.dialogLanguage = true;
   }
 
@@ -731,7 +973,55 @@ export class CandidateUpdateComponent implements OnInit {
   }
 
   showAddReference() {
-    this.candidateProfileInfo()
+    this.base.all([
+      this.candidateService.getCandidateUserById(this.candidateId)
+    ]).then(res => {
+      this.addressInsertReqDto.patchValue({
+        candidateId: res[0].id,
+        email: res[0].userEmail
+      })
+
+      this.educationInsertReqDto.patchValue({
+        candidateId: res[0].id,
+        email: res[0].userEmail
+      })
+
+      this.workingInsertReqDto.patchValue({
+        candidateId: res[0].id,
+        email: res[0].userEmail
+      })
+
+      this.trainingInsertReqDto.patchValue({
+        email: res[0].userEmail
+      })
+
+      this.projectInsertReqDto.patchValue({
+        candidateId: res[0].id,
+        email: res[0].userEmail
+      })
+
+      this.skillInsertReqDto.patchValue({
+        candidateId: res[0].id,
+        email: res[0].userEmail
+      })
+
+      this.languageInsertReqDto.patchValue({
+        email: res[0].userEmail
+      })
+
+      this.familyInsertReqDto.patchValue({
+        email: res[0].userEmail
+      })
+
+      this.referenceInsertReqDto.patchValue({
+        email: res[0].userEmail
+      })
+
+      this.documentInsertReqDto.patchValue({
+        candidateId: res[0].id,
+        email: res[0].userEmail
+      })
+    })
     this.dialogReference = true;
   }
 
@@ -741,7 +1031,55 @@ export class CandidateUpdateComponent implements OnInit {
   }
 
   showAddWorking() {
-    this.candidateProfileInfo()
+    this.base.all([
+      this.candidateService.getCandidateUserById(this.candidateId)
+    ]).then(res => {
+      this.addressInsertReqDto.patchValue({
+        candidateId: res[0].id,
+        email: res[0].userEmail
+      })
+
+      this.educationInsertReqDto.patchValue({
+        candidateId: res[0].id,
+        email: res[0].userEmail
+      })
+
+      this.workingInsertReqDto.patchValue({
+        candidateId: res[0].id,
+        email: res[0].userEmail
+      })
+
+      this.trainingInsertReqDto.patchValue({
+        email: res[0].userEmail
+      })
+
+      this.projectInsertReqDto.patchValue({
+        candidateId: res[0].id,
+        email: res[0].userEmail
+      })
+
+      this.skillInsertReqDto.patchValue({
+        candidateId: res[0].id,
+        email: res[0].userEmail
+      })
+
+      this.languageInsertReqDto.patchValue({
+        email: res[0].userEmail
+      })
+
+      this.familyInsertReqDto.patchValue({
+        email: res[0].userEmail
+      })
+
+      this.referenceInsertReqDto.patchValue({
+        email: res[0].userEmail
+      })
+
+      this.documentInsertReqDto.patchValue({
+        candidateId: res[0].id,
+        email: res[0].userEmail
+      })
+    })
     this.dialogWorking = true;
   }
 
@@ -751,7 +1089,55 @@ export class CandidateUpdateComponent implements OnInit {
   }
 
   showAddTraining() {
-    this.candidateProfileInfo()
+    this.base.all([
+      this.candidateService.getCandidateUserById(this.candidateId)
+    ]).then(res => {
+      this.addressInsertReqDto.patchValue({
+        candidateId: res[0].id,
+        email: res[0].userEmail
+      })
+
+      this.educationInsertReqDto.patchValue({
+        candidateId: res[0].id,
+        email: res[0].userEmail
+      })
+
+      this.workingInsertReqDto.patchValue({
+        candidateId: res[0].id,
+        email: res[0].userEmail
+      })
+
+      this.trainingInsertReqDto.patchValue({
+        email: res[0].userEmail
+      })
+
+      this.projectInsertReqDto.patchValue({
+        candidateId: res[0].id,
+        email: res[0].userEmail
+      })
+
+      this.skillInsertReqDto.patchValue({
+        candidateId: res[0].id,
+        email: res[0].userEmail
+      })
+
+      this.languageInsertReqDto.patchValue({
+        email: res[0].userEmail
+      })
+
+      this.familyInsertReqDto.patchValue({
+        email: res[0].userEmail
+      })
+
+      this.referenceInsertReqDto.patchValue({
+        email: res[0].userEmail
+      })
+
+      this.documentInsertReqDto.patchValue({
+        candidateId: res[0].id,
+        email: res[0].userEmail
+      })
+    })
     this.dialogTraining = true;
   }
 
@@ -761,7 +1147,55 @@ export class CandidateUpdateComponent implements OnInit {
   }
 
   showAddProject() {
-    this.candidateProfileInfo()
+    this.base.all([
+      this.candidateService.getCandidateUserById(this.candidateId)
+    ]).then(res => {
+      this.addressInsertReqDto.patchValue({
+        candidateId: res[0].id,
+        email: res[0].userEmail
+      })
+
+      this.educationInsertReqDto.patchValue({
+        candidateId: res[0].id,
+        email: res[0].userEmail
+      })
+
+      this.workingInsertReqDto.patchValue({
+        candidateId: res[0].id,
+        email: res[0].userEmail
+      })
+
+      this.trainingInsertReqDto.patchValue({
+        email: res[0].userEmail
+      })
+
+      this.projectInsertReqDto.patchValue({
+        candidateId: res[0].id,
+        email: res[0].userEmail
+      })
+
+      this.skillInsertReqDto.patchValue({
+        candidateId: res[0].id,
+        email: res[0].userEmail
+      })
+
+      this.languageInsertReqDto.patchValue({
+        email: res[0].userEmail
+      })
+
+      this.familyInsertReqDto.patchValue({
+        email: res[0].userEmail
+      })
+
+      this.referenceInsertReqDto.patchValue({
+        email: res[0].userEmail
+      })
+
+      this.documentInsertReqDto.patchValue({
+        candidateId: res[0].id,
+        email: res[0].userEmail
+      })
+    })
     this.dialogProject = true;
   }
 
@@ -771,7 +1205,55 @@ export class CandidateUpdateComponent implements OnInit {
   }
 
   showAddDocuments() {
-    this.candidateProfileInfo()
+    this.base.all([
+      this.candidateService.getCandidateUserById(this.candidateId)
+    ]).then(res => {
+      this.addressInsertReqDto.patchValue({
+        candidateId: res[0].id,
+        email: res[0].userEmail
+      })
+
+      this.educationInsertReqDto.patchValue({
+        candidateId: res[0].id,
+        email: res[0].userEmail
+      })
+
+      this.workingInsertReqDto.patchValue({
+        candidateId: res[0].id,
+        email: res[0].userEmail
+      })
+
+      this.trainingInsertReqDto.patchValue({
+        email: res[0].userEmail
+      })
+
+      this.projectInsertReqDto.patchValue({
+        candidateId: res[0].id,
+        email: res[0].userEmail
+      })
+
+      this.skillInsertReqDto.patchValue({
+        candidateId: res[0].id,
+        email: res[0].userEmail
+      })
+
+      this.languageInsertReqDto.patchValue({
+        email: res[0].userEmail
+      })
+
+      this.familyInsertReqDto.patchValue({
+        email: res[0].userEmail
+      })
+
+      this.referenceInsertReqDto.patchValue({
+        email: res[0].userEmail
+      })
+
+      this.documentInsertReqDto.patchValue({
+        candidateId: res[0].id,
+        email: res[0].userEmail
+      })
+    })
     this.dialogDocument = true;
   }
 
