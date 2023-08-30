@@ -30,7 +30,7 @@ export class JobDetailComponent implements OnInit, OnDestroy {
   constructor(private jobService: JobService,
     private applicantService: ApplicantService
     , private activated: ActivatedRoute,
-    private base:BaseService) { }
+    private base: BaseService,
     private title: Title) {
 
     this.title.setTitle("Job Detail")
@@ -39,7 +39,7 @@ export class JobDetailComponent implements OnInit, OnDestroy {
 
 
   ngOnInit(): void {
-    
+
 
     firstValueFrom(this.activated.params).then(param => {
       this.jobSubscription = this.jobService.getByDetail(param['id']).subscribe(result => {
