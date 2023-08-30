@@ -71,7 +71,7 @@ export class CandidateDetailComponent implements OnInit {
     private candidateTrainingExpService: CandidateTrainingExpService,
     private candidateWorkExpService: CandidateWorkExpService,
     private route: ActivatedRoute, private base:BaseService,
-    private router:Router
+    private router:Router,
     private title: Title
   ) {
     this.title.setTitle("Candidate Detail")
@@ -93,6 +93,7 @@ export class CandidateDetailComponent implements OnInit {
         this.candidateWorkExpService.getByCandidate(res['id']),
         this.candidateDocumentService.getByCandidate(res['id'])
 
+
       ]).then(result => {
         this.candidateUser = result[0]
         this.candidateAddresses = result[1]
@@ -105,6 +106,12 @@ export class CandidateDetailComponent implements OnInit {
         this.candidateTrainings = result[8]
         this.candidateWorks = result[9]
         this.candidateDocuments = result[10]
+        
+        if (this.candidateUser?.fileId) {
+          this.imageUrl = `http://localhost:8080/files/${this.candidateUser?.fileId}`
+        } else {
+          this.imageUrl = '../../../assets/emptyProfile.jpeg'
+        }
 
       })
     })

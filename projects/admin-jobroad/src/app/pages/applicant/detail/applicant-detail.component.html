@@ -62,7 +62,7 @@
           </div>
           <div class="col-12 md:col-8">
             <!-- <input pInputText id="date" required type="datetime-local" formControlName="assesmentDate" /> -->
-            <p-calendar inputId="date" [required]="true" formControlName="assesmentDateTemp" [showIcon]="true"
+            <p-calendar [inline]="true" [showTime]="true" [showSeconds]="true" inputId="date" [required]="true" formControlName="assesmentDateTemp" [showIcon]="true"
             dateFormat="dd/mm/yy" inputStyleClass="w-full" styleClass="w-full"></p-calendar>
           <span class="text-red-500 ml-2" *ngIf="
             assesmentReqDto.get('assesmentDateTemp')!.invalid &&
@@ -150,7 +150,7 @@
             <label for="date">Date <span class="text-red-500">*</span></label>
           </div>
           <div class="col-12 md:col-8">
-            <p-calendar inputId="date" [required]="true" formControlName="interviewDateTemp" [showIcon]="true"
+            <p-calendar [inline]="true" inputId="date" [required]="true" formControlName="interviewDateTemp" [showIcon]="true"
             dateFormat="dd/mm/yy" inputStyleClass="w-full" styleClass="w-full"></p-calendar>
             <span class="text-red-500 ml-2" *ngIf="
             interviewReqDto.get('interviewDate')!.invalid &&
@@ -305,7 +305,7 @@
             </div>
             <div class="col-12 md:col-8">
               <!-- <input pInputText id="start-date" required type="datetime-local" formControlName="startDate" /> -->
-              <p-calendar inputId="start-date" [required]="true" [showTime]="true" [showSeconds]="true" formControlName="startDateTemp" [showIcon]="true"
+              <p-calendar [inline]="true" inputId="start-date" [required]="true" [showTime]="true" [showSeconds]="true" formControlName="startDateTemp" [showIcon]="true"
               dateFormat="dd/mm/yy" inputStyleClass="w-full" styleClass="w-full"></p-calendar>
               <span class="text-red-500 ml-2" *ngIf="
               hiringReqDto.get('startDate')!.invalid &&
@@ -321,7 +321,15 @@
                 <label for="end-date">End Date</label>
               </div>
               <div class="col-12 md:col-8">
-                <input pInputText id="end-date" type="datetime-local" formControlName="endDate" />
+                <!-- <input pInputText id="end-date" type="datetime-local" formControlName="endDate" /> -->
+                <p-calendar [inline]="true" inputId="end-date" [required]="true" [showTime]="true" [showSeconds]="true" formControlName="endDateTemp" [showIcon]="true"
+                dateFormat="dd/mm/yy" inputStyleClass="w-full" styleClass="w-full"></p-calendar>
+                <span class="text-red-500 ml-2" *ngIf="
+                hiringReqDto.get('startDate')!.invalid &&
+                !hiringReqDto.get('startDate')!.value &&
+                (hiringReqDto.get('startDate')!.dirty ||
+                  hiringReqDto.get('startDate')!.touched)
+              ">Input can't be empty</span>
               </div>
             </div>
           </div>
