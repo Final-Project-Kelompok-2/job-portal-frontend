@@ -22,7 +22,7 @@ export class JobDetailComponent implements OnInit {
     isValid!: CandidateCheckDataResDto
     askToProfile: boolean = false
     appliedJob!: ApplicantResDto[];
-    applied = true;
+    applied = false;
     label = "Apply Job";
     constructor(private activated: ActivatedRoute,
         private jobService: JobService,
