@@ -5,6 +5,7 @@ import { AuthService } from "../../../service/auth.service";
 import { SavedJobService } from "../../../service/saved-job.service";
 import { firstValueFrom } from "rxjs";
 import { BaseService } from "../../../service/base.service";
+import { Title } from "@angular/platform-browser";
 
 @Component({
   selector: "job-list",
@@ -28,8 +29,9 @@ export class JobListComponent implements OnInit {
   constructor(private jobService: JobService,
     private authService: AuthService,
     private savedJobService: SavedJobService,
-    private base: BaseService) {
-
+    private base: BaseService,
+    private pageTitle: Title) {
+    this.pageTitle.setTitle('Job List')
   }
 
   ngOnInit() {

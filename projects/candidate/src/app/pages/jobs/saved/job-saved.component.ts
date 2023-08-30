@@ -3,6 +3,7 @@ import { SavedJobService } from "../../../service/saved-job.service";
 import { SavedJobResDto } from "../../../dto/saved-job/saved-job.res.dto";
 import { Router } from "@angular/router";
 import { firstValueFrom } from "rxjs";
+import { Title } from "@angular/platform-browser";
 
 @Component({
   selector: 'job-saved',
@@ -16,8 +17,9 @@ export class JobSavedComponent implements OnInit {
 
   haveSaved = false
 
-  constructor(private savedJobService: SavedJobService, private router: Router) {
-
+  constructor(private savedJobService: SavedJobService, private router: Router,
+    private title: Title) {
+    this.title.setTitle("Saved Jobs")
   }
 
   ngOnInit(): void {
@@ -32,7 +34,7 @@ export class JobSavedComponent implements OnInit {
     })
   }
 
-  openDetail(id:string){
+  openDetail(id: string) {
     this.router.navigateByUrl(`jobs/${id}/detail`)
   }
 

@@ -56,10 +56,10 @@ const routes: Routes = [
     loadChildren: () => import('./pages/company/company.module').then(c => c.CompanyModule)
   },
   {
-    component : BaseComponent,
-    path : 'questions',
+    component: BaseComponent,
+    path: 'questions',
     // canMatch : [authValidationNonlogin],
-    loadChildren : () => import('./pages/question/question.module').then(q => q.QuestionModule)
+    loadChildren: () => import('./pages/question/question.module').then(q => q.QuestionModule)
   },
   {
     component: BaseComponent,

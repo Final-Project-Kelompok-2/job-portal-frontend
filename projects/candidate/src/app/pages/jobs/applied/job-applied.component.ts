@@ -7,6 +7,7 @@ import { firstValueFrom } from "rxjs";
 import { AssignedQuestionService } from "../../../service/assigned-job.service";
 import { AssignedJobQuestionResDto } from "../../../dto/assigned-job-question/assigned-job-question.res.dto";
 import { Router } from "@angular/router";
+import { Title } from "@angular/platform-browser";
 
 
 @Component({
@@ -19,10 +20,12 @@ export class JobAppliedComponent implements OnInit {
 
     appliedJob!: ApplicantResDto[]
     assignedQuestion!: AssignedJobQuestionResDto[];
+
     constructor(private applicantService: ApplicantService,
         private assignedQuestionService: AssignedQuestionService,
-        private router: Router) {
-
+        private router: Router,
+        private title: Title) {
+        this.title.setTitle("Applied Jobs")
     }
 
     ngOnInit(): void {

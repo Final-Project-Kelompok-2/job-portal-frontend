@@ -3,6 +3,7 @@ import { FormGroup, NonNullableFormBuilder, Validators } from "@angular/forms";
 import { CandidateUserService } from "../../service/candidate-user.service";
 import { Route, Router } from "@angular/router"
 import { firstValueFrom } from "rxjs";
+import { Title } from "@angular/platform-browser";
 
 @Component({
   selector: 'resgiter',
@@ -14,8 +15,9 @@ export class RegisterComponent {
   checkPassword = false
 
   constructor(private candidateUserService: CandidateUserService, private fb: NonNullableFormBuilder,
-    private router: Router) {
-
+    private router: Router,
+    private title: Title) {
+    this.title.setTitle("Register Account")
   }
 
   registerReqDto = this.fb.group({
@@ -55,7 +57,7 @@ export class RegisterComponent {
         this.candidateUserService.register(data).subscribe()
         this.router.navigateByUrl('/login')
       }
-      else{
+      else {
         this.checkPassword = true
       }
     }
