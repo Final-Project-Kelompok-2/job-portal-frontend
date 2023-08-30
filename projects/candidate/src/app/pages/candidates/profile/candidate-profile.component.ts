@@ -70,7 +70,7 @@ export class CandidateProfileComponent implements OnInit {
     if (profile) {
       this.candidateId = profile.userId
     }
-
+    
     this.candidateUserProfile()
     this.candidateUserAddresses()
     this.candidateUserEducations()
@@ -88,6 +88,8 @@ export class CandidateProfileComponent implements OnInit {
     return firstValueFrom(this.candidateService.getById(this.candidateId))
       .then((res) => {
         this.candidateUser = res
+
+        console.log(res)
 
         if (this.candidateUser?.candidateProfile?.fileId) {
           this.imageUrl = `http://localhost:8081/files/${this.candidateUser?.candidateProfile?.fileId}`

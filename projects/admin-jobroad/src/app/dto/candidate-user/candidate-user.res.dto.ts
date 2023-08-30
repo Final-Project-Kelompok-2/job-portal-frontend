@@ -8,7 +8,8 @@ export interface CandidateUserResDto {
 	fullname: string
 	gender: string
 	experience: string
-	expectedSalary: number
+	expectedSalary: string
+	expectedSalaryNum : number 
 	phoneNumber: string
 	mobileNumber: string
 	nik: string

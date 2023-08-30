@@ -390,7 +390,7 @@ export class CandidateUpdateComponent implements OnInit {
             fullname: res[0].fullname,
             gender: res[0].gender,
             experience: res[0].experience,
-            expectedSalary: Number(res[0].expectedSalary),
+            expectedSalary: Number(res[0].expectedSalaryNum),
             phoneNumber: res[0].phoneNumber,
             mobileNumber: res[0].mobileNumber,
             nik: res[0].nik,
