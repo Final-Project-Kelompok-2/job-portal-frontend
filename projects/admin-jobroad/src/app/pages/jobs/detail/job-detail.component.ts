@@ -39,8 +39,6 @@ export class JobDetailComponent implements OnInit, OnDestroy {
     this.title.setTitle("Job Detail")
   }
 
-
-
   ngOnInit(): void {
 
 
