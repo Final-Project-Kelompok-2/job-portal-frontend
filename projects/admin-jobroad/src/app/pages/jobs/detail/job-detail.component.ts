@@ -35,6 +35,7 @@ export class JobDetailComponent implements OnInit, OnDestroy {
     private title: Title
   ) {
 
+
     this.title.setTitle("Job Detail")
   }
 
