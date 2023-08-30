@@ -36,7 +36,6 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { FileUpload } from "primeng/fileupload";
 import { AuthService } from "../../../service/auth.service";
 import { CandidateStatusService } from "../../../service/candidate-status.service";
-import { Title } from "@angular/platform-browser";
 
 interface Salutation {
   value: string;
@@ -273,12 +272,8 @@ export class CandidateUpdateComponent implements OnInit {
     private candidateWorkExpService: CandidateWorkExpService,
     private router: Router,
     private route: ActivatedRoute,
-    private fb: NonNullableFormBuilder,
-    private title: Title
-  ) {
-    this.title.setTitle("Update Profile")
-
-  }
+    private fb: NonNullableFormBuilder
+  ) { }
 
   ngOnInit(): void {
 
@@ -418,8 +413,8 @@ export class CandidateUpdateComponent implements OnInit {
 
   }
 
-  checkForm(form: FormGroup) {
-    if (form.invalid) {
+  checkForm(form : FormGroup){
+    if(form.invalid){
       return form.markAllAsTouched()
     }
   }

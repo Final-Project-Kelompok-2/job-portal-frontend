@@ -27,16 +27,17 @@ export class JobDetailComponent implements OnInit, OnDestroy {
   reject = HiringStatusEnum.REJECT;
   hired = HiringStatusEnum.HIRED;
 
-  constructor(private jobService: JobService,
-    private applicantService: ApplicantService
-    , private activated: ActivatedRoute,
+  constructor(
+    private jobService: JobService,
+    private applicantService: ApplicantService,
+    private activated: ActivatedRoute,
     private base: BaseService,
-    private title: Title) {
+    private title: Title
+  ) {
+
 
     this.title.setTitle("Job Detail")
   }
-
-
 
   ngOnInit(): void {
 
