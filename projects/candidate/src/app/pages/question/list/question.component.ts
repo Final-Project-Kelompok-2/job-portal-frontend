@@ -10,6 +10,7 @@ import { AnswerService } from "../../../service/question-answer.service";
 import { AuthService } from "../../../service/auth.service";
 import { testValidation } from "../../../validation/auth.validation";
 import { QuestionAnswerResDto } from "../../../dto/question-answer/question-answer.res.dto";
+import { Title } from "@angular/platform-browser";
 
 @Component({
     selector: 'question',
@@ -34,7 +35,10 @@ export class QuestionComponent implements OnInit, AfterViewChecked {
         private cd: ChangeDetectorRef,
         private answerService: AnswerService,
         private route: Router,
-        private authService: AuthService,) { }
+        private authService: AuthService,
+        private title: Title) {
+        this.title.setTitle("Question List")
+    }
     ngOnInit(): void {
 
         firstValueFrom(this.activated.params).then(params => {
@@ -63,8 +67,8 @@ export class QuestionComponent implements OnInit, AfterViewChecked {
             if (this.candidateAnswer[0].id != null) {
                 this.route.navigateByUrl('/landing');
 
-            } 
-        }).catch(()=>{
+            }
+        }).catch(() => {
             firstValueFrom(this.questionService.getByApplicant(this.appCode)).then(result => {
                 this.question = result;
                 console.log('Question = ', this.question.length)

@@ -3,6 +3,7 @@ import { NonNullableFormBuilder, Validators } from "@angular/forms";
 import { LoginService } from "../../service/login.service";
 import { Router } from "@angular/router";
 import { ɵparseCookieValue } from "@angular/common";
+import { Title } from "@angular/platform-browser";
 
 
 @Component({
@@ -10,7 +11,7 @@ import { ɵparseCookieValue } from "@angular/common";
     templateUrl: "./login.component.html",
     styleUrls: ['./login.component.css']
 })
-export class LoginComponent  {
+export class LoginComponent {
 
     testVal = localStorage.getItem('q')
     appId = localStorage.getItem('code')
@@ -20,8 +21,10 @@ export class LoginComponent  {
 
     constructor(private fb: NonNullableFormBuilder,
         private loginService: LoginService,
-        private router: Router) {
+        private router: Router,
+        private title: Title) {
 
+        this.title.setTitle("Login")
     }
 
 
@@ -46,7 +49,7 @@ export class LoginComponent  {
                     localStorage.setItem('data', JSON.stringify(result))
                     if (this.testVal != null) {
                         if (this.testVal == 'true') {
-                            console.log('testval ==  '+this.testVal);
+                            console.log('testval ==  ' + this.testVal);
                             // localStorage.setItem('q','false')
                             this.router.navigateByUrl(`/questions/${this.appId}`)
                         } else {

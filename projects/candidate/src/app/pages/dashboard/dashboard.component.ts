@@ -18,7 +18,8 @@ export class DashboardComponent implements OnInit {
   constructor(private jobService: JobService,
     private auth: AuthService,
     private router: Router,
-    private title: Title) {
+    private title: Title
+  ) {
     this.title.setTitle("Dashboard")
 
   }
