@@ -36,6 +36,7 @@ import { FileTypeService } from "../../../service/file-type.service";
 import { FileUpload } from "primeng/fileupload";
 import { Observable, firstValueFrom } from "rxjs";
 import { CandidateProfileUpdateReqDto } from "../../../dto/candidate-profile/candidate-profile-update.req.dto";
+import { Title } from "@angular/platform-browser";
 
 interface Salutation {
   value: string;
@@ -277,9 +278,10 @@ export class CandidateUpdateComponent implements OnInit {
     private candidateWorkExpService: CandidateWorkExpService,
     private router: Router,
     private route: ActivatedRoute,
-    private fb: NonNullableFormBuilder
+    private fb: NonNullableFormBuilder,
+    private title: Title
   ) {
-
+    this.title.setTitle("Update Candidate")
   }
 
   ngOnInit(): void {
@@ -418,8 +420,8 @@ export class CandidateUpdateComponent implements OnInit {
     ]
   }
 
-  checkForm(form : FormGroup){
-    if(form.invalid){
+  checkForm(form: FormGroup) {
+    if (form.invalid) {
       return form.markAllAsTouched()
     }
   }
@@ -475,7 +477,7 @@ export class CandidateUpdateComponent implements OnInit {
         })
       })
   }
-  
+
   candidateUserProfile() {
     return firstValueFrom(this.candidateService.getCandidateUserById(this.candidateId))
       .then((res) => {

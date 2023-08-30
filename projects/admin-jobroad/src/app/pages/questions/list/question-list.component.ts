@@ -7,6 +7,7 @@ import { FormArray, NonNullableFormBuilder, Validators } from "@angular/forms";
 import { QuestionOptionService } from "../../../service/question-option.service";
 import { QuestionOptionResDto } from "../../../dto/question-option/question-option.res.dto";
 import { BaseService } from "../../../service/base.service";
+import { Title } from "@angular/platform-browser";
 
 
 @Component({
@@ -41,7 +42,9 @@ export class QuestionListComponent implements OnInit, AfterViewChecked {
 
   constructor(private questionService: QuestionService, private fb: NonNullableFormBuilder,
     private questionOptionService: QuestionOptionService, private cd: ChangeDetectorRef,
-    private base: BaseService) { }
+    private base: BaseService, private title: Title) {
+    this.title.setTitle("Question List")
+  }
 
   ngOnInit(): void {
     // this.getQuestion();

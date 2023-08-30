@@ -16,6 +16,7 @@ import { QuestionService } from "../../../service/question.service";
 import { FileUpload } from "primeng/fileupload";
 import { RoleCodeEnum } from "../../../constant/user-role.constant";
 import { Subscription, firstValueFrom } from "rxjs";
+import { Title } from "@angular/platform-browser";
 
 @Component({
   selector: 'job-create',
@@ -27,9 +28,9 @@ export class JobCreateComponent implements OnInit, OnDestroy {
     jobName: ['', Validators.required],
     companyId: ['', Validators.required],
     startDate: ['', Validators.required],
-    startDateTemp:  new FormControl<Date | null>(null),
+    startDateTemp: new FormControl<Date | null>(null),
     endDate: ['', Validators.required],
-    endDateTemp:  new FormControl<Date | null>(null),
+    endDateTemp: new FormControl<Date | null>(null),
     description: ['', Validators.required],
     hrId: ['', Validators.required],
     picId: ['', Validators.required],
@@ -38,8 +39,8 @@ export class JobCreateComponent implements OnInit, OnDestroy {
     employmentTypeId: ['', Validators.required],
     benefits: this.fb.array([]),
     questions: this.fb.array([]),
-    file: ['',Validators.required],
-    fileExtension: ['',Validators.required]
+    file: ['', Validators.required],
+    fileExtension: ['', Validators.required]
   });
   hr!: UserResDto[];
   hrSubscription!: Subscription;
@@ -53,10 +54,14 @@ export class JobCreateComponent implements OnInit, OnDestroy {
   benefitSubscription!: Subscription;
   question!: QuestionResDto[];
   questionSubscription!: Subscription;
+
   constructor(private jobService: JobService, private fb: NonNullableFormBuilder,
     private router: Router, private userService: UserService, private employmentTypeService: EmploymentTypeService,
     private companyService: CompanyService, private benefitService: BenefitService,
-    private questionService: QuestionService) { }
+    private questionService: QuestionService,
+    private title: Title) {
+    this.title.setTitle("Create New Job")
+  }
 
   ngOnInit(): void {
 
@@ -114,8 +119,8 @@ export class JobCreateComponent implements OnInit, OnDestroy {
   onSubmit() {
     const data = this.jobReqDto.getRawValue();
 
-    if(this.jobReqDto.valid){
-      firstValueFrom(this.jobService.create(data)).then(()=>{
+    if (this.jobReqDto.valid) {
+      firstValueFrom(this.jobService.create(data)).then(() => {
         this.router.navigateByUrl('/jobs')
       });
 

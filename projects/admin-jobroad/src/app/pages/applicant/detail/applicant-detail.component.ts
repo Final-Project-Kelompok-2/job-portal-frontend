@@ -24,6 +24,7 @@ import { employmentTypeEnum } from "../../../constant/employment-type.constant";
 import { BenefitService } from "../../../service/benefit.service";
 import { AuthService } from "../../../service/auth.service";
 import { RoleCodeEnum } from "../../../constant/user-role.constant";
+import { Title } from "@angular/platform-browser";
 
 @Component({
     selector: 'applicant-detail',
@@ -128,8 +129,11 @@ export class ApplicantDetailComponent implements OnInit {
         private offeringService: OfferingService,
         private hiredService: HiredService,
         private reviewService: ReviewService,
-        private authService : AuthService
-    ) { }
+        private authService: AuthService,
+
+    ) {
+
+    }
 
     onActiveIndexChange(event: number) {
         this.activeIndex = event;
@@ -170,14 +174,14 @@ export class ApplicantDetailComponent implements OnInit {
                     this.activeIndex = 3
                 } else if (this.applicant.statusCode == HiringStatusEnum.OFFERING) {
                     this.activeIndex = 4
-                    
+
                 } else {
                     this.activeIndex = 0
                 }
             })
             firstValueFrom(this.jobService.getByDetail(this.jobId)).then(result => {
                 this.job = result;
-                console.log('job name =>  ',this.job.employementTypeName);
+                console.log('job name =>  ', this.job.employementTypeName);
                 firstValueFrom(this.userService.getById(this.job.picId)).then(result => {
                     this.pic = result;
                 })
@@ -212,15 +216,15 @@ export class ApplicantDetailComponent implements OnInit {
 
     }
 
-    get isHr(){
+    get isHr() {
         return this.authService.getProfile()?.roleCode == RoleCodeEnum.HR
     }
 
-    get isPic(){
+    get isPic() {
         return this.authService.getProfile()?.roleCode == RoleCodeEnum.PIC
     }
 
-    get isAdmin(){
+    get isAdmin() {
         return this.authService.getProfile()?.roleCode == RoleCodeEnum.ADMIN
     }
 
@@ -350,10 +354,10 @@ export class ApplicantDetailComponent implements OnInit {
 
     }
 
-    checkForm(form:FormGroup){
-      if(form.invalid){
-        form.markAllAsTouched()
-      }
+    checkForm(form: FormGroup) {
+        if (form.invalid) {
+            form.markAllAsTouched()
+        }
     }
 
     getReviewData() {
@@ -419,7 +423,7 @@ export class ApplicantDetailComponent implements OnInit {
                 this.mcuDataListReqDto.push(this.fb.control({
                     fileName: result.substring(result.indexOf(",") + 1, result.length),
                     fileExtension: file.name.substring(file.name.indexOf(".") + 1, file.name.length),
-                    name : file.name
+                    name: file.name
                 })
                 )
             })
@@ -429,8 +433,8 @@ export class ApplicantDetailComponent implements OnInit {
     fileRemove(event: any) {
         let length = this.mcuDataListReqDto.length
         let file = event.file
-        for(let i = 0 ; i < length ; i++){
-            if(file.name == this.mcuDataListReqDto.at(i)?.value.name){
+        for (let i = 0; i < length; i++) {
+            if (file.name == this.mcuDataListReqDto.at(i)?.value.name) {
                 this.mcuDataListReqDto.removeAt(i);
                 break;
             }
@@ -438,7 +442,7 @@ export class ApplicantDetailComponent implements OnInit {
 
     }
 
-    fileCancel(){
+    fileCancel() {
         this.mcuDataListReqDto.clear();
     }
 
@@ -485,8 +489,8 @@ export class ApplicantDetailComponent implements OnInit {
 }
 
 const convertUTCToLocalDate = function (date: Date) {
-  const newDate = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate(), date.getHours(), date.getMinutes(), date.getSeconds()));
-  return newDate.toISOString().split('T')[0]
+    const newDate = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate(), date.getHours(), date.getMinutes(), date.getSeconds()));
+    return newDate.toISOString().split('T')[0]
 }
 
 

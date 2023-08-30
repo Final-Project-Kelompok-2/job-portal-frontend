@@ -7,6 +7,7 @@ import { Subscription, firstValueFrom } from "rxjs";
 import { ActivatedRoute } from "@angular/router";
 import { Table } from "primeng/table";
 import { HiringStatusEnum } from "../../../constant/hiring-status.constant";
+import { Title } from "@angular/platform-browser";
 
 @Component({
   selector: 'job-detail',
@@ -14,8 +15,8 @@ import { HiringStatusEnum } from "../../../constant/hiring-status.constant";
   styleUrls: ['./job-detail.component.css']
 })
 export class JobDetailComponent implements OnInit, OnDestroy {
-  imageUrlBanner! : string
-  imageUrlCompany! : string
+  imageUrlBanner!: string
+  imageUrlCompany!: string
   job?: JobResDto;
   applicant!: ApplicantResDto[];
   jobSubscription!: Subscription
@@ -25,7 +26,14 @@ export class JobDetailComponent implements OnInit, OnDestroy {
   reject = HiringStatusEnum.REJECT;
   hired = HiringStatusEnum.HIRED;
   constructor(private jobService: JobService,
-    private applicantService: ApplicantService, private activated: ActivatedRoute) { }
+    private applicantService: ApplicantService, private activated: ActivatedRoute,
+    private title: Title) {
+
+    this.title.setTitle("Job Detail")
+  }
+
+
+
   ngOnInit(): void {
     firstValueFrom(this.activated.params).then(param => {
       this.jobSubscription = this.jobService.getByDetail(param['id']).subscribe(result => {

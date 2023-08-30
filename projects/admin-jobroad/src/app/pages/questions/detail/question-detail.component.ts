@@ -4,6 +4,7 @@ import { firstValueFrom } from "rxjs";
 import { QuestionOptionService } from "../../../service/question-option.service";
 import { ActivatedRoute } from "@angular/router";
 import { NonNullableFormBuilder, Validators } from "@angular/forms";
+import { Title } from "@angular/platform-browser";
 
 
 @Component({
@@ -36,7 +37,10 @@ export class QuestionDetailComponent implements OnInit {
 
     modal = false;
     constructor(private questionOptionService: QuestionOptionService,
-        private activated: ActivatedRoute, private fb: NonNullableFormBuilder) { }
+        private activated: ActivatedRoute, private fb: NonNullableFormBuilder,
+        private title: Title) {
+        this.title.setTitle("Question Detail")
+    }
 
     ngOnInit(): void {
         firstValueFrom(this.activated.params).then(param => {
