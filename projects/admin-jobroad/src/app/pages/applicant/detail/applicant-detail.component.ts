@@ -151,7 +151,13 @@ export class ApplicantDetailComponent implements OnInit {
     ngOnInit(): void {
 
 
-        
+      this.assesmentReqDto.get('assesmentDateTemp')?.valueChanges.subscribe(res => {
+        const restemp = res as any
+        if (restemp instanceof Date) {
+          const newDate = convertUTCToLocalDate(res as any)
+          this.assesmentReqDto.get('assesmentDate')?.setValue(newDate)
+        }
+      })
 
         firstValueFrom(getParams(this.activated, 0)).then(params => {
             this.jobId = params['jobId'];
