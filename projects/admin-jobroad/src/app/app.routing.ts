@@ -93,6 +93,13 @@ const routes: Routes = [
   }
   ,
   {
+    component : BaseComponent,
+    path : 'reports',
+    canMatch : [authValidationNonLogin],
+    data : [RoleCodeEnum.ADMIN],
+    loadChildren : ()=> import('./pages/report/report.module').then (r => r.ReportModule)
+  },
+  {
     path: '',
     redirectTo: '/login',
     pathMatch: 'full'
