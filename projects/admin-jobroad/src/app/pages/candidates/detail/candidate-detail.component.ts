@@ -70,8 +70,8 @@ export class CandidateDetailComponent implements OnInit {
     private candidateSkillService: CandidateSkillService,
     private candidateTrainingExpService: CandidateTrainingExpService,
     private candidateWorkExpService: CandidateWorkExpService,
-    private route: ActivatedRoute, private base:BaseService,
-    private router:Router
+    private route: ActivatedRoute, private base: BaseService,
+    private router: Router,
     private title: Title
   ) {
     this.title.setTitle("Candidate Detail")
@@ -111,7 +111,7 @@ export class CandidateDetailComponent implements OnInit {
 
   }
 
-  downloadFile(id:string){
+  downloadFile(id: string) {
     window.open(`http://localhost:8080/files/${id}`)
   }
 }

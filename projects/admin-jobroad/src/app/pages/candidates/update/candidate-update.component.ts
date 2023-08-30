@@ -280,7 +280,7 @@ export class CandidateUpdateComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private fb: NonNullableFormBuilder,
-    private base:BaseService
+    private base: BaseService,
     private title: Title
   ) {
     this.title.setTitle("Update Candidate")
