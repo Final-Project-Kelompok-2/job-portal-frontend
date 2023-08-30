@@ -26,125 +26,139 @@ import { CandidateWorkResDto } from "../../../dto/candidate-work/candidate-work.
 import { ApplicantResDto } from "../../../dto/applicant/applicant.res.dto";
 import { ApplicantService } from "../../../service/applicant.service";
 import { Title } from "@angular/platform-browser";
+import { BaseService } from "../../../service/base.service";
 
 function getParams(activatedRoute: ActivatedRoute, parentLevel?: number): Observable<Params> {
-    let route = activatedRoute
-    if (parentLevel) {
-        for (let i = 0; i < parentLevel; i++) {
-            if (route.parent) {
-                route = route.parent
-            }
-        }
+  let route = activatedRoute
+  if (parentLevel) {
+    for (let i = 0; i < parentLevel; i++) {
+      if (route.parent) {
+        route = route.parent
+      }
     }
-    return route.params
+  }
+  return route.params
 }
 @Component({
-    selector: 'candidate-detail',
-    templateUrl: './candidate.component.html',
-    styleUrls: ['./candidate.component.css']
+  selector: 'candidate-detail',
+  templateUrl: './candidate.component.html',
+  styleUrls: ['./candidate.component.css']
 })
 export class ApplicantCandidateDetailComponent implements OnInit {
-    loading = false
-    candidateUser?: CandidateUserResDto
-    candidateAddresses?: CandidateAddressResDto[]
-    candidateDocuments!: CandidateDocumentResDto[]
-    candidateEducations!: CandidateEducationResDto[]
-    candidateFamilies!: CandidateFamilyResDto[]
-    candidateLanguages!: CandidateLanguageResDto[]
-    candidateProjects!: CandidateProjectResDto[]
-    candidateReferences!: CandidateReferencesResDto[]
-    candidateSkills!: CandidateSkillResDto[]
-    candidateTrainings!: CandidateTrainingResDto[]
-    candidateWorks!: CandidateWorkResDto[]
-    candidateId!: string;
-    applicant!: ApplicantResDto;
-    constructor(
-        private candidateService: CandidateUserService,
-        private candidateAddressService: CandidateAddressService,
-        private candidateDocumentService: CandidateDocumentService,
-        private candidateEducationService: CandidateEducationService,
-        private candidateFamilyService: CandidateFamilyService,
-        private candidateLanguageService: CandidateLanguageService,
-        private candidateProjectExpService: CandidateProjectExpService,
-        private candidateReferenceService: CandidateReferenceService,
-        private candidateSkillService: CandidateSkillService,
-        private candidateTrainingExpService: CandidateTrainingExpService,
-        private candidateWorkExpService: CandidateWorkExpService,
-        private applicantService: ApplicantService,
-        private activated: ActivatedRoute,
-        private title: Title
-    ) {
-        this.title.setTitle("Application Detail")
-    }
-    ngOnInit(): void {
-        firstValueFrom(this.activated.params).then(params => {
-            firstValueFrom(this.applicantService.getById(params['applicantId'])).then(result => {
-                console.log(result)
-                this.applicant = result
-                console.log(this.applicant)
-                this.getCandidateData();
-            })
+  loading = false
+  imageUrl!: string
+  candidateUser?: CandidateUserResDto
+  candidateAddresses?: CandidateAddressResDto[]
+  candidateDocuments!: CandidateDocumentResDto[]
+  candidateEducations!: CandidateEducationResDto[]
+  candidateFamilies!: CandidateFamilyResDto[]
+  candidateLanguages!: CandidateLanguageResDto[]
+  candidateProjects!: CandidateProjectResDto[]
+  candidateReferences!: CandidateReferencesResDto[]
+  candidateSkills!: CandidateSkillResDto[]
+  candidateTrainings!: CandidateTrainingResDto[]
+  candidateWorks!: CandidateWorkResDto[]
+  candidateId!: string;
+  applicant!: ApplicantResDto;
+  constructor(
+    private candidateService: CandidateUserService,
+    private candidateAddressService: CandidateAddressService,
+    private candidateDocumentService: CandidateDocumentService,
+    private candidateEducationService: CandidateEducationService,
+    private candidateFamilyService: CandidateFamilyService,
+    private candidateLanguageService: CandidateLanguageService,
+    private candidateProjectExpService: CandidateProjectExpService,
+    private candidateReferenceService: CandidateReferenceService,
+    private candidateSkillService: CandidateSkillService,
+    private candidateTrainingExpService: CandidateTrainingExpService,
+    private candidateWorkExpService: CandidateWorkExpService,
+    private applicantService: ApplicantService,
+    private activated: ActivatedRoute,
+    private title: Title,
+    private base: BaseService
+  ) {
+    this.title.setTitle("Application Detail")
+  }
+  ngOnInit(): void {
+    firstValueFrom(this.activated.params).then(params => {
+      firstValueFrom(this.applicantService.getById(params['applicantId'])).then(result => {
+        console.log(result)
+        this.applicant = result
+        console.log(this.applicant)
+        this.getCandidateData();
+      })
 
-        })
-    }
+    })
+  }
 
-    getCandidateData() {
-        console.log("Applicant => ", this.applicant)
-        this.candidateId = this.applicant.candidateId;
-        console.log("Candidate Id => ", this.applicant?.candidateId)
-        firstValueFrom(this.candidateService.getCandidateUserById(this.candidateId))
-            .then((res) => {
-                this.candidateUser = res
-            })
+  getCandidateData() {
+    console.log("Applicant => ", this.applicant)
+    this.candidateId = this.applicant.candidateId;
+    console.log("Candidate Id => ", this.applicant?.candidateId)
+    firstValueFrom(this.candidateService.getCandidateUserById(this.candidateId))
+      .then((res) => {
+        this.candidateUser = res
 
-        firstValueFrom(this.candidateAddressService.getByCandidate(this.candidateId))
-            .then((res) => {
-                this.candidateAddresses = res
-            })
+        if (this.candidateUser?.fileId) {
+          this.imageUrl = `http://localhost:8080/files/${this.candidateUser?.fileId}`
+        } else {
+          this.imageUrl = '../../../assets/emptyProfile.jpeg'
+        }
+      })
 
-        firstValueFrom(this.candidateEducationService.getByCandidate(this.candidateId))
-            .then((res) => {
-                this.candidateEducations = res
-            })
+    firstValueFrom(this.candidateAddressService.getByCandidate(this.candidateId))
+      .then((res) => {
+        this.candidateAddresses = res
+      })
 
-        firstValueFrom(this.candidateFamilyService.getByCandidate(this.candidateId))
-            .then((res) => {
-                this.candidateFamilies = res
-            })
+    firstValueFrom(this.candidateEducationService.getByCandidate(this.candidateId))
+      .then((res) => {
+        this.candidateEducations = res
+      })
 
-        firstValueFrom(this.candidateLanguageService.getByCandidate(this.candidateId))
-            .then((res) => {
-                this.candidateLanguages = res
-            })
+    firstValueFrom(this.candidateFamilyService.getByCandidate(this.candidateId))
+      .then((res) => {
+        this.candidateFamilies = res
+      })
 
-        firstValueFrom(this.candidateProjectExpService.getByCandidate(this.candidateId))
-            .then((res) => {
-                this.candidateProjects = res
-            })
+    firstValueFrom(this.candidateLanguageService.getByCandidate(this.candidateId))
+      .then((res) => {
+        this.candidateLanguages = res
+      })
 
-        firstValueFrom(this.candidateReferenceService.getByCandidate(this.candidateId))
-            .then((res) => {
-                this.candidateReferences = res
-            })
+    firstValueFrom(this.candidateProjectExpService.getByCandidate(this.candidateId))
+      .then((res) => {
+        this.candidateProjects = res
+      })
 
-        firstValueFrom(this.candidateSkillService.getByCandidate(this.candidateId))
-            .then((res) => {
-                this.candidateSkills = res
-            })
+    firstValueFrom(this.candidateReferenceService.getByCandidate(this.candidateId))
+      .then((res) => {
+        this.candidateReferences = res
+      })
 
-        firstValueFrom(this.candidateTrainingExpService.getByCandidate(this.candidateId))
-            .then((res) => {
-                this.candidateTrainings = res
-            })
+    firstValueFrom(this.candidateSkillService.getByCandidate(this.candidateId))
+      .then((res) => {
+        this.candidateSkills = res
+      })
 
-        firstValueFrom(this.candidateWorkExpService.getByCandidate(this.candidateId))
-            .then((res) => {
-                this.candidateWorks = res
-            })
+    firstValueFrom(this.candidateTrainingExpService.getByCandidate(this.candidateId))
+      .then((res) => {
+        this.candidateTrainings = res
+      })
 
-        firstValueFrom(this.candidateDocumentService.getByCandidate(this.candidateId))
-            .then((res) => {
-                this.candidateDocuments = res
-            })
-    }
+    firstValueFrom(this.candidateWorkExpService.getByCandidate(this.candidateId))
+      .then((res) => {
+        this.candidateWorks = res
+      })
+
+    firstValueFrom(this.candidateDocumentService.getByCandidate(this.candidateId))
+      .then((res) => {
+        this.candidateDocuments = res
+      })
+
+  }
+  
+  downloadFile(id: string) {
+    window.open(`http://localhost:8080/files/${id}`)
+  }
 }

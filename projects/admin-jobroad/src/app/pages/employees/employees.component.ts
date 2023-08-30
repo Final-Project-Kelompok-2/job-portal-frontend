@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { EmployeeService } from "../../service/employee.service";
 import { EmployeeResDto } from "../../dto/employee/employee.res.dto";
-import { NonNullableFormBuilder, Validators } from "@angular/forms";
+import { FormGroup, NonNullableFormBuilder, Validators } from "@angular/forms";
 import { BlacklistService } from "../../service/blacklist.service";
 import { firstValueFrom } from "rxjs";
 import { BaseService } from "../../service/base.service";
@@ -58,7 +58,11 @@ export class EmployeesComponent implements OnInit {
 
   }
 
-
+  checkForm(form: FormGroup) {
+    if (form.invalid) {
+      form.markAllAsTouched()
+    }
+  }
 
   onSubmit() {
     if (this.blacklistReqDto.valid) {
