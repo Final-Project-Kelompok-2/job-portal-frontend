@@ -84,15 +84,21 @@
 
     <div class="grid">
       <div class="col-12 md:col-6">
-        Blacklist Reason :
+        Blacklist Reason  <span class="text-red-500">*</span> :
       </div>
     </div>
     <div class="grid">
       <div class="col-12 md:col-6">
         <textarea rows="5" cols="30" pInputTextarea formControlName="notes"></textarea>
+        <span class="text-red-500 ml-2" *ngIf="
+        blacklistReqDto.get('notes')!.invalid &&
+        !blacklistReqDto.get('notes')!.value &&
+        (blacklistReqDto.get('notes')!.dirty ||
+          blacklistReqDto.get('notes')!.touched)
+      ">Input can't be empty</span>
       </div>
     </div>
-    <app-button typeBtn="submit" label="Submit"></app-button>
+    <app-button backgroundColor="var(--PRIMARY)" typeBtn="submit" label="Submit" (clickChange)="checkForm(blacklistReqDto)"></app-button>
   </form>
 
 </p-dialog>

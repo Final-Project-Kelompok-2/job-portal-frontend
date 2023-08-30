@@ -1,6 +1,6 @@
 <div class="grid">
   <div class="col-12 mt-3">
-    <p-card>
+    <p-card header="Application Progress">
       <p-steps [model]="status" [readonly]="false" [activeIndex]="activeIndex"
         (activeIndexChange)="onActiveIndexChange($event)"></p-steps>
     </p-card>
@@ -9,29 +9,29 @@
     <app-button iconBtn="pi pi-angle-left" type="button" label="Job Detail" class="mr-2" classBtn="p-button-secondary"
       link="/jobs/detail/{{jobId}}">
     </app-button>
-    <app-button *ngIf="isApplied && (isHr || isAdmin)" type="button" label="Assesment" (click)="assesmentClick()"
+    <app-button backgroundColor="var(--PRIMARY)" *ngIf="isApplied && (isHr || isAdmin)" type="button" label="Assesment" (click)="assesmentClick()"
       class="mr-2" classBtn="p-button-primary"></app-button>
 
-    <app-button *ngIf="isAssesment && isHr" type="button" label="Update Notes" (click)="assesmentNoteClick()"
+    <app-button backgroundColor="var(--PRIMARY)" *ngIf="isAssesment && isHr" type="button" label="Update Notes" (click)="assesmentNoteClick()"
       class="mr-2" classBtn="p-button-secondary mt-2"></app-button>
-    <app-button *ngIf="isAssesment && (isHr || isAdmin)" type="button" label="Interview" (click)="interviewClick()"
+    <app-button backgroundColor="var(--PRIMARY)" *ngIf="isAssesment && (isHr || isAdmin)" type="button" label="Interview" (click)="interviewClick()"
       class="mr-2" classBtn="p-button-primary mt-2"></app-button>
 
 
-    <app-button *ngIf="isInterview && isPic" type="button" label="Update Notes" (click)="interviewNoteClick()"
+    <app-button backgroundColor="var(--PRIMARY)" *ngIf="isInterview && isPic" type="button" label="Update Notes" (click)="interviewNoteClick()"
       class="mr-2" classBtn="p-button-secondary mt-2"></app-button>
-    <app-button *ngIf="isInterview && (isHr || isAdmin)" type="button" label="Medical CheckUp" (click)="mcuClick()"
+    <app-button backgroundColor="var(--PRIMARY)" *ngIf="isInterview && (isHr || isAdmin)" type="button" label="Medical CheckUp" (click)="mcuClick()"
       class="mr-2" classBtn="p-button-primary mt-2"></app-button>
 
-    <app-button *ngIf="isMcu && (isHr || isAdmin)" type="button" label="Offering Letter" (click)="offeringClick()"
+    <app-button backgroundColor="var(--PRIMARY)" *ngIf="isMcu && (isHr || isAdmin)" type="button" label="Offering Letter" (click)="offeringClick()"
       class="mr-2" classBtn="p-button-primary mt-2"></app-button>
 
-    <app-button *ngIf="isOffering && (isHr || isAdmin)" backgroundColor="var(--PRIMARY)" [loading]="loading"
+    <app-button backgroundColor="var(--PRIMARY)" *ngIf="isOffering && (isHr || isAdmin)" backgroundColor="var(--PRIMARY)" [loading]="loading"
       typeBtn="submit" label="Accept" iconBtn="pi pi-user-plus" class="mt-2" (click)="accept()"></app-button>
 
   </div>
   <div class="col-12 md:col-1 md:col-offset-5 buttons">
-    <app-button type="button" *ngIf=" (isHr || isAdmin)" (click)="reject()" label="Reject" class="mr-2"
+    <app-button type="button" *ngIf=" (isHr || isAdmin)" (click)="reject()" iconBtn="pi pi-times" label="Reject" class="mr-2"
       classBtn="p-button-danger"></app-button>
   </div>
   <candidate-detail class="col-12" *ngIf="isApplied"></candidate-detail>
@@ -302,11 +302,10 @@
         <div class="start">
           <div class="grid mt-3">
             <div class="col-12 md:col-4">
-              <label for="start-date">Start Date<span class="text-red-500">*</span></label>
+              <label for="start-date">Start <span class="text-red-500">*</span></label>
             </div>
             <div class="col-12 md:col-8">
-              <!-- <input pInputText id="start-date" required type="datetime-local" formControlName="startDate" /> -->
-              <p-calendar [inline]="true" inputId="start-date" [required]="true" [showTime]="true" [showSeconds]="true" formControlName="startDateTemp" [showIcon]="true"
+              <p-calendar [inline]="true" inputId="start-date" [required]="true"  formControlName="startDateTemp" [showIcon]="true"
               dateFormat="dd/mm/yy" inputStyleClass="w-full" styleClass="w-full"></p-calendar>
               <span class="text-red-500 ml-2" *ngIf="
               hiringReqDto.get('startDate')!.invalid &&
@@ -322,8 +321,7 @@
                 <label for="end-date">End Date</label>
               </div>
               <div class="col-12 md:col-8">
-                <!-- <input pInputText id="end-date" type="datetime-local" formControlName="endDate" /> -->
-                <p-calendar [inline]="true" inputId="end-date" [required]="true" [showTime]="true" [showSeconds]="true" formControlName="endDateTemp" [showIcon]="true"
+                <p-calendar [inline]="true" inputId="end-date" [required]="true" formControlName="endDateTemp" [showIcon]="true"
                 dateFormat="dd/mm/yy" inputStyleClass="w-full" styleClass="w-full"></p-calendar>
                 <span class="text-red-500 ml-2" *ngIf="
                 hiringReqDto.get('startDate')!.invalid &&

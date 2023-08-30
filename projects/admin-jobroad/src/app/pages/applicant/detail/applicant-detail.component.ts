@@ -167,6 +167,14 @@ export class ApplicantDetailComponent implements OnInit {
         }
       })
 
+      this.hiringReqDto.get('startDateTemp')?.valueChanges.subscribe(res => {
+        const restemp = res as any
+        if (restemp instanceof Date) {
+          const newDate = convertUTCToLocalDate(res as any)
+          this.hiringReqDto.get('startDate')?.setValue(newDate)
+        }
+      })
+
         firstValueFrom(getParams(this.activated, 0)).then(params => {
             this.jobId = params['jobId'];
             this.appId = params['applicantId'];
