@@ -36,6 +36,7 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { FileUpload } from "primeng/fileupload";
 import { AuthService } from "../../../service/auth.service";
 import { CandidateStatusService } from "../../../service/candidate-status.service";
+import { BaseService } from "../../../service/base.service";
 
 interface Salutation {
   value: string;
@@ -272,7 +273,8 @@ export class CandidateUpdateComponent implements OnInit {
     private candidateWorkExpService: CandidateWorkExpService,
     private router: Router,
     private route: ActivatedRoute,
-    private fb: NonNullableFormBuilder
+    private fb: NonNullableFormBuilder,
+    private base:BaseService
   ) { }
 
   ngOnInit(): void {
@@ -358,6 +360,13 @@ export class CandidateUpdateComponent implements OnInit {
         this.trainingInsertReqDto.get('endDate')?.setValue(newEndDate)
       }
     })
+
+    this.base.all([
+
+    ]).then(res => {
+      
+    })
+
 
     this.candidateUserProfile()
     this.candidateUserAddresses()
