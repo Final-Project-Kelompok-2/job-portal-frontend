@@ -1,0 +1,41 @@
+<div class="grid">
+    <div class="col-12">
+        <div class="card">
+            <div class="grid mb-3 upper-container flex justify-content-between align-items-center">
+                <div class="col-12 md:col-9 title">
+                    <h2>Report List</h2>
+                </div>
+                <div class="col-12 md:col-3 buttons">
+                    <app-button type="button" label="Back" class="mr-2" classBtn="p-button-secondary" link="/dashboard">
+                    </app-button>
+
+                </div>
+                <div class="card col-12">
+                    <p-table [value]="reports" [paginator]="true" [rows]="5" [showCurrentPageReport]="true"
+                        [tableStyle]="{ 'min-width': '50rem' }"
+                        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                        [rowsPerPageOptions]="[10, 25, 50]" selectionMode="single">
+                        <ng-template pTemplate="header">
+                            <tr>
+                                <th style="min-width:10rem">No</th>
+                                <th style="min-width:10rem">Candidate Name</th>
+                                <th style="min-width:10rem">Job Name</th>
+                                <th style="min-width:10rem">Time(Days)</th>
+                                <th style="min-width:10rem">Employment Type Name</th>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-r let-i="rowIndex">
+                            <tr>
+                                <td>{{i+1}}</td>
+                                <td>{{r.fullName}}</td>
+                                <td>{{r.jobName}}</td>
+                                <td>{{r.timeDifference}}</td>
+                                <td>{{r.employmentTypeName}}</td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

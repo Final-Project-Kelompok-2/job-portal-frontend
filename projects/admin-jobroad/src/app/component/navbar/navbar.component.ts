@@ -122,6 +122,12 @@ export class NavbarComponent implements OnInit {
             routerLink: '/questions',
             visible : this.isAdmin
           },
+          {
+            label : 'Reports',
+            icon : 'pi pi-book',
+            routerLink : '/reports',
+            visible : this.isAdmin
+          }
         ]
       },
     ];

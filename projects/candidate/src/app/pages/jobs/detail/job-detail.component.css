@@ -17,7 +17,8 @@
   right: 0;
 }
 .profile-picture{
-
+  width: 15rem;
+  height : 15rem;
   position: absolute;
   top: 50%;
   left: 50%;
