@@ -5,6 +5,7 @@ export interface CandidateProfileResDto {
 	gender : string
 	experience : string
 	expectedSalary : string
+	expectedSalaryNum : number
 	phoneNumber : string
 	mobileNumber : string
 	nik : string
