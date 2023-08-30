@@ -3,6 +3,7 @@ import { Table } from "primeng/table";
 import { UserService } from "../../../service/user.service";
 import { UserResDto } from "../../../dto/user/user.res.dto";
 import { firstValueFrom } from "rxjs";
+import { Title } from "@angular/platform-browser";
 
 
 @Component({
@@ -15,7 +16,9 @@ export class UserListComponent implements OnInit {
   loading = false
   users!: UserResDto[]
 
-  constructor(private userService: UserService) {
+  constructor(private userService: UserService,
+    private title: Title) {
+    this.title.setTitle("User List")
   }
 
   ngOnInit(): void {

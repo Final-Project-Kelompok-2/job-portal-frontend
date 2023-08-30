@@ -23,6 +23,7 @@ import { CandidateReferencesResDto } from "../../../dto/candidate-references/can
 import { CandidateSkillResDto } from "../../../dto/candidate-skill/candidate-skill.res.dto";
 import { CandidateTrainingResDto } from "../../../dto/candidate-training/candidate-training.res.dto";
 import { CandidateWorkResDto } from "../../../dto/candidate-work/candidate-work.res.dto";
+import { Title } from "@angular/platform-browser";
 
 function getParams(activatedRoute: ActivatedRoute, parentLevel?: number): Observable<Params> {
   let route = activatedRoute
@@ -67,9 +68,10 @@ export class CandidateDetailComponent implements OnInit {
     private candidateSkillService: CandidateSkillService,
     private candidateTrainingExpService: CandidateTrainingExpService,
     private candidateWorkExpService: CandidateWorkExpService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private title: Title
   ) {
-
+    this.title.setTitle("Candidate Detail")
   }
   ngOnInit(): void {
     firstValueFrom(getParams(this.route, 0)).then((res) => {

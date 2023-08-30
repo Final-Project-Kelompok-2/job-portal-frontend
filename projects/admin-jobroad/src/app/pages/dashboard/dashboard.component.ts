@@ -14,6 +14,7 @@ import { QuestionService } from "../../service/question.service";
 import { CandidateUserService } from "../../service/candidate-user.service";
 import { firstValueFrom } from "rxjs";
 import { BaseService } from "../../service/base.service";
+import { Title } from "@angular/platform-browser";
 
 @Component({
   selector: 'dashboard',
@@ -38,8 +39,8 @@ export class DashboardComponent implements OnInit {
   userSize = 0
 
   constructor(private authService: AuthService, private companyService: CompanyService, private userService: UserService, private jobService: JobService, private benefitService: BenefitService, private questionService: QuestionService, private candidateService: CandidateUserService,
-    private base: BaseService) {
-
+    private base: BaseService, private title: Title) {
+    this.title.setTitle("Dashboard")
   }
 
   ngOnInit(): void {

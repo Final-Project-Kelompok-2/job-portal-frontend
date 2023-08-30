@@ -6,6 +6,7 @@ import { UserResDto } from "../../../dto/user/user.res.dto";
 import { NonNullableFormBuilder, Validators } from "@angular/forms";
 import { FileUpload } from "primeng/fileupload";
 import { ProfileResDto } from "../../../dto/profile/profile.res.dto";
+import { Title } from "@angular/platform-browser";
 
 @Component({
   selector: 'profile',
@@ -14,19 +15,19 @@ import { ProfileResDto } from "../../../dto/profile/profile.res.dto";
 export class UserProfileComponent implements OnInit {
   loading = false
   imageUrl = ''
-  user! : UserResDto;
-  profileData! : ProfileResDto;
+  user!: UserResDto;
+  profileData!: ProfileResDto;
   updateProfileDto = this.fb.group({
-    id : ['',Validators.required],
-    fullName : ['',Validators.required],
-    address : ['',Validators.required],
-    phoneNumber : ['',Validators.required],
-    fileName : ['',Validators.required],
-    fileExtension : ['',Validators.required]
+    id: ['', Validators.required],
+    fullName: ['', Validators.required],
+    address: ['', Validators.required],
+    phoneNumber: ['', Validators.required],
+    fileName: ['', Validators.required],
+    fileExtension: ['', Validators.required]
   })
-  constructor(private authService : AuthService,private userService : UserService,
-    private fb : NonNullableFormBuilder) {
-
+  constructor(private authService: AuthService, private userService: UserService,
+    private fb: NonNullableFormBuilder, private title: Title) {
+    this.title.setTitle("Profile")
   }
 
   ngOnInit(): void {
@@ -34,12 +35,12 @@ export class UserProfileComponent implements OnInit {
 
     if (profile) {
 
-      if(profile?.photoId){
+      if (profile?.photoId) {
         this.imageUrl = `http://localhost:8080/files/${profile.photoId}`
-      }else{
+      } else {
         this.imageUrl = '../../../assets/emptyProfile.jpeg'
       }
-      firstValueFrom(this.userService.getById(profile.userId)).then(result =>{
+      firstValueFrom(this.userService.getById(profile.userId)).then(result => {
         this.user = result
         this.getProfile();
       })
@@ -49,50 +50,50 @@ export class UserProfileComponent implements OnInit {
     }
   }
 
-  getProfile(){
-    firstValueFrom(this.userService.getProfile(this.user.profileId)).then(result =>{
+  getProfile() {
+    firstValueFrom(this.userService.getProfile(this.user.profileId)).then(result => {
       this.profileData = result;
       this.imageUrl = `http://localhost:8080/files/${this.profileData.photo}`
       this.updateProfileDto.patchValue({
-        id : this.user.profileId,
-        fullName : this.profileData.fullName,
-        address : this.profileData.address,
-        phoneNumber : this.profileData.phoneNumber
-        
+        id: this.user.profileId,
+        fullName: this.profileData.fullName,
+        address: this.profileData.address,
+        phoneNumber: this.profileData.phoneNumber
+
       })
     })
   }
 
-  onSubmit(){
+  onSubmit() {
     const dataDto = this.updateProfileDto.getRawValue();
     console.log('submit');
-    firstValueFrom(this.userService.updateProfile(dataDto)).then(()=>{
+    firstValueFrom(this.userService.updateProfile(dataDto)).then(() => {
       this.getProfile();
     })
   }
 
-  fileUpload(event: any,fileUpload : FileUpload) {
-      const toBase64 = (file: File) => new Promise<string>((resolve, reject) => {
-        const reader = new FileReader();
-        reader.readAsDataURL(file);
-        reader.onload = () => {
-          if (typeof reader.result === "string") resolve(reader.result)
-        };
-        reader.onerror = error => reject(error);
-      });
+  fileUpload(event: any, fileUpload: FileUpload) {
+    const toBase64 = (file: File) => new Promise<string>((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        if (typeof reader.result === "string") resolve(reader.result)
+      };
+      reader.onerror = error => reject(error);
+    });
 
-      for (let file of event.files) {
-        toBase64(file).then(result => {
-          const resultBase64 = result.substring(result.indexOf(",") + 1, result.length)
-          const resultExtension = file.name.substring(file.name.indexOf(".") + 1, file.name.length)
+    for (let file of event.files) {
+      toBase64(file).then(result => {
+        const resultBase64 = result.substring(result.indexOf(",") + 1, result.length)
+        const resultExtension = file.name.substring(file.name.indexOf(".") + 1, file.name.length)
 
-          this.updateProfileDto.patchValue({
-            fileName: resultBase64,
-            fileExtension: resultExtension
-          })
-          fileUpload.clear();
+        this.updateProfileDto.patchValue({
+          fileName: resultBase64,
+          fileExtension: resultExtension
         })
-      }
+        fileUpload.clear();
+      })
     }
+  }
 
 }

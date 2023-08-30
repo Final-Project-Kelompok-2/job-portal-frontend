@@ -24,6 +24,7 @@ import { CandidateDocumentInsertReqDto } from "../../../dto/candidate-document/c
 import { FileTypeService } from "../../../service/file-type.service";
 import { FileTypeResDto } from "../../../dto/file-type/file-type.res.dto";
 import { firstValueFrom } from "rxjs";
+import { Title } from "@angular/platform-browser";
 
 interface Salutation {
   value: string;
@@ -90,8 +91,11 @@ export class CandidateCreateComponent implements OnInit {
     private fileTypeService: FileTypeService,
 
     private fb: NonNullableFormBuilder,
-    private router: Router
-  ) { }
+    private router: Router,
+    private title: Title
+  ) {
+    this.title.setTitle("Create New Candidate")
+  }
 
   candidateMasterInsertReqDto = this.fb.group({
     userEmail: ['', Validators.required],

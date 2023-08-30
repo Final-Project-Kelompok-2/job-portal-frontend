@@ -6,6 +6,7 @@ import { Subscription } from "rxjs";
 import { AuthService } from "../../../service/auth.service";
 import { RoleCodeEnum } from "../../../constant/user-role.constant";
 import { BaseService } from "../../../service/base.service";
+import { Title } from "@angular/platform-browser";
 
 @Component({
   selector: 'job-list',
@@ -17,7 +18,13 @@ export class JobListComponent implements OnInit {
   jobs!: JobResDto[];
   jobSubscription!: Subscription;
   roleName?: string;
-  constructor(private jobService: JobService, private authService: AuthService, private base:BaseService) { }
+  constructor(private jobService: JobService,
+    private authService: AuthService,
+    private base: BaseService,
+    private title: Title) {
+
+    this.title.setTitle("Job List")
+  }
   ngOnInit(): void {
     this.roleName = this.authService.getProfile()?.roleCode;
     // this.getJob();
@@ -28,7 +35,7 @@ export class JobListComponent implements OnInit {
       ]).then(result => {
         this.jobs = result[0]
       })
-    } else if(this.isHr) {
+    } else if (this.isHr) {
 
       this.base.all([
         this.jobService.getByPrincipal()
@@ -36,7 +43,7 @@ export class JobListComponent implements OnInit {
         this.jobs = result[0]
       })
 
-    }else {
+    } else {
       this.base.all([
         this.jobService.getByPic()
       ]).then(result => {
@@ -52,11 +59,11 @@ export class JobListComponent implements OnInit {
     return this.roleName == RoleCodeEnum.ADMIN;
   }
 
-  get isHr(){
+  get isHr() {
     return this.roleName == RoleCodeEnum.HR
   }
 
-  get isPic(){
+  get isPic() {
     return this.roleName == RoleCodeEnum.PIC
   }
 
