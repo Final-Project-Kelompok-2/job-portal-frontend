@@ -71,7 +71,7 @@ export class CandidateDetailComponent implements OnInit {
     private candidateTrainingExpService: CandidateTrainingExpService,
     private candidateWorkExpService: CandidateWorkExpService,
     private route: ActivatedRoute, private base:BaseService,
-    private router:Router
+    private router:Router,
     private title: Title
   ) {
     this.title.setTitle("Candidate Detail")
