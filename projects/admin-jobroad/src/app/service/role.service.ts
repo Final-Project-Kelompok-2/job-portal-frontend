@@ -10,6 +10,6 @@ import { BASE_URL } from "../constant/api.constant";
 export class RoleService{
     constructor(private base : BaseService){}
     getAll() : Observable<RoleResDto[]>{
-        return this.base.get<RoleResDto[]>(`${BASE_URL}/roles`);
+        return this.base.getWithoutPipe<RoleResDto[]>(`${BASE_URL}/roles`);
     }
 }

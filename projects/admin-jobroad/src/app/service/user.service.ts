@@ -21,7 +21,7 @@ export class UserService {
     }
 
     getByRole(roleCode: string): Observable<UserResDto[]> {
-        return this.base.get<UserResDto[]>(`${BASE_URL}/users/filter?roleCode=${roleCode}`);
+        return this.base.getWithoutPipe<UserResDto[]>(`${BASE_URL}/users/filter?roleCode=${roleCode}`);
     }
 
     create(data: UserInsertReqDto): Observable<InsertResDto> {
@@ -33,11 +33,11 @@ export class UserService {
     }
 
     getById(id: string): Observable<UserResDto> {
-        return this.base.get<UserResDto>(`${BASE_URL}/users/detail?id=${id}`);
+        return this.base.getWithoutPipe<UserResDto>(`${BASE_URL}/users/detail?id=${id}`);
     }
 
     getProfile(id : string) : Observable<ProfileResDto>{
-        return this.base.get<ProfileResDto>(`${BASE_URL}/users/profile?id=${id}`);
+        return this.base.getWithoutPipe<ProfileResDto>(`${BASE_URL}/users/profile?id=${id}`);
     }
 
     updateProfile(data : ProfileUpdateReqDto) : Observable<UpdateResDto>{

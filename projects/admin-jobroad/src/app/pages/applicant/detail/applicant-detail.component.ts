@@ -145,6 +145,10 @@ export class ApplicantDetailComponent implements OnInit {
 
 
     ngOnInit(): void {
+
+
+        
+
         firstValueFrom(getParams(this.activated, 0)).then(params => {
             this.jobId = params['jobId'];
             this.appId = params['applicantId'];
@@ -170,7 +174,7 @@ export class ApplicantDetailComponent implements OnInit {
                     this.activeIndex = 3
                 } else if (this.applicant.statusCode == HiringStatusEnum.OFFERING) {
                     this.activeIndex = 4
-                    
+
                 } else {
                     this.activeIndex = 0
                 }

@@ -12,7 +12,7 @@ import { UpdateResDto } from "../dto/update.res.dto";
 export class ReviewService{
     constructor(private base : BaseService){}
     getByApplicant(id : string) : Observable<ReviewResDto>{
-        return this.base.get<ReviewResDto>(`${BASE_URL}/reviews?applicantId=${id}`);
+        return this.base.getWithoutPipe<ReviewResDto>(`${BASE_URL}/reviews?applicantId=${id}`);
     }
     updateNotes(data : ReviewUpdateNotesReqDto) : Observable<UpdateResDto>{
         return this.base.patch<UpdateResDto>(`${BASE_URL}/reviews/notes`,data);

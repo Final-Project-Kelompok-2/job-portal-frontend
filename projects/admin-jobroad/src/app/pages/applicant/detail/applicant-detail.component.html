@@ -61,7 +61,7 @@
             <label for="date">Date <span class="text-red-500">*</span></label>
           </div>
           <div class="col-12 md:col-8">
-            <input pInputText id="date" required type="datetime-local" formControlName="assesmentDate" />
+            <!-- <input pInputText id="date" required type="datetime-local" formControlName="assesmentDate" /> -->
             <p-calendar inputId="date" [required]="true" formControlName="assesmentDateTemp" [showIcon]="true"
             dateFormat="dd/mm/yy" inputStyleClass="w-full" styleClass="w-full"></p-calendar>
           <span class="text-red-500 ml-2" *ngIf="
@@ -289,9 +289,9 @@
 
   <div class="offering-letter col-12 flex justify-content-center "*ngIf="isOffering">
 
-   
+
         <h3>Waiting for candidate to accept the offer ....</h3>
-     
+
     <p-dialog [breakpoints]="{ '960px': '75vw' }" [style]="{ width: '50vw' }" [modal]="true" [(visible)]="hiringForm"
       header="Hiring Form">
       <pre>
@@ -304,7 +304,15 @@
               <label for="start-date">Start Date<span class="text-red-500">*</span></label>
             </div>
             <div class="col-12 md:col-8">
-              <input pInputText id="start-date" required type="datetime-local" formControlName="startDate" />
+              <!-- <input pInputText id="start-date" required type="datetime-local" formControlName="startDate" /> -->
+              <p-calendar inputId="start-date" [required]="true" [showTime]="true" [showSeconds]="true" formControlName="startDateTemp" [showIcon]="true"
+              dateFormat="dd/mm/yy" inputStyleClass="w-full" styleClass="w-full"></p-calendar>
+              <span class="text-red-500 ml-2" *ngIf="
+              hiringReqDto.get('startDate')!.invalid &&
+              !hiringReqDto.get('startDate')!.value &&
+              (hiringReqDto.get('startDate')!.dirty ||
+                hiringReqDto.get('startDate')!.touched)
+            ">Input can't be empty</span>
             </div>
           </div>
           <div class="end-date" *ngIf="job?.employementTypeName == intern || job?.employementTypeName == contract">

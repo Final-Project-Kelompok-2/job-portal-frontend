@@ -7,7 +7,7 @@ import { BASE_URL } from "../constant/api.constant";
 import { InterviewResDto } from "../dto/interview/interviewe.res.dto";
 
 @Injectable({
-   providedIn : 'root' 
+   providedIn : 'root'
 })
 export class InterviewService{
     constructor(private base : BaseService){}
@@ -16,7 +16,7 @@ export class InterviewService{
         return this.base.post<InsertResDto>(`${BASE_URL}/interviews`,data);
     }
     getByApplicant(id : string) : Observable<InterviewResDto> {
-        return this.base.get<InterviewResDto>(`${BASE_URL}/interviews?applicantId=${id}`);
+        return this.base.getWithoutPipe<InterviewResDto>(`${BASE_URL}/interviews?applicantId=${id}`);
     }
 
 }

@@ -11,7 +11,7 @@ export class ReligionService{
     constructor(private base : BaseService){}
 
     getAll() : Observable<ReligionResDto[]>{
-        return this.base.get<ReligionResDto[]>(`${BASE_URL}/religions`);
+        return this.base.getWithoutPipe<ReligionResDto[]>(`${BASE_URL}/religions`);
     }
 
 }

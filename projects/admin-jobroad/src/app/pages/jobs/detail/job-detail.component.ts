@@ -7,6 +7,7 @@ import { Subscription, firstValueFrom } from "rxjs";
 import { ActivatedRoute } from "@angular/router";
 import { Table } from "primeng/table";
 import { HiringStatusEnum } from "../../../constant/hiring-status.constant";
+import { BaseService } from "../../../service/base.service";
 
 @Component({
   selector: 'job-detail',
@@ -24,9 +25,15 @@ export class JobDetailComponent implements OnInit, OnDestroy {
   jobId!: string;
   reject = HiringStatusEnum.REJECT;
   hired = HiringStatusEnum.HIRED;
+
   constructor(private jobService: JobService,
-    private applicantService: ApplicantService, private activated: ActivatedRoute) { }
+    private applicantService: ApplicantService
+    , private activated: ActivatedRoute,
+    private base:BaseService) { }
+
   ngOnInit(): void {
+    
+
     firstValueFrom(this.activated.params).then(param => {
       this.jobSubscription = this.jobService.getByDetail(param['id']).subscribe(result => {
         this.job = result;
@@ -58,7 +65,5 @@ export class JobDetailComponent implements OnInit, OnDestroy {
     this.jobSubscription.unsubscribe();
     this.applicantSubscription.unsubscribe();
   }
-  clear(table: Table) {
-    table.clear();
-  }
+
 }

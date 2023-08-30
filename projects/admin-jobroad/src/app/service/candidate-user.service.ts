@@ -30,7 +30,7 @@ export class CandidateUserService {
     }
 
     getCandidateUserById(id: String): Observable<CandidateUserResDto> {
-        return this.base.get<CandidateUserResDto>(`${BASE_URL}/candidate-user/detail?id=${id}`)
+        return this.base.getWithoutPipe<CandidateUserResDto>(`${BASE_URL}/candidate-user/detail?id=${id}`)
     }
 
     update(data: CandidateUserUpdateReqDto): Observable<UpdateResDto> {

@@ -440,7 +440,7 @@
 
                         </div>
                         <div class="col-12 md:col-12">
-                            <p-table [value]="candidateDocuments" [tableStyle]="{'min-width': '60rem'}">
+                            <p-table [value]="candidateDocuments">
                                 <ng-template pTemplate="header">
                                     <tr>
                                         <th>No.</th>
@@ -454,7 +454,9 @@
                                         <td>{{ i + 1 }}</td>
                                         <td>{{ document.docName }}.{{ document.fileExtension}}</td>
                                         <td>{{ document.fileTypeName }}</td>
-                                        <td><a [href]="document.fileId | url">Download</a></td>
+                                        <td>
+                                          <app-button backgroundColor="var(--PRIMARY)" iconBtn="pi pi-download" label="Download" (clickChange)="downloadFile(document.fileId)"></app-button>
+                                        </td>
                                     </tr>
                                 </ng-template>
                             </p-table>

@@ -10,6 +10,6 @@ import { BASE_URL } from "../constant/api.constant";
 export class FileTypeService{
     constructor(private base : BaseService){}
     getAll() : Observable<FileTypeResDto[]> {
-        return this.base.get<FileTypeResDto[]>(`${BASE_URL}/file-types`);
+        return this.base.getWithoutPipe<FileTypeResDto[]>(`${BASE_URL}/file-types`);
     }
 }
