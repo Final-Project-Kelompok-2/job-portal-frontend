@@ -10,9 +10,20 @@
     </div>
   </ng-container>
 
+  <ng-container *ngIf="check()">
+    <div class="grid grid-nogutter p-3">
+      <div class="col-12 md:col-12">
+        <h1>
+          Saved Job(s)
+        </h1>
+      </div>
+    </div>
+  </ng-container>
+
+
   <div *ngIf="check()" class="flex flex-wrap justify-content-center">
     <div class="flex flex-wrap justify-content-center gap-2" *ngFor="let s of savedJobs">
-      <p-card styleClass="mt-3 card-hover" class="cursor-pointer" onclick="openDetail(s.jobId)">
+      <p-card styleClass="mt-3 card-hover" class="cursor-pointer" routerLink="/jobs/{{s.jobId}}/detail">
         <div class="grid grid-nogutter">
           <p-image class="col-12 md:col-3" [src]=" s.jobPictureId | url" alt="Image" width="125">
           </p-image>
