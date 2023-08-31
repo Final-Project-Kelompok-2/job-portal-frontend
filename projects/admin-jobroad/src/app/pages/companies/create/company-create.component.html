@@ -59,11 +59,10 @@
           ">Must upload a picture</span>
           </div>
         </div>
-      </div>
-
-      <div class="col-12 md:col-9 mb-5 mt-6">
-        <app-button [loading]="loading" backgroundColor="var(--PRIMARY)" (clickChange)="checkForm(companyReqDto)" iconBtn="pi pi-plus" typeBtn="submit" label="Add" class=" mr-2"></app-button>
-        <app-button link="/companies" label="Back"   classBtn="p-button-secondary"></app-button>
+        <div class="col-12 md:col-9 mb-5 mt-6 flex ">
+          <app-button [loading]="loading" backgroundColor="var(--PRIMARY)" (clickChange)="checkForm(companyReqDto)" iconBtn="pi pi-save" typeBtn="submit" label="Save" class=" mr-2"></app-button>
+          <app-button link="/companies" label="Cancel"   classBtn="p-button-secondary"></app-button>
+        </div>
       </div>
     </form>
   </p-card>
