@@ -1,6 +1,7 @@
 <div class="grid">
   <div class="col-12 mt-3">
     <p-card header="Application Progress">
+
       <p-steps [model]="status" [readonly]="false" [activeIndex]="activeIndex"
         (activeIndexChange)="onActiveIndexChange($event)"></p-steps>
     </p-card>
@@ -30,8 +31,10 @@
       backgroundColor="var(--PRIMARY)" [loading]="loading" typeBtn="submit" label="Accept" iconBtn="pi pi-user-plus"
       class="mt-2" (click)="accept()"></app-button>
 
+
   </div>
-  <div class="col-12 md:col-1 md:col-offset-5 buttons">
+  <div class="col-12 md:col-3 md:col-offset-4 buttons">
+    <p-dropdown [options]="status" styleClass="mr-2" [style]="{'height' : '2.5rem'}" (onChange)="moveTo($event)" placeholder="Move To ?"></p-dropdown>
     <app-button type="button" *ngIf=" (isHr || isAdmin)" (click)="reject()" iconBtn="pi pi-times" label="Reject"
       class="mr-2" classBtn="p-button-danger"></app-button>
   </div>
