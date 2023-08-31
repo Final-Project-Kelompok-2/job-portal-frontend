@@ -4,7 +4,6 @@ export interface LoginResDto {
   nik: string
   userId: string
   fullName: string
-  roleCode: string
   profileId: string
   photoId: string
   message: string

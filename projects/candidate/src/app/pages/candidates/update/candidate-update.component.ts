@@ -1415,6 +1415,7 @@ export class CandidateUpdateComponent implements OnInit {
       this.candidateService.update(data).subscribe((res) => {
         this.router.navigateByUrl(`/candidates/profile`)
       })
+      // this.candidateService.navbarObservable(this.candidateUser?.candidateProfile?.fileId)
     }
   }
 

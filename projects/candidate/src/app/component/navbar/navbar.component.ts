@@ -32,12 +32,15 @@ export class NavbarComponent implements OnInit {
   profile: MenuItem[] | undefined
 
   ngOnInit() {
+    console.log('halo ');
 
     const profile = this.authService.getProfile()
 
     this.candidateUserService.data?.subscribe({
       next: (e) => {
-        if (profile?.roleCode) {
+
+
+        if (profile?.photoId) {
           this.imageUrl = `${BASE_URL}/files/${e}`;
         }else{
           this.imageUrl = `../../../assets/emptyProfile.jpeg`
@@ -55,8 +58,6 @@ export class NavbarComponent implements OnInit {
       } else {
         this.imageUrl = '../../../assets/emptyProfile.jpeg'
       }
-
-      this.roleCode = profile?.roleCode
       this.profileName = profile.fullName
 
     }

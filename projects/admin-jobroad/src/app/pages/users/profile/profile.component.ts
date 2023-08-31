@@ -67,6 +67,9 @@ export class UserProfileComponent implements OnInit {
 
       })
       this.userService.navbarObservable(this.profileData.photo)
+      const dataProfile = JSON.parse(localStorage.getItem('data')!)
+      dataProfile.photoId = this.profileData?.photo
+      localStorage.setItem('data', JSON.stringify(dataProfile))
     })
   }
 
