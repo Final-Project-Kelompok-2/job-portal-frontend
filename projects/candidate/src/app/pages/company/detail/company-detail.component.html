@@ -50,7 +50,8 @@
 
       </div>
       <ng-template pTemplate="footer">
-        <app-button link="/jobs/{{j.id}}/detail" label="Job Detail" backgroundColor="var(--PRIMARY)"></app-button>
+        <app-button (clickChange)="jobDetail(j.id)" label="Job Detail" backgroundColor="var(--PRIMARY)">
+        </app-button>
       </ng-template>
     </p-card>
   </div>

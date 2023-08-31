@@ -3,7 +3,7 @@ import { CompanyResDto } from "../../../dto/company/company.res.dto";
 import { JobResDto } from "../../../dto/job/job.res.dto";
 import { BaseService } from "../../../service/base.service";
 import { CompanyService } from "../../../service/company.service";
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { first, firstValueFrom } from "rxjs";
 import { JobService } from "../../../service/job.service";
 
@@ -21,7 +21,8 @@ export class CompanyDetailComponent implements OnInit {
     constructor(private base: BaseService,
         private companyService: CompanyService,
         private activated: ActivatedRoute,
-        private jobService: JobService) {
+        private jobService: JobService,
+        private router: Router) {
     }
 
     ngOnInit(): void {
@@ -38,15 +39,15 @@ export class CompanyDetailComponent implements OnInit {
                 })
             }
             )
-
-
         })
-
 
 
     }
 
-
+    jobDetail(jobId: string) {
+        this.jobService.fromComponent = this.companyId
+        this.router.navigateByUrl(`/jobs/${jobId}/detail`)
+    }
 
 
 }

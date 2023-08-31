@@ -114,6 +114,16 @@ export class JobDetailComponent implements OnInit {
         })
     }
 
+    back() {
+        if (this.jobService.fromComponent != null) {
+            const companyId = this.jobService.fromComponent
+            this.router.navigateByUrl(`/companies/${companyId}/detail`)
+            this.jobService.fromComponent = null
+        }
+        else {
+            this.router.navigateByUrl('/jobs')
+        }
+    }
 
 }
 
