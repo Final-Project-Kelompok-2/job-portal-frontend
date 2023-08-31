@@ -35,7 +35,7 @@ export class ApplicantDetailComponent implements OnInit {
     jobId!: string;
     appId!: string;
     isOwner!: Boolean
-    status!: MenuItem[] | undefined;
+    status!: MenuItem[] ;
     activeIndex: number = 0;
     intern = employmentTypeEnum.INTERN;
     contract = employmentTypeEnum.CONTRACT;
@@ -312,6 +312,21 @@ export class ApplicantDetailComponent implements OnInit {
 
     get mcuDataListReqDto() {
         return this.mcuReqDto.get("mcuData") as FormArray
+    }
+
+    moveTo(event : any){
+        console.log('ini event  : ' + event.value.label)
+        if(event.value.label == this.status[0].label){
+            this.activeIndex = 0
+        }else if(event.value.label == this.status[1].label){
+            this.activeIndex = 1
+        }else if(event.value.label == this.status[2].label){
+            this.activeIndex = 2
+        }else if(event.value.label == this.status[3].label){
+            this.activeIndex = 3
+        }else if(event.value.label == this.status[4].label){
+            this.activeIndex = 4
+        }
     }
 
     reject() {

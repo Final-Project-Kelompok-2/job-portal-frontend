@@ -29,21 +29,23 @@ export class ReportComponent implements OnInit {
         console.log("Start Date :   " + this.startDate);
         console.log("End Date :   " + this.endDate);
         const newStartDate = convertUTCToLocalDateTimeISOStart(this.startDate as string);
-        const newEndDate = convertUTCToLocalDateTimeISOEnd(this.endDate as string);
+        let newEndDate : string = '' ;
+        if(this.endDate != null){
+             newEndDate = convertUTCToLocalDateTimeISOEnd(this.endDate as string);
+            console.log("New End Date :  " + newEndDate);
+
+        }
         console.log("New Start Date :  " + newStartDate);
-        console.log("New End Date :  " + newEndDate);
         this.getReports(newStartDate, newEndDate);
 
     }
 }
 const convertUTCToLocalDateTimeISOStart = function (date: any) {
-    // date.setTime(date.getHours()+1)
     const newDate = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate(), date.getHours(), date.getMinutes(), date.getSeconds()));
     return newDate.toISOString().split('T')[0] +" " +  newDate.toISOString().split('T')[1]
 }
 
 const convertUTCToLocalDateTimeISOEnd = function (date: any) {
-    // date.setTime(date.getHours()+1)
     const newDate = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate(), date.getHours()+23, date.getMinutes(), date.getSeconds()));
     return newDate.toISOString().split('T')[0] +" " +  newDate.toISOString().split('T')[1]
 }
