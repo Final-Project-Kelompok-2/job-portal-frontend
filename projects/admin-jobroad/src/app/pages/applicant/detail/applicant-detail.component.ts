@@ -294,7 +294,7 @@ export class ApplicantDetailComponent implements OnInit {
         this.loading = true
         firstValueFrom(this.applicantService.update(data)).then(() => {
             this.loading = false
-            // this.router.navigateByUrl(`/jobs/detail/${this.jobId}`);
+            this.router.navigateByUrl(`/jobs/detail/${this.jobId}`);
         }).catch(() => {
             this.loading = false;
         })
