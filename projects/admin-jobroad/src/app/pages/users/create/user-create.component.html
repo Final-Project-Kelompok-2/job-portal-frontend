@@ -1,5 +1,5 @@
 <div class="col-12">
-  <pre>{{ userReqDto.value | json }}</pre>
+  <!-- <pre>{{ userReqDto.value | json }}</pre> -->
   <p-card header="Add New User" styleClass="border">
     <form [formGroup]="userReqDto" (ngSubmit)="insert()">
       <div class="p-fluid p-formgrid grid">
@@ -31,12 +31,12 @@
             <p-fileUpload mode="basic" chooseLabel="Upload" chooseIcon="pi pi-upload" styleClass="bg-green-700" class="form-control" #file type="file" id="picture" required (onSelect)="fileUpload($event,file)"></p-fileUpload>
           </div>
         </div>
+        <div class="col-12 md:col-9 mb-5 mt-5 flex md:justify-content-start">
+          <app-button backgroundColor="var(--PRIMARY)" [loading]="loading" typeBtn="submit" label="Save" iconBtn="pi pi-save" class=" mr-2"></app-button>
+          <app-button link="/users" label="Cancel"  classBtn="p-button-secondary"></app-button>
+        </div>
       </div>
 
-      <div class="col-12 md:col-9 mb-5 mt-6">
-        <app-button backgroundColor="var(--PRIMARY)" [loading]="loading" typeBtn="submit" label="Add" iconBtn="pi pi-plus" class=" mr-2"></app-button>
-        <app-button link="/users" label="Back"  classBtn="p-button-secondary"></app-button>
-      </div>
     </form>
   </p-card>
 </div>

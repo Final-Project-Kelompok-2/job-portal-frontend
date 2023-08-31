@@ -443,7 +443,8 @@
                                         <td>{{ i + 1 }}</td>
                                         <td>{{ document.docName }}</td>
                                         <td>
-                                          <app-button backgroundColor="var(--PRIMARY)" iconBtn="pi pi-download" label="Download" (clickChange)="downloadFile(document.fileId)" ></app-button>
+                                          <!-- <app-button backgroundColor="var(--PRIMARY)" iconBtn="pi pi-download" label="Download" (clickChange)="downloadFile(document.fileId)" ></app-button> -->
+                                          <a [href]="document.fileId | url">file-{{i+1}}</a>
                                         </td>
                                     </tr>
                                 </ng-template>

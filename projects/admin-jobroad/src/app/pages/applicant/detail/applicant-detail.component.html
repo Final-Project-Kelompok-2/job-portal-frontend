@@ -1,6 +1,7 @@
 <div class="grid">
   <div class="col-12 mt-3">
     <p-card header="Application Progress">
+
       <p-steps [model]="status" [readonly]="false" [activeIndex]="activeIndex"
         (activeIndexChange)="onActiveIndexChange($event)"></p-steps>
     </p-card>
@@ -9,29 +10,31 @@
     <app-button iconBtn="pi pi-angle-left" type="button" label="Job Detail" class="mr-2" classBtn="p-button-secondary"
       link="/jobs/detail/{{jobId}}">
     </app-button>
-    <app-button backgroundColor="var(--PRIMARY)" *ngIf="isApplied && (isHr || isAdmin)" type="button" label="Assesment"
-      (click)="assesmentClick()" class="mr-2" classBtn="p-button-primary"></app-button>
+    <app-button backgroundColor="var(--PRIMARY)" *ngIf="isApplied && (isOwner || isAdmin)" type="button"
+      label="Assesment" (click)="assesmentClick()" class="mr-2" classBtn="p-button-primary"></app-button>
 
     <app-button backgroundColor="var(--PRIMARY)" *ngIf="isAssesment && isHr" type="button" label="Update Notes"
       (click)="assesmentNoteClick()" class="mr-2" classBtn="p-button-secondary mt-2"></app-button>
-    <app-button backgroundColor="var(--PRIMARY)" *ngIf="isAssesment && (isHr || isAdmin)" type="button"
+    <app-button backgroundColor="var(--PRIMARY)" *ngIf="isAssesment && (isOwner || isAdmin )" type="button"
       label="Interview" (click)="interviewClick()" class="mr-2" classBtn="p-button-primary mt-2"></app-button>
 
 
     <app-button backgroundColor="var(--PRIMARY)" *ngIf="isInterview && isPic" type="button" label="Update Notes"
       (click)="interviewNoteClick()" class="mr-2" classBtn="p-button-secondary mt-2"></app-button>
-    <app-button backgroundColor="var(--PRIMARY)" *ngIf="isInterview && (isHr || isAdmin)" type="button"
+    <app-button backgroundColor="var(--PRIMARY)" *ngIf="isInterview && (isOwner || isAdmin)" type="button"
       label="Medical CheckUp" (click)="mcuClick()" class="mr-2" classBtn="p-button-primary mt-2"></app-button>
 
-    <app-button backgroundColor="var(--PRIMARY)" *ngIf="isMcu && (isHr || isAdmin)" type="button"
+    <app-button backgroundColor="var(--PRIMARY)" *ngIf="isMcu && (isOwner || isAdmin)" type="button"
       label="Offering Letter" (click)="offeringClick()" class="mr-2" classBtn="p-button-primary mt-2"></app-button>
 
-    <app-button backgroundColor="var(--PRIMARY)" *ngIf="isOffering && (isHr || isAdmin)"
+    <app-button backgroundColor="var(--PRIMARY)" *ngIf="isOffering && (isOwner || isAdmin)"
       backgroundColor="var(--PRIMARY)" [loading]="loading" typeBtn="submit" label="Accept" iconBtn="pi pi-user-plus"
       class="mt-2" (click)="accept()"></app-button>
 
+
   </div>
-  <div class="col-12 md:col-1 md:col-offset-5 buttons">
+  <div class="col-12 md:col-3 md:col-offset-4 buttons">
+    <p-dropdown [options]="status" styleClass="mr-2" [style]="{'height' : '2.5rem'}" (onChange)="moveTo($event)" placeholder="Move To ?"></p-dropdown>
     <app-button type="button" *ngIf=" (isHr || isAdmin)" (click)="reject()" iconBtn="pi pi-times" label="Reject"
       class="mr-2" classBtn="p-button-danger"></app-button>
   </div>
@@ -234,8 +237,8 @@
       <form [formGroup]="mcuReqDto" (ngSubmit)="submitMcu()">
         <p-fileUpload mode="advanced" chooseLabel="Choose" styleClass="bg-green-700" chooseIcon="pi pi-upload"
           class="form-control mb-2" [multiple]="true" [showUploadButton]="true" type="file" id="picture"
-          (onSelect)="fileUpload($event)" (onRemove)="fileRemove($event)" (onClear)="fileCancel()"
-          required></p-fileUpload>
+          (onSelect)="fileUpload($event)" (onRemove)="fileRemove($event)" (onClear)="fileCancel()" required>
+        </p-fileUpload>
         <app-button backgroundColor="var(--PRIMARY)" [loading]="loading" typeBtn="submit" label="Add"
           iconBtn="pi pi-plus" class="mt-2"></app-button>
       </form>

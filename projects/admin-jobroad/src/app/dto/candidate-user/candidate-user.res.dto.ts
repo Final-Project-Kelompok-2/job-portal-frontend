@@ -24,4 +24,5 @@ export interface CandidateUserResDto {
 	fileId: string
 	candidateStatus: string
 	candidateStatusId: string
+	createdBy : string
 }

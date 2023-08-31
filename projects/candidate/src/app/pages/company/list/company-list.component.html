@@ -13,9 +13,16 @@
           <i class="pi pi-building"></i> {{ c.address }} <br>
           <i class="pi pi-link"></i> {{ c.companyUrl }} <br>
           <i class="pi pi-phone"></i> {{ c.companyPhone }}
+
+        </ng-template>
+        <ng-template pTemplate="footer">
+          <app-button label="Detail" link="{{c.id}}/detail" backgroundColor="var(--PRIMARY)"></app-button>
         </ng-template>
       </p-card>
     </div>
 
   </div>
 </div>
+
+
+<!-- <div class="grid grid-nogutter">Halo</div> -->

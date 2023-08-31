@@ -6,10 +6,10 @@
         <div class="col-12 md:col-3 title">
           <h2>Question List</h2>
         </div>
-        <div class="col-12 md:col-offset-5 md:col-4  buttons">
+        <div class="col-12 md:col-offset-5 md:col-4 buttons flex justify-content-end">
           <app-button type="button" label="Back" class="mr-2" classBtn="p-button-secondary"
             link="/dashboard"></app-button>
-          <app-button type="button" backgroundColor="var(--PRIMARY)" iconBtn="pi pi-fw pi-plus" label="Add new question"
+          <app-button type="button" backgroundColor="var(--PRIMARY)" iconBtn="pi pi-fw pi-plus" label="Add New Question"
             classBtn="p-button-primary" link="/questions/new"></app-button>
           <app-button (click)="updateClick()" typeBtn="button" label="Update" iconBtn="pi pi-send"
             classBtn="p-button-secondary ml-2"></app-button>

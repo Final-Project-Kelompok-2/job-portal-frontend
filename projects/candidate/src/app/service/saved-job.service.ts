@@ -24,7 +24,6 @@ export class SavedJobService {
         return this.base.delete<DeleteResDto>(`${BASE_URL}/saved-jobs/${jobId}`)
     }
 
-
     getByPrincipal(): Observable<SavedJobResDto[]> {
         return this.base.getWithoutPipe<SavedJobResDto[]>(`${BASE_URL}/saved-jobs`)
     }

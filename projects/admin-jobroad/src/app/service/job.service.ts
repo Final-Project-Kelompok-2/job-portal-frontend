@@ -7,31 +7,31 @@ import { JobInsertReqDto } from "../dto/job/job-insert.req.dto";
 import { InsertResDto } from "../dto/insert.res.dto";
 
 @Injectable({
-    providedIn : 'root'
+    providedIn: 'root'
 })
-export class JobService{
-    constructor(private base : BaseService){}
+export class JobService {
+    constructor(private base: BaseService) { }
 
-    getAll() : Observable<JobResDto[]>{
+    getAll(): Observable<JobResDto[]> {
         return this.base.getWithoutPipe<JobResDto[]>(`${BASE_URL}/jobs`);
     }
 
-    create(data : JobInsertReqDto) : Observable<InsertResDto>{
-        return this.base.post<InsertResDto>(`${BASE_URL}/jobs`,data);
+    create(data: JobInsertReqDto): Observable<InsertResDto> {
+        return this.base.post<InsertResDto>(`${BASE_URL}/jobs`, data);
     }
 
-    getByPrincipal() : Observable<JobResDto[]>{
+    getByPrincipal(): Observable<JobResDto[]> {
         return this.base.getWithoutPipe<JobResDto[]>(`${BASE_URL}/jobs/person`);
     }
 
-    getByPic() : Observable<JobResDto[]>{
+    getByPic(): Observable<JobResDto[]> {
         return this.base.getWithoutPipe<JobResDto[]>(`${BASE_URL}/jobs/pic`);
     }
 
-    getByCompany(code : string) : Observable<JobResDto[]>{
+    getByCompany(code: string): Observable<JobResDto[]> {
         return this.base.get<JobResDto[]>(`${BASE_URL}/jobs/company`);
     }
-    getByDetail(id : string) : Observable<JobResDto>{
+    getByDetail(id: string): Observable<JobResDto> {
         return this.base.get<JobResDto>(`${BASE_URL}/jobs/detail?id=${id}`);
     }
 }
