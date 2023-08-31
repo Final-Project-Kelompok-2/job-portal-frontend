@@ -16,11 +16,6 @@
               <h4>{{a.jobName}} :
                 <p-badge [value]="a.statusName" size="large" [severity]="checker(a.statusName)"></p-badge>
               </h4>
-              <!-- <p-badge [value]="c.candidateStatus" size="large" [severity]="checker(c.candidateStatus)"></p-badge> -->
-            </div>
-            <div class="col-12 md:col-6">
-              <app-button (clickChange)="getQuestion(a.jobId,a.applicantCode)" backgroundColor="var(--PRIMARY)"
-                typeBtn="button" label="Question" class=" mr-2"></app-button>
             </div>
           </div>
           <div class="grid">
@@ -34,6 +29,5 @@
         </div>
       </div>
     </p-card>
-
   </div>
 </div>
