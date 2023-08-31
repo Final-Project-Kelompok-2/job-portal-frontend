@@ -9,66 +9,60 @@
     </div>
   </ng-container>
 
-  <ng-container>
-    <div *ngIf="check()" class="grid md:justify-content-center">
-      <div class="col-12 md:col-10">
-        <div class="grid grid-nogutter">
-          <div class="col-12 md:col-12">
-            <h1>
-              Saved Job(s)
-            </h1>
-          </div>
-        </div>
-        <p-card *ngFor="let j of savedJobs" class="card-hover" styleClass="card-hover mr-4 mb-2 mt-2">
-          <div class="flex justify-content-end cursor-pointer">
-            <app-button typeBtn="button" label="Remove" iconBtn="pi pi-trash" backgroundColor="danger"
-            (clickChange)="showDeleteSavedJob(j.jobId)"
-            classBtn="md:align-self-end mb-2 p-button-rounded p-button-danger"></app-button>
-          </div>
-          <div class="grid grid-nogutter cursor-pointer"  routerLink="/jobs/{{j.jobId}}/detail">
-            <div class="col-12 md:col-2 text-center">
-              <p-image [src]="j.jobPictureId | url" imageClass="w-full md:w-10rem h-10rem" alt=" Image">
-                <ng-template pTemplate="indicator">
-                  <i class="pi pi-check"></i>
-                </ng-template>
-              </p-image>
+  <ng-container *ngIf="check()">
+    <div class="grid m-2">
+      <div class="col-12">
+        <h1>
+          Saved Job(s)
+        </h1>
+      </div>
+      <div class="col-12 justify-content-center">
+        <p-card *ngFor="let j of savedJobs" class="card-hover" styleClass="card-hover">
+          <p class="m-0">
+            <div class="flex justify-content-end cursor-pointer">
+              <app-button typeBtn="button" label="Remove" iconBtn="pi pi-trash" backgroundColor="danger"
+                (clickChange)="showDeleteSavedJob(j.jobId)"
+                classBtn="md:align-self-end mb-2 p-button-rounded p-button-danger"></app-button>
             </div>
-            <div class="col-12 md:col-8">
-              <div class="col-12">
-                <span style="font-size: 1.75rem; font-weight: bold;"> {{j.jobName}}</span>
+            <div class="grid grid-nogutter cursor-pointer" routerLink="/jobs/{{j.jobId}}/detail">
+              <div class="col-12 md:col-2 text-center">
+                <p-image [src]="j.jobPictureId | url" imageClass="w-full md:w-10rem h-10rem" alt=" Image">
+                  <ng-template pTemplate="indicator">
+                    <i class="pi pi-check"></i>
+                  </ng-template>
+                </p-image>
               </div>
-              <div class="col-12">
-                <span style="font-size: 1rem; font-weight: bold;"> {{j.companyName}}</span>
-              </div>
-              <!-- Address & Salary -->
-              <div class="col-12 md:col-12">
-                <div class="grid grid-nogutter">
-                  <div class="col-12 md:col-6">
-                    <i class="pi pi-building"></i> {{j.address}}
+              <div class="col-12 md:col-8">
+                <div class="col-12">
+                  <span style="font-size: 1.75rem; font-weight: bold;"> {{j.jobName}}</span>
+                </div>
+                <div class="col-12">
+                  <span style="font-size: 1rem; font-weight: bold;"> {{j.companyName}}</span>
+                </div>
+                <!-- Address & Salary -->
+                <div class="col-12 md:col-12">
+                  <div class="grid grid-nogutter">
+                    <div class="col-12 md:col-6">
+                      <i class="pi pi-building"></i> {{j.address}}
+                    </div>
+                    <div class="col-12 md:col-6">
+                      <i class="pi pi-money-bill"></i> {{j.expectedSalaryMin}} - {{ j.expectedSalaryMax }}
+                    </div>
                   </div>
-                  <div class="col-12 md:col-6">
-                    <i class="pi pi-money-bill"></i> {{j.expectedSalaryMin}} - {{ j.expectedSalaryMax }}
+                </div>
+                <!-- Employment Type & Start Date -->
+                <div class="col-12 md:col-12">
+                  <div class="grid grid-nogutter">
+                    <div class="col-12 md:col-6">
+                      <i class="pi pi-briefcase"></i> {{j.employmenTypeName}}
+                    </div>
+                    <div class="col-12 md:col-6">
+                      <i class="pi pi-clock"></i> Deadline: {{j.endDate}}
+                    </div>
                   </div>
                 </div>
               </div>
-              <!-- Employment Type & Start Date -->
-              <div class="col-12 md:col-12">
-                <div class="grid grid-nogutter">
-                  <div class="col-12 md:col-6">
-                    <i class="pi pi-briefcase"></i> {{j.employmenTypeName}}
-                  </div>
-                  <div class="col-12 md:col-6">
-                    <i class="pi pi-clock"></i> Deadline: {{j.endDate}}
-                  </div>
-                </div>
-              </div>
             </div>
-            <div class="col-12 md:col-2">
-              <div class="z-4 relative flex align-items-center justify-content-center p-4 mr-4">
-
-              </div>
-            </div>
-          </div>
         </p-card>
       </div>
     </div>
