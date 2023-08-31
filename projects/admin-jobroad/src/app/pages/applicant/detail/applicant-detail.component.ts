@@ -34,10 +34,12 @@ import { Title } from "@angular/platform-browser";
 export class ApplicantDetailComponent implements OnInit {
     jobId!: string;
     appId!: string;
+    isOwner!: Boolean
     status!: MenuItem[] | undefined;
     activeIndex: number = 0;
     intern = employmentTypeEnum.INTERN;
     contract = employmentTypeEnum.CONTRACT;
+    personId!: string
 
     //Step
     applyStep = true;
@@ -157,31 +159,34 @@ export class ApplicantDetailComponent implements OnInit {
 
 
     ngOnInit(): void {
-
-
-      this.assesmentReqDto.get('assesmentDateTemp')?.valueChanges.subscribe(res => {
-        const restemp = res as any
-        if (restemp instanceof Date) {
-          const newDate = convertUTCToLocalDateTimeISO(res as any)
-          this.assesmentReqDto.get('assesmentDate')?.setValue(newDate)
+        const data = this.authService.getProfile()
+        if (data) {
+            this.personId = data.userId
         }
-      })
 
-      this.interviewReqDto.get('interviewDateTemp')?.valueChanges.subscribe(res => {
-        const restemp = res as any
-        if (restemp instanceof Date) {
-          const newDate = convertUTCToLocalDateTimeISO(res as any)
-          this.interviewReqDto.get('interviewDate')?.setValue(newDate)
-        }
-      })
+        this.assesmentReqDto.get('assesmentDateTemp')?.valueChanges.subscribe(res => {
+            const restemp = res as any
+            if (restemp instanceof Date) {
+                const newDate = convertUTCToLocalDateTimeISO(res as any)
+                this.assesmentReqDto.get('assesmentDate')?.setValue(newDate)
+            }
+        })
 
-      this.hiringReqDto.get('startDateTemp')?.valueChanges.subscribe(res => {
-        const restemp = res as any
-        if (restemp instanceof Date) {
-          const newDate = convertUTCToLocalDate(res as any)
-          this.hiringReqDto.get('startDate')?.setValue(newDate)
-        }
-      })
+        this.interviewReqDto.get('interviewDateTemp')?.valueChanges.subscribe(res => {
+            const restemp = res as any
+            if (restemp instanceof Date) {
+                const newDate = convertUTCToLocalDateTimeISO(res as any)
+                this.interviewReqDto.get('interviewDate')?.setValue(newDate)
+            }
+        })
+
+        this.hiringReqDto.get('startDateTemp')?.valueChanges.subscribe(res => {
+            const restemp = res as any
+            if (restemp instanceof Date) {
+                const newDate = convertUTCToLocalDate(res as any)
+                this.hiringReqDto.get('startDate')?.setValue(newDate)
+            }
+        })
 
         firstValueFrom(getParams(this.activated, 0)).then(params => {
             this.jobId = params['jobId'];
@@ -254,6 +259,10 @@ export class ApplicantDetailComponent implements OnInit {
             firstValueFrom(this.jobService.getByDetail(this.jobId)).then(result => {
                 this.job = result;
                 console.log('job name =>  ', this.job.employementTypeName);
+                if (this.job.createdBy == this.personId) {
+                    this.isOwner = true
+                }
+
                 firstValueFrom(this.userService.getById(this.job.picId)).then(result => {
                     this.pic = result;
                 })
@@ -546,8 +555,8 @@ const convertUTCToLocalDate = function (date: Date) {
 }
 
 const convertUTCToLocalDateTimeISO = function (date: any) {
-  const newDate = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate(), date.getHours(), date.getMinutes(), date.getSeconds()));
-  return newDate.toISOString()
+    const newDate = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate(), date.getHours(), date.getMinutes(), date.getSeconds()));
+    return newDate.toISOString()
 }
 
 
