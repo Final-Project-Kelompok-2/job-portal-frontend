@@ -45,7 +45,7 @@
           <i class="pi pi-bookmark-fill" style="font-size: 2rem" *ngIf="j.isBookmark"
             (click)="deleteSavedJob(j.id)"></i>
         </div>
-        <div class=" grid grid-nogutter cursor-pointer" routerLink="/jobs/{{j.id}}/detail">
+        <div class="grid grid-nogutter cursor-pointer" routerLink="/jobs/{{j.id}}/detail">
           <div class="col-12 md:col-2 text-center">
             <p-image [src]="j.fileId | url" imageClass="w-full md:w-10rem h-10rem" alt=" Image">
               <ng-template pTemplate="indicator">
