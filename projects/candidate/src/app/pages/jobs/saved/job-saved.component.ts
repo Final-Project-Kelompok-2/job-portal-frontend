@@ -4,6 +4,7 @@ import { SavedJobResDto } from "../../../dto/saved-job/saved-job.res.dto";
 import { Router } from "@angular/router";
 import { firstValueFrom } from "rxjs";
 import { Title } from "@angular/platform-browser";
+import { BaseService } from "../../../service/base.service";
 
 @Component({
   selector: 'job-saved',
@@ -11,13 +12,18 @@ import { Title } from "@angular/platform-browser";
   styleUrls: ['./job-saved.component.css']
 })
 export class JobSavedComponent implements OnInit {
-
+  savedJobId!: string
+  loading = false
+  dialogDeleteSavedJob = false
   savedJobs!: SavedJobResDto[]
   savedJobsLength = 0
 
   haveSaved = false
 
-  constructor(private savedJobService: SavedJobService, private router: Router,
+  constructor(
+    private savedJobService: SavedJobService,
+    private router: Router,
+    private base: BaseService,
     private title: Title) {
     this.title.setTitle("Saved Jobs")
   }
@@ -36,6 +42,18 @@ export class JobSavedComponent implements OnInit {
 
   openDetail(id: string) {
     this.router.navigateByUrl(`jobs/${id}/detail`)
+  }
+
+  showDeleteSavedJob(id: string) {
+    this.savedJobId = id
+    this.dialogDeleteSavedJob = true
+  }
+
+  onDeleteSavedJob() {
+    firstValueFrom(this.savedJobService.delete(this.savedJobId)).then(result => {
+      this.getSavedJobs()
+      this.dialogDeleteSavedJob = false
+    })
   }
 
   check() {
