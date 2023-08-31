@@ -39,6 +39,14 @@ export class ApplicantDetailComponent implements OnInit {
     intern = employmentTypeEnum.INTERN;
     contract = employmentTypeEnum.CONTRACT;
 
+    //Step
+    applyStep = true;
+    assesmentStep = true;
+    interviewStep = true;
+    mcuStep = true;
+    offeringStep = true;
+    hiringStep = true;
+
     //Master Data
     applicant?: ApplicantResDto;
     job!: JobResDto;
@@ -190,21 +198,59 @@ export class ApplicantDetailComponent implements OnInit {
                     this.activeIndex = 0
                 } else if (this.applicant.statusCode == HiringStatusEnum.ASSESMENT) {
                     this.activeIndex = 1
+                    this.assesmentStep = !this.assesmentStep;
                     this.getAssesmentData();
                 } else if (this.applicant.statusCode == HiringStatusEnum.INTERVIEW_USER) {
                     this.activeIndex = 2
+                    this.assesmentStep = false;
+                    this.interviewStep = false;
                     this.InterviewData();
                     this.getReviewData();
                 } else if (this.applicant.statusCode == HiringStatusEnum.MCU) {
                     this.getMcuData();
+                    this.assesmentStep = false;
+                    this.interviewStep = false;
+                    this.mcuStep = false;
                     this.activeIndex = 3
                 } else if (this.applicant.statusCode == HiringStatusEnum.OFFERING) {
                     this.activeIndex = 4
-
+                    this.assesmentStep = false;
+                    this.interviewStep = false;
+                    this.mcuStep = false;
+                    this.offeringStep = false;
                 } else {
                     this.activeIndex = 0
                 }
+                this.status = [
+                    {
+                        label: 'Applied',
+                        command: (event: any) => this.messageService.add({ severity: 'info', summary: 'First Step', detail: event.item.label })
+                    },
+                    {
+                        label: 'Assesment',
+                        command: (event: any) => this.messageService.add({ severity: 'info', summary: 'Second Step', detail: event.item.label }),
+                        disabled : this.assesmentStep
+        
+        
+                    },
+                    {
+                        label: 'Interview User',
+                        command: (event: any) => this.messageService.add({ severity: 'info', summary: 'Third Step', detail: event.item.label }),
+                        disabled : this.interviewStep
+                    },
+                    {
+                        label: 'MCU',
+                        command: (event: any) => this.messageService.add({ severity: 'info', summary: 'Fourth Step', detail: event.item.label }),
+                        disabled : this.mcuStep
+                    },
+                    {
+                        label: 'Offering',
+                        command: (event: any) => this.messageService.add({ severity: 'info', summary: 'Fifth Step', detail: event.item.label }),
+                        disabled : this.offeringStep
+                    }
+                ]
             })
+           
             firstValueFrom(this.jobService.getByDetail(this.jobId)).then(result => {
                 this.job = result;
                 console.log('job name =>  ', this.job.employementTypeName);
@@ -214,30 +260,7 @@ export class ApplicantDetailComponent implements OnInit {
             })
 
         })
-        this.status = [
-            {
-                label: 'Applied',
-                command: (event: any) => this.messageService.add({ severity: 'info', summary: 'First Step', detail: event.item.label })
-            },
-            {
-                label: 'Assesment',
-                command: (event: any) => this.messageService.add({ severity: 'info', summary: 'Second Step', detail: event.item.label })
-
-
-            },
-            {
-                label: 'Interview User',
-                command: (event: any) => this.messageService.add({ severity: 'info', summary: 'Third Step', detail: event.item.label })
-            },
-            {
-                label: 'MCU',
-                command: (event: any) => this.messageService.add({ severity: 'info', summary: 'Fourth Step', detail: event.item.label })
-            },
-            {
-                label: 'Offering',
-                command: (event: any) => this.messageService.add({ severity: 'info', summary: 'Fifth Step', detail: event.item.label })
-            }
-        ]
+       
 
 
     }
@@ -373,6 +396,7 @@ export class ApplicantDetailComponent implements OnInit {
             this.activeIndex++;
             this.interviewForm = false;
             this.loading = false;
+            this.assesmentStep = false
         }).catch(() => {
             this.loading = false;
         });
@@ -424,6 +448,7 @@ export class ApplicantDetailComponent implements OnInit {
             this.mcuForm = false;
             this.activeIndex++;
             this.mcuReqDto.reset();
+            this.interviewStep = false;
             this.loading = false;
         }).catch(() => {
             this.loading = false;
@@ -489,6 +514,7 @@ export class ApplicantDetailComponent implements OnInit {
             this.activeIndex++;
             this.offeringReqDto.reset();
             this.loading = false;
+            this.mcuStep = false;
         }).catch(() => {
             this.loading = false;
         });
