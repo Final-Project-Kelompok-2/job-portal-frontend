@@ -366,7 +366,6 @@ export class CandidateUpdateComponent implements OnInit {
     })
 
     this.base.all([
-      // this.authService.getProfile(),
       this.candidateService.getById(this.candidateId),
       this.candidateAddressService.getByCandidate(this.candidateId),
       this.candidateEducationService.getByCandidate(this.candidateId),
