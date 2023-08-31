@@ -1,18 +1,20 @@
-<div class="grid grid-nogutter">
-  <div class="col-12 pl-4">
+<div class="grid m-2">
+  <div class="col-12">
     <h1>Companies</h1>
   </div>
-
-  <div class="col-12 flex justify-content-center flex-wrap gap-2 mb-5">
-    <div class="card " *ngFor="let c of companies">
-      <p-card class="mb-3" header="{{c.companyName}}" [style]="{ width: '290px' }">
+  <div class="col-12 md:col-3 flex justify-content-center md:justify-content-start" *ngFor="let c of companies">
+    <div class="card card-hover">
+      <p-card [style]="{width: '300px', height: '520px'}">
         <ng-template pTemplate="header">
-          <img alt="Card" [src]="c.photoId|url" style="width: 290px; height: 290px;" />
+          <img alt="Card" [src]="c.photoId|url" style="width: 300px; height: 250px;" />
         </ng-template>
         <ng-template pTemplate="subtitle">
-          <i class="pi pi-building"></i> {{ c.address }} <br>
-          <i class="pi pi-link"></i> {{ c.companyUrl }} <br>
-          <i class="pi pi-phone"></i> {{ c.companyPhone }}
+          <h3 class="mt-0">{{c.companyName}}</h3>
+        </ng-template>
+        <ng-template pTemplate="content">
+          <i class="pi pi-building"> </i> {{ c.address }} <br>
+          <i class="pi pi-link"> </i> {{ c.companyUrl }} <br>
+          <i class="pi pi-phone"> </i> {{ c.companyPhone }}
 
         </ng-template>
         <ng-template pTemplate="footer">
@@ -20,9 +22,5 @@
         </ng-template>
       </p-card>
     </div>
-
   </div>
 </div>
-
-
-<!-- <div class="grid grid-nogutter">Halo</div> -->
