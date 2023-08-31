@@ -15,7 +15,7 @@
         !userLoginReqDto.get('userEmail')!.value &&
         (userLoginReqDto.get('userEmail')!.dirty ||
           userLoginReqDto.get('userEmail')!.touched)
-      ">Input can't be empty</span>
+      ">Email can't be empty</span>
 
         <label for="password1" class="block text-900 font-medium mb-2 mt-3">Password</label>
         <p-password formControlName="userPassword" inputStyleClass="w-full" styleClass="w-full" [feedback]="false"
@@ -25,7 +25,7 @@
           !userLoginReqDto.get('userPassword')!.value &&
           (userLoginReqDto.get('userPassword')!.dirty ||
             userLoginReqDto.get('userPassword')!.touched)
-        ">Input can't be empty</span>
+        ">Passwod can't be empty</span>
 
         <app-button [loading]="loading" (clickChange)="checkForm(userLoginReqDto)" backgroundColor="var(--PRIMARY)"
           type="submit" classBtn="mt-5 w-full" label="Log in"></app-button>
