@@ -1,5 +1,6 @@
 <div class="grid">
   <div class="col-12">
+    <div class="card">
       <div class="grid mb-3 upper-container flex justify-content-between align-items-center">
         <div class="col-12 md:col-9 title">
           <h2>Report List</h2>
@@ -8,12 +9,12 @@
           <app-button type="button" label="Back" class="mr-2" classBtn="p-button-secondary" link="/dashboard">
           </app-button>
         </div>
-        <div class="col-12 md:col-offset-5">
+        <div class="col-12 ">
           <div class="grid grid-nogutter mt-3">
             <div class="col-12 md:col-12">
               <div>
                 <div class="grid grid-nogutter pl-1">
-                  <div class="col-12 md:col-3 pr-1">
+                  <div class="col-12 md:col-4 pr-1">
                     <div class="p-input-icon-left w-full">
                       <i class="pi pi-search"></i>
                       <p-calendar inputId="start" [required]="true" [(ngModel)]="startDate" [showIcon]="true"
@@ -21,7 +22,7 @@
                         placeholder="Start Date"></p-calendar>
                     </div>
                   </div>
-                  <div class="col-12 md:col-3 pr-1">
+                  <div class="col-12 md:col-4 pr-1">
                     <div class="p-input-icon-left w-full">
                       <i class="pi pi-building"></i>
                       <p-calendar inputId="end" [required]="true" [(ngModel)]="endDate" [showIcon]="true"
@@ -30,7 +31,7 @@
                     </div>
                   </div>
 
-                  <div class="col-12 md:col-3 flex align-item-center">
+                  <div class="col-12 md:col-4 flex align-item-center">
                     <app-button label="Search" (click)="filter()" backgroundColor="var(--PRIMARY)"
                       iconBtn="pi pi-search">
                     </app-button>
@@ -66,5 +67,6 @@
           </p-table>
         </div>
       </div>
+    </div>
   </div>
 </div>
