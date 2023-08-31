@@ -26,14 +26,17 @@
                     <div class="p-input-icon-left w-full">
                       <i class="pi pi-building"></i>
                       <p-calendar inputId="end" [required]="true" [(ngModel)]="endDate" [showIcon]="true"
-                        dateFormat="dd/mm/yy" inputStyleClass="w-full" styleClass="w-full"
+                        dateFormat="dd/mm/yy" inputStyleClass="w-full" styleClass="w-full mt-2 md:mt-0"
                         placeholder="End Date"></p-calendar>
                     </div>
                   </div>
 
                   <div class="col-12 md:col-4 flex align-item-center">
                     <app-button label="Search" (click)="filter()" backgroundColor="var(--PRIMARY)"
-                      iconBtn="pi pi-search">
+                      iconBtn="pi pi-search" classBtn="mt-2 md:mt-0">
+                    </app-button>
+                    <app-button label="Download"  classBtn="p-button-primary ml-2 mt-2 md:mt-0"
+                      iconBtn="pi pi-download">
                     </app-button>
                   </div>
                 </div>
