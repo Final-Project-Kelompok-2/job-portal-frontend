@@ -38,6 +38,7 @@ import { Observable, firstValueFrom } from "rxjs";
 import { CandidateProfileUpdateReqDto } from "../../../dto/candidate-profile/candidate-profile-update.req.dto";
 import { BaseService } from "../../../service/base.service";
 import { Title } from "@angular/platform-browser";
+import { BASE_URL } from "../../../constant/api.constant";
 
 interface Salutation {
   value: string;
@@ -391,7 +392,7 @@ export class CandidateUpdateComponent implements OnInit {
         this.candidateUser = res[0]
 
         if (this.candidateUser?.fileId) {
-          this.imageUrl = `http://localhost:8080/files/${this.candidateUser?.fileId}`
+          this.imageUrl = `${BASE_URL}/files/${this.candidateUser?.fileId}`
         } else {
           this.imageUrl = '../../../assets/emptyProfile.jpeg'
         }
@@ -421,6 +422,8 @@ export class CandidateUpdateComponent implements OnInit {
             candidateStatusId: res[0].candidateStatusId
           }
         })
+
+        this.birthDateCandidate = new Date(res[0].birthDate)
 
         this.addressInsertReqDto.patchValue({
           candidateId: res[0].id,

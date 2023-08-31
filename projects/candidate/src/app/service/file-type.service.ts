@@ -11,10 +11,10 @@ import { FileTypeResDto } from "../dto/file-type/file-type.res.dto";
 export class FileTypeService {
     constructor(private base: BaseService) { }
     getAll(): Observable<FileTypeResDto[]> {
-        return this.base.get<FileTypeResDto[]>(`${BASE_URL}/file-types`);
+        return this.base.getWithoutPipe<FileTypeResDto[]>(`${BASE_URL}/file-types`);
     }
 
     getByCode(code: string): Observable<FileTypeResDto> {
-        return this.base.get<FileTypeResDto>(`${BASE_URL}/file_types/detail?code=${code}`)
+        return this.base.getWithoutPipe<FileTypeResDto>(`${BASE_URL}/file_types/detail?code=${code}`)
     }
 }

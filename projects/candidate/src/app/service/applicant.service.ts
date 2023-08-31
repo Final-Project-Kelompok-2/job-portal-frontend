@@ -20,7 +20,7 @@ export class ApplicantService {
     constructor(private base: BaseService) { }
 
     getByPrincipal(): Observable<ApplicantResDto[]> {
-        return this.base.get<ApplicantResDto[]>(`${BASE_URL}/applicants`)
+        return this.base.getWithoutPipe<ApplicantResDto[]>(`${BASE_URL}/applicants`)
     }
 
     create(applicantInsertDto: ApplicantInsertReqDto): Observable<InsertResDto> {

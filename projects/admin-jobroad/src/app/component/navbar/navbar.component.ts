@@ -3,6 +3,8 @@ import { Router } from "@angular/router";
 import { MenuItem } from 'primeng/api';
 import { AuthService } from "../../service/auth.service";
 import { RoleCodeEnum } from "../../constant/user-role.constant";
+import { BASE_URL } from "../../constant/api.constant";
+import { UserService } from "../../service/user.service";
 
 
 
@@ -18,7 +20,7 @@ export class NavbarComponent implements OnInit {
   profileName = ''
   private roleCode = ''
 
-  constructor(private router: Router, private authService: AuthService) {
+  constructor(private router: Router, private authService: AuthService, private userService:UserService) {
 
   }
 
@@ -33,19 +35,32 @@ export class NavbarComponent implements OnInit {
   ngOnInit() {
 
     const profile = this.authService.getProfile()
+    
+    this.userService.data?.subscribe({
+      next: (e) => {
+        if (profile?.roleCode) {
+          this.imageUrl = `${BASE_URL}/files/${e}`;
+        }else{
+          this.imageUrl = `../../../assets/emptyProfile.jpeg`
+        }
+      },
+      error(e) {
+        console.log(e);
+      },
+    })
 
     if (profile) {
 
       if (profile?.photoId) {
-        this.imageUrl = `http://localhost:8080/files/${profile.photoId}`
+        this.imageUrl = `${BASE_URL}/files/${profile.photoId}`
       } else {
         this.imageUrl = `../../../assets/emptyProfile.jpeg`
       }
 
       this.roleCode = profile?.roleCode
       this.profileName = profile.fullName
-
     }
+
 
     this.profile = [
       {
@@ -84,7 +99,7 @@ export class NavbarComponent implements OnInit {
             label: 'Users',
             icon: 'pi pi-users',
             routerLink: '/users',
-            visible : this.isAdmin 
+            visible : this.isAdmin
           },
           {
             label: 'Employees',
@@ -114,7 +129,7 @@ export class NavbarComponent implements OnInit {
             label: 'Jobs',
             icon: 'pi pi-briefcase',
             routerLink: '/jobs'
-            
+
           },
           {
             label: 'Questions',

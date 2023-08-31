@@ -10,6 +10,6 @@ import { Injectable } from "@angular/core";
 export class AssignedQuestionService{
     constructor(private base : BaseService){}
     getByJob(id : string) : Observable<AssignedJobQuestionResDto[]>{
-        return this.base.get<AssignedJobQuestionResDto[]>(`${BASE_URL}/assigned-jobs?id=${id}`);
+        return this.base.getWithoutPipe<AssignedJobQuestionResDto[]>(`${BASE_URL}/assigned-jobs?id=${id}`);
     }
 }

@@ -2,6 +2,8 @@ import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 import { MenuItem } from 'primeng/api';
 import { AuthService } from "../../service/auth.service";
+import { BASE_URL } from "../../constant/api.constant";
+import { CandidateUserService } from "../../service/candidate-user.service";
 
 
 
@@ -17,7 +19,7 @@ export class NavbarComponent implements OnInit {
   profileName = ''
   private roleCode = ''
 
-  constructor(private router: Router, private authService: AuthService) {
+  constructor(private router: Router, private authService: AuthService, private candidateUserService:CandidateUserService) {
 
   }
 
@@ -33,10 +35,23 @@ export class NavbarComponent implements OnInit {
 
     const profile = this.authService.getProfile()
 
+    this.candidateUserService.data?.subscribe({
+      next: (e) => {
+        if (profile?.roleCode) {
+          this.imageUrl = `${BASE_URL}/files/${e}`;
+        }else{
+          this.imageUrl = `../../../assets/emptyProfile.jpeg`
+        }
+      },
+      error(e) {
+        console.log(e);
+      },
+    })
+
     if (profile) {
 
       if (profile?.photoId) {
-        this.imageUrl = `http://localhost:8081/files/${profile.photoId}`
+        this.imageUrl = `${BASE_URL}/files/${profile.photoId}`
       } else {
         this.imageUrl = '../../../assets/emptyProfile.jpeg'
       }
