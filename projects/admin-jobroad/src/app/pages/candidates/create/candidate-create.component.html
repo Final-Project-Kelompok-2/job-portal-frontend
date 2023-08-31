@@ -1,5 +1,10 @@
 <div class="col-12">
   <pre>{{ candidateMasterInsertReqDto.value | json }}</pre>
+  <div class="flex justify-content-between flex-wrap card-container mb-3">
+    <div class="flex align-items-center justify-content-center">
+      <app-button type="button" label="Back" class="mr-2" classBtn="p-button-secondary" iconBtn="pi pi-arrow-left" link="/candidates"></app-button>
+    </div>
+  </div>
   <p-card header="Add New Candidate">
     <form [formGroup]="candidateMasterInsertReqDto" (ngSubmit)="onSubmit()">
       <div class="p-fluid p-formgrid grid">
@@ -623,14 +628,14 @@
               </ng-template>
             </p-table>
           </div>
+          <div class="col-12 md:col-9 mb-5 mt-6 md:justify-content-start">
+            <app-button backgroundColor="var(--PRIMARY)" [loading]="loading" typeBtn="submit" label="Submit"
+              class=" mr-2"></app-button>
+            <app-button link="/candidates" label="Cancel" classBtn="p-button-secondary"></app-button>
+          </div>
         </div>
       </div>
 
-      <div class="col-12 md:col-9 mb-5 mt-6">
-        <app-button backgroundColor="var(--PRIMARY)" [loading]="loading" typeBtn="submit" label="Submit"
-          class=" mr-2"></app-button>
-        <app-button link="/candidates" label="Back" classBtn="p-button-secondary"></app-button>
-      </div>
     </form>
   </p-card>
 </div>
