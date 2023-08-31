@@ -7,6 +7,7 @@ import { NonNullableFormBuilder, Validators } from "@angular/forms";
 import { FileUpload } from "primeng/fileupload";
 import { ProfileResDto } from "../../../dto/profile/profile.res.dto";
 import { Title } from "@angular/platform-browser";
+import { BASE_URL } from "../../../constant/api.constant";
 
 @Component({
   selector: 'profile',
@@ -35,17 +36,17 @@ export class UserProfileComponent implements OnInit {
 
     if (profile) {
 
-      if (profile?.photoId) {
-        this.imageUrl = `http://localhost:8080/files/${profile.photoId}`
-      } else {
-        this.imageUrl = '../../../assets/emptyProfile.jpeg'
-      }
+      // if (profile?.photoId) {
+      //   this.imageUrl = `${BASE_URL}/files/${profile.photoId}`
+      // } else {
+      //   this.imageUrl = '../../../assets/emptyProfile.jpeg'
+      // }
+
       firstValueFrom(this.userService.getById(profile.userId)).then(result => {
         this.user = result
         this.getProfile();
       })
-      // this.roleCode = profile?.roleCode
-      // this.profileName = profile.fullName
+
 
     }
   }
@@ -53,7 +54,11 @@ export class UserProfileComponent implements OnInit {
   getProfile() {
     firstValueFrom(this.userService.getProfile(this.user.profileId)).then(result => {
       this.profileData = result;
-      this.imageUrl = `http://localhost:8080/files/${this.profileData.photo}`
+      if(this.profileData.photo){
+        this.imageUrl = `${BASE_URL}/files/${this.profileData.photo}`
+      }else{
+        this.imageUrl = `../../../assets/emptyProfile.jpeg`
+      }
       this.updateProfileDto.patchValue({
         id: this.user.profileId,
         fullName: this.profileData.fullName,
@@ -61,6 +66,7 @@ export class UserProfileComponent implements OnInit {
         phoneNumber: this.profileData.phoneNumber
 
       })
+      this.userService.navbarObservable(this.profileData.photo)
     })
   }
 

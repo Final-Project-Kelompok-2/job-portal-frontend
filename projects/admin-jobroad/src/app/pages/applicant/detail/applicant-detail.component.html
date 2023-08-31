@@ -9,30 +9,31 @@
     <app-button iconBtn="pi pi-angle-left" type="button" label="Job Detail" class="mr-2" classBtn="p-button-secondary"
       link="/jobs/detail/{{jobId}}">
     </app-button>
-    <app-button backgroundColor="var(--PRIMARY)" *ngIf="isApplied && (isHr || isAdmin)" type="button" label="Assesment" (click)="assesmentClick()"
-      class="mr-2" classBtn="p-button-primary"></app-button>
+    <app-button backgroundColor="var(--PRIMARY)" *ngIf="isApplied && (isHr || isAdmin)" type="button" label="Assesment"
+      (click)="assesmentClick()" class="mr-2" classBtn="p-button-primary"></app-button>
 
-    <app-button backgroundColor="var(--PRIMARY)" *ngIf="isAssesment && isHr" type="button" label="Update Notes" (click)="assesmentNoteClick()"
-      class="mr-2" classBtn="p-button-secondary mt-2"></app-button>
-    <app-button backgroundColor="var(--PRIMARY)" *ngIf="isAssesment && (isHr || isAdmin)" type="button" label="Interview" (click)="interviewClick()"
-      class="mr-2" classBtn="p-button-primary mt-2"></app-button>
+    <app-button backgroundColor="var(--PRIMARY)" *ngIf="isAssesment && isHr" type="button" label="Update Notes"
+      (click)="assesmentNoteClick()" class="mr-2" classBtn="p-button-secondary mt-2"></app-button>
+    <app-button backgroundColor="var(--PRIMARY)" *ngIf="isAssesment && (isHr || isAdmin)" type="button"
+      label="Interview" (click)="interviewClick()" class="mr-2" classBtn="p-button-primary mt-2"></app-button>
 
 
-    <app-button backgroundColor="var(--PRIMARY)" *ngIf="isInterview && isPic" type="button" label="Update Notes" (click)="interviewNoteClick()"
-      class="mr-2" classBtn="p-button-secondary mt-2"></app-button>
-    <app-button backgroundColor="var(--PRIMARY)" *ngIf="isInterview && (isHr || isAdmin)" type="button" label="Medical CheckUp" (click)="mcuClick()"
-      class="mr-2" classBtn="p-button-primary mt-2"></app-button>
+    <app-button backgroundColor="var(--PRIMARY)" *ngIf="isInterview && isPic" type="button" label="Update Notes"
+      (click)="interviewNoteClick()" class="mr-2" classBtn="p-button-secondary mt-2"></app-button>
+    <app-button backgroundColor="var(--PRIMARY)" *ngIf="isInterview && (isHr || isAdmin)" type="button"
+      label="Medical CheckUp" (click)="mcuClick()" class="mr-2" classBtn="p-button-primary mt-2"></app-button>
 
-    <app-button backgroundColor="var(--PRIMARY)" *ngIf="isMcu && (isHr || isAdmin)" type="button" label="Offering Letter" (click)="offeringClick()"
-      class="mr-2" classBtn="p-button-primary mt-2"></app-button>
+    <app-button backgroundColor="var(--PRIMARY)" *ngIf="isMcu && (isHr || isAdmin)" type="button"
+      label="Offering Letter" (click)="offeringClick()" class="mr-2" classBtn="p-button-primary mt-2"></app-button>
 
-    <app-button backgroundColor="var(--PRIMARY)" *ngIf="isOffering && (isHr || isAdmin)" backgroundColor="var(--PRIMARY)" [loading]="loading"
-      typeBtn="submit" label="Accept" iconBtn="pi pi-user-plus" class="mt-2" (click)="accept()"></app-button>
+    <app-button backgroundColor="var(--PRIMARY)" *ngIf="isOffering && (isHr || isAdmin)"
+      backgroundColor="var(--PRIMARY)" [loading]="loading" typeBtn="submit" label="Accept" iconBtn="pi pi-user-plus"
+      class="mt-2" (click)="accept()"></app-button>
 
   </div>
   <div class="col-12 md:col-1 md:col-offset-5 buttons">
-    <app-button type="button" *ngIf=" (isHr || isAdmin)" (click)="reject()" iconBtn="pi pi-times" label="Reject" class="mr-2"
-      classBtn="p-button-danger"></app-button>
+    <app-button type="button" *ngIf=" (isHr || isAdmin)" (click)="reject()" iconBtn="pi pi-times" label="Reject"
+      class="mr-2" classBtn="p-button-danger"></app-button>
   </div>
   <candidate-detail class="col-12" *ngIf="isApplied"></candidate-detail>
   <div class="col-12 " *ngIf="isApplied">
@@ -62,9 +63,10 @@
           </div>
           <div class="col-12 md:col-8">
             <!-- <input pInputText id="date" required type="datetime-local" formControlName="assesmentDate" /> -->
-            <p-calendar [inline]="true" [showTime]="true" [showSeconds]="true" inputId="date" [required]="true" formControlName="assesmentDateTemp" [showIcon]="true"
-            dateFormat="dd/mm/yy" inputStyleClass="w-full" styleClass="w-full"></p-calendar>
-          <span class="text-red-500 ml-2" *ngIf="
+            <p-calendar [inline]="true" [showTime]="true" [showSeconds]="true" inputId="date" [required]="true"
+              formControlName="assesmentDateTemp" [showIcon]="true" dateFormat="dd/mm/yy" inputStyleClass="w-full"
+              styleClass="w-full"></p-calendar>
+            <span class="text-red-500 ml-2" *ngIf="
             assesmentReqDto.get('assesmentDateTemp')!.invalid &&
             !assesmentReqDto.get('assesmentDateTemp')!.value &&
             (assesmentReqDto.get('assesmentDateTemp')!.dirty ||
@@ -123,7 +125,8 @@
           ">Input can't be empty</span>
           </div>
         </div>
-        <app-button backgroundColor="var(--PRIMARY)" (clickChange)="checkForm(assesmentNotesReqDto)" typeBtn="submit" label="Add" iconBtn="pi pi-plus" class=" mr-2"></app-button>
+        <app-button backgroundColor="var(--PRIMARY)" (clickChange)="checkForm(assesmentNotesReqDto)" typeBtn="submit"
+          label="Add" iconBtn="pi pi-plus" class=" mr-2"></app-button>
       </form>
     </p-dialog>
   </div>
@@ -151,8 +154,9 @@
             <label for="date">Date <span class="text-red-500">*</span></label>
           </div>
           <div class="col-12 md:col-8">
-            <p-calendar [inline]="true" inputId="date" [required]="true" [showTime]="true" [showSeconds]="true" formControlName="interviewDateTemp" [showIcon]="true"
-            dateFormat="dd/mm/yy" inputStyleClass="w-full" styleClass="w-full"></p-calendar>
+            <p-calendar [inline]="true" inputId="date" [required]="true" [showTime]="true" [showSeconds]="true"
+              formControlName="interviewDateTemp" [showIcon]="true" dateFormat="dd/mm/yy" inputStyleClass="w-full"
+              styleClass="w-full"></p-calendar>
             <span class="text-red-500 ml-2" *ngIf="
             interviewReqDto.get('interviewDateTemp')!.invalid &&
             !interviewReqDto.get('interviewDateTemp')!.value &&
@@ -288,10 +292,10 @@
     </p-dialog>
   </div>
 
-  <div class="offering-letter col-12 flex justify-content-center "*ngIf="isOffering">
+  <div class="offering-letter col-12 flex justify-content-center " *ngIf="isOffering">
 
 
-        <h3>Waiting for candidate to accept the offer ....</h3>
+    <h3>Waiting for candidate to accept the offer ....</h3>
 
     <p-dialog [breakpoints]="{ '960px': '75vw' }" [style]="{ width: '50vw' }" [modal]="true" [(visible)]="hiringForm"
       header="Hiring Form">
@@ -305,8 +309,8 @@
               <label for="start-date">Start <span class="text-red-500">*</span></label>
             </div>
             <div class="col-12 md:col-8">
-              <p-calendar [inline]="true" inputId="start-date" [required]="true"  formControlName="startDateTemp" [showIcon]="true"
-              dateFormat="dd/mm/yy" inputStyleClass="w-full" styleClass="w-full"></p-calendar>
+              <p-calendar [inline]="true" inputId="start-date" [required]="true" formControlName="startDateTemp"
+                [showIcon]="true" dateFormat="dd/mm/yy" inputStyleClass="w-full" styleClass="w-full"></p-calendar>
               <span class="text-red-500 ml-2" *ngIf="
               hiringReqDto.get('startDate')!.invalid &&
               !hiringReqDto.get('startDate')!.value &&
@@ -321,8 +325,8 @@
                 <label for="end-date">End Date</label>
               </div>
               <div class="col-12 md:col-8">
-                <p-calendar [inline]="true" inputId="end-date" [required]="true" formControlName="endDateTemp" [showIcon]="true"
-                dateFormat="dd/mm/yy" inputStyleClass="w-full" styleClass="w-full"></p-calendar>
+                <p-calendar [inline]="true" inputId="end-date" [required]="true" formControlName="endDateTemp"
+                  [showIcon]="true" dateFormat="dd/mm/yy" inputStyleClass="w-full" styleClass="w-full"></p-calendar>
                 <span class="text-red-500 ml-2" *ngIf="
                 hiringReqDto.get('startDate')!.invalid &&
                 !hiringReqDto.get('startDate')!.value &&

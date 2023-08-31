@@ -17,6 +17,6 @@ export class AnswerService{
     }
 
     getByApplicant(code: string) : Observable<QuestionAnswerResDto[]>{
-        return this.base.get<QuestionAnswerResDto[]>(`${BASE_URL}/question-answers?code=${code}`);
+        return this.base.getWithoutPipe<QuestionAnswerResDto[]>(`${BASE_URL}/question-answers?code=${code}`);
     }
 }

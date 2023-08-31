@@ -11,7 +11,7 @@ export class CandidateStatusService {
     constructor(private base: BaseService) { }
 
     getAll(): Observable<CandidateStatusResDto[]> {
-        return this.base.get<CandidateStatusResDto[]>(`${BASE_URL}/candidate-status`);
+        return this.base.getWithoutPipe<CandidateStatusResDto[]>(`${BASE_URL}/candidate-status`);
     }
 
 }

@@ -24,6 +24,8 @@ import { CandidateTrainingExpService } from "../../../service/candidate-training
 import { CandidateWorkExpService } from "../../../service/candidate-work-exp.service";
 import { firstValueFrom } from "rxjs";
 import { Title } from "@angular/platform-browser";
+import { BASE_URL } from "../../../constant/api.constant";
+import { BaseService } from "../../../service/base.service";
 
 @Component({
   selector: 'candidate-profile',
@@ -59,7 +61,8 @@ export class CandidateProfileComponent implements OnInit {
     private candidateSkillService: CandidateSkillService,
     private candidateTrainingExpService: CandidateTrainingExpService,
     private candidateWorkExpService: CandidateWorkExpService,
-    private title: Title
+    private title: Title,
+    private base: BaseService
   ) {
     this.title.setTitle("Profile")
   }
@@ -70,102 +73,41 @@ export class CandidateProfileComponent implements OnInit {
     if (profile) {
       this.candidateId = profile.userId
     }
-    
-    this.candidateUserProfile()
-    this.candidateUserAddresses()
-    this.candidateUserEducations()
-    this.candidateUserFamilies()
-    this.candidateUserDocuments()
-    this.candidateUserLanguages()
-    this.candidateUserProjects()
-    this.candidateUserReferences()
-    this.candidateUserSkills()
-    this.candidateUserTrainings()
-    this.candidateUserWorkings()
-  }
 
-  candidateUserProfile() {
-    return firstValueFrom(this.candidateService.getById(this.candidateId))
-      .then((res) => {
-        this.candidateUser = res
+    this.base.all([
+      this.candidateService.getById(this.candidateId),
+      this.candidateAddressService.getByCandidate(this.candidateId),
+      this.candidateEducationService.getByCandidate(this.candidateId),
+      this.candidateFamilyService.getByCandidate(this.candidateId),
+      this.candidateDocumentService.getByCandidate(this.candidateId),
+      this.candidateLanguageService.getByCandidate(this.candidateId),
+      this.candidateProjectExpService.getByCandidate(this.candidateId),
+      this.candidateReferenceService.getByCandidate(this.candidateId),
+      this.candidateSkillService.getByCandidate(this.candidateId),
+      this.candidateTrainingExpService.getByCandidate(this.candidateId),
+      this.candidateWorkExpService.getByCandidate(this.candidateId),
+    ]).then(res => {
+      this.candidateUser = res[0]
 
-        console.log(res)
+      if (this.candidateUser?.candidateProfile?.fileId) {
+        this.imageUrl = `${BASE_URL}/files/${this.candidateUser?.candidateProfile?.fileId}`
+      } else {
+        this.imageUrl = '../../../assets/emptyProfile.jpeg'
+      }
 
-        if (this.candidateUser?.candidateProfile?.fileId) {
-          this.imageUrl = `http://localhost:8081/files/${this.candidateUser?.candidateProfile?.fileId}`
-        } else {
-          this.imageUrl = '../../../assets/emptyProfile.jpeg'
-        }
-      })
-  }
+      this.candidateAddresses = res[1]
+      this.candidateEducations = res[2]
+      this.candidateFamilies = res[3]
+      this.candidateDocuments = res[4]
+      this.candidateLanguages = res[5]
+      this.candidateProjects = res[6]
+      this.candidateReferences = res[7]
+      this.candidateSkills = res[8]
+      this.candidateTrainings = res[9]
+      this.candidateWorks = res[10]
 
-  candidateUserAddresses() {
-    return firstValueFrom(this.candidateAddressService.getByCandidate(this.candidateId))
-      .then((res) => {
-        this.candidateAddresses = res
-      })
-  }
+      
+    })
 
-  candidateUserEducations() {
-    return firstValueFrom(this.candidateEducationService.getByCandidate(this.candidateId))
-      .then((res) => {
-        this.candidateEducations = res
-      })
-  }
-
-  candidateUserFamilies() {
-    return firstValueFrom(this.candidateFamilyService.getByCandidate(this.candidateId))
-      .then((res) => {
-        this.candidateFamilies = res
-      })
-  }
-
-  candidateUserDocuments() {
-    return firstValueFrom(this.candidateDocumentService.getByCandidate(this.candidateId))
-      .then((res) => {
-        this.candidateDocuments = res
-      })
-  }
-
-  candidateUserLanguages() {
-    return firstValueFrom(this.candidateLanguageService.getByCandidate(this.candidateId))
-      .then((res) => {
-        this.candidateLanguages = res
-      })
-  }
-
-  candidateUserProjects() {
-    return firstValueFrom(this.candidateProjectExpService.getByCandidate(this.candidateId))
-      .then((res) => {
-        this.candidateProjects = res
-      })
-  }
-
-  candidateUserReferences() {
-    return firstValueFrom(this.candidateReferenceService.getByCandidate(this.candidateId))
-      .then((res) => {
-        this.candidateReferences = res
-      })
-  }
-
-  candidateUserSkills() {
-    return firstValueFrom(this.candidateSkillService.getByCandidate(this.candidateId))
-      .then((res) => {
-        this.candidateSkills = res
-      })
-  }
-
-  candidateUserTrainings() {
-    return firstValueFrom(this.candidateTrainingExpService.getByCandidate(this.candidateId))
-      .then((res) => {
-        this.candidateTrainings = res
-      })
-  }
-
-  candidateUserWorkings() {
-    return firstValueFrom(this.candidateWorkExpService.getByCandidate(this.candidateId))
-      .then((res) => {
-        this.candidateWorks = res
-      })
   }
 }

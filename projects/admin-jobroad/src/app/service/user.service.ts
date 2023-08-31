@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { BaseService } from "./base.service";
-import { Observable } from "rxjs";
+import { Observable, Observer } from "rxjs";
 import { UserResDto } from "../dto/user/user.res.dto";
 import { BASE_URL } from "../constant/api.constant";
 import { UserInsertReqDto } from "../dto/user/user-insert.req.dto";
@@ -11,36 +11,49 @@ import { ProfileResDto } from "../dto/profile/profile.res.dto";
 import { ProfileUpdateReqDto } from "../dto/profile/profile-update.req.dto";
 
 @Injectable({
-    providedIn: 'root'
+  providedIn: 'root'
 })
 export class UserService {
-    constructor(private base: BaseService) { }
 
-    getAllUser(): Observable<UserResDto[]> {
-        return this.base.getWithoutPipe<UserResDto[]>(`${BASE_URL}/users`);
-    }
+  data?: Observable<string>;
+  private dataObserver?: Observer<string>;
 
-    getByRole(roleCode: string): Observable<UserResDto[]> {
-        return this.base.getWithoutPipe<UserResDto[]>(`${BASE_URL}/users/filter?roleCode=${roleCode}`);
-    }
 
-    create(data: UserInsertReqDto): Observable<InsertResDto> {
-        return this.base.post<InsertResDto>(`${BASE_URL}/users`, data);
-    }
+  constructor(private base: BaseService) {
+    this.data = new Observable<string>(
+      (observer) => (this.dataObserver = observer)
+    );
+  }
 
-    changePassword(data: UserChangePasswordReqDto): Observable<UpdateResDto> {
-        return this.base.patch<UpdateResDto>(`${BASE_URL}/users`, data);
-    }
+  getAllUser(): Observable<UserResDto[]> {
+    return this.base.getWithoutPipe<UserResDto[]>(`${BASE_URL}/users`);
+  }
 
-    getById(id: string): Observable<UserResDto> {
-        return this.base.getWithoutPipe<UserResDto>(`${BASE_URL}/users/detail?id=${id}`);
-    }
+  getByRole(roleCode: string): Observable<UserResDto[]> {
+    return this.base.getWithoutPipe<UserResDto[]>(`${BASE_URL}/users/filter?roleCode=${roleCode}`);
+  }
 
-    getProfile(id : string) : Observable<ProfileResDto>{
-        return this.base.getWithoutPipe<ProfileResDto>(`${BASE_URL}/users/profile?id=${id}`);
-    }
+  create(data: UserInsertReqDto): Observable<InsertResDto> {
+    return this.base.post<InsertResDto>(`${BASE_URL}/users`, data);
+  }
 
-    updateProfile(data : ProfileUpdateReqDto) : Observable<UpdateResDto>{
-        return this.base.patch<UpdateResDto>(`${BASE_URL}/users/profile`,data);
-    }
+  changePassword(data: UserChangePasswordReqDto): Observable<UpdateResDto> {
+    return this.base.patch<UpdateResDto>(`${BASE_URL}/users`, data);
+  }
+
+  getById(id: string): Observable<UserResDto> {
+    return this.base.getWithoutPipe<UserResDto>(`${BASE_URL}/users/detail?id=${id}`);
+  }
+
+  getProfile(id: string): Observable<ProfileResDto> {
+    return this.base.getWithoutPipe<ProfileResDto>(`${BASE_URL}/users/profile?id=${id}`);
+  }
+
+  updateProfile(data: ProfileUpdateReqDto): Observable<UpdateResDto> {
+    return this.base.patch<UpdateResDto>(`${BASE_URL}/users/profile`, data);
+  }
+
+  navbarObservable(id: string) {
+    this.dataObserver?.next(id);
+  }
 }

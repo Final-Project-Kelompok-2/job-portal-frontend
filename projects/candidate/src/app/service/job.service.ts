@@ -13,18 +13,18 @@ export class JobService {
     constructor(private base: BaseService) { }
 
     getAll(): Observable<JobResDto[]> {
-        return this.base.get<JobResDto[]>(`${BASE_URL}/jobs`);
+        return this.base.getWithoutPipe<JobResDto[]>(`${BASE_URL}/jobs`);
     }
     getByPrincipal(): Observable<JobResDto[]> {
-        return this.base.get<JobResDto[]>(`${BASE_URL}/jobs/person`);
+        return this.base.getWithoutPipe<JobResDto[]>(`${BASE_URL}/jobs/person`);
     }
 
     getByCompany(code: string): Observable<JobResDto[]> {
-        return this.base.get<JobResDto[]>(`${BASE_URL}/jobs/company`);
+        return this.base.getWithoutPipe<JobResDto[]>(`${BASE_URL}/jobs/company`);
     }
 
     getDetail(jobId: string): Observable<JobResDto> {
-        return this.base.get<JobResDto>(`${BASE_URL}/jobs/detail?jobId=${jobId}`)
+        return this.base.getWithoutPipe<JobResDto>(`${BASE_URL}/jobs/detail?jobId=${jobId}`)
     }
 
 

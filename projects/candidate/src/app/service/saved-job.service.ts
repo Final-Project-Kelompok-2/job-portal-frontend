@@ -26,7 +26,7 @@ export class SavedJobService {
 
 
     getByPrincipal(): Observable<SavedJobResDto[]> {
-        return this.base.get<SavedJobResDto[]>(`${BASE_URL}/saved-jobs`)
+        return this.base.getWithoutPipe<SavedJobResDto[]>(`${BASE_URL}/saved-jobs`)
     }
 
 }
