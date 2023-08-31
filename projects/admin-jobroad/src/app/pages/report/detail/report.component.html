@@ -1,3 +1,5 @@
+<pre>{{filterData.value | json}}</pre>
+
 <div class="grid">
   <div class="col-12">
     <div class="card">
@@ -12,22 +14,24 @@
         <div class="col-12 ">
           <div class="grid grid-nogutter mt-3">
             <div class="col-12 md:col-12">
-              <div>
+              <div [formGroup]="filterData">
                 <div class="grid grid-nogutter pl-1">
                   <div class="col-12 md:col-4 pr-1">
                     <div class="p-input-icon-left w-full">
                       <i class="pi pi-search"></i>
-                      <p-calendar inputId="start" [required]="true" [(ngModel)]="startDate" [showIcon]="true"
+                      <p-calendar inputId="start" [required]="true" [showIcon]="true" formControlName="startDateTemp"
                         dateFormat="dd/mm/yy" inputStyleClass="w-full" styleClass="w-full"
-                        placeholder="Start Date"></p-calendar>
+                        (onSelect)="convertStartDate($event)" placeholder="Start Date">
+                      </p-calendar>
                     </div>
                   </div>
                   <div class="col-12 md:col-4 pr-1">
                     <div class="p-input-icon-left w-full">
                       <i class="pi pi-building"></i>
-                      <p-calendar inputId="end" [required]="true" [(ngModel)]="endDate" [showIcon]="true"
+                      <p-calendar inputId="end" [required]="true" [showIcon]="true" formControlName="endDateTemp"
                         dateFormat="dd/mm/yy" inputStyleClass="w-full" styleClass="w-full mt-2 md:mt-0"
-                        placeholder="End Date"></p-calendar>
+                        (onSelect)="convertEndDate($event)" placeholder="End Date">
+                      </p-calendar>
                     </div>
                   </div>
 
@@ -35,9 +39,11 @@
                     <app-button label="Search" (click)="filter()" backgroundColor="var(--PRIMARY)"
                       iconBtn="pi pi-search" classBtn="mt-2 md:mt-0">
                     </app-button>
-                    <app-button label="Download"  classBtn="p-button-primary ml-2 mt-2 md:mt-0"
-                      iconBtn="pi pi-download">
-                    </app-button>
+                    <!-- <app-button label="Download" [href]="localhost:8080/reports/"
+                      classBtn="p-button-primary ml-2 mt-2 md:mt-0" iconBtn="pi pi-download">
+                    </app-button> -->
+                    <div></div>
+                    <a [href]="reportUrl">Download</a>
                   </div>
                 </div>
               </div>

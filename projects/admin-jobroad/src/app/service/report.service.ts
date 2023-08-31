@@ -29,4 +29,6 @@ export class ReportService {
         }
         return this.base.getWithoutPipe<ReportResDto[]>(url);
     }
+
+
 }
