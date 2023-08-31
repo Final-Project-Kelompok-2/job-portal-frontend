@@ -26,6 +26,7 @@ import { CandidateWorkResDto } from "../../../dto/candidate-work/candidate-work.
 import { BaseService } from "../../../service/base.service";
 import { BASE_URL } from "../../../constant/api.constant";
 import { Title } from "@angular/platform-browser";
+import { AuthService } from "../../../service/auth.service";
 
 function getParams(activatedRoute: ActivatedRoute, parentLevel?: number): Observable<Params> {
   let route = activatedRoute
@@ -46,6 +47,7 @@ function getParams(activatedRoute: ActivatedRoute, parentLevel?: number): Observ
 export class CandidateDetailComponent implements OnInit {
   imageUrl!: string
   loading = false
+  disabled = true
   candidateUser?: CandidateUserResDto
   candidateAddresses!: CandidateAddressResDto[]
   candidateDocuments!: CandidateDocumentResDto[]
@@ -59,6 +61,7 @@ export class CandidateDetailComponent implements OnInit {
   candidateWorks!: CandidateWorkResDto[]
 
   constructor(
+    private authService : AuthService,
     private candidateService: CandidateUserService,
     private candidateAddressService: CandidateAddressService,
     private candidateDocumentService: CandidateDocumentService,
@@ -111,6 +114,11 @@ export class CandidateDetailComponent implements OnInit {
           this.imageUrl = `http://localhost:8080/files/${this.candidateUser?.fileId}`
         } else {
           this.imageUrl = '../../../assets/emptyProfile.jpeg'
+        }
+
+        const profile = this.authService.getProfile()
+        if (this.candidateUser?.createdBy === profile?.userId) {
+          this.disabled = false
         }
 
       })
