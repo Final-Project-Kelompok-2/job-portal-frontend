@@ -94,6 +94,11 @@ export class CandidateProfileComponent implements OnInit {
       } else {
         this.imageUrl = '../../../assets/emptyProfile.jpeg'
       }
+      const dataProfile = JSON.parse(localStorage.getItem('data')!)
+      dataProfile.photoId = this.candidateUser?.candidateProfile?.fileId
+      localStorage.setItem('data', JSON.stringify(dataProfile))
+      this.candidateService.navbarObservable(this.candidateUser?.candidateProfile?.fileId)
+
 
       this.candidateAddresses = res[1]
       this.candidateEducations = res[2]
@@ -106,7 +111,7 @@ export class CandidateProfileComponent implements OnInit {
       this.candidateTrainings = res[9]
       this.candidateWorks = res[10]
 
-      
+
     })
 
   }
