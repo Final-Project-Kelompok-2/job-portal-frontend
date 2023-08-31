@@ -10,9 +10,16 @@ import { BASE_URL } from "../constant/api.constant";
 })
 export class CompanyService {
     constructor(private base: BaseService) { }
+
+
     getAll(): Observable<CompanyResDto[]> {
         return this.base.getWithoutPipe<CompanyResDto[]>(`${BASE_URL}/companies`);
 
     }
+
+    getDetail(id: string): Observable<CompanyResDto> {
+        return this.base.getWithoutPipe<CompanyResDto>(`${BASE_URL}/companies/detail?id=${id}`)
+    }
+
 
 }

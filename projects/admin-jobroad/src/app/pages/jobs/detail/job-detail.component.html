@@ -1,9 +1,14 @@
 <p-card styleClass="mt-3" header="Job Detail">
   <div class="grid ">
-    <img class="banner" [src]="imageUrlCompany" alt="company-logo">
+    <img class="banner" [src]="imageUrlCompany |url" alt="company-logo">
+
+  </div>
+
+  <div class="grid">
     <div class="col-12 mt-6">
       <ng-container *ngIf="job?.fileId">
-        <p-image class="profile-picture" [src]="imageUrlBanner" imageClass="w-10rem h-8rem md:w-15rem md:h-15rem" alt="Image" >
+        <p-image class="profile-picture" [src]="imageUrlBanner |url " imageClass="w-10rem h-8rem md:w-15rem md:h-15rem"
+          alt="Image">
           <ng-template pTemplate="indicator">
             <i class="pi pi-check"></i>
           </ng-template>

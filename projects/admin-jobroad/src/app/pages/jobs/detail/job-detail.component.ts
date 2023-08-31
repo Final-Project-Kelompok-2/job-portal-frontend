@@ -9,6 +9,7 @@ import { Table } from "primeng/table";
 import { HiringStatusEnum } from "../../../constant/hiring-status.constant";
 import { BaseService } from "../../../service/base.service";
 import { Title } from "@angular/platform-browser";
+import { BASE_URL } from "../../../constant/api.constant";
 
 @Component({
   selector: 'job-detail',
@@ -45,21 +46,14 @@ export class JobDetailComponent implements OnInit, OnDestroy {
     firstValueFrom(this.activated.params).then(param => {
       this.jobSubscription = this.jobService.getByDetail(param['id']).subscribe(result => {
         this.job = result;
-        if (this.job?.fileId) {
-          this.imageUrlBanner = `http://localhost:8080/files/${this.job?.fileId}`
-        }
-        else {
-          this.imageUrlBanner = '../../../../assets/bannerJob.jpeg'
-        }
+
+        this.imageUrlBanner = this.job?.fileId
+
+        this.imageUrlCompany = this.job?.companyPhotoId
 
 
-        if (this.job?.companyPhotoId) {
-          this.imageUrlCompany = `http://localhost:8080/files/${this.job?.companyPhotoId}`
 
-        }
-        else {
-          this.imageUrlCompany = '../../../../assets/companyLogo.png'
-        }
+
       });
       this.jobId = param['id'];
       this.applicantSubscription = this.applicantService.getByJob(param['id']).subscribe(result => {

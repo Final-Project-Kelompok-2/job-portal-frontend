@@ -2,7 +2,7 @@
   <div class="flex justify-content-between flex-wrap card-container mb-3">
     <div class="flex align-items-center justify-content-center">
       <app-button type="button" label="Back" class="mr-2" classBtn="p-button-secondary"
-      link="/candidates/detail/{{candidateId}}"></app-button>
+        link="/candidates/detail/{{candidateId}}"></app-button>
     </div>
   </div>
   <!-- Candidate Info -->
@@ -18,7 +18,7 @@
                   <div class="flex align-items-right justify-content-center">
                     <app-button backgroundColor="secondary" label="Cancel" class="mr-2" classBtn="p-button-secondary"
                       link="/candidates/detail/{{candidateId}}"></app-button>
-                    <app-button backgroundColor="var(--PRIMARY)" [loading]="loading" typeBtn="submit" label="Submit"
+                    <app-button backgroundColor="var(--PRIMARY)" [loading]="loading" typeBtn="submit" label="Save"
                       class="mr-2" iconBtn="pi pi-save"
                       (clickChange)="checkForm(candidateUpdateInsertReqDto)"></app-button>
                   </div>

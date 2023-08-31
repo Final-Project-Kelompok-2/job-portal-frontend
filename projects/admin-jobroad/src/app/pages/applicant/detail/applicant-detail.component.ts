@@ -34,10 +34,20 @@ import { Title } from "@angular/platform-browser";
 export class ApplicantDetailComponent implements OnInit {
     jobId!: string;
     appId!: string;
-    status!: MenuItem[] | undefined;
+    isOwner!: Boolean
+    status!: MenuItem[] ;
     activeIndex: number = 0;
     intern = employmentTypeEnum.INTERN;
     contract = employmentTypeEnum.CONTRACT;
+    personId!: string
+
+    //Step
+    applyStep = true;
+    assesmentStep = true;
+    interviewStep = true;
+    mcuStep = true;
+    offeringStep = true;
+    hiringStep = true;
 
     //Master Data
     applicant?: ApplicantResDto;
@@ -149,31 +159,34 @@ export class ApplicantDetailComponent implements OnInit {
 
 
     ngOnInit(): void {
-
-
-      this.assesmentReqDto.get('assesmentDateTemp')?.valueChanges.subscribe(res => {
-        const restemp = res as any
-        if (restemp instanceof Date) {
-          const newDate = convertUTCToLocalDateTimeISO(res as any)
-          this.assesmentReqDto.get('assesmentDate')?.setValue(newDate)
+        const data = this.authService.getProfile()
+        if (data) {
+            this.personId = data.userId
         }
-      })
 
-      this.interviewReqDto.get('interviewDateTemp')?.valueChanges.subscribe(res => {
-        const restemp = res as any
-        if (restemp instanceof Date) {
-          const newDate = convertUTCToLocalDateTimeISO(res as any)
-          this.interviewReqDto.get('interviewDate')?.setValue(newDate)
-        }
-      })
+        this.assesmentReqDto.get('assesmentDateTemp')?.valueChanges.subscribe(res => {
+            const restemp = res as any
+            if (restemp instanceof Date) {
+                const newDate = convertUTCToLocalDateTimeISO(res as any)
+                this.assesmentReqDto.get('assesmentDate')?.setValue(newDate)
+            }
+        })
 
-      this.hiringReqDto.get('startDateTemp')?.valueChanges.subscribe(res => {
-        const restemp = res as any
-        if (restemp instanceof Date) {
-          const newDate = convertUTCToLocalDate(res as any)
-          this.hiringReqDto.get('startDate')?.setValue(newDate)
-        }
-      })
+        this.interviewReqDto.get('interviewDateTemp')?.valueChanges.subscribe(res => {
+            const restemp = res as any
+            if (restemp instanceof Date) {
+                const newDate = convertUTCToLocalDateTimeISO(res as any)
+                this.interviewReqDto.get('interviewDate')?.setValue(newDate)
+            }
+        })
+
+        this.hiringReqDto.get('startDateTemp')?.valueChanges.subscribe(res => {
+            const restemp = res as any
+            if (restemp instanceof Date) {
+                const newDate = convertUTCToLocalDate(res as any)
+                this.hiringReqDto.get('startDate')?.setValue(newDate)
+            }
+        })
 
         firstValueFrom(getParams(this.activated, 0)).then(params => {
             this.jobId = params['jobId'];
@@ -190,54 +203,73 @@ export class ApplicantDetailComponent implements OnInit {
                     this.activeIndex = 0
                 } else if (this.applicant.statusCode == HiringStatusEnum.ASSESMENT) {
                     this.activeIndex = 1
+                    this.assesmentStep = !this.assesmentStep;
                     this.getAssesmentData();
                 } else if (this.applicant.statusCode == HiringStatusEnum.INTERVIEW_USER) {
                     this.activeIndex = 2
+                    this.assesmentStep = false;
+                    this.interviewStep = false;
                     this.InterviewData();
                     this.getReviewData();
                 } else if (this.applicant.statusCode == HiringStatusEnum.MCU) {
                     this.getMcuData();
+                    this.assesmentStep = false;
+                    this.interviewStep = false;
+                    this.mcuStep = false;
                     this.activeIndex = 3
                 } else if (this.applicant.statusCode == HiringStatusEnum.OFFERING) {
                     this.activeIndex = 4
-
+                    this.assesmentStep = false;
+                    this.interviewStep = false;
+                    this.mcuStep = false;
+                    this.offeringStep = false;
                 } else {
                     this.activeIndex = 0
                 }
+                this.status = [
+                    {
+                        label: 'Applied',
+                        command: (event: any) => this.messageService.add({ severity: 'info', summary: 'First Step', detail: event.item.label })
+                    },
+                    {
+                        label: 'Assesment',
+                        command: (event: any) => this.messageService.add({ severity: 'info', summary: 'Second Step', detail: event.item.label }),
+                        disabled : this.assesmentStep
+        
+        
+                    },
+                    {
+                        label: 'Interview User',
+                        command: (event: any) => this.messageService.add({ severity: 'info', summary: 'Third Step', detail: event.item.label }),
+                        disabled : this.interviewStep
+                    },
+                    {
+                        label: 'MCU',
+                        command: (event: any) => this.messageService.add({ severity: 'info', summary: 'Fourth Step', detail: event.item.label }),
+                        disabled : this.mcuStep
+                    },
+                    {
+                        label: 'Offering',
+                        command: (event: any) => this.messageService.add({ severity: 'info', summary: 'Fifth Step', detail: event.item.label }),
+                        disabled : this.offeringStep
+                    }
+                ]
             })
+           
             firstValueFrom(this.jobService.getByDetail(this.jobId)).then(result => {
                 this.job = result;
                 console.log('job name =>  ', this.job.employementTypeName);
+                if (this.job.createdBy == this.personId) {
+                    this.isOwner = true
+                }
+
                 firstValueFrom(this.userService.getById(this.job.picId)).then(result => {
                     this.pic = result;
                 })
             })
 
         })
-        this.status = [
-            {
-                label: 'Applied',
-                command: (event: any) => this.messageService.add({ severity: 'info', summary: 'First Step', detail: event.item.label })
-            },
-            {
-                label: 'Assesment',
-                command: (event: any) => this.messageService.add({ severity: 'info', summary: 'Second Step', detail: event.item.label })
-
-
-            },
-            {
-                label: 'Interview User',
-                command: (event: any) => this.messageService.add({ severity: 'info', summary: 'Third Step', detail: event.item.label })
-            },
-            {
-                label: 'MCU',
-                command: (event: any) => this.messageService.add({ severity: 'info', summary: 'Fourth Step', detail: event.item.label })
-            },
-            {
-                label: 'Offering',
-                command: (event: any) => this.messageService.add({ severity: 'info', summary: 'Fifth Step', detail: event.item.label })
-            }
-        ]
+       
 
 
     }
@@ -282,6 +314,21 @@ export class ApplicantDetailComponent implements OnInit {
         return this.mcuReqDto.get("mcuData") as FormArray
     }
 
+    moveTo(event : any){
+        console.log('ini event  : ' + event.value.label)
+        if(event.value.label == this.status[0].label){
+            this.activeIndex = 0
+        }else if(event.value.label == this.status[1].label){
+            this.activeIndex = 1
+        }else if(event.value.label == this.status[2].label){
+            this.activeIndex = 2
+        }else if(event.value.label == this.status[3].label){
+            this.activeIndex = 3
+        }else if(event.value.label == this.status[4].label){
+            this.activeIndex = 4
+        }
+    }
+
     reject() {
         this.applicantReqDto.patchValue({
             applicantId: this.appId,
@@ -294,7 +341,7 @@ export class ApplicantDetailComponent implements OnInit {
         this.loading = true
         firstValueFrom(this.applicantService.update(data)).then(() => {
             this.loading = false
-            // this.router.navigateByUrl(`/jobs/detail/${this.jobId}`);
+            this.router.navigateByUrl(`/jobs/detail/${this.jobId}`);
         }).catch(() => {
             this.loading = false;
         })
@@ -373,6 +420,7 @@ export class ApplicantDetailComponent implements OnInit {
             this.activeIndex++;
             this.interviewForm = false;
             this.loading = false;
+            this.assesmentStep = false
         }).catch(() => {
             this.loading = false;
         });
@@ -424,6 +472,7 @@ export class ApplicantDetailComponent implements OnInit {
             this.mcuForm = false;
             this.activeIndex++;
             this.mcuReqDto.reset();
+            this.interviewStep = false;
             this.loading = false;
         }).catch(() => {
             this.loading = false;
@@ -489,6 +538,7 @@ export class ApplicantDetailComponent implements OnInit {
             this.activeIndex++;
             this.offeringReqDto.reset();
             this.loading = false;
+            this.mcuStep = false;
         }).catch(() => {
             this.loading = false;
         });
@@ -520,8 +570,8 @@ const convertUTCToLocalDate = function (date: Date) {
 }
 
 const convertUTCToLocalDateTimeISO = function (date: any) {
-  const newDate = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate(), date.getHours(), date.getMinutes(), date.getSeconds()));
-  return newDate.toISOString()
+    const newDate = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate(), date.getHours(), date.getMinutes(), date.getSeconds()));
+    return newDate.toISOString()
 }
 
 

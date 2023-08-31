@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
-import { CompanyService } from "../../service/company.service";
-import { CompanyResDto } from "../../dto/company/company.res.dto";
+import { CompanyService } from "../../../service/company.service";
+import { CompanyResDto } from "../../../dto/company/company.res.dto";
 import { firstValueFrom } from "rxjs";
 import { Title } from "@angular/platform-browser";
 

@@ -1,7 +1,5 @@
 <div class="col-12">
-  <pre>
-    {{jobReqDto.value | json}}
-  </pre>
+  <pre>{{jobReqDto.value | json}}</pre>
   <p-card header="Add New Job">
     <form [formGroup]="jobReqDto" (ngSubmit)="onSubmit()">
       <div class="p-fluid p-formgrid grid">
@@ -122,7 +120,7 @@
             <p-fileUpload mode="basic" chooseLabel="Upload" styleClass="bg-green-700" chooseIcon="pi pi-upload"
               class="form-control" #file type="file" id="picture" (onSelect)="fileUpload($event,file)"
               required></p-fileUpload>
-              <span class="text-red-500 ml-2" *ngIf="
+            <span class="text-red-500 ml-2" *ngIf="
               jobReqDto.get('file')!.invalid &&
               !jobReqDto.get('file')!.value &&
               (jobReqDto.get('file')!.dirty ||
@@ -165,13 +163,13 @@
             </div>
           </div>
         </div>
+        <div class="col-12 md:col-9 mb-5 mt-6 flex justify-content-start">
+          <app-button backgroundColor="var(--PRIMARY)" [loading]="loading" typeBtn="submit" label="Save"
+            iconBtn="pi pi-save" class=" mr-2" (clickChange)="checkForm(jobReqDto)"></app-button>
+          <app-button link="/jobs" label="Cancel" classBtn="p-button-secondary"></app-button>
+        </div>
       </div>
 
-      <div class="col-12 md:col-9 mb-5 mt-6">
-        <app-button backgroundColor="var(--PRIMARY)" [loading]="loading" typeBtn="submit" label="Add"
-          iconBtn="pi pi-plus" class=" mr-2" (clickChange)="checkForm(jobReqDto)"></app-button>
-        <app-button link="/jobs" label="Back" classBtn="p-button-secondary"></app-button>
-      </div>
     </form>
   </p-card>
 </div>
