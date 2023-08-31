@@ -12,7 +12,7 @@ export class MaritalStatusService {
     constructor(private base: BaseService) { }
 
     getAll(): Observable<MaritalResDto[]> {
-        return this.base.get<MaritalResDto[]>(`${BASE_URL}/maritals-status`);
+        return this.base.getWithoutPipe<MaritalResDto[]>(`${BASE_URL}/maritals-status`);
     }
 
 }

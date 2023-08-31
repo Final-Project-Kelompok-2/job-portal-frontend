@@ -10,6 +10,6 @@ import { HiringStatusResDto } from "../dto/hiring-status/hiring-status.res.dto";
 export class HiringStatusService {
     constructor(private base: BaseService) { }
     getAll(): Observable<HiringStatusResDto[]> {
-        return this.base.get<HiringStatusResDto[]>(`${BASE_URL}/hiring-status`);
+        return this.base.getWithoutPipe<HiringStatusResDto[]>(`${BASE_URL}/hiring-status`);
     }
 }

@@ -16,7 +16,7 @@ import { CandidateLanguageUpdateReqDto } from "../dto/candidate-language/candida
 export class CandidateLanguageService {
     constructor(private base: BaseService) { }
     getByCandidate(id: string): Observable<CandidateLanguageResDto[]> {
-        return this.base.get<CandidateLanguageResDto[]>(`${BASE_URL}/candidate-language?id=${id}`);
+        return this.base.getWithoutPipe<CandidateLanguageResDto[]>(`${BASE_URL}/candidate-language?id=${id}`);
 
     }
 

@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { Observable } from "rxjs";
+import { Observable, Observer } from "rxjs";
 import { BaseService } from "./base.service";
 import { BASE_URL } from "../constant/api.constant";
 import { CandidateMasterResDto } from "../dto/candidate-user/candidate-master.res.dto";
@@ -13,28 +13,39 @@ import { CandidateCheckDataResDto } from "../dto/candidate/candidate-check-data.
 
 
 @Injectable({
-    providedIn: 'root'
+  providedIn: 'root'
 })
 export class CandidateUserService {
-    constructor(private base: BaseService) { }
 
-    register(data: CandidateUserInsertReqDto): Observable<InsertResDto> {
-        return this.base.post<InsertResDto>(`${BASE_URL}/candidate-user`, data);
-    }
-    changePassword(data: ChangePasswordReqDto): Observable<UpdateResDto> {
-        return this.base.patch<UpdateResDto>(`${BASE_URL}/candidate-user/password`, data);
-    }
+  data?: Observable<string>;
+  private dataObserver?: Observer<string>;
 
-    getById(id: string): Observable<CandidateMasterResDto> {
-        return this.base.get<CandidateMasterResDto>(`${BASE_URL}/candidate-user?id=${id}`)
-    }
+  constructor(private base: BaseService) {
+    this.data = new Observable<string>(
+      (observer) => (this.dataObserver = observer)
+    );
+  }
 
-    update(data: CandidateUserUpdateReqDto): Observable<UpdateResDto> {
-        return this.base.patch<UpdateResDto>(`${BASE_URL}/candidate-user/`, data)
-    }
+  register(data: CandidateUserInsertReqDto): Observable<InsertResDto> {
+    return this.base.post<InsertResDto>(`${BASE_URL}/candidate-user`, data);
+  }
+  changePassword(data: ChangePasswordReqDto): Observable<UpdateResDto> {
+    return this.base.patch<UpdateResDto>(`${BASE_URL}/candidate-user/password`, data);
+  }
 
-    checkData(): Observable<CandidateCheckDataResDto> {
-        return this.base.get<CandidateCheckDataResDto>(`${BASE_URL}/candidate-user/checks`)
-    }
+  getById(id: string): Observable<CandidateMasterResDto> {
+    return this.base.getWithoutPipe<CandidateMasterResDto>(`${BASE_URL}/candidate-user?id=${id}`)
+  }
 
+  update(data: CandidateUserUpdateReqDto): Observable<UpdateResDto> {
+    return this.base.patch<UpdateResDto>(`${BASE_URL}/candidate-user/`, data)
+  }
+
+  checkData(): Observable<CandidateCheckDataResDto> {
+    return this.base.get<CandidateCheckDataResDto>(`${BASE_URL}/candidate-user/checks`)
+  }
+
+  navbarObservable(id: string) {
+    this.dataObserver?.next(id);
+  }
 }

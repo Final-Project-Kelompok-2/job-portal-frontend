@@ -16,7 +16,7 @@ import { CandidateReferencesUpdateReqDto } from "../dto/candidate-references/can
 export class CandidateReferenceService {
     constructor(private base: BaseService) { }
     getByCandidate(id: string): Observable<CandidateReferencesResDto[]> {
-        return this.base.get<CandidateReferencesResDto[]>(`${BASE_URL}/candidate-references?id=${id}`);
+        return this.base.getWithoutPipe<CandidateReferencesResDto[]>(`${BASE_URL}/candidate-references?id=${id}`);
 
     }
 

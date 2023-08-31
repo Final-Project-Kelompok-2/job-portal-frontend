@@ -11,8 +11,8 @@ export class QuestionService {
     constructor(private base: BaseService) { }
 
     getByApplicant(code : string) : Observable<QuestionResDto[]> {
-        
-        return this.base.get<QuestionResDto[]>(`${BASE_URL}/questions?code=${code}`)
+
+        return this.base.getWithoutPipe<QuestionResDto[]>(`${BASE_URL}/questions?code=${code}`)
     }
 
 

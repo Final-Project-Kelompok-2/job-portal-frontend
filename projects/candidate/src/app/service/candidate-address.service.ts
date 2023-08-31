@@ -15,7 +15,7 @@ import { InsertResDto } from "../dto/insert.res.dto";
 export class CandidateAddressService {
     constructor(private base: BaseService) { }
     getByCandidate(id: string): Observable<CandidateAddressResDto[]> {
-        return this.base.get<CandidateAddressResDto[]>(`${BASE_URL}/candidate-address?id=${id}`);
+        return this.base.getWithoutPipe<CandidateAddressResDto[]>(`${BASE_URL}/candidate-address?id=${id}`);
     }
 
     create(data: CandidateAddressInsertReqDto): Observable<InsertResDto> {

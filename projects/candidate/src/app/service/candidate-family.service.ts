@@ -15,7 +15,7 @@ import { CandidateFamilyUpdateReqDto } from "../dto/candidate-family/candidate-f
 export class CandidateFamilyService {
     constructor(private base: BaseService) { }
     getByCandidate(id: string): Observable<CandidateFamilyResDto[]> {
-        return this.base.get<CandidateFamilyResDto[]>(`${BASE_URL}/candidate-family?id=${id}`);
+        return this.base.getWithoutPipe<CandidateFamilyResDto[]>(`${BASE_URL}/candidate-family?id=${id}`);
 
     }
 
