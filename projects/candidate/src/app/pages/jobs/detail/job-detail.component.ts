@@ -40,8 +40,6 @@ export class JobDetailComponent implements OnInit {
             const id = result["id"]
             this.jobId = id
             this.getJobDetail(this.jobId)
-
-
         })
     }
 
