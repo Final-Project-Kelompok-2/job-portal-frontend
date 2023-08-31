@@ -10,6 +10,9 @@ import { InsertResDto } from "../dto/insert.res.dto";
     providedIn: 'root'
 })
 export class JobService {
+
+    fromComponent: string | null = null
+
     constructor(private base: BaseService) { }
 
     getAll(): Observable<JobResDto[]> {
