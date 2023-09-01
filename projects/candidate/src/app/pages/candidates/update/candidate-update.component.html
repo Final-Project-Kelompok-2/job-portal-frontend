@@ -18,7 +18,7 @@
                   <div class="flex align-items-right justify-content-center">
                     <app-button backgroundColor="secondary" label="Cancel" class="mr-2" classBtn="p-button-secondary"
                       link="/candidates/profile"></app-button>
-                    <app-button backgroundColor="var(--PRIMARY)" [loading]="loading" typeBtn="submit" label="Submit"
+                    <app-button backgroundColor="var(--PRIMARY)" [loading]="loading" typeBtn="submit" label="Save"
                       class="mr-2" iconBtn="pi pi-save"
                       (clickChange)="checkForm(candidateUpdateInsertReqDto)"></app-button>
                   </div>
@@ -680,9 +680,6 @@
             </div>
           </div>
         </div>
-
-
-
       </div>
     </form>
   </p-card>
@@ -758,7 +755,7 @@
       </div>
     </div>
     <div class="field col-12">
-      <app-button backgroundColor="var(--PRIMARY)" [loading]="loading" typeBtn="submit" label="Submit" class=" mr-2"
+      <app-button backgroundColor="var(--PRIMARY)" [loading]="loading" typeBtn="submit" label="Save" class=" mr-2"
         (clickChange)="checkForm(addressInsertReqDto)"></app-button>
     </div>
   </form>
@@ -826,7 +823,7 @@
       </div>
     </div>
     <div class="field col-12">
-      <app-button backgroundColor="var(--PRIMARY)" [loading]="loading" typeBtn="submit" label="Submit" class=" mr-2"
+      <app-button backgroundColor="var(--PRIMARY)" [loading]="loading" typeBtn="submit" label="Save" class=" mr-2"
       (clickChange)="checkForm(educationInsertReqDto)"></app-button>
     </div>
   </form>

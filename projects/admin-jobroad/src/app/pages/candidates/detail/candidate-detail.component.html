@@ -455,7 +455,7 @@
                                         <td>{{ document.docName }}.{{ document.fileExtension}}</td>
                                         <td>{{ document.fileTypeName }}</td>
                                         <td>
-                                          <app-button backgroundColor="var(--PRIMARY)" iconBtn="pi pi-download" label="Download" (clickChange)="downloadFile(document.fileId)"></app-button>
+                                            <a [href]="document.fileId | url">Download</a>
                                         </td>
                                     </tr>
                                 </ng-template>

@@ -48,9 +48,9 @@ export class UserProfileComponent implements OnInit {
   getProfile() {
     firstValueFrom(this.userService.getProfile(this.user.profileId)).then(result => {
       this.profileData = result;
-      if(this.profileData.photo){
+      if (this.profileData.photo) {
         this.imageUrl = `${BASE_URL}/files/${this.profileData.photo}`
-      }else{
+      } else {
         this.imageUrl = `../../../assets/emptyProfile.jpeg`
       }
       this.updateProfileDto.patchValue({
@@ -61,6 +61,7 @@ export class UserProfileComponent implements OnInit {
 
       })
       this.userService.navbarObservable(this.profileData.photo)
+
       const dataProfile = JSON.parse(localStorage.getItem('data')!)
       dataProfile.photoId = this.profileData?.photo
       localStorage.setItem('data', JSON.stringify(dataProfile))

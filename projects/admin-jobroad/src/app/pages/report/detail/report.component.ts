@@ -3,7 +3,7 @@ import { ReportService } from "../../../service/report.service";
 import { ReportResDto } from "../../../dto/report/report.res.dto";
 import { firstValueFrom } from "rxjs";
 import { FormControl, NonNullableFormBuilder, Validators } from "@angular/forms";
-import { convertUTCToLocalDateTime } from "../../../util/convert-date.util";
+import { convertUTCToLocalDate } from "../../../util/convert-date.util";
 
 @Component({
     selector: 'report',
@@ -44,14 +44,14 @@ export class ReportComponent implements OnInit, AfterViewChecked {
 
     convertStartDate(event: any) {
         this.filterData.patchValue({
-            startDate: convertUTCToLocalDateTime(event)
+            startDate: convertUTCToLocalDate(event)
         })
     }
 
 
     convertEndDate(event: any) {
         this.filterData.patchValue({
-            endDate: convertUTCToLocalDateTime(event)
+            endDate: convertUTCToLocalDate(event)
         })
 
     }
