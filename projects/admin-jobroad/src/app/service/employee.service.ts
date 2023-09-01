@@ -20,4 +20,8 @@ export class EmployeeService{
     createFromAdmin(data : EmployeeInsertReqAdminDto) : Observable<InsertResDto> {
         return this.base.post<InsertResDto>(`${BASE_URL}/employees`, data);
     }
+
+    getById(id : string) : Observable<EmployeeResDto> {
+        return this.base.getWithoutPipe<EmployeeResDto>(`${BASE_URL}/employees/id?id=${id}`)
+    }
 }

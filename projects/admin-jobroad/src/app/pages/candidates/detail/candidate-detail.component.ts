@@ -54,7 +54,7 @@ export class CandidateDetailComponent implements OnInit {
   imageUrl!: string
   loading = false
   disabled = true
-  disabledAssign = true
+  disabledAssign = false
   dialogAssignJob = false
   candidateUser? : CandidateUserResDto
   candidateAddresses!: CandidateAddressResDto[]

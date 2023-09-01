@@ -6,5 +6,5 @@ export interface EmployeeResDto {
 	jobName: string
 	companyUrl: string
 	employmentTypeName: string
-
+	createdBy : string
 }
