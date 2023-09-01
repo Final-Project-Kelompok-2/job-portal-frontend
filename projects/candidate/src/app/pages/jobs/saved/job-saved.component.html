@@ -18,7 +18,7 @@
       </div>
       <div class="col-12 justify-content-center">
         <p-card *ngFor="let j of savedJobs" class="card-hover" styleClass="card-hover">
-          <p class="m-0">
+          
             <div class="flex justify-content-end cursor-pointer">
               <app-button typeBtn="button" label="Remove" iconBtn="pi pi-trash" backgroundColor="danger"
                 (clickChange)="showDeleteSavedJob(j.jobId)"
