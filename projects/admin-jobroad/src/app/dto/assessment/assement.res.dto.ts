@@ -1,5 +1,5 @@
-export class AssementResDto{
-    assesmentDate! : string;
-	assesmentLocation! : string;
+export interface AssementResDto{
+    assesmentDate : string;
+	assesmentLocation : string;
 	notes? : string;
 }

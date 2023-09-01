@@ -4,7 +4,7 @@ export interface CandidateWorkInsertReqDto {
 	address : string
 	responsibility : string
 	reasonLeave : string
-	lastSalary : number
+	lastSalary : number | null
 	startDate : string
 	endDate : string
 	email : string

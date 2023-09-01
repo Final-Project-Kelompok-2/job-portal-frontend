@@ -5,6 +5,7 @@ import { firstValueFrom } from "rxjs";
 import { FormControl, NonNullableFormBuilder, Validators } from "@angular/forms";
 import { convertUTCToLocalDate } from "../../../util/convert-date.util";
 
+
 @Component({
     selector: 'report',
     templateUrl: './report.component.html',
@@ -59,12 +60,13 @@ export class ReportComponent implements OnInit, AfterViewChecked {
     filter() {
         console.log("Start Date :   " + this.startDate);
         console.log("End Date :   " + this.endDate);
-        const newStartDate = convertUTCToLocalDateTimeISOStart(this.startDate as string);
-        let newEndDate: string = '';
-        if (this.endDate != null) {
-            newEndDate = convertUTCToLocalDateTimeISOEnd(this.endDate as string);
-            console.log("New End Date :  " + newEndDate);
+        const data = this.filterData.getRawValue()
 
+        const newStartDate = convertUTCToLocalDate(data.startDateTemp as any);
+        let newEndDate: string = '';
+        if (data.endDateTemp != null) {
+            newEndDate = convertUTCToLocalDate(data.endDateTemp as any);
+            console.log("New End Date :  " + newEndDate);
         }
         console.log("New Start Date :  " + newStartDate);
         this.getReports(newStartDate, newEndDate);
@@ -74,8 +76,8 @@ export class ReportComponent implements OnInit, AfterViewChecked {
     }
 
 
-
 }
+
 const convertUTCToLocalDateTimeISOStart = function (date: any) {
     const newDate = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate(), date.getHours(), date.getMinutes(), date.getSeconds()));
     return newDate.toISOString().split('T')[0] + " " + newDate.toISOString().split('T')[1]

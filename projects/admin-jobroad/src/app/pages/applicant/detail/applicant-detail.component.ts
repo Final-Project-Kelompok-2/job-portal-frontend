@@ -233,9 +233,10 @@ export class ApplicantDetailComponent implements OnInit {
                 } else {
                     this.activeIndex = 0
                 }
+
                 this.stepperMenu();
             })
-           
+
             firstValueFrom(this.jobService.getByDetail(this.jobId)).then(result => {
                 this.job = result;
                 console.log('job name =>  ', this.job.employementTypeName);
@@ -249,7 +250,7 @@ export class ApplicantDetailComponent implements OnInit {
             })
 
         })
-       
+
 
 
     }
@@ -349,7 +350,6 @@ export class ApplicantDetailComponent implements OnInit {
         this.loading = true
         firstValueFrom(this.applicantService.update(data)).then(() => {
             this.loading = false
-            // this.router.navigateByUrl(`/jobs/detail/${this.jobId}`);
         }).catch(() => {
             this.loading = false;
         });
@@ -495,7 +495,6 @@ export class ApplicantDetailComponent implements OnInit {
 
 
     fileUpload(event: any) {
-        // this.mcuDataListReqDto.clear();
         const toBase64 = (file: File) => new Promise<string>((resolve, reject) => {
             const reader = new FileReader();
             reader.readAsDataURL(file);

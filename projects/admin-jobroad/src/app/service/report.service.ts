@@ -14,12 +14,10 @@ export class ReportService {
     getReport(startDate: string, endDate: string): Observable<ReportResDto[]> {
         let url = `${BASE_URL}/reports?`
         if (startDate != null) {
-            startDate = startDate.slice(0, -1)
             url = url + `startDate=${startDate}`
         }
         if (endDate != null) {
             if (endDate != '') {
-                endDate = endDate.slice(0, -1)
                 if (startDate != null) {
                     url = url + `&endDate=${endDate}`
                 } else {
@@ -29,6 +27,5 @@ export class ReportService {
         }
         return this.base.getWithoutPipe<ReportResDto[]>(url);
     }
-
 
 }

@@ -36,8 +36,8 @@
     </div>
     <div class="col-12 md:col-3 md:col-offset-4 buttons">
       <p-dropdown [options]="dropMenu" styleClass="mr-2" [style]="{'height' : '2.5rem'}" (onChange)="moveTo($event)"
-        placeholder="Move To ?"></p-dropdown>
-      <app-button type="button" *ngIf=" (isHr || isAdmin)" (click)="reject()" iconBtn="pi pi-times" label="Reject"
+        placeholder="Move To ?" *ngIf="isOwner || isAdmin"></p-dropdown>
+      <app-button type="button" *ngIf=" isOwner || isAdmin" (click)="reject()" iconBtn="pi pi-times" label="Reject"
         class="mr-2" classBtn="p-button-danger"></app-button>
     </div>
     <candidate-detail class="col-12" *ngIf="isApplied"></candidate-detail>
@@ -77,20 +77,20 @@
             (assesmentReqDto.get('assesmentDateTemp')!.dirty ||
               assesmentReqDto.get('assesmentDateTemp')!.touched)
           ">Input can't be empty</span>
-            </div>
-            <app-button backgroundColor="var(--PRIMARY)" [loading]="loading" typeBtn="submit" label="Add"
-              iconBtn="pi pi-plus" class=" mr-2" (clickChange)="checkForm(assesmentReqDto)"></app-button>
           </div>
-        </form>
-        <!-- </p-card> -->
-      </p-dialog>
-    </div>
-    <div class="col-12 assesment" *ngIf="isAssesment">
-      <p-card header="Assesment" class="col-12">
-        <div class="grid col-12">
-          <div class="col-4 md:col-5"><i class="pi pi-calendar"></i><b> Date</b></div>
-          <div class="col-1 md:col-1">:</div>
-          <div class="col-12 md:col-6">{{assesmentData?.assesmentDate}}</div>
+          <app-button backgroundColor="var(--PRIMARY)" [loading]="loading" typeBtn="submit" label="Add"
+            iconBtn="pi pi-plus" class=" mr-2" (clickChange)="checkForm(assesmentReqDto)"></app-button>
+        </div>
+      </form>
+      <!-- </p-card> -->
+    </p-dialog>
+  </div>
+  <div class="assesment col-12 justify-content-center" *ngIf="isAssesment">
+    <p-card header="Assesment">
+      <div class="grid">
+        <div class="col-5 md:col-5"><i class="pi pi-calendar"></i> Date</div>
+        <div class="col-1 md:col-1">:</div>
+        <div class="col-6 md:col-6">{{assesmentData?.assesmentDate}}</div>
 
           <div class="col-4 md:col-5"><i class="pi pi-home"></i> <b> Location</b></div>
           <div class="col-1 md:col-1">:</div>
@@ -330,14 +330,14 @@
                 (hiringReqDto.get('startDate')!.dirty ||
                   hiringReqDto.get('startDate')!.touched)
               ">Input can't be empty</span>
-                </div>
               </div>
             </div>
           </div>
-          <app-button backgroundColor="var(--PRIMARY)" [loading]="loading" typeBtn="submit" label="Add"
-            iconBtn="pi pi-plus" class="mt-2"></app-button>
-        </form>
-      </p-dialog>
+        </div>
+        <app-button backgroundColor="var(--PRIMARY)" [loading]="loading" typeBtn="submit" label="Add"
+          iconBtn="pi pi-plus" class="mt-2"></app-button>
+      </form>
+    </p-dialog>
 
     </div>
   </div>
