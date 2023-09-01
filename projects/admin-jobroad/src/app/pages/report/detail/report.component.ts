@@ -74,16 +74,4 @@ export class ReportComponent implements OnInit, AfterViewChecked {
         this.reportUrl = `http://localhost:8080/reports/download?startDate=${newStartDate}&endDate=${newEndDate}`
         console.log(this.reportUrl);
     }
-
-
-}
-
-const convertUTCToLocalDateTimeISOStart = function (date: any) {
-    const newDate = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate(), date.getHours(), date.getMinutes(), date.getSeconds()));
-    return newDate.toISOString().split('T')[0] + " " + newDate.toISOString().split('T')[1]
-}
-
-const convertUTCToLocalDateTimeISOEnd = function (date: any) {
-    const newDate = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate(), date.getHours() + 23, date.getMinutes(), date.getSeconds()));
-    return newDate.toISOString().split('T')[0] + " " + newDate.toISOString().split('T')[1]
 }
