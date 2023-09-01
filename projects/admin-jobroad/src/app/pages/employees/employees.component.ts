@@ -6,6 +6,7 @@ import { BlacklistService } from "../../service/blacklist.service";
 import { firstValueFrom } from "rxjs";
 import { BaseService } from "../../service/base.service";
 import { Title } from "@angular/platform-browser";
+import { AuthService } from "../../service/auth.service";
 
 @Component({
   selector: 'employees',
@@ -13,10 +14,9 @@ import { Title } from "@angular/platform-browser";
   styleUrls: ['./employees.component.css'],
 })
 export class EmployeesComponent implements OnInit {
-
+  employee?: EmployeeResDto
   employees!: EmployeeResDto[]
   visible: boolean = false;
-
 
   blacklistReqDto = this.fb.group({
     candidateEmail: ['', [Validators.required]],
@@ -24,32 +24,35 @@ export class EmployeesComponent implements OnInit {
   })
 
 
-  constructor(private employeeService: EmployeeService,
+  constructor(
+    private employeeService: EmployeeService,
+    private authService: AuthService,
     private fb: NonNullableFormBuilder,
     private blacklistService: BlacklistService,
     private base: BaseService,
-    private title: Title) {
+    private title: Title
+  ) {
     this.title.setTitle("Employee List")
   }
 
-  showDialog(candidateEmail: string) {
+  showDialog(id: string) {
     this.blacklistReqDto.reset()
-    if (this.visible) {
-
-      this.visible = !this.visible;
-    }
-    else {
-      this.blacklistReqDto.get("candidateEmail")?.patchValue(
-        candidateEmail
-      )
-      this.visible = !this.visible;
-    }
-
-
+    firstValueFrom(this.employeeService.getById(id))
+      .then((res) => {
+        this.employee = res
+        const profile = this.authService.getProfile()
+        if (profile?.userId === this.employee?.createdBy) {
+          this.visible = true
+        } else {
+          this.visible = true
+        }
+        this.blacklistReqDto.patchValue({
+          candidateEmail: this.employee?.candidateEmail
+        })
+      })
   }
 
   ngOnInit(): void {
-
     this.base.all([
       this.employeeService.getAll()
     ]).then(result => {
@@ -74,12 +77,12 @@ export class EmployeesComponent implements OnInit {
         ]).then(result => {
           this.employees = result[0]
         })
-
       })
     }
     else {
       console.log("invalid");
     }
+    this.visible = false
   }
 
 }

@@ -60,7 +60,7 @@
               </tr>
             </ng-template>
             <ng-template pTemplate="body" let-e let-i="rowIndex">
-              <tr (click)="showDialog(e.candidateEmail)" class=" cursor-pointer">
+              <tr (click)="showDialog(e.id)" class="cursor-pointer">
                 <td>{{i+1}}</td>
                 <td>{{e.candidateName}}</td>
                 <td>{{e.candidateEmail}}</td>
@@ -76,15 +76,15 @@
     </div>
   </div>
 </div>
-<p-dialog header="Blacklist Form" [(visible)]="visible" [modal]="true"[breakpoints]="{ '960px': '95vw' }"
-[style]="{ width: '50vw' }" [draggable]="false" [resizable]="false">
+<p-dialog header="Blacklist Form" [(visible)]="visible" [modal]="true" [breakpoints]="{ '960px': '95vw' }"
+  [style]="{ width: '50vw' }" [draggable]="false" [resizable]="false">
 
   <pre>{{blacklistReqDto.value |  json}}</pre>
   <form [formGroup]="blacklistReqDto" (ngSubmit)="onSubmit()">
 
     <div class="grid">
       <div class="col-12 md:col-6">
-        Blacklist Reason  <span class="text-red-500">*</span> :
+        Blacklist Reason <span class="text-red-500">*</span> :
       </div>
     </div>
     <div class="grid">
@@ -98,7 +98,8 @@
       ">Input can't be empty</span>
       </div>
     </div>
-    <app-button backgroundColor="var(--PRIMARY)" typeBtn="submit" label="Submit" (clickChange)="checkForm(blacklistReqDto)"></app-button>
+    <app-button backgroundColor="var(--PRIMARY)" typeBtn="submit" label="Submit"
+      (clickChange)="checkForm(blacklistReqDto)"></app-button>
   </form>
 
 </p-dialog>
