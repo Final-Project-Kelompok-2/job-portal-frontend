@@ -3,7 +3,7 @@ export interface CandidateEducationUpdateReqDto {
 	degreeName : string
 	instituitionName : string
 	majors : string
-	cgpa : number
+	cgpa : number | null
 	startYear : string
 	endYear : string
 	candidateId : string

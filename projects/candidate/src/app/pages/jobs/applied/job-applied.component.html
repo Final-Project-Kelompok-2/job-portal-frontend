@@ -16,7 +16,7 @@
               <h4>{{a.jobName}}
               </h4>
               <p-badge [value]="a.statusName" size="large" [severity]="checker(a.statusName)"></p-badge>
-              <!-- <p-badge [value]="c.candidateStatus" size="large" [severity]="checker(c.candidateStatus)"></p-badge> -->
+
             </div>
             <div class="col-12 md:col-6">
               <app-button (clickChange)="getQuestion(a.jobId,a.applicantCode)" backgroundColor="var(--PRIMARY)"

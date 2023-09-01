@@ -50,7 +50,6 @@ export class LoginComponent {
                     if (this.testVal != null) {
                         if (this.testVal == 'true') {
                             console.log('testval ==  ' + this.testVal);
-                            // localStorage.setItem('q','false')
                             this.router.navigateByUrl(`/questions/${this.appId}`)
                         } else {
                             this.router.navigateByUrl('/dashboard')

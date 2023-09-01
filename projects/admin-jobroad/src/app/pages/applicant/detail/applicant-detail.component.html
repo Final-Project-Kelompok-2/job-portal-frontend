@@ -65,7 +65,7 @@
             <label for="date">Date <span class="text-red-500">*</span></label>
           </div>
           <div class="col-12 md:col-8">
-            <!-- <input pInputText id="date" required type="datetime-local" formControlName="assesmentDate" /> -->
+
             <p-calendar [inline]="true" [showTime]="true" [showSeconds]="true" inputId="date" [required]="true"
               formControlName="assesmentDateTemp" [showIcon]="true" dateFormat="dd/mm/yy" inputStyleClass="w-full"
               styleClass="w-full"></p-calendar>
@@ -80,7 +80,7 @@
             iconBtn="pi pi-plus" class=" mr-2" (clickChange)="checkForm(assesmentReqDto)"></app-button>
         </div>
       </form>
-      <!-- </p-card> -->
+
     </p-dialog>
   </div>
   <div class="assesment col-12 justify-content-center" *ngIf="isAssesment">

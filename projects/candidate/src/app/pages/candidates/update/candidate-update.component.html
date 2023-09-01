@@ -8,7 +8,7 @@
   <!-- Candidate Info -->
   <p-card header="Update Candidate Information">
     <form [formGroup]="candidateUpdateInsertReqDto" (ngSubmit)="onUpdate()">
-      <pre>{{ candidateUpdateInsertReqDto.value | json }}</pre>
+      <!-- <pre>{{ candidateUpdateInsertReqDto.value | json }}</pre> -->
       <div class="grid">
         <div class="col-12 md:col-10 md:col-offset-2">
           <div class="row align-items-center">
@@ -203,7 +203,7 @@
             <div class="col-7">
               <p-inputNumber inputId="expectedSalary" mode="currency" currency="IDR" locale="id-ID"
                 formControlName="expectedSalary" inputStyleClass="w-full" class="w-full"
-                [style]="{'width':'100%'}"></p-inputNumber>
+                [style]="{'width':'100%'}" placeholder="Rp 0,00"></p-inputNumber>
               <span class="text-red-500 ml-2" *ngIf="
                 candidateUpdateInsertReqDto.get('profile.expectedSalary')!.invalid &&
                 !candidateUpdateInsertReqDto.get('profile.expectedSalary')!.value &&
@@ -654,7 +654,7 @@
                 <hr>
               </div>
               <div class="col-12 md:col-12">
-                <p-table [value]="candidateDocuments" [tableStyle]="{'min-width': '60rem'}">
+                <p-table [value]="candidateDocuments">
                   <ng-template pTemplate="header">
                     <tr>
                       <th>No.</th>
@@ -681,22 +681,7 @@
           </div>
         </div>
 
-        <div class="col-12 md:col-8 md:col-offset-2">
-          <div class="row align-items-center">
-            <div class="grid">
-              <div class="col-12 md:col-12">
-                <div class="flex justify-content-end flex-wrap card-container">
-                  <div class="flex align-items-right justify-content-center">
-                    <app-button backgroundColor="secondary" label="Cancel" class="mr-2" classBtn="p-button-secondary"
-                      link="/candidates/profile"></app-button>
-                    <app-button backgroundColor="var(--PRIMARY)" [loading]="loading" typeBtn="submit" label="Submit"
-                      class=" mr-2"></app-button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+
 
       </div>
     </form>
@@ -952,7 +937,7 @@
       ">Input can't be empty</span>
       </div>
       <div class="field col-12">
-        <label for="writing">Writing Rate <span class="text-red-500"> *</span> </label>
+        <label for="writing">Writing Rate (0-5)<span class="text-red-500"> *</span> </label>
         <p-inputNumber inputId="writing" mode="decimal" [min]="0" [max]="5"
           formControlName="writingRate"></p-inputNumber>
         <span class="text-red-500 ml-2" *ngIf="
@@ -963,7 +948,7 @@
         ">Input can't be empty</span>
       </div>
       <div class="field col-12">
-        <label for="speaking">Speaking Rate <span class="text-red-500"> *</span> </label>
+        <label for="speaking">Speaking Rate (0-5)<span class="text-red-500"> *</span> </label>
         <p-inputNumber inputId="speaking" mode="decimal" [min]="0" [max]="5"
           formControlName="speakingRate"></p-inputNumber>
         <span class="text-red-500 ml-2" *ngIf="
@@ -974,7 +959,7 @@
         ">Input can't be empty</span>
       </div>
       <div class="field col-12">
-        <label for="listening">Listening Rate <span class="text-red-500"> *</span> </label>
+        <label for="listening">Listening Rate (0-5)<span class="text-red-500"> *</span> </label>
         <p-inputNumber inputId="listening" mode="decimal" [min]="0" [max]="5"
           formControlName="listeningRate"></p-inputNumber>
         <span class="text-red-500 ml-2" *ngIf="
@@ -1296,6 +1281,12 @@
         <p-dropdown inputId="fileTypeCode" [options]="fileTypes" optionLabel="typeName" optionValue="typeCode"
           [showClear]="true" [required]="true" formControlName="fileTypeCode"
           placeholder="Choose File Type"></p-dropdown>
+          <span class="text-red-500 ml-2" *ngIf="
+          documentInsertReqDto.get('fileTypeCode')!.invalid &&
+          !documentInsertReqDto.get('fileTypeCode')!.value &&
+          (documentInsertReqDto.get('fileTypeCode')!.dirty ||
+            documentInsertReqDto.get('fileTypeCode')!.touched)
+        ">Must be selected</span>
       </div>
 
       <div class="field col-12">
@@ -1307,7 +1298,7 @@
     </div>
     <div class="field col-12">
       <app-button backgroundColor="var(--PRIMARY)" [loading]="loading" typeBtn="submit" label="Submit"
-        class=" mr-2"></app-button>
+        class=" mr-2" (clickChange)="checkForm(documentInsertReqDto)"></app-button>
     </div>
   </form>
 </p-dialog>

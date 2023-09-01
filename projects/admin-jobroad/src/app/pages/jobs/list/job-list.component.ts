@@ -27,7 +27,6 @@ export class JobListComponent implements OnInit {
   }
   ngOnInit(): void {
     this.roleName = this.authService.getProfile()?.roleCode;
-    // this.getJob();
 
     if (this.isAdmin) {
       this.base.all([
@@ -67,23 +66,4 @@ export class JobListComponent implements OnInit {
     return this.roleName == RoleCodeEnum.PIC
   }
 
-  // getJob() {
-  //   if (this.isAdmin) {
-  //     this.jobSubscription = this.jobService.getAll().subscribe(result => {
-  //       this.jobs = result;
-  //     })
-  //   } else if(this.isHr) {
-  //     this.jobSubscription = this.jobService.getByPrincipal().subscribe(result => {
-  //       this.jobs = result;
-  //     })
-  //   }else {
-  //     this.jobSubscription = this.jobService.getByPic().subscribe(result =>{
-  //       this.jobs = result
-  //     })
-  //   }
-  // }
-
-  // ngOnDestroy(): void {
-  //   this.jobSubscription.unsubscribe();
-  // }
 }
