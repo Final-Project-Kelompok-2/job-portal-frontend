@@ -161,17 +161,12 @@
                 candidateUpdateInsertReqDto.get('profile.nik')!.touched)
             ">Input can't be empty</span>
             </div>
-            <label for="phone" class="col-4">Phone Number<span class="text-red-500"> *</span></label>
+            <label for="phone" class="col-4">Phone Number</label>
             <div class="col-1">:</div>
             <div class="col-7">
-              <input pInputText id="phone" required type="text" formControlName="phoneNumber"
+              <input pInputText id="phone" type="text" formControlName="phoneNumber"
                 [style]="{'width':'100%'}" />
-              <span class="text-red-500 ml-2" *ngIf="
-                candidateUpdateInsertReqDto.get('profile.phoneNumber')!.invalid &&
-                !candidateUpdateInsertReqDto.get('profile.phoneNumber')!.value &&
-                (candidateUpdateInsertReqDto.get('profile.phoneNumber')!.dirty ||
-                  candidateUpdateInsertReqDto.get('profile.phoneNumber')!.touched)
-              ">Input can't be empty</span>
+
             </div>
             <label for="mobile" class="col-4">Mobile Number<span class="text-red-500"> *</span></label>
             <div class="col-1">:</div>
