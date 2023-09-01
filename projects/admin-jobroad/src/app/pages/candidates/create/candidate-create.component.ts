@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { FormArray, NonNullableFormBuilder, Validators } from "@angular/forms";
+import { FormArray, FormControl, FormGroup, NonNullableFormBuilder, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
 import { CandidateTrainingInsertReqDto } from "../../../dto/candidate-training/candidate-training-insert.req.dto";
 import { FileUpload } from "primeng/fileupload";
@@ -103,11 +103,12 @@ export class CandidateCreateComponent implements OnInit {
     fullname: ['', Validators.required],
     gender: ['', Validators.required],
     experience: ['', Validators.required],
-    expectedSalary: [0, Validators.required],
+    expectedSalary: new FormControl<number | null>(null, Validators.required),
     phoneNumber: ['', Validators.required],
     mobileNumber: ['', Validators.required],
     nik: ['', Validators.required],
     birthDate: ['', Validators.required],
+    birthDateTemp: new FormControl<Date | null>(null),
     birthPlace: ['', Validators.required],
     maritalStatusId: ['', Validators.required],
     religionId: ['', Validators.required],
@@ -130,7 +131,9 @@ export class CandidateCreateComponent implements OnInit {
     trainingName: ['', [Validators.required]],
     description: ['', [Validators.required]],
     startDate: ['', [Validators.required]],
-    endDate: ['', [Validators.required]]
+    startDateTemp: new FormControl<Date | null>(null),
+    endDate: ['', [Validators.required]],
+    endDateTemp: new FormControl<Date | null>(null)
   })
 
   addressInsertReqDto = this.fb.group({
@@ -146,9 +149,12 @@ export class CandidateCreateComponent implements OnInit {
     degreeName: ['', [Validators.required]],
     instituitionName: ['', [Validators.required]],
     majors: ['', [Validators.required]],
-    cgpa: ['', [Validators.required]],
+    cgpa: new FormControl<number | null>(null, Validators.required),
     startYear: ['', [Validators.required]],
-    endYear: ['', [Validators.required]]
+    startYearTemp: new FormControl<Date | null>(null),
+    endYear: ['', [Validators.required]],
+    endYearTemp: new FormControl<Date | null>(null)
+
   })
 
   workingInsertReqDto = this.fb.group({
@@ -157,9 +163,11 @@ export class CandidateCreateComponent implements OnInit {
     address: ['', [Validators.required]],
     responsibility: ['', [Validators.required]],
     reasonLeave: ['', [Validators.required]],
-    lastSalary: ['', [Validators.required]],
+    lastSalary: new FormControl<number | null>(null, Validators.required),
     startDate: ['', [Validators.required]],
-    endDate: ['', [Validators.required]]
+    startDateTemp: new FormControl<Date | null>(null),
+    endDate: ['', [Validators.required]],
+    endDateTemp: new FormControl<Date | null>(null)
   })
 
   projectInsertReqDto = this.fb.group({
@@ -167,7 +175,9 @@ export class CandidateCreateComponent implements OnInit {
     projectUrl: ['', [Validators.required]],
     description: ['', [Validators.required]],
     startDate: ['', [Validators.required]],
-    endDate: ['', [Validators.required]]
+    startDateTemp: new FormControl<Date | null>(null),
+    endDate: ['', [Validators.required]],
+    endDateTemp: new FormControl<Date | null>(null),
   })
 
   skillInsertReqDto = this.fb.group({
@@ -212,6 +222,84 @@ export class CandidateCreateComponent implements OnInit {
 
     this.imgUrl = '../../../assets/emptyProfile.jpeg'
 
+    this.candidateMasterInsertReqDto.get('birthDateTemp')?.valueChanges.subscribe(res => {
+      const newBirthDate = convertUTCToLocalDate(res as any)
+      this.candidateMasterInsertReqDto.get('birthDate')?.setValue(newBirthDate)
+    })
+
+    this.familyInsertReqDto.get('birthDateTemp')?.valueChanges.subscribe(res => {
+      const restemp = res as any
+      if (restemp instanceof Date) {
+        const newBirthDate = convertUTCToLocalDate(res as any)
+        this.familyInsertReqDto.get('birthDate')?.setValue(newBirthDate)
+      }
+    })
+
+    this.educationInsertReqDto.get('startYearTemp')?.valueChanges.subscribe(res => {
+      console.log(res);
+      const restemp = res as any
+      if (restemp instanceof Date) {
+        const newStartYear = convertUTCToLocalDate(restemp)
+        this.educationInsertReqDto.get('startYear')?.setValue(newStartYear)
+
+      }
+    })
+    this.educationInsertReqDto.get('endYearTemp')?.valueChanges.subscribe(res => {
+      console.log(res);
+      const restemp = res as any
+      if (restemp instanceof Date) {
+        const newEndYear = convertUTCToLocalDate(restemp)
+        this.educationInsertReqDto.get('endYear')?.setValue(newEndYear)
+
+      }
+    })
+
+    this.workingInsertReqDto.get('startDateTemp')?.valueChanges.subscribe(res => {
+      const restemp = res as any
+      if (restemp instanceof Date) {
+        const newStartDate = convertUTCToLocalDate(res as any)
+        this.workingInsertReqDto.get('startDate')?.setValue(newStartDate)
+      }
+    })
+    this.workingInsertReqDto.get('endDateTemp')?.valueChanges.subscribe(res => {
+      const restemp = res as any
+      if (restemp instanceof Date) {
+        const newEndDate = convertUTCToLocalDate(res as any)
+        this.workingInsertReqDto.get('endDate')?.setValue(newEndDate)
+      }
+    })
+
+    this.projectInsertReqDto.get('startDateTemp')?.valueChanges.subscribe(res => {
+      const restemp = res as any
+      if (restemp instanceof Date) {
+        const newStartDate = convertUTCToLocalDate(res as any)
+        this.projectInsertReqDto.get('startDate')?.setValue(newStartDate)
+      }
+    })
+    this.projectInsertReqDto.get('endDateTemp')?.valueChanges.subscribe(res => {
+      const restemp = res as any
+      if (restemp instanceof Date) {
+        const newEndDate = convertUTCToLocalDate(res as any)
+        this.projectInsertReqDto.get('endDate')?.setValue(newEndDate)
+      }
+    })
+
+    this.trainingInsertReqDto.get('startDateTemp')?.valueChanges.subscribe(res => {
+      const restemp = res as any
+      if (restemp instanceof Date) {
+        const newStartDate = convertUTCToLocalDate(res as any)
+        this.trainingInsertReqDto.get('startDate')?.setValue(newStartDate)
+      }
+    })
+    this.trainingInsertReqDto.get('endDateTemp')?.valueChanges.subscribe(res => {
+      const restemp = res as any
+      if (restemp instanceof Date) {
+        const newEndDate = convertUTCToLocalDate(res as any)
+        this.trainingInsertReqDto.get('endDate')?.setValue(newEndDate)
+      }
+    })
+
+
     firstValueFrom(this.religionService.getAll()).then((res) => {
       this.religions = res
     })
@@ -251,6 +339,12 @@ export class CandidateCreateComponent implements OnInit {
       { value: 'Sarjana (S1)', label: 'Sarjana (S1)' },
       { value: 'Magister (S2)', label: 'Magister (S2)' }
     ]
+  }
+
+  checkForm(form:FormGroup){
+    if(form.invalid){
+      form.markAllAsTouched()
+    }
   }
 
   showAddAddress() {
@@ -529,4 +623,9 @@ export class CandidateCreateComponent implements OnInit {
       })
     }
   }
+}
+
+const convertUTCToLocalDate = function (date: Date) {
+  const newDate = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate(), date.getHours(), date.getMinutes(), date.getSeconds()));
+  return newDate.toISOString().split('T')[0]
 }

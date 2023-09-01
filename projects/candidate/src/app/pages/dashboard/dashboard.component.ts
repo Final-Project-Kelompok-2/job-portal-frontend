@@ -59,13 +59,4 @@ export class DashboardComponent implements OnInit {
     ];
   }
 
-
-  // showDialog() {
-  //   this.visible = true;
-  // }
-
-  // goToProfile(){
-  //   this.router.navigateByUrl('/candidates/profile/update')
-  // }
-
 }

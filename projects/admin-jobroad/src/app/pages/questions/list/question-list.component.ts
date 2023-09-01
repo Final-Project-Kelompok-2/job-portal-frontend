@@ -47,8 +47,6 @@ export class QuestionListComponent implements OnInit, AfterViewChecked {
   }
 
   ngOnInit(): void {
-    // this.getQuestion();
-
     this.base.all([this.questionService.getAll()])
       .then(result => {
         this.questions = result[0]

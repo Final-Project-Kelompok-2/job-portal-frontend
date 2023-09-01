@@ -76,8 +76,8 @@
     </div>
   </div>
 </div>
-<p-dialog header="Blacklist Form" [(visible)]="visible" [modal]="true" [style]="{ width: '50vw' }" [draggable]="false"
-  [resizable]="false">
+<p-dialog header="Blacklist Form" [(visible)]="visible" [modal]="true"[breakpoints]="{ '960px': '95vw' }"
+[style]="{ width: '50vw' }" [draggable]="false" [resizable]="false">
 
   <pre>{{blacklistReqDto.value |  json}}</pre>
   <form [formGroup]="blacklistReqDto" (ngSubmit)="onSubmit()">
@@ -88,8 +88,8 @@
       </div>
     </div>
     <div class="grid">
-      <div class="col-12 md:col-6">
-        <textarea rows="5" cols="30" pInputTextarea formControlName="notes"></textarea>
+      <div class="col-12">
+        <textarea rows="5" cols="50" pInputTextarea formControlName="notes" class="w-full"></textarea>
         <span class="text-red-500 ml-2" *ngIf="
         blacklistReqDto.get('notes')!.invalid &&
         !blacklistReqDto.get('notes')!.value &&

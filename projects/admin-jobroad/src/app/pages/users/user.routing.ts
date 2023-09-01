@@ -13,14 +13,10 @@ const routes:Routes = [
   {
     path : '',
     component : UserListComponent,
-    // data: [Roles.ADMIN],
-    // canMatch : [authValidationNonLogin,roleValidation],
   },
   {
     path : 'new',
     component : UserCreateComponent,
-    // data: [Roles.ADMIN],
-    // canMatch : [authValidationNonLogin,roleValidation],
   },
   {
     path : 'profile',

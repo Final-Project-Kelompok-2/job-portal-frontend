@@ -22,10 +22,6 @@ export class QuestionCreateComponent implements OnInit {
     value: false
   }]
 
-  // packages!: QuestionPackageGetResDto[]
-  // topics!: QuestionTopicGetResDto[]
-  // types!: QuestionTypeGetResDto[]
-
   questionInsertDto: QuestionInsertReqDto[] = []
   questionOptionInsertdto: QuestionOptionInsertReqDto[] = []
 
@@ -36,9 +32,7 @@ export class QuestionCreateComponent implements OnInit {
   )
 
   constructor(private fb: NonNullableFormBuilder,
-    // private questionTypeService: QuestionTypeService,
-    // private topicService: QuestionTopicService,
-    // private packageService: QuestionPackageService,
+
     private questionService: QuestionService,
     private router: Router,
     private title: Title) {
@@ -46,9 +40,7 @@ export class QuestionCreateComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // this.getPackages()
-    // this.getTopics()
-    // this.getQuestionType()
+
   }
 
   get forms() {
@@ -92,26 +84,6 @@ export class QuestionCreateComponent implements OnInit {
   removeOption(indexQuestion: number, indexOption: number) {
     this.questionOption(indexQuestion).removeAt(indexOption)
   }
-
-
-
-  // getQuestionType() {
-  //   this.questionTypeService.getQuestionTypes().subscribe(result => {
-  //     this.types = result
-  //   })
-  // }
-
-  // getPackages() {
-  //   this.packageService.getPackage().subscribe(result => {
-  //     this.packages = result
-  //   })
-  // }
-
-  // getTopics() {
-  //   this.topicService.getTopics().subscribe(result => {
-  //     this.topics = result
-  //   })
-  // }
 
   chosenOption(index: number, id: number) {
     this.forms.at(index).patchValue({

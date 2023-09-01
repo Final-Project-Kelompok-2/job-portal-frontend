@@ -12,8 +12,6 @@ import { Title } from "@angular/platform-browser";
 })
 export class ChangePasswordComponent implements OnInit {
 
-  // changePassword!:UserChangePasswordReqDto
-
   changePasswordDto = this.fb.group({
     oldPassword: ['', [Validators.required]],
     newPassword: ['', [Validators.required]],

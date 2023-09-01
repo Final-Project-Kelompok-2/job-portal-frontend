@@ -1,7 +1,6 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
 import { BenefitListComponent } from "./list/benefit-list.component";
-import { BenefitCreateComponent } from "./create/benefit-create.component";
 import { SharedModuleComponent } from "../../component/shared-module";
 import { ButtonComponent } from "../../component/button/button.component";
 import { CommonModule } from "@angular/common";
@@ -10,15 +9,10 @@ const routes: Routes = [
   {
     path: '',
     component: BenefitListComponent
-  },
-  {
-    path: 'new',
-    component: BenefitCreateComponent
   }
 ]
 @NgModule({
   declarations: [
-    BenefitCreateComponent,
     BenefitListComponent
   ]
   ,
@@ -29,8 +23,7 @@ const routes: Routes = [
     CommonModule
   ],
   exports:[
-    BenefitListComponent,
-    BenefitCreateComponent
+    BenefitListComponent
   ]
 })
 export class BenefitRouting {
