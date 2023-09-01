@@ -47,6 +47,9 @@
                   </div>
                 </div>
               </div>
+              <div class="grid grid-nogutter p-2">
+                <a *ngIf="filterData.valid" [href]="reportUrl">Download Report</a>
+              </div>
             </div>
           </div>
         </div>
@@ -78,9 +81,7 @@
 
 
       </div>
-      <div class="grid grid-nogutter">
-        <a [href]="reportUrl">Download Report</a>
-      </div>
+
     </div>
   </div>
 </div>

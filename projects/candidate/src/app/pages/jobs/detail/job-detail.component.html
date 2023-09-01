@@ -9,19 +9,19 @@
         </div>
       </div>
 
-      <div class="grid grid-nogutter">
+      <div class="grid grid-nogutter container">
         <img class="banner" [src]="job?.companyPhotoId | url" alt="company-logo">
+        <div class="grid grid-nogutter profile-picture">
+          <ng-container *ngIf="job?.fileId">
+            <p-image [src]="job?.fileId | url" alt="Image" imageClass="w-6rem h-6rem md:w-10rem md:h-10rem">
+              <ng-template pTemplate="indicator">
+                <i class="pi pi-check"></i>
+              </ng-template>
+            </p-image>
+          </ng-container>
+        </div>
       </div>
 
-      <div class="grid grid-nogutter">
-        <ng-container *ngIf="job?.fileId">
-          <p-image [src]="job?.fileId | url" alt="Image" width="250">
-            <ng-template pTemplate="indicator">
-              <i class="pi pi-check"></i>
-            </ng-template>
-          </p-image>
-        </ng-container>
-      </div>
 
       <div class="data grid grid-nogutter">
         <div class="col-12 md:col-6">
@@ -31,7 +31,7 @@
       <div class="grid grid-nogutter flex justify-content-center">
         <div class="col-12 md:col-6">
           <p><i class="pi pi-building"></i> {{job?.companyName}}</p>
-          <p><i class="pi pi-money-bill"></i> IDR {{job?.expectedSalaryMin}} - IDR {{ job?.expectedSalaryMax }} / month
+          <p><i class="pi pi-money-bill"></i>{{job?.expectedSalaryMin}} - {{ job?.expectedSalaryMax }} / month
           </p>
         </div>
         <div class="col-12 md:col-6">

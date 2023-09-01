@@ -38,6 +38,7 @@
       <p-dropdown [options]="dropMenu" styleClass="mr-2" [style]="{'height' : '2.5rem'}" (onChange)="moveTo($event)"
         placeholder="Move To ?" *ngIf="isOwner || isAdmin"></p-dropdown>
       <app-button type="button" *ngIf=" isOwner || isAdmin" (click)="reject()" iconBtn="pi pi-times" label="Reject"
+        placeholder="Move To ?"></p-dropdown>
         class="mr-2" classBtn="p-button-danger"></app-button>
     </div>
     <candidate-detail class="col-12" *ngIf="isApplied"></candidate-detail>
@@ -77,9 +78,10 @@
             (assesmentReqDto.get('assesmentDateTemp')!.dirty ||
               assesmentReqDto.get('assesmentDateTemp')!.touched)
           ">Input can't be empty</span>
+            </div>
+            <app-button backgroundColor="var(--PRIMARY)" [loading]="loading" typeBtn="submit" label="Add"
+              iconBtn="pi pi-plus" class=" mr-2" (clickChange)="checkForm(assesmentReqDto)"></app-button>
           </div>
-          <app-button backgroundColor="var(--PRIMARY)" [loading]="loading" typeBtn="submit" label="Add"
-            iconBtn="pi pi-plus" class=" mr-2" (clickChange)="checkForm(assesmentReqDto)"></app-button>
         </div>
       </form>
       <!-- </p-card> -->
@@ -330,14 +332,14 @@
                 (hiringReqDto.get('startDate')!.dirty ||
                   hiringReqDto.get('startDate')!.touched)
               ">Input can't be empty</span>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-        <app-button backgroundColor="var(--PRIMARY)" [loading]="loading" typeBtn="submit" label="Add"
-          iconBtn="pi pi-plus" class="mt-2"></app-button>
-      </form>
-    </p-dialog>
+          <app-button backgroundColor="var(--PRIMARY)" [loading]="loading" typeBtn="submit" label="Add"
+            iconBtn="pi pi-plus" class="mt-2"></app-button>
+        </form>
+      </p-dialog>
 
     </div>
   </div>
