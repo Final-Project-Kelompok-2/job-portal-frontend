@@ -6,7 +6,7 @@
         </div>
         <div class="flex align-items-center justify-content-center">
             <app-button backgroundColor="var(--PRIMARY)" type="button" label="Update Candidate"
-                classBtn="p-button-primary" link="/candidates/{{ candidateUser?.id}}/update" [isDisabled]="disabled"></app-button>
+                classBtn="p-button-primary" link="/candidates/{{ candidateUser?.id}}/update" [isDisabled]="true"></app-button>
         </div>
     </div>
     <p-card header="Candidate Detail">
@@ -455,7 +455,7 @@
                                         <td>{{ document.docName }}.{{ document.fileExtension}}</td>
                                         <td>{{ document.fileTypeName }}</td>
                                         <td>
-                                          <app-button backgroundColor="var(--PRIMARY)" iconBtn="pi pi-download" label="Download" (clickChange)="downloadFile(document.fileId)"></app-button>
+                                            <a [href]="document.fileId | url">Download</a>
                                         </td>
                                     </tr>
                                 </ng-template>

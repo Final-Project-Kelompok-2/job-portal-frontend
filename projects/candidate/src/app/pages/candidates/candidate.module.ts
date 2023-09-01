@@ -2,10 +2,10 @@ import { NgModule } from "@angular/core";
 import { CandidateRouting } from "./candidate.routing";
 
 @NgModule({
-  imports:[
+  imports: [
     CandidateRouting
   ]
 })
-export class CandidateModule{
+export class CandidateModule {
 
 }

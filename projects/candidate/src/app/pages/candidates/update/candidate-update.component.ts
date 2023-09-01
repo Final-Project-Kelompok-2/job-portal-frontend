@@ -58,7 +58,8 @@ interface Degree {
 }
 @Component({
   selector: 'candidate-update',
-  templateUrl: './candidate-update.component.html'
+  templateUrl: './candidate-update.component.html',
+  styleUrls: ['./candidate-update.component.css']
 })
 export class CandidateUpdateComponent implements OnInit {
   birthDateCandidate!: Date
@@ -116,7 +117,7 @@ export class CandidateUpdateComponent implements OnInit {
   candidateStatus!: CandidateStatusResDto[]
   fileTypes!: FileTypeResDto[]
   candidateId!: string
-  profileAuth!:LoginResDto | null
+  profileAuth!: LoginResDto | null
 
   candidateUpdateInsertReqDto = this.fb.group({
     id: ['', [Validators.required]],
@@ -128,7 +129,7 @@ export class CandidateUpdateComponent implements OnInit {
       fullname: ['', [Validators.required]],
       gender: ['', [Validators.required]],
       experience: ['', [Validators.required]],
-      expectedSalary: [0, [Validators.required]],
+      expectedSalary: new FormControl<number | null>(null, Validators.required),
       phoneNumber: ['', [Validators.required]],
       mobileNumber: ['', [Validators.required]],
       nik: ['', [Validators.required]],
@@ -959,7 +960,7 @@ export class CandidateUpdateComponent implements OnInit {
 
 
         if (this.candidateUser?.candidateProfile?.fileId) {
-          this.imageUrl = `http://localhost:8081/files/${this.candidateUser?.candidateProfile?.fileId}`
+          this.imageUrl = `${BASE_URL}/files/${this.candidateUser?.candidateProfile?.fileId}`
         } else {
           this.imageUrl = '../../../assets/emptyProfile.jpeg'
         }
@@ -1414,7 +1415,7 @@ export class CandidateUpdateComponent implements OnInit {
       this.candidateService.update(data).subscribe((res) => {
         this.router.navigateByUrl(`/candidates/profile`)
       })
-      // this.candidateService.navbarObservable(this.candidateUser?.candidateProfile?.fileId)
+
     }
   }
 
