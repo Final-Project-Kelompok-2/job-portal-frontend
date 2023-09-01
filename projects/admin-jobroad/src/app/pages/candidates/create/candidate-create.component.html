@@ -1246,6 +1246,12 @@
         <p-fileUpload id="upload" mode="basic" styleClass="bg-green-700" chooseLabel="Upload" chooseIcon="pi pi-upload"
           class="form-control" (onSelect)="fileUploadDoc($event, doc)" #doc type="file" id="file"
           required></p-fileUpload>
+          <span class="text-red-500 ml-2" *ngIf="
+          documentInsertReqDto.get('fileName')!.invalid &&
+          !documentInsertReqDto.get('fileName')!.value &&
+          (documentInsertReqDto.get('fileName')!.dirty ||
+            documentInsertReqDto.get('fileName')!.touched)
+        ">Must upload a file</span>
       </div>
     </div>
     <div class="field col-12">
