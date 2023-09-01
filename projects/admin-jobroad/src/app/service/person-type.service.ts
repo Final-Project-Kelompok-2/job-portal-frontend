@@ -13,4 +13,7 @@ export class PersonTypeService{
         return this.base.getWithoutPipe<PersonTypeResDto[]>(`${BASE_URL}/person-types`);
     }
 
+    getById(id : string) : Observable<PersonTypeResDto> {
+        return this.base.getWithoutPipe<PersonTypeResDto>(`${BASE_URL}/person-types/id?id=${id}`)
+    }
 }

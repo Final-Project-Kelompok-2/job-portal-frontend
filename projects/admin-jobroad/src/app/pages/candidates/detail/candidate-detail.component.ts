@@ -27,6 +27,12 @@ import { BaseService } from "../../../service/base.service";
 import { BASE_URL } from "../../../constant/api.constant";
 import { Title } from "@angular/platform-browser";
 import { AuthService } from "../../../service/auth.service";
+import { JobResDto } from "../../../dto/job/job.res.dto";
+import { JobService } from "../../../service/job.service";
+import { NonNullableFormBuilder, Validators } from "@angular/forms";
+import { EmployeeService } from "../../../service/employee.service";
+import { PersonTypeService } from "../../../service/person-type.service";
+import { PersonTypeCodeEnum } from "../../../constant/person-type.constant";
 
 function getParams(activatedRoute: ActivatedRoute, parentLevel?: number): Observable<Params> {
   let route = activatedRoute
@@ -48,7 +54,9 @@ export class CandidateDetailComponent implements OnInit {
   imageUrl!: string
   loading = false
   disabled = true
-  candidateUser?: CandidateUserResDto
+  disabledAssign = true
+  dialogAssignJob = false
+  candidateUser? : CandidateUserResDto
   candidateAddresses!: CandidateAddressResDto[]
   candidateDocuments!: CandidateDocumentResDto[]
   candidateEducations!: CandidateEducationResDto[]
@@ -59,9 +67,16 @@ export class CandidateDetailComponent implements OnInit {
   candidateSkills!: CandidateSkillResDto[]
   candidateTrainings!: CandidateTrainingResDto[]
   candidateWorks!: CandidateWorkResDto[]
+  jobs!: JobResDto[]
+  candidateId!: string
+
+  employeeInsertReqDto = this.fb.group({
+    candidateId: ['', [Validators.required]],
+    jobId: ['', [Validators.required]]
+  })
 
   constructor(
-    private authService : AuthService,
+    private authService: AuthService,
     private candidateService: CandidateUserService,
     private candidateAddressService: CandidateAddressService,
     private candidateDocumentService: CandidateDocumentService,
@@ -73,8 +88,13 @@ export class CandidateDetailComponent implements OnInit {
     private candidateSkillService: CandidateSkillService,
     private candidateTrainingExpService: CandidateTrainingExpService,
     private candidateWorkExpService: CandidateWorkExpService,
-    private route: ActivatedRoute, private base: BaseService,
+    private employeeService: EmployeeService,
+    private jobService: JobService,
+    private personTypeService : PersonTypeService,
+    private route: ActivatedRoute,
+    private base: BaseService,
     private router: Router,
+    private fb: NonNullableFormBuilder,
     private title: Title
   ) {
     this.title.setTitle("Candidate Detail")
@@ -82,7 +102,7 @@ export class CandidateDetailComponent implements OnInit {
 
   ngOnInit(): void {
     firstValueFrom(getParams(this.route, 0)).then((res) => {
-
+      this.candidateId = res['id']
       this.base.all([
         this.candidateService.getCandidateUserById(res['id']),
         this.candidateAddressService.getByCandidate(res['id']),
@@ -95,8 +115,6 @@ export class CandidateDetailComponent implements OnInit {
         this.candidateTrainingExpService.getByCandidate(res['id']),
         this.candidateWorkExpService.getByCandidate(res['id']),
         this.candidateDocumentService.getByCandidate(res['id'])
-
-
       ]).then(result => {
         this.candidateUser = result[0]
         this.candidateAddresses = result[1]
@@ -109,12 +127,18 @@ export class CandidateDetailComponent implements OnInit {
         this.candidateTrainings = result[8]
         this.candidateWorks = result[9]
         this.candidateDocuments = result[10]
-        
+
         if (this.candidateUser?.fileId) {
           this.imageUrl = `http://localhost:8080/files/${this.candidateUser?.fileId}`
         } else {
           this.imageUrl = '../../../assets/emptyProfile.jpeg'
         }
+
+        firstValueFrom(this.personTypeService.getById(this.candidateUser?.personTypeId)).then((res) => {
+          if(res.typeCode === PersonTypeCodeEnum.EMPLOYEE) {
+            this.disabledAssign = true
+          }
+        })
 
         const profile = this.authService.getProfile()
         if (this.candidateUser?.createdBy === profile?.userId) {
@@ -124,6 +148,34 @@ export class CandidateDetailComponent implements OnInit {
       })
     })
 
+  }
+
+  showAssignJob() {
+    this.jobService.getAll().subscribe((res) => {
+      this.jobs = res
+    })
+
+    this.dialogAssignJob = true
+
+    this.employeeInsertReqDto.patchValue({
+      candidateId: this.candidateUser?.id
+    })
+  }
+
+  addEmployee() {
+    if (this.employeeInsertReqDto.valid) {
+      const data = this.employeeInsertReqDto.getRawValue()
+      firstValueFrom(this.employeeService.createFromAdmin(data)).then((res) => {
+        this.base.all([
+          this.candidateService.getCandidateUserById(this.candidateId)
+        ]).then(res => {
+          this.candidateUser = res[0]
+        })
+
+        this.employeeInsertReqDto.reset()
+        this.dialogAssignJob = false
+      })
+    }
   }
 
   downloadFile(id: string) {
