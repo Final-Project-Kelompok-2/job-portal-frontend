@@ -11,63 +11,68 @@ import { Title } from "@angular/platform-browser";
 
 
 @Component({
-    selector: 'job-applied',
-    templateUrl: './job-applied.component.html',
+  selector: 'job-applied',
+  templateUrl: './job-applied.component.html',
 
 })
 export class JobAppliedComponent implements OnInit {
 
 
-    appliedJob!: ApplicantResDto[]
-    assignedQuestion!: AssignedJobQuestionResDto[];
+  appliedJob!: ApplicantResDto[]
+  appliedJobLength!: number
+  assignedQuestion!: AssignedJobQuestionResDto[];
 
-    constructor(private applicantService: ApplicantService,
-        private assignedQuestionService: AssignedQuestionService,
-        private router: Router,
-        private title: Title) {
-        this.title.setTitle("Applied Jobs")
+  constructor(private applicantService: ApplicantService,
+    private assignedQuestionService: AssignedQuestionService,
+    private router: Router,
+    private title: Title) {
+    this.title.setTitle("Applied Jobs")
+  }
+
+  ngOnInit(): void {
+    this.getAppliedJob();
+
+  }
+
+
+  getAppliedJob() {
+    firstValueFrom(this.applicantService.getByPrincipal()).then(result => {
+      this.appliedJob = result
+      this.appliedJobLength = this.appliedJob.length
+    })
+  }
+
+  getQuestion(jobId: string, appId: string) {
+    console.log('question')
+    firstValueFrom(this.assignedQuestionService.getByJob(jobId)).then(result => {
+      if (result.length != 0) {
+        console.log('result => ', result);
+        this.assignedQuestion = result
+        this.router.navigateByUrl(`/questions/${appId}`)
+      } else {
+        console.log('Kosong');
+      }
+    })
+  }
+
+
+  checker(statusName: string) {
+    if (statusName == "APPLIED") {
+      return "info";
     }
-
-    ngOnInit(): void {
-        this.getAppliedJob();
-
+    else if (statusName == "HIRED") {
+      return "success"
     }
-
-
-    getAppliedJob() {
-        firstValueFrom(this.applicantService.getByPrincipal()).then(result => {
-            this.appliedJob = result
-
-        })
+    else if (statusName == "REJECT") {
+      return "danger"
     }
-
-    getQuestion(jobId: string, appId: string) {
-        console.log('question')
-        firstValueFrom(this.assignedQuestionService.getByJob(jobId)).then(result => {
-            if (result.length != 0) {
-                console.log('result => ', result);
-                this.assignedQuestion = result
-                this.router.navigateByUrl(`/questions/${appId}`)
-            } else {
-                console.log('Kosong');
-            }
-        })
+    else {
+      return "warning"
     }
+  }
 
 
-    checker(statusName: string) {
-        if (statusName == "APPLIED") {
-            return "info";
-        }
-        else if (statusName == "HIRED") {
-            return "success"
-        }
-        else if (statusName == "REJECT") {
-            return "danger"
-        }
-        else {
-            return "warning"
-        }
-    }
-
+  check() {
+    return this.appliedJobLength > 0
+  }
 }
