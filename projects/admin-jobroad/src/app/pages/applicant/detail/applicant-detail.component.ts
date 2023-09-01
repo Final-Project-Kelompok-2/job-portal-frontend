@@ -21,10 +21,9 @@ import { ReviewService } from "../../../service/review.service";
 import { McuResDto } from "../../../dto/mcu/mcu.res.dto";
 import { HiringStatusEnum } from "../../../constant/hiring-status.constant";
 import { employmentTypeEnum } from "../../../constant/employment-type.constant";
-import { BenefitService } from "../../../service/benefit.service";
 import { AuthService } from "../../../service/auth.service";
 import { RoleCodeEnum } from "../../../constant/user-role.constant";
-import { Title } from "@angular/platform-browser";
+
 
 @Component({
     selector: 'applicant-detail',
@@ -36,6 +35,7 @@ export class ApplicantDetailComponent implements OnInit {
     appId!: string;
     isOwner!: Boolean
     status!: MenuItem[] ;
+    dropMenu  = ['Applied' , 'Assesment','Interview User','MCU','Offering']
     activeIndex: number = 0;
     intern = employmentTypeEnum.INTERN;
     contract = employmentTypeEnum.CONTRACT;
@@ -147,14 +147,21 @@ export class ApplicantDetailComponent implements OnInit {
 
     onActiveIndexChange(event: number) {
         this.activeIndex = event;
+        this.stepperMenu();
         if (this.activeIndex == 1) {
+            this.assesmentStep = !this.assesmentStep
             this.getAssesmentData();
         } else if (this.activeIndex == 2) {
+            this.interviewStep = !this.interviewStep;
             this.InterviewData();
             this.getReviewData();
         } else if (this.activeIndex == 3) {
+            this.interviewStep = false;
+            this.mcuStep = false;
             this.getMcuData();
         }
+
+
     }
 
 
@@ -203,7 +210,7 @@ export class ApplicantDetailComponent implements OnInit {
                     this.activeIndex = 0
                 } else if (this.applicant.statusCode == HiringStatusEnum.ASSESMENT) {
                     this.activeIndex = 1
-                    this.assesmentStep = !this.assesmentStep;
+                    this.assesmentStep = false;
                     this.getAssesmentData();
                 } else if (this.applicant.statusCode == HiringStatusEnum.INTERVIEW_USER) {
                     this.activeIndex = 2
@@ -226,34 +233,7 @@ export class ApplicantDetailComponent implements OnInit {
                 } else {
                     this.activeIndex = 0
                 }
-                this.status = [
-                    {
-                        label: 'Applied',
-                        command: (event: any) => this.messageService.add({ severity: 'info', summary: 'First Step', detail: event.item.label })
-                    },
-                    {
-                        label: 'Assesment',
-                        command: (event: any) => this.messageService.add({ severity: 'info', summary: 'Second Step', detail: event.item.label }),
-                        disabled : this.assesmentStep
-        
-        
-                    },
-                    {
-                        label: 'Interview User',
-                        command: (event: any) => this.messageService.add({ severity: 'info', summary: 'Third Step', detail: event.item.label }),
-                        disabled : this.interviewStep
-                    },
-                    {
-                        label: 'MCU',
-                        command: (event: any) => this.messageService.add({ severity: 'info', summary: 'Fourth Step', detail: event.item.label }),
-                        disabled : this.mcuStep
-                    },
-                    {
-                        label: 'Offering',
-                        command: (event: any) => this.messageService.add({ severity: 'info', summary: 'Fifth Step', detail: event.item.label }),
-                        disabled : this.offeringStep
-                    }
-                ]
+                this.stepperMenu();
             })
            
             firstValueFrom(this.jobService.getByDetail(this.jobId)).then(result => {
@@ -314,17 +294,45 @@ export class ApplicantDetailComponent implements OnInit {
         return this.mcuReqDto.get("mcuData") as FormArray
     }
 
+    stepperMenu(){
+        this.status = [
+            {
+                label: 'Applied',
+                command: (event: any) => this.messageService.add({ severity: 'info', summary: 'First Step', detail: event.item.label })
+            },
+            {
+                label: 'Assesment',
+                command: (event: any) => this.messageService.add({ severity: 'info', summary: 'Second Step', detail: event.item.label }),
+                disabled : this.assesmentStep
+            },
+            {
+                label: 'Interview User',
+                command: (event: any) => this.messageService.add({ severity: 'info', summary: 'Third Step', detail: event.item.label }),
+                disabled : this.interviewStep
+            },
+            {
+                label: 'MCU',
+                command: (event: any) => this.messageService.add({ severity: 'info', summary: 'Fourth Step', detail: event.item.label }),
+                disabled : this.mcuStep
+            },
+            {
+                label: 'Offering',
+                command: (event: any) => this.messageService.add({ severity: 'info', summary: 'Fifth Step', detail: event.item.label }),
+                disabled : this.offeringStep
+            }
+        ]
+    }
+
     moveTo(event : any){
-        console.log('ini event  : ' + event.value.label)
-        if(event.value.label == this.status[0].label){
+        if(event.value == this.status[0].label){
             this.activeIndex = 0
-        }else if(event.value.label == this.status[1].label){
+        }else if(event.value == this.status[1].label){
             this.activeIndex = 1
-        }else if(event.value.label == this.status[2].label){
+        }else if(event.value == this.status[2].label){
             this.activeIndex = 2
-        }else if(event.value.label == this.status[3].label){
+        }else if(event.value == this.status[3].label){
             this.activeIndex = 3
-        }else if(event.value.label == this.status[4].label){
+        }else if(event.value == this.status[4].label){
             this.activeIndex = 4
         }
     }
@@ -344,8 +352,8 @@ export class ApplicantDetailComponent implements OnInit {
             // this.router.navigateByUrl(`/jobs/detail/${this.jobId}`);
         }).catch(() => {
             this.loading = false;
-        })
-            ;
+        });
+            
 
     }
 
@@ -354,10 +362,12 @@ export class ApplicantDetailComponent implements OnInit {
         this.loading = true;
         firstValueFrom(this.assesmentService.create(data)).then(() => {
             this.assesmentForm = false;
+            this.assesmentStep = !this.assesmentStep
             this.getAssesmentData();
             this.activeIndex++;
             this.assesmentReqDto.reset();
             this.loading = false;
+            this.stepperMenu();
         }).catch(() => {
             this.loading = false;
         })
@@ -417,7 +427,8 @@ export class ApplicantDetailComponent implements OnInit {
         firstValueFrom(this.interviewService.create(data)).then(() => {
             this.getReviewData();
             this.InterviewData();
-            this.assesmentStep = false
+            this.interviewStep = !this.interviewStep;
+            this.stepperMenu();
             this.activeIndex++;
             this.interviewForm = false;
             this.loading = false;
@@ -470,9 +481,10 @@ export class ApplicantDetailComponent implements OnInit {
         firstValueFrom(this.mcuService.create(data)).then(() => {
             this.getMcuData();
             this.mcuForm = false;
+            this.mcuStep = !this.mcuStep;
+            this.stepperMenu();
             this.activeIndex++;
             this.mcuReqDto.reset();
-            this.interviewStep = false;
             this.loading = false;
         }).catch(() => {
             this.loading = false;
@@ -535,10 +547,12 @@ export class ApplicantDetailComponent implements OnInit {
         const data = this.offeringReqDto.getRawValue();
         firstValueFrom(this.offeringService.create(data)).then(() => {
             this.offeringForm = false;
+            this.offeringStep = false;
+            this.stepperMenu();
             this.activeIndex++;
             this.offeringReqDto.reset();
             this.loading = false;
-            this.mcuStep = false;
+            return true
         }).catch(() => {
             this.loading = false;
         });

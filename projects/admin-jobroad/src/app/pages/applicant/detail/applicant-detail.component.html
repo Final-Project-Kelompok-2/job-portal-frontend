@@ -34,7 +34,7 @@
 
   </div>
   <div class="col-12 md:col-3 md:col-offset-4 buttons">
-    <p-dropdown [options]="status" styleClass="mr-2" [style]="{'height' : '2.5rem'}" (onChange)="moveTo($event)" placeholder="Move To ?"></p-dropdown>
+    <p-dropdown [options]="dropMenu" styleClass="mr-2" [style]="{'height' : '2.5rem'}" (onChange)="moveTo($event)" placeholder="Move To ?"></p-dropdown>
     <app-button type="button" *ngIf=" (isHr || isAdmin)" (click)="reject()" iconBtn="pi pi-times" label="Reject"
       class="mr-2" classBtn="p-button-danger"></app-button>
   </div>
