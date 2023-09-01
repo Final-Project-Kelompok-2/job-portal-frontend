@@ -1,5 +1,17 @@
 <div class="flex justify-content-center mt-2">
-  <div class="col-12 md:col-10">
+
+  <ng-container *ngIf="!check()">
+    <div class="grid grid-nogutter text-center">
+      <div class="col-12 md:col-12">
+        <h1>
+          You don't have any applied jobs, try to apply one
+        </h1>
+      </div>
+    </div>
+  </ng-container>
+
+
+  <ng-container *ngIf="check()" class="col-12 md:col-10">
 
     <h1>Applied Job(s)</h1>
     <div class="card">
@@ -31,6 +43,6 @@
       </p-card>
     </div>
 
-  </div>
+  </ng-container>
 </div>
 <p-scrollTop icon="pi pi-arrow-up"></p-scrollTop>

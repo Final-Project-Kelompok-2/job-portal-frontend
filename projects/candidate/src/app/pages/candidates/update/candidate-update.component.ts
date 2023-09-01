@@ -59,7 +59,7 @@ interface Degree {
 @Component({
   selector: 'candidate-update',
   templateUrl: './candidate-update.component.html',
-  styleUrls: ['./candidate-update.component.css']
+  styleUrls:['./candidate-update.component.css']
 })
 export class CandidateUpdateComponent implements OnInit {
   birthDateCandidate!: Date
@@ -117,7 +117,7 @@ export class CandidateUpdateComponent implements OnInit {
   candidateStatus!: CandidateStatusResDto[]
   fileTypes!: FileTypeResDto[]
   candidateId!: string
-  profileAuth!: LoginResDto | null
+  profileAuth!:LoginResDto | null
 
   candidateUpdateInsertReqDto = this.fb.group({
     id: ['', [Validators.required]],
@@ -129,8 +129,8 @@ export class CandidateUpdateComponent implements OnInit {
       fullname: ['', [Validators.required]],
       gender: ['', [Validators.required]],
       experience: ['', [Validators.required]],
-      expectedSalary: new FormControl<number | null>(null, Validators.required),
-      phoneNumber: ['', [Validators.required]],
+      expectedSalary: new FormControl<number | null>(null,Validators.required),
+      phoneNumber: [''],
       mobileNumber: ['', [Validators.required]],
       nik: ['', [Validators.required]],
       birthDate: ['', [Validators.required]],
