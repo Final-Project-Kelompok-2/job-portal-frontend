@@ -1,4 +1,4 @@
-export class AssesmentUpdateNotesReqDto{
-    applicantId! : string;
-    notes! : string;
+export interface AssesmentUpdateNotesReqDto{
+    applicantId : string;
+    notes : string;
 }
