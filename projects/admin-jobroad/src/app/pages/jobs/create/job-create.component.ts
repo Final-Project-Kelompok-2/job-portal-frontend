@@ -35,8 +35,8 @@ export class JobCreateComponent implements OnInit, OnDestroy {
     description: ['', Validators.required],
     hrId: ['', Validators.required],
     picId: ['', Validators.required],
-    expectedSalaryMin: new FormControl<number | null>(null,Validators.required),
-    expectedSalaryMax: new FormControl<number | null>(null,Validators.required),
+    expectedSalaryMin: new FormControl<number | null>(null, Validators.required),
+    expectedSalaryMax: new FormControl<number | null>(null, Validators.required),
     employmentTypeId: ['', Validators.required],
     benefits: this.fb.array([]),
     questions: this.fb.array([]),
@@ -144,8 +144,6 @@ export class JobCreateComponent implements OnInit, OnDestroy {
       };
       reader.onerror = error => reject(error);
     });
-
-
 
     for (let file of event.files) {
       toBase64(file).then(result => {
