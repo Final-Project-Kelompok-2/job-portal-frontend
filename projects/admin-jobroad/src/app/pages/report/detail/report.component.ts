@@ -49,7 +49,6 @@ export class ReportComponent implements OnInit, AfterViewChecked {
         })
     }
 
-
     convertEndDate(event: any) {
         this.filterData.patchValue({
             endDate: convertUTCToLocalDate(event)
@@ -58,17 +57,13 @@ export class ReportComponent implements OnInit, AfterViewChecked {
     }
 
     filter() {
-        console.log("Start Date :   " + this.startDate);
-        console.log("End Date :   " + this.endDate);
         const data = this.filterData.getRawValue()
-
         const newStartDate = convertUTCToLocalDate(data.startDateTemp as any);
         let newEndDate: string = '';
         if (data.endDateTemp != null) {
             newEndDate = convertUTCToLocalDate(data.endDateTemp as any);
             console.log("New End Date :  " + newEndDate);
         }
-        console.log("New Start Date :  " + newStartDate);
         this.getReports(newStartDate, newEndDate);
 
         this.reportUrl = `http://localhost:8080/reports/download?startDate=${newStartDate}&endDate=${newEndDate}`
