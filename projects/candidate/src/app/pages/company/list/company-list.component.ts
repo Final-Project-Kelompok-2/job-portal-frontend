@@ -28,12 +28,6 @@ export class CompanyListComponent implements OnInit {
     getCompanies() {
         firstValueFrom(this.companyService.getAll()).then(result => {
             this.companies = result
-
-            // if (this.companies) {
-            //   this.imageUrl = `http://localhost:8080/files/${this.candidateUser?.fileId}`
-            // } else {
-            //   this.imageUrl = '../../../assets/emptyProfile.jpeg'
-            // }
         })
     }
 

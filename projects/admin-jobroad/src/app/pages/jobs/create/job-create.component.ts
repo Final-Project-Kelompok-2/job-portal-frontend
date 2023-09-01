@@ -20,7 +20,8 @@ import { Title } from "@angular/platform-browser";
 
 @Component({
   selector: 'job-create',
-  templateUrl: './job-create.component.html'
+  templateUrl: './job-create.component.html',
+  styleUrls:['./job-create.component.css']
 })
 export class JobCreateComponent implements OnInit, OnDestroy {
   loading = false
@@ -34,8 +35,8 @@ export class JobCreateComponent implements OnInit, OnDestroy {
     description: ['', Validators.required],
     hrId: ['', Validators.required],
     picId: ['', Validators.required],
-    expectedSalaryMin: [0],
-    expectedSalaryMax: [0],
+    expectedSalaryMin: new FormControl<number | null>(null,Validators.required),
+    expectedSalaryMax: new FormControl<number | null>(null,Validators.required),
     employmentTypeId: ['', Validators.required],
     benefits: this.fb.array([]),
     questions: this.fb.array([]),

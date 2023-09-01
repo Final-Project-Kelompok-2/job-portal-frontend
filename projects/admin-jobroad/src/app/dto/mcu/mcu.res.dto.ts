@@ -1,5 +1,5 @@
-export class McuResDto{
-    id! : string;
-    fileName! : string;
-    fileExtension! : string;
+export interface McuResDto{
+    id : string;
+    fileName : string;
+    fileExtension : string;
 }

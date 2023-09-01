@@ -29,7 +29,8 @@ import { BaseService } from "../../../service/base.service";
 
 @Component({
   selector: 'candidate-profile',
-  templateUrl: './candidate-profile.component.html'
+  templateUrl: './candidate-profile.component.html',
+  styleUrls:['./candidate-profile.component.css']
 })
 export class CandidateProfileComponent implements OnInit {
 

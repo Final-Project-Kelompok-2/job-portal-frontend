@@ -34,8 +34,8 @@ export class ApplicantDetailComponent implements OnInit {
     jobId!: string;
     appId!: string;
     isOwner!: Boolean
-    status!: MenuItem[] ;
-    dropMenu  = ['Applied' , 'Assesment','Interview User','MCU','Offering']
+    status!: MenuItem[];
+    dropMenu = ['Applied', 'Assesment', 'Interview User', 'MCU', 'Offering']
     activeIndex: number = 0;
     intern = employmentTypeEnum.INTERN;
     contract = employmentTypeEnum.CONTRACT;
@@ -233,9 +233,10 @@ export class ApplicantDetailComponent implements OnInit {
                 } else {
                     this.activeIndex = 0
                 }
+
                 this.stepperMenu();
             })
-           
+
             firstValueFrom(this.jobService.getByDetail(this.jobId)).then(result => {
                 this.job = result;
                 console.log('job name =>  ', this.job.employementTypeName);
@@ -249,7 +250,7 @@ export class ApplicantDetailComponent implements OnInit {
             })
 
         })
-       
+
 
 
     }
@@ -294,7 +295,7 @@ export class ApplicantDetailComponent implements OnInit {
         return this.mcuReqDto.get("mcuData") as FormArray
     }
 
-    stepperMenu(){
+    stepperMenu() {
         this.status = [
             {
                 label: 'Applied',
@@ -303,36 +304,36 @@ export class ApplicantDetailComponent implements OnInit {
             {
                 label: 'Assesment',
                 command: (event: any) => this.messageService.add({ severity: 'info', summary: 'Second Step', detail: event.item.label }),
-                disabled : this.assesmentStep
+                disabled: this.assesmentStep
             },
             {
                 label: 'Interview User',
                 command: (event: any) => this.messageService.add({ severity: 'info', summary: 'Third Step', detail: event.item.label }),
-                disabled : this.interviewStep
+                disabled: this.interviewStep
             },
             {
                 label: 'MCU',
                 command: (event: any) => this.messageService.add({ severity: 'info', summary: 'Fourth Step', detail: event.item.label }),
-                disabled : this.mcuStep
+                disabled: this.mcuStep
             },
             {
                 label: 'Offering',
                 command: (event: any) => this.messageService.add({ severity: 'info', summary: 'Fifth Step', detail: event.item.label }),
-                disabled : this.offeringStep
+                disabled: this.offeringStep
             }
         ]
     }
 
-    moveTo(event : any){
-        if(event.value == this.status[0].label){
+    moveTo(event: any) {
+        if (event.value == this.status[0].label) {
             this.activeIndex = 0
-        }else if(event.value == this.status[1].label){
+        } else if (event.value == this.status[1].label) {
             this.activeIndex = 1
-        }else if(event.value == this.status[2].label){
+        } else if (event.value == this.status[2].label) {
             this.activeIndex = 2
-        }else if(event.value == this.status[3].label){
+        } else if (event.value == this.status[3].label) {
             this.activeIndex = 3
-        }else if(event.value == this.status[4].label){
+        } else if (event.value == this.status[4].label) {
             this.activeIndex = 4
         }
     }
@@ -349,11 +350,10 @@ export class ApplicantDetailComponent implements OnInit {
         this.loading = true
         firstValueFrom(this.applicantService.update(data)).then(() => {
             this.loading = false
-            // this.router.navigateByUrl(`/jobs/detail/${this.jobId}`);
         }).catch(() => {
             this.loading = false;
         });
-            
+
 
     }
 
@@ -495,7 +495,6 @@ export class ApplicantDetailComponent implements OnInit {
 
 
     fileUpload(event: any) {
-        // this.mcuDataListReqDto.clear();
         const toBase64 = (file: File) => new Promise<string>((resolve, reject) => {
             const reader = new FileReader();
             reader.readAsDataURL(file);

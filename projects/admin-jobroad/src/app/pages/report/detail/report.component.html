@@ -42,10 +42,13 @@
                     <!-- <app-button label="Download" [href]="localhost:8080/reports/"
                       classBtn="p-button-primary ml-2 mt-2 md:mt-0" iconBtn="pi pi-download">
                     </app-button> -->
-                    <div></div>
-                    <a [href]="reportUrl">Download</a>
+
+
                   </div>
                 </div>
+              </div>
+              <div class="grid grid-nogutter p-2">
+                <a *ngIf="filterData.valid" [href]="reportUrl">Download Report</a>
               </div>
             </div>
           </div>
@@ -75,7 +78,10 @@
             </ng-template>
           </p-table>
         </div>
+
+
       </div>
+
     </div>
   </div>
 </div>

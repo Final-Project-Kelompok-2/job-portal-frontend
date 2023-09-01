@@ -60,7 +60,7 @@
         <div class="field col-12 md:col-6">
           <label htmlFor="min">Minimal Salary<span class="text-red-500">*</span></label>
           <p-inputNumber inputId="min" mode="currency" currency="IDR" locale="id-ID"
-            formControlName="expectedSalaryMin"></p-inputNumber>
+            formControlName="expectedSalaryMin" placeholder="Rp 0,00"></p-inputNumber>
           <span class="text-red-500 ml-2" *ngIf="
             jobReqDto.get('expectedSalaryMin')!.invalid &&
             !jobReqDto.get('expectedSalaryMin')!.value &&
@@ -71,7 +71,7 @@
         <div class="field col-12 md:col-6">
           <label htmlFor="max">Maximal Salary<span class="text-red-500">*</span></label>
           <p-inputNumber inputId="max" mode="currency" currency="IDR" locale="id-ID"
-            formControlName="expectedSalaryMax"></p-inputNumber>
+            formControlName="expectedSalaryMax" placeholder="Rp 0,00"></p-inputNumber>
           <span class="text-red-500 ml-2" *ngIf="
             jobReqDto.get('expectedSalaryMax')!.invalid &&
             !jobReqDto.get('expectedSalaryMax')!.value &&
@@ -82,7 +82,7 @@
         <div class="field col-12 md:col-4">
           <label htmlFor="hr">HR Person in Contact<span class="text-red-500">*</span></label>
           <p-dropdown optionLabel="fullName" [options]="hr" optionValue="id" [showClear]="true" placeholder="Choose HR"
-            [required]="true" formControlName="hrId"></p-dropdown>
+            [required]="true" formControlName="hrId" ></p-dropdown>
           <span class="text-red-500 ml-2" *ngIf="
           jobReqDto.get('hrId')!.invalid &&
           !jobReqDto.get('hrId')!.value &&
