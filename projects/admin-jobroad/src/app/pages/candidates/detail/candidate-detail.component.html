@@ -5,8 +5,11 @@
                 link="/candidates"></app-button>
         </div>
         <div class="flex align-items-center justify-content-center">
+            <app-button backgroundColor="var(--PRIMARY)" type="button" label="Assign Job"
+                classBtn="p-button-primary mr-2" (click)="showAssignJob()" [hidden]="disabledAssign"></app-button>
             <app-button backgroundColor="var(--PRIMARY)" type="button" label="Update Candidate"
-                classBtn="p-button-primary" link="/candidates/{{ candidateUser?.id}}/update" [isDisabled]="disabled"></app-button>
+                classBtn="p-button-primary" link="/candidates/{{ candidateUser?.id }}/update"
+                [hidden]="disabled"></app-button>
         </div>
     </div>
     <p-card header="Candidate Detail">
@@ -469,3 +472,22 @@
 </div>
 
 <p-scrollTop icon="pi pi-arrow-up"></p-scrollTop>
+
+<!-- Dialog Assign Job -->
+<p-dialog header="Assign Job to Candidate" [modal]="true" [(visible)]="dialogAssignJob"
+    [breakpoints]="{ '960px': '95vw' }" [style]="{ width: '36vw' }" [draggable]="false" [resizable]="false">
+    <pre>{{ employeeInsertReqDto.value | json }}</pre>
+    <form [formGroup]="employeeInsertReqDto" (ngSubmit)="addEmployee()">
+        <div class="p-fluid p-formgrid grid">
+            <div class="field col-12">
+                <label for="skillname">Job <span class="text-red-500"> *</span> </label>
+                <p-dropdown inputId="residence" [options]="jobs" optionLabel="jobName" optionValue="id"
+                    [showClear]="true" [required]="true" formControlName="jobId"
+                    placeholder="Choose Job"></p-dropdown>
+            </div>
+            <div class="field flex justify-content-end col-12">
+                <app-button backgroundColor="var(--PRIMARY)" [loading]="loading" typeBtn="submit" label="Submit" class=" mr-2"></app-button>
+            </div>
+        </div>
+    </form>
+</p-dialog>
