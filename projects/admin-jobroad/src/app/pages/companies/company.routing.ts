@@ -5,32 +5,44 @@ import { SharedModuleComponent } from "../../component/shared-module";
 import { ButtonComponent } from "../../component/button/button.component";
 import { CompanyCreateComponent } from "./create/company-create.component";
 import { CommonModule } from "@angular/common";
+import { CompanyUpdateComponent } from "./update/company-update.component";
+import { CompanyDetailComponent } from "./detail/company-detail.component";
 
-const routes:Routes = [
+const routes: Routes = [
   {
-    path:'',
-    component:CompanyListComponent
+    path: '',
+    component: CompanyListComponent
   },
   {
-    path:'new',
-    component:CompanyCreateComponent
+    path: 'detail/:id',
+    component: CompanyDetailComponent
+  },
+  {
+    path: ':id/update',
+    component: CompanyUpdateComponent
+  },
+  {
+    path: 'new',
+    component: CompanyCreateComponent
   }
 ]
 @NgModule({
-  declarations:[
+  declarations: [
     CompanyListComponent,
-    CompanyCreateComponent
+    CompanyCreateComponent,
+    CompanyUpdateComponent,
+    CompanyDetailComponent
   ],
-  imports:[
+  imports: [
     RouterModule.forChild(routes),
     SharedModuleComponent,
     ButtonComponent,
     CommonModule
   ],
-  exports:[
+  exports: [
 
   ]
 })
-export class CompanyRouting{
+export class CompanyRouting {
 
 }

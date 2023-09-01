@@ -5,6 +5,7 @@ import { CompanyResDto } from "../dto/company/company.res.dto";
 import { BASE_URL } from "../constant/api.constant";
 import { CompanyInsertReqDto } from "../dto/company/company-insert.req.dto";
 import { InsertResDto } from "../dto/insert.res.dto";
+import { UpdateResDto } from "../dto/update.res.dto";
 
 @Injectable({
   providedIn: 'root'
@@ -19,5 +20,8 @@ export class CompanyService {
   }
   create(data: CompanyInsertReqDto): Observable<InsertResDto> {
     return this.base.post<InsertResDto>(`${BASE_URL}/companies`, data);
+  }
+  update(data: CompanyInsertReqDto): Observable<UpdateResDto> {
+    return this.base.patch<UpdateResDto>(`${BASE_URL}/companies`, data);
   }
 }
