@@ -20,7 +20,8 @@ import { Title } from "@angular/platform-browser";
 
 @Component({
   selector: 'job-create',
-  templateUrl: './job-create.component.html'
+  templateUrl: './job-create.component.html',
+  styleUrls:['./job-create.component.css']
 })
 export class JobCreateComponent implements OnInit, OnDestroy {
   loading = false

@@ -47,7 +47,7 @@
         </div>
         <div class="grid grid-nogutter cursor-pointer" routerLink="/jobs/{{j.id}}/detail">
           <div class="col-12 md:col-2 text-center">
-            <p-image [src]="j.fileId | url" imageClass="w-full md:w-8rem h-9rem" alt="Image">
+            <p-image [src]="j.fileId | url" imageClass="w-5rem h-5rem md:w-8rem md:h-9rem" alt="Image">
               <ng-template pTemplate="indicator">
                 <i class="pi pi-check"></i>
               </ng-template>
@@ -96,7 +96,7 @@
       <p-card *ngFor="let j of jobsTopSalary" class="card-hover" styleClass="card-hover mr-4 mb-2 mt-2">
         <div class=" grid grid-nogutter cursor-pointer" routerLink="/jobs/{{j.id}}/detail">
           <div class="col-12 md:col-2 text-center">
-            <p-image [src]="j.fileId | url" imageClass="w-full md:w-3rem h-3rem" alt="Image">
+            <p-image [src]="j.fileId | url" imageClass="w-6rem h-6rem md:w-3rem md:h-3rem" alt="Image">
               <ng-template pTemplate="indicator">
                 <i class="pi pi-check"></i>
               </ng-template>
