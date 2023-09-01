@@ -1,7 +1,6 @@
 import { Component } from "@angular/core";
 import { FormControl, FormGroup, NonNullableFormBuilder, Validators } from "@angular/forms";
-// import { AuthService } from "../../service/auth.service";
-// import { LoginService } from "@service/login.service";
+
 import { Title } from "@angular/platform-browser";
 import { Router } from "@angular/router";
 import { LoginService } from "../../service/login.service";
@@ -20,13 +19,6 @@ export class LoginComponent {
     userEmail: ['', [Validators.required]],
     userPassword: ['', [Validators.required]]
   })
-
-  //buat naro tulisan kedalam input (bukan placeholder) -> profile
-  fullNameRform = new FormControl('ERX')
-
-  //constructor untuk inject
-  //form builder adalah untuk menyederhanakan form group supaya ga berulang
-
 
   constructor(
     private router: Router,

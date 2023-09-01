@@ -58,7 +58,6 @@ export class BaseService {
 
     }
 
-    //biar result sesuai tipe nya makanya pake generic
     all<T extends unknown[]>(data : [...ObservableInputTuple<T>]) : Promise<T>  {
       return firstValueFrom(
           forkJoin(data).pipe(response(this.messageService, this.router))
@@ -68,7 +67,6 @@ export class BaseService {
 export function response<T>(messageService: MessageService, router: Router) {
     return tap<T>({
         next: (data) => {
-            // console.log(data)
             if (data && (data as any).message) {
 
                 messageService.add({ severity: 'success', summary: 'Success', detail: (data as any).message });
@@ -79,7 +77,6 @@ export function response<T>(messageService: MessageService, router: Router) {
             if (err instanceof HttpErrorResponse) {
                 if (err && err.error && err.error.message) {
                     messageService.add({ severity: 'error', summary: 'Error', detail: err.error.message });
-                    // console.log(err.error);
 
                     if (err.status == 401 && err.error.message == 'token expired') {
                         localStorage.clear();

@@ -15,7 +15,7 @@ export interface CandidateMasterInsertReqDto {
     fullname : string
     gender : string
     experience : string
-    expectedSalary : number
+    expectedSalary : number | null
     phoneNumber : string
     mobileNumber : string
     nik : string

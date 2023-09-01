@@ -8,7 +8,6 @@
   <!-- Candidate Info -->
   <p-card header="Update Candidate Information">
     <form [formGroup]="candidateUpdateInsertReqDto" (ngSubmit)="onUpdate()">
-      <!-- <pre>{{ candidateUpdateInsertReqDto.value | json }}</pre> -->
       <div class="grid">
         <div class="col-12 md:col-10 md:col-offset-2">
           <div class="row align-items-center">
@@ -687,80 +686,73 @@
 </div>
 
 <!-- Dialog Add Address -->
-<p-dialog header="Add Address" [modal]="true" [(visible)]="dialogAddress" [breakpoints]="{ '960px': '95vw' }"
+<p-dialog header="Add Education" [modal]="true" [(visible)]="dialogEducation" [breakpoints]="{ '960px': '95vw' }"
   [style]="{ width: '50vw' }" [draggable]="false" [resizable]="false">
-  <form [formGroup]="addressInsertReqDto" (ngSubmit)="onAddAddress()">
-    <pre>{{ addressInsertReqDto.value | json }}</pre>
+  <pre>{{ educationInsertReqDto.value | json}}</pre>
+  <form [formGroup]="educationInsertReqDto" (ngSubmit)="onAddEducation()">
     <div class="p-fluid p-formgrid grid">
       <div class="field col-12">
-        <label for="residence">Residence Type <span class="text-red-500"> *</span> </label>
-        <p-dropdown inputId="residence" [options]="residenceType" optionLabel="label" optionValue="value"
-          [showClear]="true" [required]="true" formControlName="residenceType"
-          placeholder="Choose Residence Type"></p-dropdown>
+        <label for="institution">Institution Name <span class="text-red-500"> *</span> </label>
+        <input pInputText id="institution" required type="text" formControlName="instituitionName" />
         <span class="text-red-500 ml-2" *ngIf="
-            addressInsertReqDto.get('residenceType')!.invalid &&
-            !addressInsertReqDto.get('residenceType')!.value &&
-            (addressInsertReqDto.get('residenceType')!.dirty ||
-              addressInsertReqDto.get('residenceType')!.touched)
-          ">Must be selected</span>
-      </div>
-      <div class="field col-12">
-        <label for="address">Address <span class="text-red-500"> *</span> </label>
-        <textarea pInputTextarea id="address" required rows="1" cols="50" formControlName="address"></textarea>
-        <span class="text-red-500 ml-2" *ngIf="
-        addressInsertReqDto.get('address')!.invalid &&
-        !addressInsertReqDto.get('address')!.value &&
-        (addressInsertReqDto.get('address')!.dirty ||
-          addressInsertReqDto.get('address')!.touched)
+        educationInsertReqDto.get('instituitionName')!.invalid &&
+        !educationInsertReqDto.get('instituitionName')!.value &&
+        (educationInsertReqDto.get('instituitionName')!.dirty ||
+          educationInsertReqDto.get('instituitionName')!.touched)
       ">Input can't be empty</span>
       </div>
       <div class="field col-12">
-        <label for="country">Country <span class="text-red-500"> *</span> </label>
-        <input pInputText id="country" required type="text" formControlName="country" />
+        <label for="degree">Degree<span class="text-red-500"> *</span> </label>
+        <p-dropdown inputId="degree" [options]="degrees" optionLabel="label" optionValue="value" [showClear]="true"
+          [required]="true" formControlName="degreeName" placeholder="Choose Degree"></p-dropdown>
         <span class="text-red-500 ml-2" *ngIf="
-            addressInsertReqDto.get('country')!.invalid &&
-            !addressInsertReqDto.get('country')!.value &&
-            (addressInsertReqDto.get('country')!.dirty ||
-              addressInsertReqDto.get('country')!.touched)
-          ">Input can't be empty</span>
+          educationInsertReqDto.get('degreeName')!.invalid &&
+          !educationInsertReqDto.get('degreeName')!.value &&
+          (educationInsertReqDto.get('degreeName')!.dirty ||
+            educationInsertReqDto.get('degreeName')!.touched)
+        ">Must be selected</span>
       </div>
       <div class="field col-12">
-        <label for="province">Province <span class="text-red-500"> *</span> </label>
-        <input pInputText id="province" required type="text" formControlName="province" />
+        <label for="major">Major <span class="text-red-500"> *</span> </label>
+        <input pInputText id="major" required type="text" formControlName="majors" />
         <span class="text-red-500 ml-2" *ngIf="
-            addressInsertReqDto.get('province')!.invalid &&
-            !addressInsertReqDto.get('province')!.value &&
-            (addressInsertReqDto.get('province')!.dirty ||
-              addressInsertReqDto.get('province')!.touched)
-          ">Input can't be empty</span>
+        educationInsertReqDto.get('majors')!.invalid &&
+        !educationInsertReqDto.get('majors')!.value &&
+        (educationInsertReqDto.get('majors')!.dirty ||
+          educationInsertReqDto.get('majors')!.touched)
+      ">Input can't be empty</span>
       </div>
       <div class="field col-12">
-        <label for="city">City <span class="text-red-500"> *</span> </label>
-        <input pInputText id="city" required type="text" formControlName="city" />
+
+        <label for="cgpa">CGPA <span class="text-red-500"> *</span> </label>
+        <p-inputNumber inputId="cgpa" inputId="minmax" mode="decimal" [minFractionDigits]="2" [maxFractionDigits]="2"
+          [min]="0" [max]="4" formControlName="cgpa"></p-inputNumber>
         <span class="text-red-500 ml-2" *ngIf="
-            addressInsertReqDto.get('city')!.invalid &&
-            !addressInsertReqDto.get('city')!.value &&
-            (addressInsertReqDto.get('city')!.dirty ||
-              addressInsertReqDto.get('city')!.touched)
-          ">Input can't be empty</span>
+          educationInsertReqDto.get('cgpa')!.invalid &&
+          !educationInsertReqDto.get('cgpa')!.value &&
+          (educationInsertReqDto.get('cgpa')!.dirty ||
+            educationInsertReqDto.get('cgpa')!.touched)
+        ">Input can't be empty</span>
       </div>
       <div class="field col-12">
-        <label for="postal">Postal Code <span class="text-red-500"> *</span> </label>
-        <input pInputText id="postal" required type="text" formControlName="postalCode" />
-        <span class="text-red-500 ml-2" *ngIf="
-            addressInsertReqDto.get('postalCode')!.invalid &&
-            !addressInsertReqDto.get('postalCode')!.value &&
-            (addressInsertReqDto.get('postalCode')!.dirty ||
-              addressInsertReqDto.get('postalCode')!.touched)
-          ">Input can't be empty</span>
+        <label for="startyear">Start Year <span class="text-red-500"> *</span> </label>
+        <p-calendar inputId="startyear" dateFormat="dd/mm/yy" [required]="true" [inline]="true"
+          formControlName="startYearTemp" [showIcon]="true"></p-calendar>
+      </div>
+      <div class="field col-12">
+
+        <label for="endyear">End Year <span class="text-red-500"> *</span> </label>
+        <p-calendar inputId="endyear" dateFormat="dd/mm/yy" [required]="true" [inline]="true"
+          formControlName="endYearTemp" [showIcon]="true"></p-calendar>
       </div>
     </div>
     <div class="field col-12">
       <app-button backgroundColor="var(--PRIMARY)" [loading]="loading" typeBtn="submit" label="Submit" class=" mr-2"
-        (clickChange)="checkForm(addressInsertReqDto)"></app-button>
+        (clickChange)="checkForm(educationInsertReqDto)"></app-button>
     </div>
   </form>
 </p-dialog>
+
 
 <!-- Dialog Add Education -->
 <p-dialog header="Add Education" [modal]="true" [(visible)]="dialogEducation" [breakpoints]="{ '960px': '95vw' }"
@@ -935,7 +927,7 @@
       ">Input can't be empty</span>
       </div>
       <div class="field col-12">
-        <label for="writing">Writing Rate <span class="text-red-500"> *</span> </label>
+        <label for="writing">Writing Rate (0-5)<span class="text-red-500"> *</span> </label>
         <p-inputNumber inputId="writing" mode="decimal" [min]="0" [max]="5"
           formControlName="writingRate"></p-inputNumber>
         <span class="text-red-500 ml-2" *ngIf="
@@ -946,7 +938,7 @@
         ">Input can't be empty</span>
       </div>
       <div class="field col-12">
-        <label for="speaking">Speaking Rate <span class="text-red-500"> *</span> </label>
+        <label for="speaking">Speaking Rate (0-5)<span class="text-red-500"> *</span> </label>
         <p-inputNumber inputId="speaking" mode="decimal" [min]="0" [max]="5"
           formControlName="speakingRate"></p-inputNumber>
         <span class="text-red-500 ml-2" *ngIf="
@@ -957,7 +949,7 @@
         ">Input can't be empty</span>
       </div>
       <div class="field col-12">
-        <label for="listening">Listening Rate <span class="text-red-500"> *</span> </label>
+        <label for="listening">Listening Rate (0-5)<span class="text-red-500"> *</span> </label>
         <p-inputNumber inputId="listening" mode="decimal" [min]="0" [max]="5"
           formControlName="listeningRate"></p-inputNumber>
         <span class="text-red-500 ml-2" *ngIf="
@@ -1279,6 +1271,12 @@
         <p-dropdown inputId="fileTypeCode" [options]="fileTypes" optionLabel="typeName" optionValue="typeCode"
           [showClear]="true" [required]="true" formControlName="fileTypeCode"
           placeholder="Choose File Type"></p-dropdown>
+        <span class="text-red-500 ml-2" *ngIf="
+          documentInsertReqDto.get('fileTypeCode')!.invalid &&
+          !documentInsertReqDto.get('fileTypeCode')!.value &&
+          (documentInsertReqDto.get('fileTypeCode')!.dirty ||
+            documentInsertReqDto.get('fileTypeCode')!.touched)
+        ">Must be selected</span>
       </div>
 
       <div class="field col-12">
@@ -1290,7 +1288,7 @@
     </div>
     <div class="field col-12">
       <app-button backgroundColor="var(--PRIMARY)" [loading]="loading" typeBtn="submit" label="Submit"
-        class=" mr-2"></app-button>
+        class=" mr-2"  (clickChange)="checkForm(documentInsertReqDto)"></app-button>
     </div>
   </form>
 </p-dialog>

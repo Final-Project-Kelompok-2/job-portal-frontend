@@ -36,12 +36,6 @@ export class UserProfileComponent implements OnInit {
 
     if (profile) {
 
-      // if (profile?.photoId) {
-      //   this.imageUrl = `${BASE_URL}/files/${profile.photoId}`
-      // } else {
-      //   this.imageUrl = '../../../assets/emptyProfile.jpeg'
-      // }
-
       firstValueFrom(this.userService.getById(profile.userId)).then(result => {
         this.user = result
         this.getProfile();

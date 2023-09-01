@@ -8,6 +8,7 @@ import { CandidateUserService } from "../../../service/candidate-user.service";
 import { CandidateCheckDataResDto } from "../../../dto/candidate/candidate-check-data.res.dto";
 import { ApplicantResDto } from "../../../dto/applicant/applicant.res.dto";
 import { Title } from "@angular/platform-browser";
+import { BASE_URL } from "../../../constant/api.constant";
 
 @Component({
     selector: 'job-detail',
@@ -45,7 +46,7 @@ export class JobDetailComponent implements OnInit {
 
 
     apply(jobId: string) {
-        // this.visible = true
+
         const applicantDto = {
             jobId
         }
@@ -95,7 +96,7 @@ export class JobDetailComponent implements OnInit {
         firstValueFrom(this.jobService.getDetail(jobId)).then(result => {
             this.job = result;
             if (this.job?.fileId) {
-                this.imageUrlCompany = `http://localhost:8081/files/${this.job?.fileId}`
+                this.imageUrlCompany = `${BASE_URL}/files/${this.job?.fileId}`
 
             }
             else {
@@ -104,7 +105,7 @@ export class JobDetailComponent implements OnInit {
 
 
             if (this.job?.companyPhotoId) {
-                this.imageUrlCompany = `http://localhost:8081/files/${this.job?.companyPhotoId}`
+                this.imageUrlCompany = `${BASE_URL}/files/${this.job?.companyPhotoId}`
 
             }
             else {

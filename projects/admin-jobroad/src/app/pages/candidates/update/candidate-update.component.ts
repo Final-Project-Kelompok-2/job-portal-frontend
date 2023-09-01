@@ -137,7 +137,7 @@ export class CandidateUpdateComponent implements OnInit {
       fullname: ['', [Validators.required]],
       gender: ['', [Validators.required]],
       experience: ['', [Validators.required]],
-      expectedSalary: [0, [Validators.required]],
+      expectedSalary: new FormControl<number | null>(null, Validators.required),
       phoneNumber: ['', [Validators.required]],
       mobileNumber: ['', [Validators.required]],
       nik: ['', [Validators.required]],
@@ -180,7 +180,7 @@ export class CandidateUpdateComponent implements OnInit {
     degreeName: ['', [Validators.required]],
     instituitionName: ['', [Validators.required]],
     majors: ['', [Validators.required]],
-    cgpa: [0, [Validators.required]],
+    cgpa:new FormControl<number | null>(null, Validators.required),
     startYear: ['', [Validators.required]],
     startYearTemp: new FormControl<Date | null>(null),
     endYear: ['', [Validators.required]],
@@ -1174,7 +1174,7 @@ export class CandidateUpdateComponent implements OnInit {
     if (this.projectInsertReqDto.valid) {
       const data = this.projectInsertReqDto.getRawValue()
       firstValueFrom(this.candidateProjectExpService.create(data)).then((res) => {
-        // this.candidateUserProjects()
+
         this.base.all([
           this.candidateProjectExpService.getByCandidate(this.candidateId)
         ]).then(res => {
@@ -1190,7 +1190,7 @@ export class CandidateUpdateComponent implements OnInit {
     if (this.skillInsertReqDto.valid) {
       const data = this.skillInsertReqDto.getRawValue()
       firstValueFrom(this.candidateSkillService.create(data)).then((res) => {
-        // this.candidateUserSkills()
+
         this.base.all([
           this.candidateSkillService.getByCandidate(this.candidateId)
         ]).then(res => {
@@ -1206,7 +1206,7 @@ export class CandidateUpdateComponent implements OnInit {
     if (this.languageInsertReqDto.valid) {
       const data = this.languageInsertReqDto.getRawValue()
       firstValueFrom(this.candidateLanguageService.create(data)).then((res) => {
-        // this.candidateUserLanguages()
+
         this.base.all([
           this.candidateLanguageService.getByCandidate(this.candidateId)
         ]).then(res => {
@@ -1222,7 +1222,7 @@ export class CandidateUpdateComponent implements OnInit {
     if (this.familyInsertReqDto.valid) {
       const data = this.familyInsertReqDto.getRawValue()
       firstValueFrom(this.candidateFamilyService.create(data)).then((res) => {
-        // this.candidateUserFamilies()
+
         this.base.all([
           this.candidateFamilyService.getByCandidate(this.candidateId)
         ]).then(res => {
@@ -1238,7 +1238,7 @@ export class CandidateUpdateComponent implements OnInit {
     if (this.referenceInsertReqDto.valid) {
       const data = this.referenceInsertReqDto.getRawValue()
       firstValueFrom(this.candidateReferenceService.create(data)).then((res) => {
-        // this.candidateUserReferences()
+
         this.base.all([
           this.candidateReferenceService.getByCandidate(this.candidateId)
         ]).then(res => {
@@ -1254,7 +1254,7 @@ export class CandidateUpdateComponent implements OnInit {
     if (this.documentInsertReqDto.valid) {
       const data = this.documentInsertReqDto.getRawValue()
       firstValueFrom(this.candidateDocumentService.create(data)).then((res) => {
-        // this.candidateUserDocuments()
+
         this.base.all([
           this.candidateDocumentService.getByCandidate(this.candidateId)
         ]).then(res => {
