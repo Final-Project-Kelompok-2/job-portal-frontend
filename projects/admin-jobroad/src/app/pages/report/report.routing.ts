@@ -9,8 +9,8 @@ import { UrlPipe } from "../../pipe/url.pipe";
 
 const routes: Routes = [
     {
-        path : '',
-        component : ReportComponent
+        path: '',
+        component: ReportComponent
     }
 ]
 

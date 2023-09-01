@@ -366,7 +366,6 @@ export class CandidateUpdateComponent implements OnInit {
     })
 
     this.base.all([
-      // this.authService.getProfile(),
       this.candidateService.getById(this.candidateId),
       this.candidateAddressService.getByCandidate(this.candidateId),
       this.candidateEducationService.getByCandidate(this.candidateId),
@@ -1415,6 +1414,7 @@ export class CandidateUpdateComponent implements OnInit {
       this.candidateService.update(data).subscribe((res) => {
         this.router.navigateByUrl(`/candidates/profile`)
       })
+      // this.candidateService.navbarObservable(this.candidateUser?.candidateProfile?.fileId)
     }
   }
 
