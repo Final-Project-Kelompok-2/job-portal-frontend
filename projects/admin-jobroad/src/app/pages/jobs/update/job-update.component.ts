@@ -71,6 +71,8 @@ export class JobUpdateComponent implements OnInit {
                 this.job = result;
                 console.log("Jobss  ====    ",this.job)
                 console.log("Uang ===   ",Number(this.job.expectedSalaryMin.replace(/[^0-9.-]+/g,""))* 1000) 
+                console.log("Uang baru ==  ",Number(this.job.expectedSalaryMin.replace(/[Rp.-]+/g,"")));
+                
                 this.jobUpdateReqDto.patchValue({
                     id: this.job.id,
                     jobName: this.job.jobName,
@@ -233,7 +235,7 @@ function convert2(currency : string) {
   // Using replace() method
   // to make currency string suitable
   // for parseFloat() to convert
-  let temp = currency.replace(/[^.0-9.-]+/g, "");
+  let temp = currency.replace(/[Rp.-]+/g,"");
 
   // Converting string to float
   // or double and return
