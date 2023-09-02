@@ -51,8 +51,8 @@ export class JobUpdateComponent implements OnInit {
         employmentTypeId: ['', Validators.required],
         benefits: this.fb.array([]),
         questions: this.fb.array([]),
-        file: ['', Validators.required],
-        fileExtension: ['', Validators.required]
+        file: [''],
+        fileExtension: ['']
     });
     constructor(
         private jobService: JobService,
@@ -70,18 +70,18 @@ export class JobUpdateComponent implements OnInit {
             firstValueFrom(this.jobService.getByDetail(result['id'])).then(result => {
                 this.job = result;
                 console.log("Jobss  ====    ",this.job)
-                console.log("Uang ===   ",Number(this.job.expectedSalaryMax.replace(/[^0-9.-]+/g,""))/10) 
+                console.log("Uang ===   ",Number(this.job.expectedSalaryMin.replace(/[^0-9.-]+/g,""))* 1000) 
                 this.jobUpdateReqDto.patchValue({
                     id: this.job.id,
                     jobName: this.job.jobName,
                     companyId : this.job.companyId,
-                    startDate: this.job.startDate,
-                    endDate: this.job.endDate,
+                    startDateTemp: new Date(this.job.startDate),
+                    endDateTemp: new Date(this.job.endDate),
                     description: this.job.description,
                     hrId: this.job.hrId,
                     picId: this.job.picId,
-                    expectedSalaryMin: Number(this.job.expectedSalaryMin.replace(/[^0-9.-]+/g,""))* 1000,
-                    expectedSalaryMax: Number(this.job.expectedSalaryMax.replace(/[^0-9.-]+/g,""))* 1000,
+                    expectedSalaryMin: Number(convert2(this.job.expectedSalaryMin)),
+                    expectedSalaryMax: Number(convert2(this.job.expectedSalaryMax)),
                     employmentTypeId : this.job.employmentTypeId
                 })
                 firstValueFrom(this.benefitService.getByJob(result['id'])).then(result => {
@@ -199,4 +199,43 @@ export class JobUpdateComponent implements OnInit {
 const convertUTCToLocalDate = function (date: Date) {
   const newDate = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate(), date.getHours(), date.getMinutes(), date.getSeconds()));
   return newDate.toISOString().split('T')[0]
+}
+
+function convert(currency : string) {
+  let k, temp='';
+
+  // Loop to make substring
+  for (let i = 0; i < currency.length; i++) {
+      // Getting Unicode value
+      k = currency.charCodeAt(i);
+
+      // Checking whether the character
+      // is of numeric type or not
+      if (k > 47 && k < 58) {
+          // Making substring
+          temp = currency.substring(i);
+          break;
+      }
+  }
+
+  // If currency is in format like
+  // 458, 656.75 then we used replace
+  // method to replace every ', ' with ''
+  temp = temp.replace(/, /, "");
+
+  // Converting string to float
+  // or double and return
+  return parseFloat(temp);
+}
+
+function convert2(currency : string) {
+     
+  // Using replace() method
+  // to make currency string suitable
+  // for parseFloat() to convert
+  let temp = currency.replace(/[^.0-9.-]+/g, "");
+
+  // Converting string to float
+  // or double and return
+  return parseFloat(temp).toFixed(2);
 }
