@@ -7,6 +7,7 @@ import { JobCreateComponent } from "./create/job-create.component";
 import { CommonModule } from "@angular/common";
 import { JobDetailComponent } from "./detail/job-detail.component";
 import { UrlPipe } from "../../pipe/url.pipe";
+import { JobUpdateComponent } from "./update/job-update.component";
 
 const routes: Routes = [
   {
@@ -20,13 +21,18 @@ const routes: Routes = [
   {
     path:'detail/:id',
     component : JobDetailComponent
+  },
+  {
+    path : ':id',
+    component : JobUpdateComponent
   }
 ]
 @NgModule({
   declarations: [
     JobListComponent,
     JobCreateComponent,
-    JobDetailComponent
+    JobDetailComponent,
+    JobUpdateComponent
   ],
   imports: [
     RouterModule.forChild(routes),
