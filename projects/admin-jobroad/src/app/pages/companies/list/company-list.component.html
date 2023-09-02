@@ -65,7 +65,7 @@
               </tr>
             </ng-template>
             <ng-template pTemplate="body" let-c let-i="rowIndex">
-              <tr class="cursor-pointer">
+              <tr class="cursor-pointer" routerLink="detail/{{ c.id }}">
                 <td>{{i+1}}</td>
                 <td>{{c.companyCode}}</td>
                 <td>{{c.companyName}}</td>

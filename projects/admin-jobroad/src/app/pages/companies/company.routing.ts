@@ -7,6 +7,7 @@ import { CompanyCreateComponent } from "./create/company-create.component";
 import { CommonModule } from "@angular/common";
 import { CompanyUpdateComponent } from "./update/company-update.component";
 import { CompanyDetailComponent } from "./detail/company-detail.component";
+import { UrlPipe } from "../../pipe/url.pipe";
 
 const routes: Routes = [
   {
@@ -37,7 +38,8 @@ const routes: Routes = [
     RouterModule.forChild(routes),
     SharedModuleComponent,
     ButtonComponent,
-    CommonModule
+    CommonModule,
+    UrlPipe
   ],
   exports: [
 

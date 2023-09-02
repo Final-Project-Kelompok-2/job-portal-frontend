@@ -16,7 +16,10 @@ export class CompanyService {
 
   getAll(): Observable<CompanyResDto[]> {
     return this.base.getWithoutPipe<CompanyResDto[]>(`${BASE_URL}/companies`);
+  }
 
+  getDetail(id:string): Observable<CompanyResDto> {
+    return this.base.getWithoutPipe<CompanyResDto>(`${BASE_URL}/companies/detail?id=${id}`);
   }
   create(data: CompanyInsertReqDto): Observable<InsertResDto> {
     return this.base.post<InsertResDto>(`${BASE_URL}/companies`, data);
