@@ -54,11 +54,11 @@
             (companyReqDto.get('companyPhone')!.dirty ||
               companyReqDto.get('companyPhone')!.touched)
           ">Input can't be empty</span>
-          </div>  
+          </div>
           <div class="col-12 md:col-9 mb-5 mt-6 flex ">
             <app-button [loading]="loading" backgroundColor="var(--PRIMARY)" (clickChange)="checkForm(companyReqDto)"
               iconBtn="pi pi-save" typeBtn="submit" label="Save" class=" mr-2"></app-button>
-            <app-button link="/companies" label="Cancel" classBtn="p-button-secondary"></app-button>
+            <app-button link="/companies/detail/{{ company.id }}" label="Cancel" classBtn="p-button-secondary"></app-button>
           </div>
         </div>
       </div>
