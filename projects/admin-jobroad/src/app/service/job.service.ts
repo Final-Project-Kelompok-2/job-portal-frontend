@@ -5,6 +5,8 @@ import { JobResDto } from "../dto/job/job.res.dto";
 import { BASE_URL } from "../constant/api.constant";
 import { JobInsertReqDto } from "../dto/job/job-insert.req.dto";
 import { InsertResDto } from "../dto/insert.res.dto";
+import { JobUpdateReqDto } from "../dto/job/job-update.req.dto";
+import { UpdateResDto } from "../dto/update.res.dto";
 
 @Injectable({
     providedIn: 'root'
@@ -33,5 +35,8 @@ export class JobService {
     }
     getByDetail(id: string): Observable<JobResDto> {
         return this.base.get<JobResDto>(`${BASE_URL}/jobs/detail?id=${id}`);
+    }
+    update(data : JobUpdateReqDto) : Observable <UpdateResDto>{
+        return this.base.patch<UpdateResDto>(`${BASE_URL}/jobs`,data);
     }
 }

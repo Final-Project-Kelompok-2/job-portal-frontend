@@ -22,5 +22,9 @@ export class BenefitService{
         return this.base.getWithoutPipe<BenefitResDto[]>(`${BASE_URL}/benefits`);
     }
 
+    getByJob(id : string) : Observable<BenefitResDto[]>{
+        return this.base.getWithoutPipe<BenefitResDto[]>(`${BASE_URL}/benefits/job?id=${id}`);
+    }
+
 
 }

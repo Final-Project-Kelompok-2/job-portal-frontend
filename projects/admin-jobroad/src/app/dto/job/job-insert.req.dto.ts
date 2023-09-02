@@ -3,9 +3,7 @@ import { OwnedBenefitInsertReqDto } from "../owned-benefit/owned-benefit-insert.
 
 export interface JobInsertReqDto {
   jobName: string
-
   companyId: string
-
   startDate: string
   endDate: string
   description: string
@@ -16,7 +14,6 @@ export interface JobInsertReqDto {
   benefits: (OwnedBenefitInsertReqDto | unknown)[]
   questions: (AssignedJobQuestionInsertReqDto | unknown)[]
   employmentTypeId: string
-
   file: string
   fileExtension: string
 }
