@@ -1,7 +1,4 @@
 <div class="col-12">
-  <pre>
-    {{companyReqDto.value | json}}
-  </pre>
   <p-card header="Add New Company">
     <form [formGroup]="companyReqDto" (ngSubmit)="onSubmit()">
       <div class="p-fluid p-formgrid grid">
@@ -17,7 +14,7 @@
         </div>
         <div class="field col-12">
           <label htmlFor="address">Address<span class="text-red-500">*</span></label>
-          <textarea pInputTextarea  id="address" required rows="4" cols="50" formControlName="address"></textarea>
+          <textarea pInputTextarea id="address" required rows="4" cols="50" formControlName="address"></textarea>
           <span class="text-red-500 ml-2" *ngIf="
           companyReqDto.get('address')!.invalid &&
           !companyReqDto.get('address')!.value &&
@@ -27,7 +24,7 @@
         </div>
         <div class="field col-12 md:col-6">
           <label htmlFor="url">Company Url<span class="text-red-500">*</span></label>
-          <input pInputText id="url" required type="text" formControlName="companyUrl"/>
+          <input pInputText id="url" required type="text" formControlName="companyUrl" />
           <span class="text-red-500 ml-2" *ngIf="
           companyReqDto.get('companyUrl')!.invalid &&
           !companyReqDto.get('companyUrl')!.value &&
@@ -37,7 +34,7 @@
         </div>
         <div class="field col-12 md:col-6">
           <label htmlFor="phoneNumber">Company Phone Number<span class="text-red-500">*</span></label>
-          <input pInputText id="phoneNumber" required type="text" formControlName="companyPhone"/>
+          <input pInputText id="phoneNumber" required type="text" formControlName="companyPhone" />
           <span class="text-red-500 ml-2" *ngIf="
           companyReqDto.get('companyPhone')!.invalid &&
           !companyReqDto.get('companyPhone')!.value &&
@@ -50,7 +47,9 @@
         </div>
         <div class="col-12 ">
           <div class="mb-3">
-            <p-fileUpload mode="basic" styleClass="bg-green-700" chooseLabel="Upload" chooseIcon="pi pi-upload" class="form-control" #file type="file" id="picture" required (onSelect)="fileUpload($event,file)"></p-fileUpload>
+            <p-fileUpload mode="basic" styleClass="bg-green-700" chooseLabel="Upload" chooseIcon="pi pi-upload"
+              class="form-control" #file type="file" id="picture" required (onSelect)="fileUpload($event,file)">
+            </p-fileUpload>
             <span class="text-red-500 ml-2" *ngIf="
             companyReqDto.get('fileName')!.invalid &&
             !companyReqDto.get('fileName')!.value &&
@@ -60,8 +59,9 @@
           </div>
         </div>
         <div class="col-12 md:col-9 mb-5 mt-6 flex ">
-          <app-button [loading]="loading" backgroundColor="var(--PRIMARY)" (clickChange)="checkForm(companyReqDto)" iconBtn="pi pi-save" typeBtn="submit" label="Save" class=" mr-2"></app-button>
-          <app-button link="/companies" label="Cancel"   classBtn="p-button-secondary"></app-button>
+          <app-button [loading]="loading" backgroundColor="var(--PRIMARY)" (clickChange)="checkForm(companyReqDto)"
+            iconBtn="pi pi-save" typeBtn="submit" label="Save" class=" mr-2"></app-button>
+          <app-button link="/companies" label="Cancel" classBtn="p-button-secondary"></app-button>
         </div>
       </div>
     </form>

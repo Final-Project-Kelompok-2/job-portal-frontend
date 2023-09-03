@@ -10,6 +10,8 @@ import { HiringStatusEnum } from "../../../constant/hiring-status.constant";
 import { BaseService } from "../../../service/base.service";
 import { Title } from "@angular/platform-browser";
 import { BASE_URL } from "../../../constant/api.constant";
+import { AuthService } from "../../../service/auth.service";
+import { RoleCodeEnum } from "../../../constant/user-role.constant";
 
 @Component({
   selector: 'job-detail',
@@ -27,13 +29,16 @@ export class JobDetailComponent implements OnInit, OnDestroy {
   jobId!: string;
   reject = HiringStatusEnum.REJECT;
   hired = HiringStatusEnum.HIRED;
+  personId!: string;
+  isOwner = false;
 
   constructor(
     private jobService: JobService,
     private applicantService: ApplicantService,
     private activated: ActivatedRoute,
     private base: BaseService,
-    private title: Title
+    private title: Title,
+    private authService: AuthService
   ) {
 
 
@@ -41,6 +46,12 @@ export class JobDetailComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+
+    const data = this.authService.getProfile()
+    if (data) {
+      this.personId = data.userId
+
+    }
 
 
     firstValueFrom(this.activated.params).then(param => {
@@ -51,7 +62,7 @@ export class JobDetailComponent implements OnInit, OnDestroy {
 
         this.imageUrlCompany = this.job?.companyPhotoId
 
-
+        this.checkOwner()
 
 
       });
@@ -66,6 +77,20 @@ export class JobDetailComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.jobSubscription.unsubscribe();
     this.applicantSubscription.unsubscribe();
+  }
+
+  checkOwner() {
+    const data = this.authService.getProfile()
+    console.log(data?.userId);
+    console.log(this.job?.createdBy);
+    if (data?.userId == this.job?.createdBy) {
+      this.isOwner = !this.isOwner
+    }
+  }
+
+  checkRole() {
+
+    return this.authService.getProfile()?.roleCode == RoleCodeEnum.ADMIN
   }
 
 }

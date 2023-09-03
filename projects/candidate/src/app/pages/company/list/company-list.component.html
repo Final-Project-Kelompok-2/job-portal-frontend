@@ -4,21 +4,39 @@
   </div>
   <div class="col-12 md:col-3 flex justify-content-center md:justify-content-start" *ngFor="let c of companies">
     <div class="card card-hover">
-      <p-card [style]="{width: '300px', height: '520px'}">
+      <p-card [style]="{ height: '520px'}">
         <ng-template pTemplate="header">
           <img alt="Card" [src]="c.photoId|url" style="width: 300px; height: 250px;" />
         </ng-template>
+        <div class="grid grid-nogutter">
+          <div class="col-12 md:col-12">
+            <h3 class="mt-0">{{c.companyName}}</h3>
+          </div>
+
+          <div class="col-12 md:col-12">
+            <i class="pi pi-building"> </i> {{ c.address }}
+          </div>
+
+          <div class="col-12 md:col-12">
+            <i class="pi pi-link"> </i> {{ c.companyUrl }}
+          </div>
+          <div class="col-12 md:col-12">
+            <i class="pi pi-phone"> </i> {{ c.companyPhone }}
+          </div>
+          <div class="col-12 md:col-12 mb-2">
+            <app-button label="Detail" link="{{c.id}}/detail" backgroundColor="var(--PRIMARY)"></app-button>
+          </div>
+        </div>
+        <!-- 
         <ng-template pTemplate="subtitle">
-          <h3 class="mt-0">{{c.companyName}}</h3>
-        </ng-template>
-        <ng-template pTemplate="content">
-          <i class="pi pi-building"> </i> {{ c.address }} <br>
-          <i class="pi pi-link"> </i> {{ c.companyUrl }} <br>
-          <i class="pi pi-phone"> </i> {{ c.companyPhone }}
 
         </ng-template>
+        <ng-template pTemplate="content">
+
+
+
+        </ng-template> -->
         <ng-template pTemplate="footer">
-          <app-button label="Detail" link="{{c.id}}/detail" backgroundColor="var(--PRIMARY)"></app-button>
         </ng-template>
       </p-card>
     </div>

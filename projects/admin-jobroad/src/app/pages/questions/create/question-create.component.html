@@ -1,8 +1,6 @@
 <div class="grid justify-content-center">
   <div class="col-12 md:col-10">
-    <!-- <pre>
-      {{questionsInsertReqDto.value | json}}
-    </pre> -->
+
     <h1>Create Question(s)</h1>
     <div class="card">
       <div>
@@ -47,7 +45,8 @@
                 </div>
               </div>
 
-              <div class="col-12 m-0" formArrayName="options" *ngFor="let o of questionOption(i).controls; let j = index">
+              <div class="col-12 m-0" formArrayName="options"
+                *ngFor="let o of questionOption(i).controls; let j = index">
                 <div [formGroupName]="j">
                   <h4 class="mt-0 mb-2">Option {{ j+1 }}</h4>
                   <div class="grid">

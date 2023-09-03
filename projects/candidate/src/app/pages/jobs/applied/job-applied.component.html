@@ -1,3 +1,7 @@
+<div class="grid grid-nogutter p-2">
+  <h1>Applied Job(s)</h1>
+</div>
+
 <div class="flex justify-content-center mt-2">
 
   <ng-container *ngIf="!check()">
@@ -11,9 +15,10 @@
   </ng-container>
 
 
+
+
   <ng-container *ngIf="check()" class="col-12 md:col-10">
 
-    <h1>Applied Job(s)</h1>
     <div class="card">
       <p-card *ngFor="let a of appliedJob" class="p-2">
         <div class="grid">

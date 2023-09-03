@@ -56,7 +56,9 @@
 
 <div class=" mt-3 col-12 md:col-3 buttons">
   <app-button type="button" label="Back" class="mr-2" classBtn="p-button-secondary" link="/jobs"></app-button>
-  <app-button type="button" label="Update" class="mr-2" classBtn="p-button-secondary" link="/jobs/{{jobId}}"></app-button>
+  <app-button *ngIf="isOwner || checkRole()" type="button" label="Update" class="mr-2" classBtn="p-button-secondary"
+    link="/jobs/{{jobId}}">
+  </app-button>
 </div>
 <div class="col-12 md:col-9 title">
   <h2>Applicant List</h2>
