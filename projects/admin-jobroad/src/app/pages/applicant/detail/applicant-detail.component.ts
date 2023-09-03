@@ -70,6 +70,25 @@ export class ApplicantDetailComponent implements OnInit {
     hiringForm = false;
     loading = false;
 
+    constructor(private router: Router,
+        private activated: ActivatedRoute,
+        private messageService: MessageService,
+        private fb: NonNullableFormBuilder,
+        private assesmentService: AssesmentService,
+        private jobService: JobService,
+        private userService: UserService,
+        private applicantService: ApplicantService,
+        private interviewService: InterviewService,
+        private mcuService: McuService,
+        private offeringService: OfferingService,
+        private hiredService: HiredService,
+        private reviewService: ReviewService,
+        private authService: AuthService,
+
+    ) {
+
+    }
+
     applicantReqDto = this.fb.group({
         applicantId: ['', Validators.required],
         applicantCode: ['', Validators.required],
@@ -126,24 +145,7 @@ export class ApplicantDetailComponent implements OnInit {
         endDate: [null]
     })
 
-    constructor(private router: Router,
-        private activated: ActivatedRoute,
-        private messageService: MessageService,
-        private fb: NonNullableFormBuilder,
-        private assesmentService: AssesmentService,
-        private jobService: JobService,
-        private userService: UserService,
-        private applicantService: ApplicantService,
-        private interviewService: InterviewService,
-        private mcuService: McuService,
-        private offeringService: OfferingService,
-        private hiredService: HiredService,
-        private reviewService: ReviewService,
-        private authService: AuthService,
 
-    ) {
-
-    }
 
     onActiveIndexChange(event: number) {
         this.activeIndex = event;

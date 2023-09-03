@@ -7,8 +7,8 @@
           <h2>Question List</h2>
         </div>
         <div class="col-12 md:col-offset-5 md:col-4 buttons flex justify-content-end">
-          <app-button type="button" label="Back" class="mr-2" classBtn="p-button-secondary"
-            link="/dashboard"></app-button>
+          <app-button type="button" label="Back" class="mr-2" classBtn="p-button-secondary" link="/dashboard">
+          </app-button>
           <app-button type="button" backgroundColor="var(--PRIMARY)" iconBtn="pi pi-fw pi-plus" label="Add New Question"
             classBtn="p-button-primary" link="/questions/new"></app-button>
           <app-button (click)="updateClick()" typeBtn="button" label="Update" iconBtn="pi pi-pencil"
@@ -47,44 +47,41 @@
 
   <p-dialog header="Update Question" [(visible)]="updateForm" [breakpoints]="{ '960px': '75vw' }"
     [style]="{ width: '50vw' }" [maximizable]="true" [modal]="true" [draggable]="false" [resizable]="false">
-      <!-- <pre>
-        {{questionUpdateReqDto.value | json}}
-      </pre> -->
-      <form [formGroup]="questionUpdateReqDto" (ngSubmit)="updateSubmit()">
 
-        <div class="p-fluid p-formgrid grid">
-          <div class="field col-12">
-            <label for="question">Question</label>
-            <p-dropdown
-            [showClear]="true" #question (onChange)="chooseQuestion(question.value)" id="question" appendTo="body"
-            [options]="questions" optionValue="id" placeholder="Choose Question"
+    <form [formGroup]="questionUpdateReqDto" (ngSubmit)="updateSubmit()">
+
+      <div class="p-fluid p-formgrid grid">
+        <div class="field col-12">
+          <label for="question">Question</label>
+          <p-dropdown [showClear]="true" #question (onChange)="chooseQuestion(question.value)" id="question"
+            appendTo="body" [options]="questions" optionValue="id" placeholder="Choose Question"
             optionLabel="questionDetail"></p-dropdown>
-          </div>
-
-          <div class="field col-12">
-            <label htmlFor="detail">Detail</label>
-            <textarea id="detail" formControlName="questionDetail" rows="2" pInputTextarea></textarea>
-          </div>
         </div>
 
-        <!-- <div class=" p-fluid p-formgrid grid"> -->
-          <div class="option" formArrayName="options" *ngFor="let op of optionForm.controls; let i = index">
-            <div [formGroupName]="i">
-              <div class="p-fluid p-formgrid grid">
-                <div class="field col-12 md:col-9">
-                  <label for="optionLabel">Option Label {{ i + 1}} <span class="text-red-500">*</span></label>
-                  <textarea id="label" formControlName="optionLabel" rows="1" pInputTextarea></textarea>
-                </div>
-                <div class="field col-12 md:col-3">
-                  <label for="optionLabel">Is Correct <span class="text-red-500">*</span></label>
-                  <p-dropdown formControlName="isCorrect" [options]="isCorrects" optionLabel="key"
-                  optionValue="name"></p-dropdown>
-                </div>
-              </div>
+        <div class="field col-12">
+          <label htmlFor="detail">Detail</label>
+          <textarea id="detail" formControlName="questionDetail" rows="2" pInputTextarea></textarea>
+        </div>
+      </div>
+
+      <!-- <div class=" p-fluid p-formgrid grid"> -->
+      <div class="option" formArrayName="options" *ngFor="let op of optionForm.controls; let i = index">
+        <div [formGroupName]="i">
+          <div class="p-fluid p-formgrid grid">
+            <div class="field col-12 md:col-9">
+              <label for="optionLabel">Option Label {{ i + 1}} <span class="text-red-500">*</span></label>
+              <textarea id="label" formControlName="optionLabel" rows="1" pInputTextarea></textarea>
+            </div>
+            <div class="field col-12 md:col-3">
+              <label for="optionLabel">Is Correct <span class="text-red-500">*</span></label>
+              <p-dropdown formControlName="isCorrect" [options]="isCorrects" optionLabel="key" optionValue="name">
+              </p-dropdown>
             </div>
           </div>
-        <!-- </div> -->
-        <app-button type="submit" backgroundColor="var(--PRIMARY)" label="Update" class="mr-2"></app-button>
-      </form>
+        </div>
+      </div>
+      <!-- </div> -->
+      <app-button type="submit" backgroundColor="var(--PRIMARY)" label="Update" class="mr-2"></app-button>
+    </form>
   </p-dialog>
 </div>

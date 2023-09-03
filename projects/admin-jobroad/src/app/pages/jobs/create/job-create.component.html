@@ -1,5 +1,4 @@
 <div class="col-12">
-  <pre>{{jobReqDto.value | json}}</pre>
   <p-card header="Add New Job">
     <form [formGroup]="jobReqDto" (ngSubmit)="onSubmit()">
       <div class="p-fluid p-formgrid grid">
@@ -27,9 +26,8 @@
         <div class="field col-12 md:col-6">
           <label htmlFor="start">Start Date<span class="text-red-500">*</span></label>
           <p-calendar inputId="start" [required]="true" formControlName="startDateTemp" [showIcon]="true"
-            dateFormat="dd/mm/yy" inputStyleClass="w-full" styleClass="w-full"
-            ></p-calendar>
-            <span class="text-red-500 ml-2" *ngIf="
+            dateFormat="dd/mm/yy" inputStyleClass="w-full" styleClass="w-full"></p-calendar>
+          <span class="text-red-500 ml-2" *ngIf="
             jobReqDto.get('startDate')!.invalid &&
             !jobReqDto.get('startDate')!.value &&
             (jobReqDto.get('startDate')!.dirty ||
@@ -40,7 +38,7 @@
           <label htmlFor="end">End Date<span class="text-red-500">*</span></label>
           <p-calendar inputId="end" [required]="true" formControlName="endDateTemp" [showIcon]="true"
             dateFormat="dd/mm/yy" inputStyleClass="w-full" styleClass="w-full"></p-calendar>
-            <span class="text-red-500 ml-2" *ngIf="
+          <span class="text-red-500 ml-2" *ngIf="
             jobReqDto.get('endDate')!.invalid &&
             !jobReqDto.get('endDate')!.value &&
             (jobReqDto.get('endDate')!.dirty ||
@@ -59,8 +57,8 @@
         </div>
         <div class="field col-12 md:col-6">
           <label htmlFor="min">Minimal Salary<span class="text-red-500">*</span></label>
-          <p-inputNumber inputId="min" mode="currency" currency="IDR" locale="id-ID"
-            formControlName="expectedSalaryMin" placeholder="Rp 0,00"></p-inputNumber>
+          <p-inputNumber inputId="min" mode="currency" currency="IDR" locale="id-ID" formControlName="expectedSalaryMin"
+            placeholder="Rp 0,00"></p-inputNumber>
           <span class="text-red-500 ml-2" *ngIf="
             jobReqDto.get('expectedSalaryMin')!.invalid &&
             !jobReqDto.get('expectedSalaryMin')!.value &&
@@ -70,8 +68,8 @@
         </div>
         <div class="field col-12 md:col-6">
           <label htmlFor="max">Maximal Salary<span class="text-red-500">*</span></label>
-          <p-inputNumber inputId="max" mode="currency" currency="IDR" locale="id-ID"
-            formControlName="expectedSalaryMax" placeholder="Rp 0,00"></p-inputNumber>
+          <p-inputNumber inputId="max" mode="currency" currency="IDR" locale="id-ID" formControlName="expectedSalaryMax"
+            placeholder="Rp 0,00"></p-inputNumber>
           <span class="text-red-500 ml-2" *ngIf="
             jobReqDto.get('expectedSalaryMax')!.invalid &&
             !jobReqDto.get('expectedSalaryMax')!.value &&
@@ -82,7 +80,7 @@
         <div class="field col-12 md:col-4">
           <label htmlFor="hr">HR Person in Contact<span class="text-red-500">*</span></label>
           <p-dropdown optionLabel="fullName" [options]="hr" optionValue="id" [showClear]="true" placeholder="Choose HR"
-            [required]="true" formControlName="hrId" ></p-dropdown>
+            [required]="true" formControlName="hrId"></p-dropdown>
           <span class="text-red-500 ml-2" *ngIf="
           jobReqDto.get('hrId')!.invalid &&
           !jobReqDto.get('hrId')!.value &&
@@ -118,8 +116,8 @@
         <div class="col-12 ">
           <div class="mb-3">
             <p-fileUpload mode="basic" chooseLabel="Upload" styleClass="bg-green-700" chooseIcon="pi pi-upload"
-              class="form-control" #file type="file" id="picture" (onSelect)="fileUpload($event,file)"
-              required></p-fileUpload>
+              class="form-control" #file type="file" id="picture" (onSelect)="fileUpload($event,file)" required>
+            </p-fileUpload>
             <span class="text-red-500 ml-2" *ngIf="
               jobReqDto.get('file')!.invalid &&
               !jobReqDto.get('file')!.value &&

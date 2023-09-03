@@ -1,25 +1,22 @@
 <p-card header="Profile">
-<div class="grid">
-  <div class="col-12 md:col-4">
-    <p-image src="{{imageUrl}}" alt="foto-diri" id="profile-picture"
-      width="300rem" height="400rem" class="img-thumbnail">
-    </p-image>
+  <div class="grid">
+    <div class="col-12 md:col-4">
+      <p-image src="{{imageUrl}}" alt="foto-diri" id="profile-picture" width="300rem" height="400rem"
+        class="img-thumbnail">
+      </p-image>
 
-  </div>
-  <div class="col-12 md:col-7">
-    <pre>
-      {{updateProfileDto.value | json}}
-    </pre>
+    </div>
+    <div class="col-12 md:col-7">
       <form [formGroup]="updateProfileDto" (ngSubmit)="onSubmit()">
         <div class="p-fluid p-formgrid grid">
           <div class="field col-12 md:col-6">
             <label htmlFor="fullName">Full Name <span class="text-red-500">*</span> </label>
-            <input pInputText id="fullName" formControlName="fullName"  required type="text" />
+            <input pInputText id="fullName" formControlName="fullName" required type="text" />
           </div>
           <ng-container *ngIf="user">
             <div class="field col-12 md:col-6">
               <label htmlFor="email">Email<span class="text-red-500">*</span></label>
-              <input pInputText id="email" [value]="user.email" required type="email" [disabled]="true"/>
+              <input pInputText id="email" [value]="user.email" required type="email" [disabled]="true" />
             </div>
           </ng-container>
           <div class="field col-12">
@@ -33,7 +30,7 @@
           <ng-container *ngIf="user">
             <div class="field col-12 md:col-3">
               <label htmlFor="role">Role<span class="text-red-500">*</span></label>
-              <input pInputText id="role" [value]="user.role" required type="text" [disabled]="true"/>
+              <input pInputText id="role" [value]="user.role" required type="text" [disabled]="true" />
             </div>
           </ng-container>
           <div class="col-12 ">
@@ -41,14 +38,16 @@
           </div>
           <div class="col-12 ">
             <div class="mb-3">
-              <p-fileUpload mode="basic" styleClass="bg-green-700" chooseLabel="Upload" chooseIcon="pi pi-upload" class="form-control" #file
-                type="file" id="picture"  (onSelect)="fileUpload($event,file)" required></p-fileUpload>
+              <p-fileUpload mode="basic" styleClass="bg-green-700" chooseLabel="Upload" chooseIcon="pi pi-upload"
+                class="form-control" #file type="file" id="picture" (onSelect)="fileUpload($event,file)" required>
+              </p-fileUpload>
             </div>
           </div>
         </div>
 
         <div class="col-12 md:col-9 mb-5 mt-6">
-          <app-button backgroundColor="var(--PRIMARY)" [loading]="loading" typeBtn="submit" iconBtn="pi pi-save" label="Save" class="mr-2"></app-button>
+          <app-button backgroundColor="var(--PRIMARY)" [loading]="loading" typeBtn="submit" iconBtn="pi pi-save"
+            label="Save" class="mr-2"></app-button>
           <app-button link="/users" label="Back" classBtn="p-button-secondary"></app-button>
         </div>
       </form>
